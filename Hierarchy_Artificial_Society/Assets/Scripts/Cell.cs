@@ -33,7 +33,8 @@ public class Cell
     // Update is called once per frame
     void Update()
     {
-       //growback goes here
-       
+        //TODO: write growback in here. Could be that it grows 1 every 4 time steps, in which case growback would be 0.25 and you would
+        //increment a counter. when reaches four (1/growback), you add sugar/spice. 
+
     }
 }

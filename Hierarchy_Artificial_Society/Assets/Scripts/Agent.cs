@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-//using System.Security.Cryptography;
-//using System.Security.Policy;
 using UnityEngine;
 
 public class Agent : MonoBehaviour
@@ -14,28 +13,48 @@ public class Agent : MonoBehaviour
     GridLayout gridLayout;
 
     // How much sugar and spice the agent is 'carrying'
-    private int sugar;
-    private int spice;
+    public int sugar;
+    public int spice;
 
-    //Position - not sure I need this
+    //Position - not sure I need this now
     private int x;
     private int y;
+
+    //How far they can 'see' to eat sugar/spice (in number of cells)
+    public int vision;
+
+    //Agent's lifespan (in time steps), age and flag for whether they are alive
+    public int lifespan;
+    public int age;
+    public Boolean isAlive;
+
+    //hierarchy attributes
+    public int dominance;
+    //others go here
+
 
     // Start is called before the first frame update
     void Start()
     {
         KnowWorld();
+
+        /*
         //check its working ok
         Vector3Int cellPosition = gridLayout.WorldToCell(transform.position);
         print(cellPosition);
         print(world.worldArray[0, 0]);
         print(world.worldArray[cellPosition.x, cellPosition.y].curSugar);
+        */
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //update agent's age
+        ++age;
+        //check for death
+        Death();
     }
 
     //this method enables the Agent to communicate with its surroundings
@@ -48,5 +67,15 @@ public class Agent : MonoBehaviour
         world = objWorld.GetComponent<World>();
         //Need access to the GridLayout component to be able to convert World location to cell location
         gridLayout = objGrid.GetComponent<GridLayout>();
+    }
+
+    //Agent will die if it reaches its lifespan or runs out of either sugar or spice
+    public void Death()
+    {
+        if (age == lifespan || sugar <= 0 || spice <= 0)
+        {
+            isAlive = false;
+            //Destroy(this.GameObject);
+        }
     }
 }

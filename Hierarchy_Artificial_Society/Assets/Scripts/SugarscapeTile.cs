@@ -9,6 +9,7 @@ using UnityEditor;
 #endif
 
 //Tile represents a single cell in a grid
+//Possibly don't need scripted tile anymore
 
 public class SugarscapeTile : Tile
 {
@@ -25,13 +26,6 @@ public class SugarscapeTile : Tile
 
     }
 
-    /*
-    public void SetColour(Vector3Int location, ITilemap tilemap, ref TileData tileData)
-    {
-        tileData.color = Color.red;
-    }
-    */
-
     
     // Start is called before the first frame update
     void Start()
@@ -42,8 +36,7 @@ public class SugarscapeTile : Tile
     // Update is called once per frame
     void Update()
     {
-        //TODO: write growback in here. Could be that it grows 1 every 4 time steps, in which case growback would be 0.25 and you would
-        //increment a counter. when reaches four (1/growback), you add sugar/spice. 
+        
     }
 
 #if UNITY_EDITOR
@@ -57,8 +50,5 @@ public class SugarscapeTile : Tile
     AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<SugarscapeTile>(), path);
     }
 #endif
-
-    //TODO: Shading based on sugar/spice amount
-
 }
 
