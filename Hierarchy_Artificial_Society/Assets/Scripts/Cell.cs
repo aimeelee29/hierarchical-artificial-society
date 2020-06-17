@@ -6,17 +6,15 @@ public class Cell
 {
 
     // maximum levels of sugar and spice that can exist in the cell
-    private int maxSugar;
-    private int maxSpice;
+    public int maxSugar;
+    public int maxSpice;
     // current levels of sugar and spice in the cell
     public int curSugar;
     public int curSpice;
 
-    /*
     // x and y co ordinates - no sure I need these
     public int x;
     public int y;
-    */
 
     //how many units of sugar and spice grows back per time frame
     public static int growbackFactor = 1;
@@ -41,7 +39,7 @@ public class Cell
             return;
 
         //if both are at max level then do nothing
-        else if (curSugar = maxSugar && curSpice = maxSpice)
+        else if (curSugar == maxSugar && curSpice == maxSpice)
             return;
 
         //do i need to factor in less than 1 growback?? It would mean changing the variables to float though and altering things
