@@ -16,6 +16,10 @@ public class Agent : MonoBehaviour
     public int sugar;
     public int spice;
 
+    //Metbolisms - how much sugar and spice the agent 'burns off' each time step
+    public int sugarMetabolism;
+    public int spiceMetabolism;
+
     //Position - not sure I need this now
     private int x;
     private int y;
@@ -53,8 +57,14 @@ public class Agent : MonoBehaviour
     {
         //update agent's age
         ++age;
+
         //check for death
         Death();
+
+        //decrease sugar & spice through metabolism
+        sugar -= sugarMetabolism;
+        spice -= spiceMetabolism;
+        
     }
 
     //this method enables the Agent to communicate with its surroundings
@@ -72,10 +82,17 @@ public class Agent : MonoBehaviour
     //Agent will die if it reaches its lifespan or runs out of either sugar or spice
     public void Death()
     {
-        if (age == lifespan || sugar <= 0 || spice <= 0)
+        if (isAlive && (age == lifespan || sugar <= 0 || spice <= 0))
         {
             isAlive = false;
             //Destroy(this.GameObject);
         }
+    }
+
+    //Agent will need to find sugar/spice to 'eat' from surroundings.
+    public void Eat()
+    {
+        //vision
+
     }
 }

@@ -10,7 +10,7 @@ public class World : MonoBehaviour
     //determines the size of the world
     public static int rows = 50;
     public static int cols = 50;
-    //represents it as a 2D array of cells
+    //represents world as a 2D array of cells
     public Cell[,] worldArray = new Cell[rows,cols];
 
     //Needs to know about TileMap in order to do shading for mountains
@@ -36,12 +36,13 @@ public class World : MonoBehaviour
         {
             for (int j = 0; j < cols; ++j)
             {
-                worldArray[i, j] = new Cell(i, j);
+                worldArray[i, j] = new Cell(i, j);                  
             }
         }
     }
 
     //populates cells with sugar and spice levels in the form of sugar and spice mountains
+    //also populates max sugar and spice levels
     public void Mountains()
     {
         //SUGAR MOUNTAINS
@@ -61,23 +62,25 @@ public class World : MonoBehaviour
         int thirdR = 8;
         int outerR = 10;
   
-       //use mountain top / radius
-
-       //change loop below to not run through everything. Actually, just use c and d for next centre coords and add everything into same for loop
+        // checks to see if tile is in circle (using equation for a circle)
         for (int i = 0; i < rows; ++i)
         {
             for (int j = 0; j < cols; ++j)
             {
                 //smallest circle
+                //Mountain 1
                 if (((i - a) * (i - a) + (j - b) * (j - b)) <= innerR * innerR)
                 {
                     worldArray[i, j].curSugar = mountainTops;
+                    worldArray[i, j].maxSugar = mountainTops;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.25f, 0.25f, 0, 0.75f));
                 }
                 //could make these ORs
+                //Mountain 2
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= innerR * innerR)
                 {
                     worldArray[i, j].curSugar = mountainTops;
+                    worldArray[i, j].maxSugar = mountainTops;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.25f, 0.25f, 0, 0.75f));
                 }
 
@@ -85,11 +88,13 @@ public class World : MonoBehaviour
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= secondR * secondR)
                 {
                     worldArray[i, j].curSugar = mountainTops - mountainTops/4;
+                    worldArray[i, j].maxSugar = mountainTops - mountainTops / 4;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.5f, 0.5f, 0, 0.75f));
                 }
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= secondR * secondR)
                 {
                     worldArray[i, j].curSugar = mountainTops - mountainTops / 4;
+                    worldArray[i, j].maxSugar = mountainTops - mountainTops / 4;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.5f, 0.5f, 0, 0.75f));
                 }
 
@@ -97,11 +102,13 @@ public class World : MonoBehaviour
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= thirdR * thirdR)
                 {
                     worldArray[i, j].curSugar = mountainTops - (2 * (mountainTops / 4));
+                    worldArray[i, j].maxSugar = mountainTops - (2 * (mountainTops / 4));
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.75f, 0.75f, 0, 0.75f));
                 }
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= thirdR * thirdR)
                 {
                     worldArray[i, j].curSugar = mountainTops - (2 * (mountainTops / 4));
+                    worldArray[i, j].maxSugar = mountainTops - (2 * (mountainTops / 4));
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.75f, 0.75f, 0, 0.75f));
                 }
 
@@ -109,11 +116,13 @@ public class World : MonoBehaviour
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= outerR * outerR)
                 {
                     worldArray[i, j].curSugar = mountainTops - (3 * (mountainTops / 4));
+                    worldArray[i, j].maxSugar = mountainTops - (3 * (mountainTops / 4));
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(1, 1, 0, 0.75f));
                 }
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= outerR * outerR)
                 {
                     worldArray[i, j].curSugar = mountainTops - (3 * (mountainTops / 4));
+                    worldArray[i, j].maxSugar = mountainTops - (3 * (mountainTops / 4));
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(1, 1, 0, 0.75f));
                 }
             }
@@ -135,12 +144,14 @@ public class World : MonoBehaviour
                 if (((i - a) * (i - a) + (j - b) * (j - b)) <= innerR * innerR)
                 {
                     worldArray[i, j].curSpice = mountainTops;
+                    worldArray[i, j].maxSpice = mountainTops;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.25f, 0, 0, 0.75f));
                 }
                 //could make these ORs
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= innerR * innerR)
                 {
                     worldArray[i, j].curSpice = mountainTops;
+                    worldArray[i, j].maxSpice = mountainTops;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.25f, 0, 0, 0.75f));
                 }
 
@@ -148,11 +159,13 @@ public class World : MonoBehaviour
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= secondR * secondR)
                 {
                     worldArray[i, j].curSpice = mountainTops - mountainTops / 4;
+                    worldArray[i, j].maxSpice = mountainTops - mountainTops / 4;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.5f, 0, 0, 0.75f));
                 }
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= secondR * secondR)
                 {
                     worldArray[i, j].curSpice = mountainTops - mountainTops / 4;
+                    worldArray[i, j].maxSpice = mountainTops - mountainTops / 4;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.5f, 0, 0, 0.75f));
                 }
 
@@ -160,11 +173,13 @@ public class World : MonoBehaviour
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= thirdR * thirdR)
                 {
                     worldArray[i, j].curSpice = mountainTops - (2 * (mountainTops / 4));
+                    worldArray[i, j].maxSpice = mountainTops - (2 * (mountainTops / 4));
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.75f, 0, 0, 0.75f));
                 }
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= thirdR * thirdR)
                 {
                     worldArray[i, j].curSpice = mountainTops - (2 * (mountainTops / 4));
+                    worldArray[i, j].maxSpice = mountainTops - (2 * (mountainTops / 4));
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.75f, 0, 0, 0.75f));
                 }
 
@@ -172,11 +187,13 @@ public class World : MonoBehaviour
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= outerR * outerR)
                 {
                     worldArray[i, j].curSpice = mountainTops - (3 * (mountainTops / 4));
+                    worldArray[i, j].maxSpice = mountainTops - (3 * (mountainTops / 4));
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.9f, 0, 0, 0.75f));
                 }
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= outerR * outerR)
                 {
                     worldArray[i, j].curSpice = mountainTops - (3 * (mountainTops / 4));
+                    worldArray[i, j].maxSpice = mountainTops - (3 * (mountainTops / 4));
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.9f, 0, 0, 0.75f));
                 }
             }
