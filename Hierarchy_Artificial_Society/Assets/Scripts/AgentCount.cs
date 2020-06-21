@@ -32,7 +32,8 @@ public class AgentCount : MonoBehaviour
     void Update()
     {
         Count();
-        graphScript.CreateGraph(agentCount);
+        if (agentCount.Count <= 100)
+            graphScript.CreateGraph(agentCount);
     }
 
     public void Count()

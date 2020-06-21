@@ -1,7 +1,5 @@
-﻿//using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class AgentFactory : MonoBehaviour
@@ -36,22 +34,22 @@ public class AgentFactory : MonoBehaviour
         Agent agentCom = obj.AddComponent<Agent>();
         //assigns variables below.
         //TODO - finish this. And also use values used for trading section of sugarscape. Am putting in dummy values currently.
-        agentCom.sugar = 10;
-        agentCom.spice = 4;
-        agentCom.sugarMetabolism = 1;
-        agentCom.spiceMetabolism = 1;
-        agentCom.vision = 5;
+        agentCom.sugar = Random.Range(25, 50);
+        agentCom.spice = Random.Range(25, 50);
+        agentCom.sugarInit = agentCom.sugar;
+        agentCom.spiceInit = agentCom.spice;
+        agentCom.sugarMetabolism = Random.Range(1, 5);
+        agentCom.spiceMetabolism = Random.Range(1, 5);
+        agentCom.vision = Random.Range(1, 5);
+        if (Random.Range(1, 2) == 1)
+            agentCom.sex = "Female";
+        else
+            agentCom.sex = "Male";
         agentCom.isAlive = true;
+        agentCom.childBearingBegins = Random.Range(12, 15);
+        agentCom.childBearingEnds = Random.Range(35, 45);
+        agentCom.lifespan = Random.Range(60, 100);
 
         return agentCom;
-
-        /*
-         * from book:
-         * Here vision is uniformly distributed in the agent population between I and 10, while metabolism for each of the two commodities is unifom1ly distributed between I 
-         * and 5. Agents move between the two mountains. Before trade is introduced, the carrying capacity is lower as there are two ways to die. 
-         * 
-         * 
-         * 
-         */
     }
 }
