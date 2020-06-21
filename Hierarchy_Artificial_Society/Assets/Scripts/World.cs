@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -24,9 +23,10 @@ public class World : MonoBehaviour
         PopulateArray();
         //Finds tilemap object
         objTileMap = GameObject.Find("Environment");
-        envTilemap = objTileMap.GetComponent<Tilemap>(); 
+        envTilemap = objTileMap.GetComponent<Tilemap>();
         //calls Mountains method to populate the cells with sugar/spice
         Mountains();
+        
     }
 
     //Create cells
@@ -47,13 +47,13 @@ public class World : MonoBehaviour
     {
         //SUGAR MOUNTAINS
         
-        //centre co-ords of Mountain 1
+        //points of centre co-ords
         int a = 13;
-        int b = 37;
-        //centre co-ords of Mountain 2
+        int b = 13;
+        //co-ords of mountain 2
         int c = 37;
-        int d = 13;
- 
+        int d = 37;
+
         //amount of sugar/spice at top of mountain
         int mountainTops = 4;
 
@@ -129,12 +129,12 @@ public class World : MonoBehaviour
         }
         //SPICE MOUNTAINS
 
-        //points of centre co-ords
+        //centre co-ords of Mountain 1
         a = 13;
-        b = 13;
-        //co-ords of mountain 2
+        b = 37;
+        //centre co-ords of Mountain 2
         c = 37;
-        d = 37;
+        d = 13;
 
         for (int i = 0; i < rows; ++i)
         {
@@ -145,14 +145,14 @@ public class World : MonoBehaviour
                 {
                     worldArray[i, j].curSpice = mountainTops;
                     worldArray[i, j].maxSpice = mountainTops;
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.25f, 0, 0, 0.75f));
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.25f, 0, 0.75f));
                 }
                 //could make these ORs
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= innerR * innerR)
                 {
                     worldArray[i, j].curSpice = mountainTops;
                     worldArray[i, j].maxSpice = mountainTops;
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.25f, 0, 0, 0.75f));
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.25f, 0, 0.75f));
                 }
 
 
@@ -160,13 +160,13 @@ public class World : MonoBehaviour
                 {
                     worldArray[i, j].curSpice = mountainTops - mountainTops / 4;
                     worldArray[i, j].maxSpice = mountainTops - mountainTops / 4;
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.5f, 0, 0, 0.75f));
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.5f, 0, 0.75f));
                 }
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= secondR * secondR)
                 {
                     worldArray[i, j].curSpice = mountainTops - mountainTops / 4;
                     worldArray[i, j].maxSpice = mountainTops - mountainTops / 4;
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.5f, 0, 0, 0.75f));
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.5f, 0, 0.75f));
                 }
 
 
@@ -174,13 +174,13 @@ public class World : MonoBehaviour
                 {
                     worldArray[i, j].curSpice = mountainTops - (2 * (mountainTops / 4));
                     worldArray[i, j].maxSpice = mountainTops - (2 * (mountainTops / 4));
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.75f, 0, 0, 0.75f));
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.75f, 0, 0.75f));
                 }
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= thirdR * thirdR)
                 {
                     worldArray[i, j].curSpice = mountainTops - (2 * (mountainTops / 4));
                     worldArray[i, j].maxSpice = mountainTops - (2 * (mountainTops / 4));
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.75f, 0, 0, 0.75f));
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.75f, 0, 0.75f));
                 }
 
                 //widest circle
@@ -188,13 +188,13 @@ public class World : MonoBehaviour
                 {
                     worldArray[i, j].curSpice = mountainTops - (3 * (mountainTops / 4));
                     worldArray[i, j].maxSpice = mountainTops - (3 * (mountainTops / 4));
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.9f, 0, 0, 0.75f));
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.9f, 0, 0.75f));
                 }
                 else if (((i - c) * (i - c) + (j - d) * (j - d)) <= outerR * outerR)
                 {
                     worldArray[i, j].curSpice = mountainTops - (3 * (mountainTops / 4));
                     worldArray[i, j].maxSpice = mountainTops - (3 * (mountainTops / 4));
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.9f, 0, 0, 0.75f));
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.9f, 0, 0.75f));
                 }
             }
         }
