@@ -6,18 +6,21 @@ public class Cell
 {
 
     // maximum levels of sugar and spice that can exist in the cell
-    public int maxSugar;
-    public int maxSpice;
+    private int maxSugar;
+    private int maxSpice;
     // current levels of sugar and spice in the cell
-    public int curSugar;
-    public int curSpice;
+    private int curSugar;
+    private int curSpice;
 
     // x and y co ordinates - no sure I need these
     public int x;
     public int y;
 
     //how many units of sugar and spice grows back per time frame
-    public static int growbackFactor = 1;
+    private static int growbackFactor = 1;
+
+    //reference of agent occupying cell. To be set when agents spawn (either initially or through reproduction/replacement).
+    private GameObject occupyingAgent;
 
     //constructor
     public Cell(int x, int y)
@@ -60,4 +63,44 @@ public class Cell
                 curSpice += growbackFactor;
         }
     }
+
+    //Setters
+
+    public void SetSugar(int s)
+    {
+        curSugar = s;
+    }
+
+    public void SetSpice(int s)
+    {
+        curSpice = s;
+    }
+
+    public void SetMaxSugar(int s)
+    {
+        maxSugar = s;
+    }
+
+    public void SetMaxSpice(int s)
+    {
+        maxSpice = s;
+    }
+
+    //Getters
+
+    public int GetSugar(int s)
+    {
+        return curSugar;
+    }
+
+    public int GetSpice(int s)
+    {
+        return curSpice;
+    }
+
+    public GameObject GetAgent()
+    {
+        return occupyingAgent;
+    }
+
 }

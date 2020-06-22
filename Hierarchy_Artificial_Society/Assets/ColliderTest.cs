@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class ColliderTest : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private GameObject objWorld;
+    private World world;
+    private GameObject objGrid;
+    private GridLayout gridLayout;
+
+         
+        // Start is called before the first frame update
+        void Start()
     {
-        
+        objWorld = GameObject.Find("World");
+        world = objWorld.GetComponent<World>();
+        objGrid = GameObject.Find("Grid");
+        gridLayout = objGrid.GetComponent<GridLayout>();
+        print(gridLayout.WorldToCell(transform.position));
     }
 
     // Update is called once per frame

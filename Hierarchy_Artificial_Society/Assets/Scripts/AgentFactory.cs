@@ -4,32 +4,56 @@ using UnityEngine;
 
 public class AgentFactory : MonoBehaviour
 {
+
+    //Holds reference to World since we need to know if an agent as already spawned in that location
+    private GameObject objWorld;
+    private World world;
+    private GameObject objGrid;
+    private GridLayout gridLayout;
+
     // Start is called before the first frame update
     void Start()
     {
+        objWorld = GameObject.Find("World");
+        world = objWorld.GetComponent<World>();
+        objGrid = GameObject.Find("Grid");
+        gridLayout = objGrid.GetComponent<GridLayout>();
+
+
         //TO DO: will change the for loop when all working.
-        for (int i = 0; i < 100; ++i)
+        for (int i = 0; i < 200; ++i)
         {
             //creates agent gameobject 
             GameObject agentObj = new GameObject("Agent");
+
             //applies sprite and colour
             SpriteRenderer renderer = agentObj.AddComponent<SpriteRenderer>();
             renderer.sprite = Resources.Load<Sprite>("mm_red");
             renderer.color = Color.red;
+
+            /*
             //places object in random position
+            //change to spawn into grid and do celltoworld for transform
             int x = Random.Range(0, 25);
             int y = Random.Range(0, 15);
             Vector3 randomPosition = new Vector3(x, y, 0);
+            //sets agents position to random position
             agentObj.transform.position = randomPosition;
+            */
+
+            generatePosition(agentObj);
+
+
             //applies order in layer (so it can be seen)
             renderer.sortingOrder = 1;
             Agent agentCom = CreateComponent(agentObj);
+
             //apply Agent tag
             agentObj.tag = "Agent";
         }
     }
 
-    public static Agent CreateComponent(GameObject obj)
+    private Agent CreateComponent(GameObject obj)
     {
         Agent agentCom = obj.AddComponent<Agent>();
         //assigns variables below.
@@ -49,7 +73,26 @@ public class AgentFactory : MonoBehaviour
         agentCom.childBearingBegins = Random.Range(12, 15);
         agentCom.childBearingEnds = Random.Range(35, 45);
         agentCom.lifespan = Random.Range(60, 100);
-
+        //print(agentCom.cellPosition);
         return agentCom;
+    }
+
+    //generates a position for agent to spawn to. First checks if there is already an agent there. Works recursively.
+    private void generatePosition(GameObject agentObj)
+    {
+        //generate random grid position
+        int x = Random.Range(0, world.GetRows()-1);
+        int y = Random.Range(0, world.GetCols()-1);
+
+        //if no agent currently in that position then set transform to that position
+        if (world.checkAgent(x, y) == false)
+        {
+            agentObj.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
+            return;
+        }
+
+        //else repeat process
+        else
+            generatePosition(agentObj);
     }
 }

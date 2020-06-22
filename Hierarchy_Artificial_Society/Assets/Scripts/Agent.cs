@@ -11,7 +11,7 @@ public class Agent : MonoBehaviour
     private GameObject objGrid;
     private World world;
     private GridLayout gridLayout;
-    private Vector3Int cellPosition;
+    public Vector2Int cellPosition;
 
     //initial sugar and spice endowments. Used for reproduction
     public int sugarInit;
@@ -37,9 +37,10 @@ public class Agent : MonoBehaviour
     public int age;
     public bool isAlive;
 
-    //variables for reproduction
+    //attributes for reproduction
     public int childBearingBegins;
     public int childBearingEnds;
+    public string sex;
 
     //hierarchy attributes
     public int dominance;
@@ -56,9 +57,6 @@ public class Agent : MonoBehaviour
 
     */
 
-    //for reproduction
-    public string sex;
-
 
     /* the following is for testing
              * 
@@ -74,19 +72,22 @@ public class Agent : MonoBehaviour
 
      */
 
+    void Awake()
+    {
+        KnowWorld();
+    }
 
     // Start is called before the first frame update
     //could this be moved to awake
     void Start()
     {
-        KnowWorld();
+        
 
-        /*
+        
         //check its working ok
-        Vector3Int cellPosition = gridLayout.WorldToCell(transform.position);
-        print(cellPosition);
-        print(world.worldArray[cellPosition.x, cellPosition.y].curSugar);
-        */
+        //print(cellPosition);
+        //print(world.worldArray[cellPosition.x, cellPosition.y].curSugar);
+        
     }
 
     // Update is called once per frame
@@ -114,7 +115,7 @@ public class Agent : MonoBehaviour
         world = objWorld.GetComponent<World>();
         //Need access to the GridLayout component to be able to convert World location to cell location
         gridLayout = objGrid.GetComponent<GridLayout>();
-        cellPosition = gridLayout.WorldToCell(transform.position);
+        cellPosition = new Vector2Int(gridLayout.WorldToCell(transform.position).x, gridLayout.WorldToCell(transform.position).y);
 
         /*
         print("agent cell position =" + cellPosition);
@@ -129,7 +130,6 @@ public class Agent : MonoBehaviour
         {
             isAlive = false;
             Destroy(gameObject);
-            //print("died");
         }
     }
 
@@ -143,31 +143,7 @@ public class Agent : MonoBehaviour
     //Agent will need to find sugar/spice to 'eat' from surroundings.
     public void Eat()
     {
-        //thought about circle cast but this is more like throwing a frisbee in one direction
-        //try overlapcircleall
 
-        //for unoccupied points, consider one producing maximum welfare
-
-        //Below not working. Only ever seems to be picking up one collider (tilemap collider as a whole instead of separate tiles)
-        /*
-        Collider2D[] listColliders = Physics2D.OverlapBoxAll(new Vector2(transform.position.x, transform.position.y), new Vector2(vision,vision), 0);
-        print(listColliders.Length);       
-        foreach (var collider in listColliders)
-        {
-            print(collider.name); 
-            print(collider.transform.position);
-        }
-        */
-
-        //try circle cast. Also doesn't work
-        /*
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(new Vector2(transform.position.x, transform.position.y), vision, new Vector2(0,1));
-        print(hits.Length);
-        foreach (var raycastHit2D in hits)
-        {
-            print(raycastHit2D.transform.position);
-        }
-        */
 
     }
 
