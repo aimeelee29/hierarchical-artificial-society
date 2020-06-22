@@ -73,7 +73,7 @@ public class AgentFactory : MonoBehaviour
         agentCom.childBearingBegins = Random.Range(12, 15);
         agentCom.childBearingEnds = Random.Range(35, 45);
         agentCom.lifespan = Random.Range(60, 100);
-        //print(agentCom.cellPosition);
+        print(agentCom.cellPosition);
         return agentCom;
     }
 
@@ -88,6 +88,7 @@ public class AgentFactory : MonoBehaviour
         if (world.checkAgent(x, y) == false)
         {
             agentObj.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
+            world.worldArray[x, y].SetAgent(agentObj);
             return;
         }
 

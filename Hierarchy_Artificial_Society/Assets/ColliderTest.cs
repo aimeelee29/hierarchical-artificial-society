@@ -17,7 +17,7 @@ public class ColliderTest : MonoBehaviour
         world = objWorld.GetComponent<World>();
         objGrid = GameObject.Find("Grid");
         gridLayout = objGrid.GetComponent<GridLayout>();
-        print(gridLayout.WorldToCell(transform.position));
+        //print(gridLayout.WorldToCell(transform.position));
     }
 
     // Update is called once per frame

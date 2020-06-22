@@ -85,6 +85,11 @@ public class Cell
     {
         maxSpice = s;
     }
+    
+    public void SetAgent(GameObject agentObj)
+    {
+        occupyingAgent = agentObj;
+    }
 
     //Getters
 
