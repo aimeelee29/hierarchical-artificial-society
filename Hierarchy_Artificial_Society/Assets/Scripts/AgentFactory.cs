@@ -31,16 +31,7 @@ public class AgentFactory : MonoBehaviour
             renderer.sprite = Resources.Load<Sprite>("mm_red");
             renderer.color = Color.red;
 
-            /*
-            //places object in random position
-            //change to spawn into grid and do celltoworld for transform
-            int x = Random.Range(0, 25);
-            int y = Random.Range(0, 15);
-            Vector3 randomPosition = new Vector3(x, y, 0);
-            //sets agents position to random position
-            agentObj.transform.position = randomPosition;
-            */
-
+            //generates random position for agent to spawn into
             generatePosition(agentObj);
 
 
@@ -73,7 +64,7 @@ public class AgentFactory : MonoBehaviour
         agentCom.childBearingBegins = Random.Range(12, 15);
         agentCom.childBearingEnds = Random.Range(35, 45);
         agentCom.lifespan = Random.Range(60, 100);
-        print(agentCom.cellPosition);
+        //print(agentCom.cellPosition);
         return agentCom;
     }
 

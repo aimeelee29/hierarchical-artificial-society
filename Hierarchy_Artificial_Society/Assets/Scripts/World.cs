@@ -45,7 +45,6 @@ public class World : MonoBehaviour
     private void Mountains()
     {
         //SUGAR MOUNTAINS
-        
         //points of centre co-ords
         int a = 13;
         int b = 13;
@@ -53,10 +52,19 @@ public class World : MonoBehaviour
         int c = 37;
         int d = 37;
 
+        //SPICE MOUNTAINS
+        //centre co-ords of Mountain 1
+        int e = 13;
+        int f = 37;
+        //centre co-ords of Mountain 2
+        int g = 37;
+        int h = 13;
+
         //amount of sugar/spice at top of mountain
         int mountainTops = 4;
 
-        int innerR = 4;
+        //sets radius for each mountain tier
+        int innerR = 5;
         int secondR = innerR + 2;
         int thirdR = secondR + 2;
         int outerR = thirdR + 2;
@@ -66,134 +74,93 @@ public class World : MonoBehaviour
         {
             for (int j = 0; j < cols; ++j)
             {
-                //smallest circle
-                //Mountain 1
-                if (((i - a) * (i - a) + (j - b) * (j - b)) <= innerR * innerR)
+                //smallest sugar circle
+                if (((i - a) * (i - a) + (j - b) * (j - b)) <= innerR * innerR ||
+                    ((i - c) * (i - c) + (j - d) * (j - d)) <= innerR * innerR)
                 {
                     worldArray[i, j].SetSugar(mountainTops);
                     worldArray[i, j].SetMaxSugar(mountainTops);
+                    //set spice to 1 for these locations
+                    worldArray[i, j].SetSpice(1);
+                    worldArray[i, j].SetMaxSpice(1);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.25f, 0.25f, 0, 0.75f));
                 }
-                //could make these ORs
-                //Mountain 2
-                else if (((i - c) * (i - c) + (j - d) * (j - d)) <= innerR * innerR)
-                {
-                    worldArray[i, j].SetSugar(mountainTops);
-                    worldArray[i, j].SetMaxSugar(mountainTops);
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.25f, 0.25f, 0, 0.75f));
-                }
-
-
-                else if (((i - a) * (i - a) + (j - b) * (j - b)) <= secondR * secondR)
+                
+                else if (((i - a) * (i - a) + (j - b) * (j - b)) <= secondR * secondR || 
+                         ((i - c) * (i - c) + (j - d) * (j - d)) <= secondR * secondR)
                 {
                     worldArray[i, j].SetSugar(mountainTops - mountainTops/4);
                     worldArray[i, j].SetMaxSugar(mountainTops - mountainTops / 4);
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.5f, 0.5f, 0, 0.75f));
-                }
-                else if (((i - c) * (i - c) + (j - d) * (j - d)) <= secondR * secondR)
-                {
-                    worldArray[i, j].SetSugar(mountainTops - mountainTops / 4);
-                    worldArray[i, j].SetMaxSugar(mountainTops - mountainTops / 4);
+                    worldArray[i, j].SetSpice(1);
+                    worldArray[i, j].SetMaxSpice(1);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.5f, 0.5f, 0, 0.75f));
                 }
 
-
-                else if (((i - a) * (i - a) + (j - b) * (j - b)) <= thirdR * thirdR)
+                else if (((i - a) * (i - a) + (j - b) * (j - b)) <= thirdR * thirdR ||
+                         ((i - c) * (i - c) + (j - d) * (j - d)) <= thirdR * thirdR)
                 {
                     worldArray[i, j].SetSugar(mountainTops - (2 * (mountainTops / 4)));
                     worldArray[i, j].SetMaxSugar(mountainTops - (2 * (mountainTops / 4)));
+                    worldArray[i, j].SetSpice(1);
+                    worldArray[i, j].SetMaxSpice(1);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.75f, 0.75f, 0, 0.75f));
                 }
-                else if (((i - c) * (i - c) + (j - d) * (j - d)) <= thirdR * thirdR)
-                {
-                    worldArray[i, j].SetSugar(mountainTops - (2 * (mountainTops / 4)));
-                    worldArray[i, j].SetMaxSugar(mountainTops - (2 * (mountainTops / 4)));
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.75f, 0.75f, 0, 0.75f));
-                }
-
-                //widest circle
-                else if (((i - a) * (i - a) + (j - b) * (j - b)) <= outerR * outerR)
+                //widest sugar circle
+                else if (((i - a) * (i - a) + (j - b) * (j - b)) <= outerR * outerR ||
+                         ((i - c) * (i - c) + (j - d) * (j - d)) <= outerR * outerR)
                 {
                     worldArray[i, j].SetSugar(mountainTops - (3 * (mountainTops / 4)));
                     worldArray[i, j].SetMaxSugar(mountainTops - (3 * (mountainTops / 4)));
+                    worldArray[i, j].SetSpice(1);
+                    worldArray[i, j].SetMaxSpice(1);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(1, 1, 0, 0.75f));
                 }
-                else if (((i - c) * (i - c) + (j - d) * (j - d)) <= outerR * outerR)
-                {
-                    worldArray[i, j].SetSugar(mountainTops - (3 * (mountainTops / 4)));
-                    worldArray[i, j].SetMaxSugar(mountainTops - (3 * (mountainTops / 4)));
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(1, 1, 0, 0.75f));
-                }
-            }
-        }
-        //SPICE MOUNTAINS
-
-        //centre co-ords of Mountain 1
-        a = 13;
-        b = 37;
-        //centre co-ords of Mountain 2
-        c = 37;
-        d = 13;
-
-        for (int i = 0; i < rows; ++i)
-        {
-            for (int j = 0; j < cols; ++j)
-            {
-                //smallest circle
-                if (((i - a) * (i - a) + (j - b) * (j - b)) <= innerR * innerR)
+                //smallest spice circle
+                else if (((i - e) * (i - e) + (j - f) * (j - f)) <= innerR * innerR ||
+                         ((i - g) * (i - g) + (j - h) * (j - h)) <= innerR * innerR)
                 {
                     worldArray[i, j].SetSpice(mountainTops);
                     worldArray[i, j].SetMaxSpice(mountainTops);
+                    //set sugar to 1 at these locations
+                    worldArray[i, j].SetSugar(1);
+                    worldArray[i, j].SetMaxSugar(1);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.25f, 0, 0.75f));
                 }
-                //could make these ORs
-                else if (((i - c) * (i - c) + (j - d) * (j - d)) <= innerR * innerR)
-                {
-                    worldArray[i, j].SetSpice(mountainTops);
-                    worldArray[i, j].SetMaxSpice(mountainTops);
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.25f, 0, 0.75f));
-                }
-
-
-                else if (((i - a) * (i - a) + (j - b) * (j - b)) <= secondR * secondR)
+                else if (((i - e) * (i - e) + (j - f) * (j - f)) <= secondR * secondR ||
+                         ((i - g) * (i - g) + (j - h) * (j - h)) <= secondR * secondR)
                 {
                     worldArray[i, j].SetSpice(mountainTops - mountainTops / 4);
                     worldArray[i, j].SetMaxSpice(mountainTops - mountainTops / 4);
+                    worldArray[i, j].SetSugar(1);
+                    worldArray[i, j].SetMaxSugar(1);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.5f, 0, 0.75f));
                 }
-                else if (((i - c) * (i - c) + (j - d) * (j - d)) <= secondR * secondR)
-                {
-                    worldArray[i, j].SetSpice(mountainTops - mountainTops / 4);
-                    worldArray[i, j].SetMaxSpice(mountainTops - mountainTops / 4);
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.5f, 0, 0.75f));
-                }
-
-
-                else if (((i - a) * (i - a) + (j - b) * (j - b)) <= thirdR * thirdR)
+                else if (((i - e) * (i - e) + (j - f) * (j - f)) <= thirdR * thirdR ||
+                         ((i - g) * (i - g) + (j - h) * (j - h)) <= thirdR * thirdR)
                 {
                     worldArray[i, j].SetSpice(mountainTops - (2 * (mountainTops / 4)));
                     worldArray[i, j].SetMaxSpice(mountainTops - (2 * (mountainTops / 4)));
+                    worldArray[i, j].SetSugar(1);
+                    worldArray[i, j].SetMaxSugar(1);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.75f, 0, 0.75f));
                 }
-                else if (((i - c) * (i - c) + (j - d) * (j - d)) <= thirdR * thirdR)
-                {
-                    worldArray[i, j].SetSpice(mountainTops - (2 * (mountainTops / 4)));
-                    worldArray[i, j].SetMaxSpice(mountainTops - (2 * (mountainTops / 4)));
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.75f, 0, 0.75f));
-                }
-
-                //widest circle
-                else if (((i - a) * (i - a) + (j - b) * (j - b)) <= outerR * outerR)
+                //widest spice circle
+                else if (((i - e) * (i - e) + (j - f) * (j - f)) <= outerR * outerR ||
+                         ((i - g) * (i - g) + (j - h) * (j - h)) <= outerR * outerR)
                 {
                     worldArray[i, j].SetSpice(mountainTops - (3 * (mountainTops / 4)));
                     worldArray[i, j].SetMaxSpice(mountainTops - (3 * (mountainTops / 4)));
+                    worldArray[i, j].SetSugar(1);
+                    worldArray[i, j].SetMaxSugar(1);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.9f, 0, 0.75f));
                 }
-                else if (((i - c) * (i - c) + (j - d) * (j - d)) <= outerR * outerR)
+                else
                 {
-                    worldArray[i, j].SetSpice(mountainTops - (3 * (mountainTops / 4)));
-                    worldArray[i, j].SetMaxSpice(mountainTops - (3 * (mountainTops / 4)));
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.9f, 0, 0.75f));
+                    worldArray[i, j].SetSugar(1);
+                    worldArray[i, j].SetMaxSugar(1);
+                    worldArray[i, j].SetSpice(1);
+                    worldArray[i, j].SetMaxSpice(1);
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0, 0, 0));
                 }
             }
         }

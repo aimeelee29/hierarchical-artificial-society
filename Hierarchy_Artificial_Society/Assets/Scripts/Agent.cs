@@ -72,6 +72,11 @@ public class Agent : MonoBehaviour
 
      */
 
+    // variables to store info on best location
+    // used for LookAround and eat
+    Vector2Int pos;
+    double maxWelfare;
+
     void Awake()
     {
         KnowWorld();
@@ -103,6 +108,9 @@ public class Agent : MonoBehaviour
         sugar -= sugarMetabolism;
         spice -= spiceMetabolism;
 
+        //Look around and eat food
+        LookAround();
+
     }
 
     //this method enables the Agent to communicate with its surroundings
@@ -133,17 +141,230 @@ public class Agent : MonoBehaviour
         }
     }
 
+    /*
     //Used to determine which site would produce most benefit to agent
     public double Welfare(int su, int sp)
     {
         return Math.Pow(sugar + su, (double)sugarMetabolism / (sugarMetabolism + spiceMetabolism)) * Math.Pow(spice, (double)spiceMetabolism / (sugarMetabolism + spiceMetabolism));
 
     }
+    */
 
-    //Agent will need to find sugar/spice to 'eat' from surroundings.
-    public void Eat()
+    // Agent will need to find sugar/spice to 'eat' from surroundings.
+    public void LookAround()
     {
+        // variables to store info on best location
+        // initially set to current cell position values
+        pos = cellPosition;
+        maxWelfare = world.worldArray[cellPosition.x, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
 
+        //variables to keep track of how to iterate loop (to cope with agents situated at edges)
+        int temp;
+        int leftover;
+
+        // LOOK NORTH
+        // i.e. must increment y value of array (up)
+
+        //edges e.g. if vision was 10 and you were at (20, 45). you wold want all the way to 49 (so look up4) and then (20,0),(20,1),(20,2), (20,3), (20,4), (20,5)
+
+
+        //if vision pushes you over the grid boundary to the north
+        if (cellPosition.y + vision > world.GetRows() - 1)
+        {
+            temp = world.GetRows() - 1;
+            leftover = cellPosition.y + vision - world.GetRows();
+        }
+        else
+        {
+            temp = cellPosition.y + vision;
+            leftover = 0;
+        }
+
+
+        for (int i = cellPosition.y+1; i <= temp; ++i)
+        {
+            //if location isn't already ane at location for another agent
+            if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
+            {
+                //if current cell will produce highest welfare so far
+                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                if (curWelfare > maxWelfare)
+                {
+                    pos = new Vector2Int(cellPosition.x, i);
+                    maxWelfare = curWelfare;
+                }
+            }
+        }
+        if (leftover >0)
+        {
+            //iterate over
+            for (int i = 0; i <= leftover; ++i)
+            {
+                //if location isn't already ane at location for another agent
+                if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
+                {
+                    //if current cell will produce highest welfare so far
+                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    if (curWelfare > maxWelfare)
+                    {
+                        pos = new Vector2Int(cellPosition.x, i);
+                        maxWelfare = curWelfare;
+                    }
+                }
+            }
+        }
+
+        // LOOK SOUTH
+        // i.e. must increment y value of array (down)
+
+        // if vision pushes you over the grid boundary to the south
+        // e.g. if you were on (10, 3) and vision was 10, you would look 3 down to 0, then 7 to go
+        if (cellPosition.y - vision < 0)
+        {
+            temp = 0;
+            leftover = vision - cellPosition.y;
+        }
+        else
+        {
+            temp = cellPosition.y - vision;
+            leftover = 0;
+        }
+
+        for (int i = cellPosition.y - 1; i >= 0; --i)
+        {
+            //if location isn't already ane at location for another agent
+            if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
+            {
+                // if current cell will produce highest welfare so far
+                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                if (curWelfare > maxWelfare)
+                {
+                    pos = new Vector2Int(cellPosition.x, i);
+                    maxWelfare = curWelfare;
+                }
+            }
+        }
+
+        if (leftover > 0)
+        {
+            // iterate over
+            for (int i = world.GetRows()-1; i >= leftover; --i)
+            {
+                //if location isn't already ane at location for another agent
+                if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
+                {
+                    // if current cell will produce highest welfare so far
+                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    if (curWelfare > maxWelfare)
+                    {
+                        pos = new Vector2Int(cellPosition.x, i);
+                        maxWelfare = curWelfare;
+                    }
+                }
+            }
+        }
+
+        // LOOK EAST
+        // i.e. must increment x value of array (up)
+
+        //if vision pushes you over the grid boundary to the east
+        if (cellPosition.x + vision > world.GetCols() - 1)
+        {
+            temp = world.GetCols() - 1;
+            leftover = cellPosition.x + vision - world.GetCols();
+        }
+        else
+        {
+            temp = cellPosition.x + vision;
+            leftover = 0;
+        }
+
+
+        for (int i = cellPosition.x + 1; i <= temp; ++i)
+        {
+            //if location isn't already ane at location for another agent
+            if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
+            {
+                //if current cell will produce highest welfare so far
+                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                if (curWelfare > maxWelfare)
+                {
+                    pos = new Vector2Int(i, cellPosition.y);
+                    maxWelfare = curWelfare;
+                }
+            }
+        }
+        if (leftover > 0)
+        {
+            //iterate over
+            for (int i = 0; i <= leftover; ++i)
+            {
+                //if location isn't already ane at location for another agent
+                if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
+                {
+                    //if current cell will produce highest welfare so far
+                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    if (curWelfare > maxWelfare)
+                    {
+                        pos = new Vector2Int(i, cellPosition.y);
+                        maxWelfare = curWelfare;
+                    }
+                }
+            }
+        }
+
+        // LOOK WEST
+        // i.e. must increment x value of array (down)
+
+        // if vision pushes you over the grid boundary to the west
+        if (cellPosition.x - vision < 0)
+        {
+            temp = 0;
+            leftover = vision - cellPosition.x;
+        }
+        else
+        {
+            temp = cellPosition.x - vision;
+            leftover = 0;
+        }
+
+        for (int i = cellPosition.x - 1; i >= 0; --i)
+        {
+            //if location isn't already ane at location for another agent
+            if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
+            {
+                // if current cell will produce highest welfare so far
+                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                if (curWelfare > maxWelfare)
+                {
+                    pos = new Vector2Int(i, cellPosition.y);
+                    maxWelfare = curWelfare;
+                }
+            }
+        }
+
+        if (leftover > 0)
+        {
+            // iterate over
+            for (int i = world.GetCols()-1; i >= leftover; --i)
+            {
+                //if location isn't already ane at location for another agent
+                if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
+                {
+                    // if current cell will produce highest welfare so far
+                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    if (curWelfare > maxWelfare)
+                    {
+                        pos = new Vector2Int(i, cellPosition.y);
+                        maxWelfare = curWelfare;
+                    }
+                }
+            }
+        }
+
+        //set agent as eating in that cell
+        world.worldArray[pos.x, pos.y].SetOccupied(true);
+        //agent eats as much as possible from cell
 
     }
 

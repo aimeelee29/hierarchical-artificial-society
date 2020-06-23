@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,14 +14,18 @@ public class Cell
     private int curSpice;
 
     // x and y co ordinates - no sure I need these
-    public int x;
-    public int y;
+    private int x;
+    private int y;
 
     //how many units of sugar and spice grows back per time frame
     private static int growbackFactor = 1;
 
     //reference of agent occupying cell. To be set when agents spawn (either initially or through reproduction/replacement).
     private GameObject occupyingAgent;
+
+    //shows if an agent is eating at cell. To be set when agents look around to find best location (and refreshed each update)
+    //initially set to false
+    private bool occupied = false;
 
     //constructor
     public Cell(int x, int y)
@@ -64,6 +69,11 @@ public class Cell
         }
     }
 
+    void LateUpdate()
+    {
+        occupied = false;
+    }
+
     //Setters
 
     public void SetSugar(int s)
@@ -91,6 +101,11 @@ public class Cell
         occupyingAgent = agentObj;
     }
 
+    public void SetOccupied(bool isOccupied)
+    {
+        occupied = isOccupied;
+    }
+
     //Getters
 
     public int GetSugar(int s)
@@ -108,4 +123,25 @@ public class Cell
         return occupyingAgent;
     }
 
+    public bool GetOccupied()
+    {
+        return occupied;
+    }
+
+    public void depleteSugar(int x)
+    {
+        if (curSugar - x <= 0)
+        {
+            curSugar = 0;
+        }
+        else
+            curSugar -= x;   
+    }
+
+    //Used to determine which site would produce most benefit to agent
+    public double Welfare(int agSugar, int agSpice, int agSugarMet, int agSpiceMet)
+    {
+        return Math.Pow(agSugar + curSugar, (double)agSugarMet / (agSugarMet + agSpiceMet)) * Math.Pow(agSpice + curSpice, (double)agSpiceMet / (agSugarMet + agSpiceMet));
+
+    }
 }
