@@ -46,17 +46,6 @@ public class Agent : MonoBehaviour
     public int dominance;
     //others go here
 
-    /*
-
-    // need the following to go into a utility class
-
-    //Ability to toggle things on and off
-    public bool replacement;
-    public bool reproduction;
-    public bool varingPrefs;
-
-    */
-
 
     /* the following is for testing
              * 
@@ -101,15 +90,18 @@ public class Agent : MonoBehaviour
         //update agent's age
         ++age;
 
-        //check for death
-        Death();
-
         //decrease sugar & spice through metabolism
         sugar -= sugarMetabolism;
         spice -= spiceMetabolism;
 
-        //Look around and eat food
-        LookAround();
+        //check for death
+        Death();
+
+        print("sug pre harvest" + sugar);
+        print("spi pre harvest" + spice);
+        //Look around and harvest food
+        if (isAlive)
+            Harvest();
 
     }
 
@@ -151,7 +143,7 @@ public class Agent : MonoBehaviour
     */
 
     // Agent will need to find sugar/spice to 'eat' from surroundings.
-    public void LookAround()
+    public void Harvest()
     {
         // variables to store info on best location
         // initially set to current cell position values
@@ -362,10 +354,15 @@ public class Agent : MonoBehaviour
             }
         }
 
-        //set agent as eating in that cell
+        //set agent as harvesting that cell
         world.worldArray[pos.x, pos.y].SetOccupied(true);
-        //agent eats as much as possible from cell
+        //agent harvests as much as possible from cell
 
+        sugar += world.worldArray[pos.x, pos.y].DepleteSugar();
+        spice += world.worldArray[pos.x, pos.y].DepleteSpice();
+        print(pos);
+        print("sugar post harvest = " + sugar);
+        print("spice post harvest = " + spice);
     }
 
 

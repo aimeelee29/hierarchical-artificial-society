@@ -63,7 +63,9 @@ public class AgentFactory : MonoBehaviour
         agentCom.isAlive = true;
         agentCom.childBearingBegins = Random.Range(12, 15);
         agentCom.childBearingEnds = Random.Range(35, 45);
-        agentCom.lifespan = Random.Range(60, 100);
+        int lifespan = Random.Range(60, 100);
+        agentCom.lifespan = lifespan;
+        agentCom.age = Random.Range(1, lifespan);
         //print(agentCom.cellPosition);
         return agentCom;
     }

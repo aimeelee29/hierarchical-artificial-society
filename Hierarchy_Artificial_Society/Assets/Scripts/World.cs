@@ -15,6 +15,11 @@ public class World : MonoBehaviour
     private GameObject objTileMap;
     private Tilemap envTilemap;
 
+    //amount of sugar/spice at top of mountain
+    [SerializeField] private int mountainTops = 8;
+    //amount of sugar/spice between mountains
+    [SerializeField] private int wasteland = 1;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -60,9 +65,6 @@ public class World : MonoBehaviour
         int g = 37;
         int h = 13;
 
-        //amount of sugar/spice at top of mountain
-        int mountainTops = 4;
-
         //sets radius for each mountain tier
         int innerR = 5;
         int secondR = innerR + 2;
@@ -81,8 +83,8 @@ public class World : MonoBehaviour
                     worldArray[i, j].SetSugar(mountainTops);
                     worldArray[i, j].SetMaxSugar(mountainTops);
                     //set spice to 1 for these locations
-                    worldArray[i, j].SetSpice(1);
-                    worldArray[i, j].SetMaxSpice(1);
+                    worldArray[i, j].SetSpice(wasteland);
+                    worldArray[i, j].SetMaxSpice(wasteland);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.25f, 0.25f, 0, 0.75f));
                 }
                 
@@ -91,8 +93,8 @@ public class World : MonoBehaviour
                 {
                     worldArray[i, j].SetSugar(mountainTops - mountainTops/4);
                     worldArray[i, j].SetMaxSugar(mountainTops - mountainTops / 4);
-                    worldArray[i, j].SetSpice(1);
-                    worldArray[i, j].SetMaxSpice(1);
+                    worldArray[i, j].SetSpice(wasteland);
+                    worldArray[i, j].SetMaxSpice(wasteland);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.5f, 0.5f, 0, 0.75f));
                 }
 
@@ -111,8 +113,8 @@ public class World : MonoBehaviour
                 {
                     worldArray[i, j].SetSugar(mountainTops - (3 * (mountainTops / 4)));
                     worldArray[i, j].SetMaxSugar(mountainTops - (3 * (mountainTops / 4)));
-                    worldArray[i, j].SetSpice(1);
-                    worldArray[i, j].SetMaxSpice(1);
+                    worldArray[i, j].SetSpice(wasteland);
+                    worldArray[i, j].SetMaxSpice(wasteland);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(1, 1, 0, 0.75f));
                 }
                 //smallest spice circle
@@ -131,8 +133,8 @@ public class World : MonoBehaviour
                 {
                     worldArray[i, j].SetSpice(mountainTops - mountainTops / 4);
                     worldArray[i, j].SetMaxSpice(mountainTops - mountainTops / 4);
-                    worldArray[i, j].SetSugar(1);
-                    worldArray[i, j].SetMaxSugar(1);
+                    worldArray[i, j].SetSugar(wasteland);
+                    worldArray[i, j].SetMaxSugar(wasteland);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.5f, 0, 0.75f));
                 }
                 else if (((i - e) * (i - e) + (j - f) * (j - f)) <= thirdR * thirdR ||
@@ -140,8 +142,8 @@ public class World : MonoBehaviour
                 {
                     worldArray[i, j].SetSpice(mountainTops - (2 * (mountainTops / 4)));
                     worldArray[i, j].SetMaxSpice(mountainTops - (2 * (mountainTops / 4)));
-                    worldArray[i, j].SetSugar(1);
-                    worldArray[i, j].SetMaxSugar(1);
+                    worldArray[i, j].SetSugar(wasteland);
+                    worldArray[i, j].SetMaxSugar(wasteland);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.75f, 0, 0.75f));
                 }
                 //widest spice circle
@@ -150,16 +152,16 @@ public class World : MonoBehaviour
                 {
                     worldArray[i, j].SetSpice(mountainTops - (3 * (mountainTops / 4)));
                     worldArray[i, j].SetMaxSpice(mountainTops - (3 * (mountainTops / 4)));
-                    worldArray[i, j].SetSugar(1);
-                    worldArray[i, j].SetMaxSugar(1);
+                    worldArray[i, j].SetSugar(wasteland);
+                    worldArray[i, j].SetMaxSugar(wasteland);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.9f, 0, 0.75f));
                 }
                 else
                 {
-                    worldArray[i, j].SetSugar(1);
-                    worldArray[i, j].SetMaxSugar(1);
-                    worldArray[i, j].SetSpice(1);
-                    worldArray[i, j].SetMaxSpice(1);
+                    worldArray[i, j].SetSugar(wasteland);
+                    worldArray[i, j].SetMaxSugar(wasteland);
+                    worldArray[i, j].SetSpice(wasteland);
+                    worldArray[i, j].SetMaxSpice(wasteland);
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0, 0, 0));
                 }
             }
@@ -182,5 +184,4 @@ public class World : MonoBehaviour
     {
         return cols;
     }
-
 }

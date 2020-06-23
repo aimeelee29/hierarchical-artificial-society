@@ -23,15 +23,16 @@ public class Cell
     //reference of agent occupying cell. To be set when agents spawn (either initially or through reproduction/replacement).
     private GameObject occupyingAgent;
 
-    //shows if an agent is eating at cell. To be set when agents look around to find best location (and refreshed each update)
+    //shows if an agent is harvesting cell. To be set when agents look around to find best location (and refreshed each update)
     //initially set to false
-    private bool occupied = false;
+    private bool occupiedHarvest;
 
     //constructor
     public Cell(int x, int y)
     {
         this.x = x;
         this.y = y;
+        occupiedHarvest = false;
     }
 
     // Update is called once per frame
@@ -71,7 +72,7 @@ public class Cell
 
     void LateUpdate()
     {
-        occupied = false;
+        occupiedHarvest = false;
     }
 
     //Setters
@@ -103,7 +104,7 @@ public class Cell
 
     public void SetOccupied(bool isOccupied)
     {
-        occupied = isOccupied;
+        occupiedHarvest = isOccupied;
     }
 
     //Getters
@@ -125,17 +126,21 @@ public class Cell
 
     public bool GetOccupied()
     {
-        return occupied;
+        return occupiedHarvest;
     }
 
-    public void depleteSugar(int x)
+    public int DepleteSugar()
     {
-        if (curSugar - x <= 0)
-        {
-            curSugar = 0;
-        }
-        else
-            curSugar -= x;   
+        int temp = curSugar;
+        curSugar = 0;
+        return temp;   
+    }
+
+    public int DepleteSpice()
+    {
+        int temp = curSpice;
+        curSpice = 0;
+        return temp;
     }
 
     //Used to determine which site would produce most benefit to agent
