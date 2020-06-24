@@ -13,6 +13,9 @@ public class Agent : MonoBehaviour
     private GridLayout gridLayout;
     public Vector2Int cellPosition;
 
+    //Need access to scriptable object Toggle to enable/disable certain things
+    private Toggle toggle;
+
     //initial sugar and spice endowments. Used for reproduction
     public int sugarInit;
     public int spiceInit;
@@ -43,23 +46,9 @@ public class Agent : MonoBehaviour
     public string sex;
 
     //hierarchy attributes
-    public int dominance;
-    //others go here
-
-
-    /* the following is for testing
-             * 
-            //how many time steps until death by lack of sugar
-            double t1 = (double)sugar / sugarMetabolism;
-            print("steps until death from sug = " + (double)sugar / sugarMetabolism);
-            //how many time steps until death by lack of spice
-            double t2 = (double)spice / spiceMetabolism;
-            print("steps until death from spice = " + (double)spice / spiceMetabolism);
-
-            //if > 1 then spice more important (since steps until death from sugar would be greater). <1 sugar more important.
-            print(t1 / t2);
-
-     */
+    private int dominance;
+    private int influence;
+    //others go here - will use wealth, vision, influence
 
     // variables to store info on best location
     // used for LookAround and eat
@@ -75,9 +64,6 @@ public class Agent : MonoBehaviour
     //could this be moved to awake
     void Start()
     {
-        
-
-        
         //check its working ok
         //print(cellPosition);
         //print(world.worldArray[cellPosition.x, cellPosition.y].curSugar);
@@ -97,12 +83,14 @@ public class Agent : MonoBehaviour
         //check for death
         Death();
 
-        print("sug pre harvest" + sugar);
-        print("spi pre harvest" + spice);
+        //print("sug pre harvest" + sugar);
+        //print("spi pre harvest" + spice);
+        
         //Look around and harvest food
         if (isAlive)
             Harvest();
 
+        FindFertileNeighbours();
     }
 
     //this method enables the Agent to communicate with its surroundings
@@ -360,9 +348,9 @@ public class Agent : MonoBehaviour
 
         sugar += world.worldArray[pos.x, pos.y].DepleteSugar();
         spice += world.worldArray[pos.x, pos.y].DepleteSpice();
-        print(pos);
-        print("sugar post harvest = " + sugar);
-        print("spice post harvest = " + spice);
+        //print(pos);
+        //print("sugar post harvest = " + sugar);
+        //print("spice post harvest = " + spice);
     }
 
 
@@ -381,4 +369,22 @@ public class Agent : MonoBehaviour
         }
     }
     */
+
+    private List<Agent> FindFertileNeighbours()
+    {
+        //Generate array of colliders within radius (set to vision)
+        Collider2D[] colliderList = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), vision);
+        //Create empty List into which fertile agents will go
+        List<Agent> fertileAgentList = new List<Agent>();
+
+        //goes through each collider within radius and adds fertile agents only to the list
+        foreach (Collider2D neighbour in colliderList)
+        {
+            if(neighbour.tag == "Agent" && neighbour.gameObject.GetComponent<Agent>().Fertile() == true)
+            {
+                fertileAgentList.Add(neighbour.gameObject.GetComponent<Agent>());
+            }
+        }
+        return fertileAgentList;
+    }
 }

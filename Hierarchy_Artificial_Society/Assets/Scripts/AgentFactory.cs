@@ -21,7 +21,7 @@ public class AgentFactory : MonoBehaviour
 
 
         //TO DO: will change the for loop when all working.
-        for (int i = 0; i < 200; ++i)
+        for (int i = 0; i < 50; ++i)
         {
             //creates agent gameobject 
             GameObject agentObj = new GameObject("Agent");
@@ -34,17 +34,21 @@ public class AgentFactory : MonoBehaviour
             //generates random position for agent to spawn into
             generatePosition(agentObj);
 
-
             //applies order in layer (so it can be seen)
             renderer.sortingOrder = 1;
-            Agent agentCom = CreateComponent(agentObj);
+
+            //adds Agent script to GameObject and sets values
+            Agent agentCom = CreateAgentComponent(agentObj);
 
             //apply Agent tag
             agentObj.tag = "Agent";
+
+            //apply circle collider
+            CircleCollider2D collider = agentObj.AddComponent<CircleCollider2D>();
         }
     }
 
-    private Agent CreateComponent(GameObject obj)
+    private Agent CreateAgentComponent(GameObject obj)
     {
         Agent agentCom = obj.AddComponent<Agent>();
         //assigns variables below.
