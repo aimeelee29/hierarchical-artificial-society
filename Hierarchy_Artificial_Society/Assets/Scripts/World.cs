@@ -184,4 +184,27 @@ public class World : MonoBehaviour
     {
         return cols;
     }
+
+    //checks if any neighbouring cell is empty
+    public Vector2Int CheckEmptyCell(int x, int y)
+    {
+        Vector2Int empty;
+
+        //check around the cell in each direction
+        //also includes a check that it is in bounds
+        if (x + 1 < GetCols() && checkAgent(x + 1, y) == false)
+            empty = new Vector2Int(x + 1, y);
+        else if (x - 1 >= 0 && checkAgent(x - 1, y) == false)
+            empty = new Vector2Int(x - 1, y);
+        else if (y + 1 < GetRows() && checkAgent(x, y + 1) == false)
+            empty = new Vector2Int(x, y + 1);
+        else if (y - 1 >= 0 && checkAgent(x, y - 1) == false)
+            empty = new Vector2Int(x, y - 1);
+        else
+            empty = new Vector2Int(-1, -1);
+
+        //if any of the above cells are empty then Vector2 empty will be assigned and we return it.
+        //Otherwise will return (-1, -1) since Vector2 is non nullable.
+        return empty;
+    }
 }
