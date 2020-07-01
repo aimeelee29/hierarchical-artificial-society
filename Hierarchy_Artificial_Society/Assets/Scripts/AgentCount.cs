@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Xml;
@@ -12,30 +13,37 @@ public class AgentCount : MonoBehaviour
     private GameObject graph;
     private AgentCountGraph graphScript;
 
-    //List with count of agents for each time step
-    public List<int> agentCount = new List<int>();
-    int count;
+    //Count that gets updated each time - for XML file so we can use append
+    public int count;
 
-    void Awake ()
+    //instance of AgentCountList class which holds list - needs to be its own class for serialisation
+    AgentCountList agentCountList;
+
+    [Serializable]
+    public class AgentCountList
+    {
+        //List with count of agents for each time step
+        public List<int> agentCount = new List<int>();
+    }
+
+    void Start ()
     {
         //hold reference to graph
         graph = GameObject.Find("Agent Count Graph");
         graphScript = graph.GetComponent<AgentCountGraph>();
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
- 
+        //create instance of class
+        agentCountList = new AgentCountList();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //call count method to count number of agents
         Count();
         //for graph display
-        if (agentCount.Count <= 100)
-            graphScript.CreateGraph(agentCount);
+        if (agentCountList.agentCount.Count <= 100)
+            graphScript.CreateGraph(agentCountList.agentCount);
     }
 
     public void Count()
@@ -43,14 +51,14 @@ public class AgentCount : MonoBehaviour
         //count of agents
         count = GameObject.FindGameObjectsWithTag("Agent").Length;
         //add count to the list
-        agentCount.Add(count);
+        agentCountList.agentCount.Add(count);
     }
 
-    /*
     public void SaveXML()
     {
-        XmlSerializer save = new XmlSerializer(typeof(agentCount));
-        FileStream path 
+        XmlSerializer save = new XmlSerializer(typeof(AgentCountList));
+        FileStream path = new FileStream(Application.dataPath + "/XMLFiles/AgentCount.xml", FileMode.Create);
+        save.Serialize(path, agentCountList);
+        path.Close();
     }
-    */
 }
