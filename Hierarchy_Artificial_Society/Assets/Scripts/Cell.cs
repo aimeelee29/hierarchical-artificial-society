@@ -24,7 +24,6 @@ public class Cell
     private GameObject occupyingAgent;
 
     //shows if an agent is harvesting cell. To be set when agents look around to find best location (and refreshed each update)
-    //initially set to false
     private bool occupiedHarvest;
 
     //constructor

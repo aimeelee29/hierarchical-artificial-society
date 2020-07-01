@@ -64,7 +64,6 @@ public static class CreateAgent
     // Vectors represent free neighbouring cells to parent. If no free cell then will be (-1, -1)
     public static void GeneratePosition(GameObject agentObj, Vector2Int freeVector1, Vector2Int freeVector2)
     {
-        Debug.Log("Child position");
         //if neither parent have a free neighbouring cell then return
         if (freeVector1.x == -1 && freeVector2.x == -1)
             return;
@@ -94,23 +93,24 @@ public static class CreateAgent
         Agent agentCom = obj.AddComponent<Agent>();
         //assigns variables below.
         //TODO - finish this. And also use values used for trading section of sugarscape. Am putting in dummy values currently.
-        agentCom.sugar = Random.Range(25, 50);
-        agentCom.spice = Random.Range(25, 50);
+        agentCom.sugar = Random.Range(25, 51); // max exclusive
+        agentCom.spice = Random.Range(25, 51);
         agentCom.sugarInit = agentCom.sugar;
         agentCom.spiceInit = agentCom.spice;
-        agentCom.sugarMetabolism = Random.Range(1, 5);
-        agentCom.spiceMetabolism = Random.Range(1, 5);
-        agentCom.vision = Random.Range(1, 5);
-        if (Random.Range(1, 2) == 1)
+        agentCom.sugarMetabolism = Random.Range(1, 6);
+        agentCom.spiceMetabolism = Random.Range(1, 6);
+        agentCom.vision = Random.Range(1, 6);
+        int sex = Random.Range(1, 3);
+        if (sex == 1)
             agentCom.SetSex("Female");
-        else
+        else if(sex == 2)
             agentCom.SetSex("Male");
         agentCom.isAlive = true;
-        agentCom.childBearingBegins = Random.Range(12, 15);
-        agentCom.childBearingEnds = Random.Range(35, 45);
-        int lifespan = Random.Range(60, 100);
+        agentCom.childBearingBegins = Random.Range(12, 16);
+        agentCom.childBearingEnds = Random.Range(35, 46);
+        int lifespan = Random.Range(60, 101);
         agentCom.lifespan = lifespan;
-        agentCom.age = Random.Range(1, lifespan);
+        agentCom.age = Random.Range(1, lifespan + 1);
         //agentCom.dominance =
         //agentCom.influence = 
         return agentCom;

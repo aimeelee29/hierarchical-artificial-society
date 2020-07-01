@@ -32,7 +32,7 @@ public class AgentCountGraph : MonoBehaviour
     public void CreateGraph(List<int> graphPoints)
     {
         float graphHeight = plotArea.sizeDelta.y;
-        float yMax = 200f;
+        float yMax = 2000f;
         float xSize = 10f;
         for (int i = 0; i < graphPoints.Count; ++i)
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -342,7 +343,6 @@ public class Agent : MonoBehaviour
         List<Agent> potentialPartners = FindFertileNeighbours();
             foreach (Agent partner in potentialPartners)
             {
-            print("partner found");
                 Vector2Int partnerEmpty = world.CheckEmptyCell(partner.cellPosition.x, partner.cellPosition.y);
             
                 //if either current agent or neighbour has an empty neighbouring cell
@@ -353,8 +353,11 @@ public class Agent : MonoBehaviour
                     GameObject agentObj = CreateAgent.CreateAgentObject();
                     //sets position for child on grid
                     CreateAgent.GeneratePosition(agentObj, currentEmpty, partnerEmpty);
-                //sets Agent component values
-                CreateAgent.CreateAgentComponent(agentObj, this, partner);
+                    //sets Agent component values
+                    CreateAgent.CreateAgentComponent(agentObj, this, partner);
+
+                //agent reproduction was too much so for now have break in here, so it doesn't go through all
+                break;
                 }
             }
        // }
@@ -374,18 +377,35 @@ public class Agent : MonoBehaviour
         //Create empty List into which fertile agents of different sex will go
         List<Agent> fertileAgentList = new List<Agent>();
 
+        //stores sex of current agent (since 'this' will not work in the for each loop)
+        string sex = this.GetSex();
+
         //goes through each collider within radius
         foreach (Collider2D neighbour in colliderList)
         {
-            //problem is below. hmmm but sometimes prints true or false so actually maybe not
-            print(neighbour.gameObject.GetComponent<Agent>().Fertile());
-                // check for agent tag (as overlapcircleall will also catch collider for tilemap) and makes sure agent is fertile and of different sex
-                // the sex check also rules out an agent mating with itself
-                if (neighbour.tag == "Agent" && neighbour.gameObject.GetComponent<Agent>().Fertile() == true 
-                && neighbour.gameObject.GetComponent<Agent>().GetSex() != this.GetSex())
+            if (neighbour.tag != "Agent")
+                continue;
+            Agent agent = neighbour.gameObject.GetComponent<Agent>();
+
+            //Agent agent = (Agent)GetComponent(typeof(Agent));
+            //print("agent = " + agent.GetSex());
+            //print("this = " + sex);
+            //print(String.Equals(agent.GetSex(), sex) == false);
+
+
+            // check for agent tag (as overlapcircleall will also catch collider for tilemap) and makes sure agent is fertile and of different sex
+            // the sex check also rules out an agent mating with itself
+            /*
+            if (
+            //neighbour.tag == "Agent" && neighbour.gameObject.GetComponent<Agent>().Fertile() == true 
+            && neighbour.gameObject.GetComponent<Agent>().GetSex() != this.GetSex())
+            */
+
+            if (agent.Fertile() == true && String.Equals(agent.GetSex(), this.GetSex()) == false)
             {
                 //adds to list
-                fertileAgentList.Add(neighbour.gameObject.GetComponent<Agent>());
+                //fertileAgentList.Add(neighbour.gameObject.GetComponent<Agent>());
+                fertileAgentList.Add(agent);
             }
         }
         return fertileAgentList;
