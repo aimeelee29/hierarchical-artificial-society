@@ -11,14 +11,11 @@ public class Agent : MonoBehaviour
     private GameObject objGrid;
     private World world;
     private GridLayout gridLayout;
-    public Vector2Int cellPosition;
+    private Vector2Int cellPosition;
     //Need access to scriptable object Toggle to enable/disable certain things
     private Toggle toggle;
-    //Access to Agent Factory to be able to call the method which creates an agent GameObject (for reproduction)
-    //actually no, because spawns in random position. but now repitition of code?
-    //private AgentFactory factory = GameObject.Find("Agent Factory").GetComponent<AgentFactory>();
 
-    //initial sugar and spice endowments. Used for reproduction
+    // initial sugar and spice endowments. Used for reproduction
     public int sugarInit;
     public int spiceInit;
 
@@ -26,9 +23,16 @@ public class Agent : MonoBehaviour
     public int sugar;
     public int spice;
 
-    //Metabolisms - how much sugar and spice the agent 'burns off' each time step
+    // Metabolisms - how much sugar and spice the agent 'burns off' each time step
     public int sugarMetabolism;
     public int spiceMetabolism;
+
+    // Time until death by sugar and spice. Needed for trading.
+    private int timeUntilSugarDeath;
+    private int timeUntilSpiceDeath;
+    // marginal rate of substitution(MRS). An agent's MRS of spice for sugar is the amount of spice the agent considers to be as valuable as 
+    // one unit of sugar, that is, the value of sugar in units of spice . 
+    private double MRS;
 
     //How far they can 'see' to eat sugar/spice (in number of cells)
     public int vision;
@@ -46,7 +50,8 @@ public class Agent : MonoBehaviour
     //hierarchy attributes
     private int dominance;
     private int influence;
-    //others go here - will use wealth, vision, influence
+    //others go here - will use wealth, vision
+    private int hierarchyScore;
 
     void Awake()
     {
@@ -63,6 +68,14 @@ public class Agent : MonoBehaviour
         sugar -= sugarMetabolism;
         spice -= spiceMetabolism;
 
+        //time until death for each commodity
+        timeUntilSugarDeath = sugar / sugarMetabolism;
+        timeUntilSpiceDeath = spice / spiceMetabolism;
+        if (timeUntilSugarDeath != 0)
+        {
+            MRS = timeUntilSpiceDeath / timeUntilSugarDeath;
+        }
+        
         //check for death
         Death();
         
@@ -72,6 +85,9 @@ public class Agent : MonoBehaviour
             Harvest();
             //reproduce
             ReproductionProcess();
+            //trade
+            Trade();
+
         }
     }
 
@@ -88,6 +104,11 @@ public class Agent : MonoBehaviour
     public string GetSex()
     {
         return sex;
+    }
+
+    public double GetMRS()
+    {
+        return MRS;
     }
 
     //this method enables the Agent to communicate with its surroundings
@@ -327,6 +348,132 @@ public class Agent : MonoBehaviour
         spice += world.worldArray[pos.x, pos.y].DepleteSpice();
     }
 
+
+    private List<Agent> FindNeighbours()
+    {
+        //Generate array of colliders within radius (set to vision)
+        Collider2D[] colliderList = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), vision);
+
+        //Create empty List into which fertile agents of different sex will go
+        List<Agent> neighbourAgentList = new List<Agent>();
+
+        //goes through each collider within radius
+        foreach (Collider2D neighbour in colliderList)
+        {
+            // if collider is not attached to an agent then skip that one (as overlapcircleall will also catch collider for tilemap) 
+            if (neighbour.tag != "Agent")
+                continue;
+
+            //get agent from object and add to list
+            Agent agent = neighbour.gameObject.GetComponent<Agent>();
+            neighbourAgentList.Add(agent);
+        }
+        return neighbourAgentList;
+    }
+
+    /*
+     * 
+     * METHODS USED FOR TRADING
+     * 
+     */
+
+    private void Trade()
+    {
+        //first get neighbours
+        List<Agent> neighbourAgentList = FindNeighbours();
+        
+        //for every neighbour
+        foreach (Agent neighbour in neighbourAgentList)
+        {
+            // Get MRS of neighbour
+            double neighbourMRS = neighbour.GetMRS();
+            // If MRSA = MRSB then no trade. Continue skips the loop
+            if (this.GetMRS() == neighbourMRS)
+                continue;
+
+            // otherwise 
+            // calculate price (geometric mean of the two MRSs)
+            double price = Math.Sqrt(this.GetMRS() * neighbourMRS);
+            // vars for how many sugar units are traded for spice units (and vice versa)
+            int sugarUnits;
+            int spiceUnits;
+
+            // If price(p) > 1, p units of spice are exchanged for 1 unit of sugar.
+            if (price > 1)
+            {
+                sugarUnits = 1;
+                spiceUnits = (int)price;
+            }
+            // If p < 1, then 1 unit of spice is exchanged for p units of sugar
+            else
+            {
+                sugarUnits = (int)(1/price);
+                spiceUnits = 1;
+            }
+
+            double currentWelfareA = this.Welfare(0, 0);
+            double currentWelfareB = neighbour.Welfare(0, 0);
+
+            // If MRSA > MRSB then agent A buys sugar, sells spice (A considers sugar to be relatively more valuable than agent B)
+            if (this.GetMRS() > neighbourMRS)
+            {
+                // If this trade will:
+                // (a) make both agents better off(increases the welfare of both agents), and
+                // (b) not cause the agents' MRSs to cross over one another, then the trade is made and return to start, else end.
+
+                double potentialWelfareA = this.Welfare(sugarUnits, -spiceUnits);
+                double potentialWelfareB = neighbour.Welfare(-sugarUnits, spiceUnits);
+
+                if (neighbour.timeUntilSugarDeath - sugarUnits > 0)
+                {
+                    double potentialMRSA = (timeUntilSpiceDeath - spiceUnits) / (timeUntilSugarDeath + sugarUnits);
+                    double potentialMRSB = (neighbour.timeUntilSpiceDeath + spiceUnits) / (neighbour.timeUntilSugarDeath - sugarUnits);
+
+                    if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB &&
+                        potentialMRSA >= potentialMRSB)
+                    {
+                        this.sugar += sugarUnits;
+                        neighbour.sugar -= sugarUnits;
+                        this.spice -= spiceUnits;
+                        neighbour.spice += spiceUnits;
+                        print("traded");
+                        print(sugarUnits);
+                        print(spiceUnits);
+                    }
+                }
+            }
+            // Else MRSA < MRSB
+            else
+            {
+                double potentialWelfareA = this.Welfare(-sugarUnits, +spiceUnits);
+                double potentialWelfareB = neighbour.Welfare(+sugarUnits, -spiceUnits);
+
+                if (timeUntilSugarDeath - sugarUnits > 0)
+                {
+                    double potentialMRSA = (timeUntilSpiceDeath + spiceUnits) / (timeUntilSugarDeath - sugarUnits);
+                    double potentialMRSB = (neighbour.timeUntilSpiceDeath - spiceUnits) / (neighbour.timeUntilSugarDeath + sugarUnits);
+
+                    if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB &&
+                        potentialMRSA >= potentialMRSB)
+                    {
+                        this.sugar -= sugarUnits;
+                        neighbour.sugar += sugarUnits;
+                        this.spice += spiceUnits;
+                        neighbour.spice -= spiceUnits;
+                        print("traded");
+                        print(sugarUnits);
+                        print(spiceUnits);
+                    }
+                }
+            }
+        }
+    }
+
+    private double Welfare(int x, int y)
+    {
+        return Math.Pow(x + sugar, (double)sugarMetabolism / (sugarMetabolism + spiceMetabolism)) * Math.Pow(y + spice, (double)spiceMetabolism / (sugarMetabolism + spiceMetabolism));
+    }
+
     /* 
      * 
      * METHODS USED FOR AGENT REPRODUCTION 
@@ -383,24 +530,14 @@ public class Agent : MonoBehaviour
         //goes through each collider within radius
         foreach (Collider2D neighbour in colliderList)
         {
+            // if collider is not attached to an agent then skip that one (as overlapcircleall will also catch collider for tilemap) 
             if (neighbour.tag != "Agent")
                 continue;
+
             Agent agent = neighbour.gameObject.GetComponent<Agent>();
 
-            //Agent agent = (Agent)GetComponent(typeof(Agent));
-            //print("agent = " + agent.GetSex());
-            //print("this = " + sex);
-            //print(String.Equals(agent.GetSex(), sex) == false);
-
-
-            // check for agent tag (as overlapcircleall will also catch collider for tilemap) and makes sure agent is fertile and of different sex
+            //  makes sure agent is fertile and of different sex
             // the sex check also rules out an agent mating with itself
-            /*
-            if (
-            //neighbour.tag == "Agent" && neighbour.gameObject.GetComponent<Agent>().Fertile() == true 
-            && neighbour.gameObject.GetComponent<Agent>().GetSex() != this.GetSex())
-            */
-
             if (agent.Fertile() == true && String.Equals(agent.GetSex(), this.GetSex()) == false)
             {
                 //adds to list
@@ -411,3 +548,19 @@ public class Agent : MonoBehaviour
         return fertileAgentList;
     }
 }
+
+
+//trading
+
+//The ratio of the spice to sugar quantities exchanged is simply the price. This price must, of necessity , fall in the range [MRSA , MRSB]. 
+//(this is what I would need to change if rules were unfair).
+//While all prices within the feasible range are " agreeable " to the agents, not all prices appear to be equally "fair." 
+//Prices near either end of the range would seem to be a better deal for one of the agents, particularly when the price range is very large. 
+//Following Albin and Foley [1990], we use as the exchange price the geometric mean of the endpoints of the feasible price range. 
+//price and quantity - see notes
+//Trade only happens if it makes both agents better off.
+//special care must be taken to avoid infinite loops in which a pair of agents alternates between being buyers and sellers of the same 
+//resource upon successive application of the trade rule.This is accomplished by forbidding the MRSs to cross over one another.
+
+//When an agent following M moves to a new location it has from 0 to 4 (von Neumann) neighbors. 
+//It interacts through T exactly once with each of its neighbors, selected in random order.

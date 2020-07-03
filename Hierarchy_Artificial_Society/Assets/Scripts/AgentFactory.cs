@@ -14,7 +14,7 @@ public class AgentFactory : MonoBehaviour
     void Start()
     {
         //TO DO: will change the for loop when all working.
-        for (int i = 0; i < 1; ++i)
+        for (int i = 0; i < 50; ++i)
         {
             GameObject agentObj = CreateAgent.CreateAgentObject();
             //generates random position for agent to spawn into
