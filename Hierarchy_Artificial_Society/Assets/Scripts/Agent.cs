@@ -13,7 +13,7 @@ public class Agent : MonoBehaviour
     private GridLayout gridLayout;
     private Vector2Int cellPosition;
     //Need access to scriptable object Toggle to enable/disable certain things
-    private Toggle toggle;
+    [SerializeField] private static Toggle toggle;
 
     // initial sugar and spice endowments. Used for reproduction
     public int sugarInit;
@@ -28,8 +28,8 @@ public class Agent : MonoBehaviour
     public int spiceMetabolism;
 
     // Time until death by sugar and spice. Needed for trading.
-    private int timeUntilSugarDeath;
-    private int timeUntilSpiceDeath;
+    private double timeUntilSugarDeath;
+    private double timeUntilSpiceDeath;
     // marginal rate of substitution(MRS). An agent's MRS of spice for sugar is the amount of spice the agent considers to be as valuable as 
     // one unit of sugar, that is, the value of sugar in units of spice . 
     private double MRS;
@@ -46,6 +46,8 @@ public class Agent : MonoBehaviour
     public int childBearingBegins;
     public int childBearingEnds;
     private string sex;
+    //List of agents that current agent has mated with for that time step.
+    private List<Agent> agentReproductionList;
 
     //hierarchy attributes
     private int dominance;
@@ -56,6 +58,21 @@ public class Agent : MonoBehaviour
     void Awake()
     {
         KnowWorld();
+        //Reference to SO Toggle so we can turn various things on and off in the model
+        toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
+    }
+
+    void Start()
+    {
+        //time until death for each commodity
+        timeUntilSugarDeath = sugar / sugarMetabolism;
+        timeUntilSpiceDeath = spice / spiceMetabolism;
+        if (timeUntilSugarDeath != 0)
+        {
+            MRS = timeUntilSpiceDeath / timeUntilSugarDeath;
+        }
+        else
+            MRS = 0;
     }
 
     // Update is called once per frame
@@ -75,6 +92,8 @@ public class Agent : MonoBehaviour
         {
             MRS = timeUntilSpiceDeath / timeUntilSugarDeath;
         }
+        else
+            MRS = 0;
         
         //check for death
         Death();
@@ -83,11 +102,16 @@ public class Agent : MonoBehaviour
         {
             //Look around and harvest food
             Harvest();
-            //reproduce
-            ReproductionProcess();
+            //reproduce - only if selected in toggle
+            if (toggle.GetReproduction())
+            {
+                ReproductionProcess();
+            }
             //trade
-            Trade();
-
+            if (toggle.GetTrade())
+            {
+                Trade();
+            }  
         }
     }
 
@@ -390,10 +414,11 @@ public class Agent : MonoBehaviour
             // If MRSA = MRSB then no trade. Continue skips the loop
             if (this.GetMRS() == neighbourMRS)
                 continue;
-
+            //print(this.GetMRS() + "neighbour = " + neighbourMRS);
             // otherwise 
             // calculate price (geometric mean of the two MRSs)
             double price = Math.Sqrt(this.GetMRS() * neighbourMRS);
+
             // vars for how many sugar units are traded for spice units (and vice versa)
             int sugarUnits;
             int spiceUnits;
@@ -401,12 +426,14 @@ public class Agent : MonoBehaviour
             // If price(p) > 1, p units of spice are exchanged for 1 unit of sugar.
             if (price > 1)
             {
+                //print("price>1");
                 sugarUnits = 1;
                 spiceUnits = (int)price;
             }
             // If p < 1, then 1 unit of spice is exchanged for p units of sugar
             else
             {
+                //print("price <1");
                 sugarUnits = (int)(1/price);
                 spiceUnits = 1;
             }
@@ -436,9 +463,12 @@ public class Agent : MonoBehaviour
                         neighbour.sugar -= sugarUnits;
                         this.spice -= spiceUnits;
                         neighbour.spice += spiceUnits;
+                        /*
                         print("traded");
-                        print(sugarUnits);
-                        print(spiceUnits);
+                        print("sugar units = " + sugarUnits);
+                        print("spice units = " + spiceUnits);
+                        */
+                        
                     }
                 }
             }
@@ -460,9 +490,11 @@ public class Agent : MonoBehaviour
                         neighbour.sugar += sugarUnits;
                         this.spice += spiceUnits;
                         neighbour.spice -= spiceUnits;
+                        /*
                         print("traded");
-                        print(sugarUnits);
-                        print(spiceUnits);
+                        print("sugar units = " + sugarUnits);
+                        print("spice units = " + spiceUnits);
+                        */
                     }
                 }
             }
@@ -484,8 +516,6 @@ public class Agent : MonoBehaviour
     //Only calls them when reproduction from toggle is set to true
     private void ReproductionProcess()
     {
-        // if (toggle.reproduction)
-        // {
         Vector2Int currentEmpty = world.CheckEmptyCell(cellPosition.x, cellPosition.y);
         List<Agent> potentialPartners = FindFertileNeighbours();
             foreach (Agent partner in potentialPartners)
@@ -507,7 +537,6 @@ public class Agent : MonoBehaviour
                 break;
                 }
             }
-       // }
     }
 
     // Returns true if agent is currently fertile
