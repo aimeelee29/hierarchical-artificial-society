@@ -33,6 +33,27 @@ public class World : MonoBehaviour
         
     }
 
+    void Update()
+    {
+        print("sug = " + worldArray[20,20].GetSugar());
+        print("spi = " + worldArray[20,20].GetSpice());
+
+    }
+    
+    //For all cells, set occupied for harvest to false as we want to refresh each update
+    void LateUpdate()
+    {
+        for (int i = 0; i < rows; ++i)
+        {
+            for (int j = 0; j < cols; ++j)
+            {
+                worldArray[i, j].Growback();
+                worldArray[i, j].SetOccupied(false);
+            }
+        }
+    }
+
+
     //Create cells
     private void PopulateArray()
     {

@@ -47,7 +47,9 @@ public class Agent : MonoBehaviour
     public int childBearingEnds;
     private string sex;
     //List of agents that current agent has mated with for that time step.
-    private List<Agent> agentReproductionList;
+    List<Agent> agentReproductionList;
+    //List of children
+    List<Agent> agentChildList;
 
     //hierarchy attributes
     private int dominance;
@@ -60,6 +62,8 @@ public class Agent : MonoBehaviour
         KnowWorld();
         //Reference to SO Toggle so we can turn various things on and off in the model
         toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
+        //empty list of agent's children
+        agentChildList = new List<Agent>();
     }
 
     void Start()
@@ -102,12 +106,12 @@ public class Agent : MonoBehaviour
         {
             //Look around and harvest food
             Harvest();
-            //reproduce - only if selected in toggle
+            //reproduce - only if selected in toggle SO
             if (toggle.GetReproduction())
             {
                 ReproductionProcess();
             }
-            //trade
+            //trade - only if selected in toggle SO
             if (toggle.GetTrade())
             {
                 Trade();
@@ -516,27 +520,60 @@ public class Agent : MonoBehaviour
     //Only calls them when reproduction from toggle is set to true
     private void ReproductionProcess()
     {
+        // checks if there is an empty cell adjacent to current agent's cell
         Vector2Int currentEmpty = world.CheckEmptyCell(cellPosition.x, cellPosition.y);
+       
+        // produces list of potential partners (fertile agents of different sex) 
         List<Agent> potentialPartners = FindFertileNeighbours();
-            foreach (Agent partner in potentialPartners)
+
+        //refreshes list of agents mated with
+        agentReproductionList = new List<Agent>();
+
+        //for each potential partner
+        foreach (Agent partner in potentialPartners)
+        {
+            // go through list of agents that current agent has mated with and ensure that they haven't mated before
+            // probably don't really need this first if statement
+            if (agentReproductionList.Contains(partner))
             {
-                Vector2Int partnerEmpty = world.CheckEmptyCell(partner.cellPosition.x, partner.cellPosition.y);
+                print("1 already mated");
+                continue; //skips to next iteration of loop
+            }
+
+            if (partner.agentReproductionList != null && agentReproductionList.Contains(this))
+            {
+                print("2 already mated"); //why is it never picking this up?
+                continue; //skips to next iteration of loop
+            }
+
+            if (agentChildList.Contains(partner))
+            {
+                //print("child");
+                continue; //skips to next iteration of loop
+            }
             
-                //if either current agent or neighbour has an empty neighbouring cell
-                if (currentEmpty.x != -1 || partnerEmpty.x !=-1)
-                {
-                    //then reproduce
-                    //creates gameobject for child agent
-                    GameObject agentObj = CreateAgent.CreateAgentObject();
-                    //sets position for child on grid
-                    CreateAgent.GeneratePosition(agentObj, currentEmpty, partnerEmpty);
-                    //sets Agent component values
-                    CreateAgent.CreateAgentComponent(agentObj, this, partner);
+            // checks if there is an empty cell adjacent to the potential partner agent's cell
+            Vector2Int partnerEmpty = world.CheckEmptyCell(partner.cellPosition.x, partner.cellPosition.y);
+            
+            //if either current agent or neighbour has an empty neighbouring cell
+            if (currentEmpty.x != -1 || partnerEmpty.x !=-1)
+            {
+                //then reproduce
+                //creates gameobject for child agent
+                GameObject agentObj = CreateAgent.CreateAgentObject();
+                //sets position for child on grid
+                CreateAgent.GeneratePosition(agentObj, currentEmpty, partnerEmpty);
+                //sets Agent component values
+                Agent childCom = CreateAgent.CreateAgentComponent(agentObj, this, partner);
+                //adds partner to list of agents mated with
+                agentReproductionList.Add(partner);
+                //adds child to list of children
+                agentChildList.Add(childCom);
 
                 //agent reproduction was too much so for now have break in here, so it doesn't go through all
                 break;
-                }
             }
+        }
     }
 
     // Returns true if agent is currently fertile
@@ -570,7 +607,6 @@ public class Agent : MonoBehaviour
             if (agent.Fertile() == true && String.Equals(agent.GetSex(), this.GetSex()) == false)
             {
                 //adds to list
-                //fertileAgentList.Add(neighbour.gameObject.GetComponent<Agent>());
                 fertileAgentList.Add(agent);
             }
         }
@@ -585,9 +621,7 @@ public class Agent : MonoBehaviour
 //(this is what I would need to change if rules were unfair).
 //While all prices within the feasible range are " agreeable " to the agents, not all prices appear to be equally "fair." 
 //Prices near either end of the range would seem to be a better deal for one of the agents, particularly when the price range is very large. 
-//Following Albin and Foley [1990], we use as the exchange price the geometric mean of the endpoints of the feasible price range. 
-//price and quantity - see notes
-//Trade only happens if it makes both agents better off.
+
 //special care must be taken to avoid infinite loops in which a pair of agents alternates between being buyers and sellers of the same 
 //resource upon successive application of the trade rule.This is accomplished by forbidding the MRSs to cross over one another.
 

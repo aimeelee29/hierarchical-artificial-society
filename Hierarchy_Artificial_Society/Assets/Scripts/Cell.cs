@@ -34,13 +34,7 @@ public class Cell
         occupiedHarvest = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Growback();
-    }
-
-    private void Growback()
+    public void Growback()
     {
         //if there is no growback then do nothing
         if (growbackFactor == 0)
@@ -67,11 +61,6 @@ public class Cell
             else
                 curSpice += growbackFactor;
         }
-    }
-
-    void LateUpdate()
-    {
-        occupiedHarvest = false;
     }
 
     //Setters
@@ -108,12 +97,12 @@ public class Cell
 
     //Getters
 
-    public int GetSugar(int s)
+    public int GetSugar()
     {
         return curSugar;
     }
 
-    public int GetSpice(int s)
+    public int GetSpice()
     {
         return curSpice;
     }

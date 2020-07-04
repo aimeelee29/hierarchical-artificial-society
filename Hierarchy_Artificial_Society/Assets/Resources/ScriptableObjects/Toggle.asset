@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d73f7217ed873af498c58b58ad8b3b49, type: 3}
-  m_Name: New Toggle
+  m_Name: Toggle
   m_EditorClassIdentifier: 
-  reproduction: 0
+  reproduction: 1
   varyingPrefs: 0
   hierarchy: 0
+  trade: 1

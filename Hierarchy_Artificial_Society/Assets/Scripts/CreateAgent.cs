@@ -61,8 +61,8 @@ public static class CreateAgent
     }
 
     // Generates a position for agent to spawn to (GIVEN TWO VECTORS FROM TWO PARENTS). 
-    // Vectors represent free neighbouring cells to parent. If no free cell then will be (-1, -1)
-    public static void GeneratePosition(GameObject agentObj, Vector2Int freeVector1, Vector2Int freeVector2)
+    // freeVectors represent free neighbouring cells to parents. If parent has no free neighbouring cell then will be (-1, -1)
+    public static void GeneratePosition(GameObject childObj, Vector2Int freeVector1, Vector2Int freeVector2)
     {
         //if neither parent have a free neighbouring cell then return
         if (freeVector1.x == -1 && freeVector2.x == -1)
@@ -82,8 +82,10 @@ public static class CreateAgent
             x = freeVector2.x;
             y = freeVector2.y;
         }
-        agentObj.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
-        world.worldArray[x, y].SetAgent(agentObj);
+        //sets position to free vector chosen
+        childObj.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
+        //tells world that agent is in that cell
+        world.worldArray[x, y].SetAgent(childObj);
     }
 
     // Generates the Agent component for the object and sets values (RANDOM)
@@ -117,43 +119,50 @@ public static class CreateAgent
     }
 
     // Generates the Agent component for the object and sets values (GIVEN TWO PARENTS)
-    public static void CreateAgentComponent(GameObject obj, Agent parentOne, Agent parentTwo)
+    public static Agent CreateAgentComponent(GameObject agentObj, Agent parentOne, Agent parentTwo)
     {
         // adds Agent script and sets variables 
-        Agent agentCom = obj.AddComponent<Agent>();
+        Agent agentCom = agentObj.AddComponent<Agent>();
         // initial endowment is half of mother's + half of father's initial endowment
-        agentCom.sugar = parentOne.sugarInit / 2 + parentTwo.sugarInit / 2;
-        agentCom.spice = parentOne.spiceInit / 2 + parentTwo.sugarInit / 2;
+        agentCom.sugar = (parentOne.sugarInit / 2) + (parentTwo.sugarInit / 2);
+        agentCom.spice = (parentOne.spiceInit / 2) + (parentTwo.sugarInit / 2);
         agentCom.sugarInit = agentCom.sugar;
         agentCom.spiceInit = agentCom.spice;
-        if (Random.Range(1, 2) == 1)
+
+        //then randomely take one of parents' attributes
+        if (Random.Range(1, 3) == 1)
             agentCom.sugarMetabolism = parentOne.sugarMetabolism;
         else
             agentCom.sugarMetabolism = parentTwo.sugarMetabolism;
-        if (Random.Range(1, 2) == 1)
+        if (Random.Range(1, 3) == 1)
             agentCom.spiceMetabolism = parentOne.spiceMetabolism;
         else
             agentCom.spiceMetabolism = parentTwo.spiceMetabolism;
-        if (Random.Range(1, 2) == 1)
+        if (Random.Range(1, 3) == 1)
             agentCom.vision = parentOne.vision;
         else
             agentCom.vision = parentTwo.vision;
-        if (Random.Range(1, 2) == 1)
+        if (Random.Range(1, 3) == 1)
             agentCom.childBearingBegins = parentOne.childBearingBegins;
         else
             agentCom.childBearingBegins = parentTwo.childBearingBegins;
-        if (Random.Range(1, 2) == 1)
+        if (Random.Range(1, 3) == 1)
             agentCom.childBearingEnds = parentOne.childBearingEnds;
         else
             agentCom.childBearingEnds = parentTwo.childBearingEnds;
-        // sex is still random
-        if (Random.Range(1, 2) == 1)
+
+        // sex and lifespan is still random
+        int sex = Random.Range(1, 3);
+        if (sex == 1)
             agentCom.SetSex("Female");
-        else
+        else if (sex == 2)
             agentCom.SetSex("Male");
+        agentCom.lifespan = Random.Range(60, 101);
+        
         agentCom.isAlive = true;
-        agentCom.lifespan = Random.Range(60, 100);
         agentCom.age = 0;
+
+        return agentCom;
     }   
 }
 

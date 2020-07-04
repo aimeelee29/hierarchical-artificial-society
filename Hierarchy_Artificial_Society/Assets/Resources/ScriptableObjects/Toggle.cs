@@ -6,6 +6,7 @@ using UnityEngine;
 public class Toggle : ScriptableObject
 {
     //Ability to toggle things on and off
+    //persistent warning error when private and serializable so change these to public
     [SerializeField] private bool reproduction;
     [SerializeField] private bool varyingPrefs; // TBC: if I will include this
     [SerializeField] private bool hierarchy;
