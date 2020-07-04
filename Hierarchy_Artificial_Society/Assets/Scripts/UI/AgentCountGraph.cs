@@ -29,14 +29,15 @@ public class AgentCountGraph : MonoBehaviour
         pointRectTransform.anchorMax = new Vector2(0, 0);
     }
 
-    public void CreateGraph(List<int> graphPoints)
+    public void CreateGraph(List<int> graphPoints, int start, int end)
     {
         float graphHeight = plotArea.sizeDelta.y;
         float yMax = 2000f;
         float xSize = 10f;
-        for (int i = 0; i < graphPoints.Count; ++i)
+        
+        for (int i = start; i < graphPoints.Count; ++i)
         {
-            float x = i * xSize;
+            float x = (i%100) * xSize;             
             float y = (graphPoints[i] / yMax) * graphHeight;
             Circle(new Vector2(x, y));
         }

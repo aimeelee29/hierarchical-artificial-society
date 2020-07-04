@@ -41,9 +41,12 @@ public class AgentCount : MonoBehaviour
     {
         //call count method to count number of agents
         Count();
+
         //for graph display
-        if (agentCountList.agentCount.Count <= 100)
-            graphScript.CreateGraph(agentCountList.agentCount);
+        //specify start and end points for display (since we can only display 100 points at a time)
+        int start = (agentCountList.agentCount.Count / 100) * 100;
+        int end = start + 100;
+        graphScript.CreateGraph(agentCountList.agentCount, start, end);
     }
 
     public void Count()
