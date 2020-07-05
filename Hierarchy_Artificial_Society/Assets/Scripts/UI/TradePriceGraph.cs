@@ -32,7 +32,7 @@ public class TradePriceGraph : MonoBehaviour
     public void CreateGraph(List<double> graphPoints, int start, int end)
     {
         float graphHeight = plotArea.sizeDelta.y;
-        float yMax = 10f;
+        float yMax = 5f;
         float xSize = 10f;
 
         for (int i = start; i < graphPoints.Count; ++i)

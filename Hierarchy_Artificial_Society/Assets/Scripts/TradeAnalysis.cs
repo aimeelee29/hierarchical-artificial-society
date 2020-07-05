@@ -66,7 +66,7 @@ public class TradeAnalysis : MonoBehaviour
         graphScriptPrice.CreateGraph(avPriceClass.avPriceList, start, end);
         graphScriptQty.CreateGraph(quantityClass.quantityList, start, end);
 
-        Debug.Log(quantity);
+        //Debug.Log(quantity);
 
         // then reset price and qty
         price = 0;
