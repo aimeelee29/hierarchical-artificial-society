@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AgentCountGraph : MonoBehaviour
+public class TradeQtyGraph : MonoBehaviour
 {
     //area we will plot points on
     private RectTransform plotArea;
@@ -12,7 +12,7 @@ public class AgentCountGraph : MonoBehaviour
 
     void Awake()
     {
-        plotArea = transform.Find("Agent Count Plot Area").GetComponent<RectTransform>();
+        plotArea = transform.Find("Trade Qty Plot Area").GetComponent<RectTransform>();
     }
 
     private void Circle(Vector2 anchor)
@@ -32,12 +32,12 @@ public class AgentCountGraph : MonoBehaviour
     public void CreateGraph(List<int> graphPoints, int start, int end)
     {
         float graphHeight = plotArea.sizeDelta.y;
-        float yMax = 2000f;
+        float yMax = 200f;
         float xSize = 10f;
-        
+
         for (int i = start; i < graphPoints.Count; ++i)
         {
-            float x = (i % 100) * xSize;             
+            float x = (i % 100) * xSize;
             float y = (graphPoints[i] / yMax) * graphHeight;
             Circle(new Vector2(x, y));
         }

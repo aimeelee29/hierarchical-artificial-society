@@ -13,7 +13,9 @@ public class Agent : MonoBehaviour
     private GridLayout gridLayout;
     private Vector2Int cellPosition;
     //Need access to scriptable object Toggle to enable/disable certain things
-    [SerializeField] private static Toggle toggle;
+    private static Toggle toggle;
+    //Need access to TradeAnalysis to report on trade metrics
+    private static TradeAnalysis tradeAnalysis;
 
     // initial sugar and spice endowments. Used for reproduction
     public int sugarInit;
@@ -42,14 +44,18 @@ public class Agent : MonoBehaviour
     public int age;
     public bool isAlive;
 
+    // Neighbours - updated each time step (since even though there is no movement, some will be born and others will die)
+    // Used in both reproduction and trade
+    private List<Agent> neighbourAgentList;
+
     //attributes for reproduction
     public int childBearingBegins;
     public int childBearingEnds;
     private string sex;
     //List of agents that current agent has mated with for that time step.
-    List<Agent> agentReproductionList;
+    public List<Agent> agentReproductionList;
     //List of children
-    List<Agent> agentChildList;
+    public List<Agent> agentChildList;
 
     //hierarchy attributes
     private int dominance;
@@ -60,52 +66,43 @@ public class Agent : MonoBehaviour
     void Awake()
     {
         KnowWorld();
-        //Reference to SO Toggle so we can turn various things on and off in the model
+        // Reference to SO Toggle so we can turn various things on and off in the model
         toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
+        // Reference to TradeAnalysis
+        tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
         //empty list of agent's children
         agentChildList = new List<Agent>();
-    }
-
-    void Start()
-    {
-        //time until death for each commodity
-        timeUntilSugarDeath = sugar / sugarMetabolism;
-        timeUntilSpiceDeath = spice / spiceMetabolism;
-        if (timeUntilSugarDeath != 0)
-        {
-            MRS = timeUntilSpiceDeath / timeUntilSugarDeath;
-        }
-        else
-            MRS = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //update agent's age
+        //increase agent's age
         ++age;
 
         //decrease sugar & spice through metabolism
         sugar -= sugarMetabolism;
         spice -= spiceMetabolism;
 
+        //check for death
+        Death();
+
         //time until death for each commodity
         timeUntilSugarDeath = sugar / sugarMetabolism;
         timeUntilSpiceDeath = spice / spiceMetabolism;
-        if (timeUntilSugarDeath != 0)
+        if (timeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
         {
             MRS = timeUntilSpiceDeath / timeUntilSugarDeath;
         }
         else
             MRS = 0;
         
-        //check for death
-        Death();
-        
         if (isAlive)
         {
             //Look around and harvest food
             Harvest();
+            //find neighbouring agents 
+            neighbourAgentList = FindNeighbours();
             //reproduce - only if selected in toggle SO
             if (toggle.GetReproduction())
             {
@@ -376,7 +373,6 @@ public class Agent : MonoBehaviour
         spice += world.worldArray[pos.x, pos.y].DepleteSpice();
     }
 
-
     private List<Agent> FindNeighbours()
     {
         //Generate array of colliders within radius (set to vision)
@@ -394,7 +390,8 @@ public class Agent : MonoBehaviour
 
             //get agent from object and add to list
             Agent agent = neighbour.gameObject.GetComponent<Agent>();
-            neighbourAgentList.Add(agent);
+            if (agent.isAlive)
+                   neighbourAgentList.Add(agent);
         }
         return neighbourAgentList;
     }
@@ -407,9 +404,6 @@ public class Agent : MonoBehaviour
 
     private void Trade()
     {
-        //first get neighbours
-        List<Agent> neighbourAgentList = FindNeighbours();
-        
         //for every neighbour
         foreach (Agent neighbour in neighbourAgentList)
         {
@@ -418,30 +412,15 @@ public class Agent : MonoBehaviour
             // If MRSA = MRSB then no trade. Continue skips the loop
             if (this.GetMRS() == neighbourMRS)
                 continue;
-            //print(this.GetMRS() + "neighbour = " + neighbourMRS);
+
             // otherwise 
             // calculate price (geometric mean of the two MRSs)
-            double price = Math.Sqrt(this.GetMRS() * neighbourMRS);
+            double price = Price(this.GetMRS(), neighbourMRS);
 
             // vars for how many sugar units are traded for spice units (and vice versa)
-            int sugarUnits;
-            int spiceUnits;
-
-            // If price(p) > 1, p units of spice are exchanged for 1 unit of sugar.
-            if (price > 1)
-            {
-                //print("price>1");
-                sugarUnits = 1;
-                spiceUnits = (int)price;
-            }
-            // If p < 1, then 1 unit of spice is exchanged for p units of sugar
-            else
-            {
-                //print("price <1");
-                sugarUnits = (int)(1/price);
-                spiceUnits = 1;
-            }
-
+            int sugarUnits = SugarUnits(price);
+            int spiceUnits = SpiceUnits(price);
+                      
             double currentWelfareA = this.Welfare(0, 0);
             double currentWelfareB = neighbour.Welfare(0, 0);
 
@@ -467,12 +446,8 @@ public class Agent : MonoBehaviour
                         neighbour.sugar -= sugarUnits;
                         this.spice -= spiceUnits;
                         neighbour.spice += spiceUnits;
-                        /*
-                        print("traded");
-                        print("sugar units = " + sugarUnits);
-                        print("spice units = " + spiceUnits);
-                        */
-                        
+                        tradeAnalysis.AddToPrice(price);
+                        tradeAnalysis.IncrementQty();
                     }
                 }
             }
@@ -488,17 +463,14 @@ public class Agent : MonoBehaviour
                     double potentialMRSB = (neighbour.timeUntilSpiceDeath - spiceUnits) / (neighbour.timeUntilSugarDeath + sugarUnits);
 
                     if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB &&
-                        potentialMRSA >= potentialMRSB)
+                        potentialMRSA <= potentialMRSB)
                     {
                         this.sugar -= sugarUnits;
                         neighbour.sugar += sugarUnits;
                         this.spice += spiceUnits;
                         neighbour.spice -= spiceUnits;
-                        /*
-                        print("traded");
-                        print("sugar units = " + sugarUnits);
-                        print("spice units = " + spiceUnits);
-                        */
+                        tradeAnalysis.AddToPrice(price);
+                        tradeAnalysis.IncrementQty();
                     }
                 }
             }
@@ -508,6 +480,29 @@ public class Agent : MonoBehaviour
     private double Welfare(int x, int y)
     {
         return Math.Pow(x + sugar, (double)sugarMetabolism / (sugarMetabolism + spiceMetabolism)) * Math.Pow(y + spice, (double)spiceMetabolism / (sugarMetabolism + spiceMetabolism));
+    }
+
+    private double Price(double agent1MRS, double agent2MRS)
+    {
+        return Math.Sqrt(agent1MRS * agent2MRS);
+    }
+
+    private int SugarUnits(double p)
+    {
+        // If price(p) > 1, p units of spice are exchanged for 1 unit of sugar.
+        if (p > 1)
+            return 1;
+        // If p < 1, then 1 unit of spice is exchanged for p units of sugar
+        else
+            return (int)(1 / p);
+    }
+
+    private int SpiceUnits(double p)
+    {
+        if (p > 1)
+            return (int)p;
+        else
+            return 1;
     }
 
     /* 
@@ -532,26 +527,14 @@ public class Agent : MonoBehaviour
         //for each potential partner
         foreach (Agent partner in potentialPartners)
         {
-            // go through list of agents that current agent has mated with and ensure that they haven't mated before
-            // probably don't really need this first if statement
-            if (agentReproductionList.Contains(partner))
+            // go through list of agents that current agent has mated with and ensure that they haven't mated before and to ensure they don't mate with offspring
+            if (agentReproductionList.Contains(partner) ||
+               (partner.agentReproductionList != null && agentReproductionList.Contains(this)) ||
+                agentChildList.Contains(partner))
             {
-                print("1 already mated");
                 continue; //skips to next iteration of loop
             }
-
-            if (partner.agentReproductionList != null && agentReproductionList.Contains(this))
-            {
-                print("2 already mated"); //why is it never picking this up?
-                continue; //skips to next iteration of loop
-            }
-
-            if (agentChildList.Contains(partner))
-            {
-                //print("child");
-                continue; //skips to next iteration of loop
-            }
-            
+  
             // checks if there is an empty cell adjacent to the potential partner agent's cell
             Vector2Int partnerEmpty = world.CheckEmptyCell(partner.cellPosition.x, partner.cellPosition.y);
             
@@ -584,30 +567,18 @@ public class Agent : MonoBehaviour
 
     private List<Agent> FindFertileNeighbours()
     {
-        //Generate array of colliders within radius (set to vision)
-        Collider2D[] colliderList = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), vision);
-
         //Create empty List into which fertile agents of different sex will go
         List<Agent> fertileAgentList = new List<Agent>();
 
-        //stores sex of current agent (since 'this' will not work in the for each loop)
-        string sex = this.GetSex();
-
-        //goes through each collider within radius
-        foreach (Collider2D neighbour in colliderList)
+        //for every neighbour
+        foreach (Agent neighbour in neighbourAgentList)
         {
-            // if collider is not attached to an agent then skip that one (as overlapcircleall will also catch collider for tilemap) 
-            if (neighbour.tag != "Agent")
-                continue;
-
-            Agent agent = neighbour.gameObject.GetComponent<Agent>();
-
             //  makes sure agent is fertile and of different sex
             // the sex check also rules out an agent mating with itself
-            if (agent.Fertile() == true && String.Equals(agent.GetSex(), this.GetSex()) == false)
+            if (neighbour.Fertile() && String.Equals(neighbour.GetSex(), this.GetSex()) == false)
             {
                 //adds to list
-                fertileAgentList.Add(agent);
+                fertileAgentList.Add(neighbour);
             }
         }
         return fertileAgentList;
@@ -615,15 +586,13 @@ public class Agent : MonoBehaviour
 }
 
 
+
 //trading
 
 //The ratio of the spice to sugar quantities exchanged is simply the price. This price must, of necessity , fall in the range [MRSA , MRSB]. 
-//(this is what I would need to change if rules were unfair).
+//( change if rules were unfair?).
 //While all prices within the feasible range are " agreeable " to the agents, not all prices appear to be equally "fair." 
 //Prices near either end of the range would seem to be a better deal for one of the agents, particularly when the price range is very large. 
-
-//special care must be taken to avoid infinite loops in which a pair of agents alternates between being buyers and sellers of the same 
-//resource upon successive application of the trade rule.This is accomplished by forbidding the MRSs to cross over one another.
 
 //When an agent following M moves to a new location it has from 0 to 4 (von Neumann) neighbors. 
 //It interacts through T exactly once with each of its neighbors, selected in random order.

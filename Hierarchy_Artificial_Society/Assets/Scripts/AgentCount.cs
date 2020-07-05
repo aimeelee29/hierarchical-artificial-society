@@ -7,14 +7,10 @@ using System.Xml.Serialization;
 using System.IO; //file management
 
 public class AgentCount : MonoBehaviour
-{
-
+{ 
     //Want to display on a graph
     private GameObject graph;
     private AgentCountGraph graphScript;
-
-    //Count that gets updated each time - for XML file so we can use append
-    public int count;
 
     //instance of AgentCountList class which holds list - needs to be its own class for serialisation
     AgentCountList agentCountList;
@@ -51,10 +47,8 @@ public class AgentCount : MonoBehaviour
 
     public void Count()
     {
-        //count of agents
-        count = GameObject.FindGameObjectsWithTag("Agent").Length;
-        //add count to the list
-        agentCountList.agentCount.Add(count);
+        //add count of agents to the list
+        agentCountList.agentCount.Add(GameObject.FindGameObjectsWithTag("Agent").Length);
     }
 
     public void SaveXML()
