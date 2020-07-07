@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,8 +46,8 @@ public static class CreateAgent
     public static void GeneratePosition(GameObject agentObj)
     {
         //generate random grid position
-        int x = Random.Range(0, world.GetRows() - 1);
-        int y = Random.Range(0, world.GetCols() - 1);
+        int x = UnityEngine.Random.Range(0, world.GetRows() - 1);
+        int y = UnityEngine.Random.Range(0, world.GetCols() - 1);
 
         //if no agent currently in that position then set transform to that position
         if (world.checkAgent(x, y) == false)
@@ -95,24 +96,24 @@ public static class CreateAgent
         Agent agentCom = obj.AddComponent<Agent>();
         //assigns variables below.
         //TODO - finish this. And also use values used for trading section of sugarscape. Am putting in dummy values currently.
-        agentCom.sugar = Random.Range(25, 51); // max exclusive
-        agentCom.spice = Random.Range(25, 51);
-        agentCom.sugarInit = agentCom.sugar;
-        agentCom.spiceInit = agentCom.spice;
-        agentCom.sugarMetabolism = Random.Range(1, 6);
-        agentCom.spiceMetabolism = Random.Range(1, 6);
-        agentCom.vision = Random.Range(1, 6);
-        int sex = Random.Range(1, 3);
+        agentCom.Sugar = UnityEngine.Random.Range(25, 51); // max exclusive
+        agentCom.Spice = UnityEngine.Random.Range(25, 51);
+        agentCom.SugarInit = agentCom.Sugar;
+        agentCom.SpiceInit = agentCom.Spice;
+        agentCom.SugarMetabolism = UnityEngine.Random.Range(1, 6);
+        agentCom.SpiceMetabolism = UnityEngine.Random.Range(1, 6);
+        agentCom.VisionHarvest = UnityEngine.Random.Range(1, 6);
+        int sex = UnityEngine.Random.Range(1, 3);
         if (sex == 1)
-            agentCom.SetSex("Female");
+            agentCom.Sex = SexEnum.Female;
         else if(sex == 2)
-            agentCom.SetSex("Male");
-        agentCom.isAlive = true;
-        agentCom.childBearingBegins = Random.Range(12, 16);
-        agentCom.childBearingEnds = Random.Range(35, 46);
-        int lifespan = Random.Range(60, 101);
-        agentCom.lifespan = lifespan;
-        agentCom.age = Random.Range(1, lifespan + 1);
+            agentCom.Sex = SexEnum.Male;
+        agentCom.IsAlive = true;
+        agentCom.ChildBearingBegins = UnityEngine.Random.Range(12, 16);
+        agentCom.ChildBearingEnds = UnityEngine.Random.Range(35, 46);
+        int lifespan = UnityEngine.Random.Range(60, 101);
+        agentCom.Lifespan = lifespan;
+        agentCom.Age = UnityEngine.Random.Range(1, lifespan + 1);
         //agentCom.dominance =
         //agentCom.influence = 
         return agentCom;
@@ -124,43 +125,42 @@ public static class CreateAgent
         // adds Agent script and sets variables 
         Agent agentCom = agentObj.AddComponent<Agent>();
         // initial endowment is half of mother's + half of father's initial endowment
-        agentCom.sugar = (parentOne.sugarInit / 2) + (parentTwo.sugarInit / 2);
-        agentCom.spice = (parentOne.spiceInit / 2) + (parentTwo.sugarInit / 2);
-        agentCom.sugarInit = agentCom.sugar;
-        agentCom.spiceInit = agentCom.spice;
+        agentCom.Sugar = (parentOne.SugarInit / 2) + (parentTwo.SugarInit / 2);
+        agentCom.Spice = (parentOne.SpiceInit / 2) + (parentTwo.SugarInit / 2);
+        agentCom.SugarInit = agentCom.Sugar;
+        agentCom.SpiceInit = agentCom.Spice;
 
         //then randomely take one of parents' attributes
-        if (Random.Range(1, 3) == 1)
-            agentCom.sugarMetabolism = parentOne.sugarMetabolism;
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            agentCom.SugarMetabolism = parentOne.SugarMetabolism;
         else
-            agentCom.sugarMetabolism = parentTwo.sugarMetabolism;
-        if (Random.Range(1, 3) == 1)
-            agentCom.spiceMetabolism = parentOne.spiceMetabolism;
+            agentCom.SugarMetabolism = parentTwo.SugarMetabolism;
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            agentCom.SpiceMetabolism = parentOne.SpiceMetabolism;
         else
-            agentCom.spiceMetabolism = parentTwo.spiceMetabolism;
-        if (Random.Range(1, 3) == 1)
-            agentCom.vision = parentOne.vision;
+            agentCom.SpiceMetabolism = parentTwo.SpiceMetabolism;
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            agentCom.VisionHarvest = parentOne.VisionHarvest;
         else
-            agentCom.vision = parentTwo.vision;
-        if (Random.Range(1, 3) == 1)
-            agentCom.childBearingBegins = parentOne.childBearingBegins;
+            agentCom.VisionHarvest = parentTwo.VisionHarvest;
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            agentCom.ChildBearingBegins = parentOne.ChildBearingBegins;
         else
-            agentCom.childBearingBegins = parentTwo.childBearingBegins;
-        if (Random.Range(1, 3) == 1)
-            agentCom.childBearingEnds = parentOne.childBearingEnds;
+            agentCom.ChildBearingBegins = parentTwo.ChildBearingBegins;
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            agentCom.ChildBearingEnds = parentOne.ChildBearingEnds;
         else
-            agentCom.childBearingEnds = parentTwo.childBearingEnds;
+            agentCom.ChildBearingEnds = parentTwo.ChildBearingEnds;
 
         // sex and lifespan is still random
-        int sex = Random.Range(1, 3);
+        int sex = UnityEngine.Random.Range(1, 3);
         if (sex == 1)
-            agentCom.SetSex("Female");
+            agentCom.Sex = SexEnum.Female;
         else if (sex == 2)
-            agentCom.SetSex("Male");
-        agentCom.lifespan = Random.Range(60, 101);
-        
-        agentCom.isAlive = true;
-        agentCom.age = 0;
+            agentCom.Sex = SexEnum.Male;
+        agentCom.Lifespan = UnityEngine.Random.Range(60, 101);
+        agentCom.IsAlive = true;
+        agentCom.Age = 0;
 
         return agentCom;
     }   

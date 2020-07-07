@@ -23,14 +23,15 @@ public class NeighbourVision : MonoBehaviour
     void Update()
     {
         // Sets the agent's neighbour list 
-        agent.SetNeighbours(FindNeighbours());
+        agent.NeighbourAgentList = FindNeighbours();
     }
 
     // Method to find neighbours
     private List<Agent> FindNeighbours()
     {
         //Generate array of colliders within radius (set to vision)
-        Collider2D[] colliderList = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), agent.GetVisionNeighbour());
+        //does transform need to ome from agent??
+        Collider2D[] colliderList = Physics2D.OverlapCircleAll(new Vector2(agent.transform.position.x, agent.transform.position.y), agent.VisionNeighbour);
 
         //Create empty List
         List<Agent> neighbourAgentList = new List<Agent>();
@@ -44,7 +45,7 @@ public class NeighbourVision : MonoBehaviour
 
             //get agent from object and add to list
             Agent agent = neighbour.gameObject.GetComponent<Agent>();
-            if (agent.isAlive)
+            if (agent.IsAlive)
                 neighbourAgentList.Add(agent);
         }
         return neighbourAgentList;

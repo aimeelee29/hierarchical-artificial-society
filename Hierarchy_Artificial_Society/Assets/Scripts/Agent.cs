@@ -60,9 +60,7 @@ public class Agent : MonoBehaviour
     //attributes for reproduction
     private int childBearingBegins;
     private int childBearingEnds;
-    private string sex;
-
-    enum SexEnum {Male, Female};
+    private SexEnum sex;
 
     //List of agents that current agent has mated with for that time step.
     private List<Agent> agentReproductionList;
@@ -74,7 +72,7 @@ public class Agent : MonoBehaviour
     private double timeUntilSpiceDeath;
     // marginal rate of substitution(MRS). An agent's MRS of spice for sugar is the amount of spice the agent considers to be as valuable as 
     // one unit of sugar, that is, the value of sugar in units of spice . 
-    private double MRS;
+    private double mrs;
 
     //hierarchy attributes
     private int dominance;
@@ -94,21 +92,22 @@ public class Agent : MonoBehaviour
     public int SpiceMetabolism { get => spiceMetabolism; set => spiceMetabolism = value; }
     public int VisionHarvest { get => visionHarvest; set => visionHarvest = value; } //may not need 
     public int VisionNeighbour { get => visionNeighbour; set => visionNeighbour = value; }
-    public int Lifespan { get => lifespan; set => lifespan = value; }
+    public int Lifespan { get => lifespan; set => lifespan = value; } //may not need 
     public int Age { get => age; set => age = value; }
     public bool IsAlive { get => isAlive; set => isAlive = value; }
     public List<Agent> NeighbourAgentList { get => neighbourAgentList; set => neighbourAgentList = value; }
     public int ChildBearingBegins { get => childBearingBegins; set => childBearingBegins = value; }
     public int ChildBearingEnds { get => childBearingEnds; set => childBearingEnds = value; }
-    public string Sex { get => sex; set => sex = value; }
+    public SexEnum Sex { get => sex; set => sex = value; }
     public List<Agent> AgentReproductionList { get => agentReproductionList; set => agentReproductionList = value; }
     public List<Agent> AgentChildList { get => agentChildList; set => agentChildList = value; }
     public double TimeUntilSugarDeath { get => timeUntilSugarDeath; set => timeUntilSugarDeath = value; }
     public double TimeUntilSpiceDeath { get => timeUntilSpiceDeath; set => timeUntilSpiceDeath = value; }
-    public double MRS1 { get => MRS; set => MRS = value; }
+    public double MRS { get => MRS; set => MRS = value; }
     public int Dominance { get => dominance; set => dominance = value; }
     public int Influence { get => influence; set => influence = value; }
     public int HierarchyScore { get => hierarchyScore; set => hierarchyScore = value; }
+    public Vector2Int CellPosition { get => cellPosition; set => cellPosition = value; }
 
     void Awake()
     {
@@ -147,10 +146,10 @@ public class Agent : MonoBehaviour
             TimeUntilSpiceDeath = Spice / SpiceMetabolism;
             if (TimeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
             {
-                MRS1 = TimeUntilSpiceDeath / TimeUntilSugarDeath;
+                MRS = TimeUntilSpiceDeath / TimeUntilSugarDeath;
             }
             else
-                MRS1 = 0;
+                MRS = 0;
 
             /*
             //find neighbouring agents 
@@ -230,16 +229,16 @@ public class Agent : MonoBehaviour
     //Agent will die if it reaches its lifespan or runs out of either sugar or spice
     public void Death()
     {
-        if (IsAlive && (Age == Lifespan || Sugar <= 0 || Spice <= 0))
+        if (isAlive && (age == lifespan || sugar <= 0 || spice <= 0))
         {
-            IsAlive = false;
+            isAlive = false;
             Destroy(gameObject);
         }
     }
 
     public double Welfare(int x, int y)
     {
-        return Math.Pow(x + Sugar, (double)SugarMetabolism / (SugarMetabolism + SpiceMetabolism)) * Math.Pow(y + Spice, (double)SpiceMetabolism / (SugarMetabolism + SpiceMetabolism));
+        return Math.Pow(x + sugar, (double)sugarMetabolism / (sugarMetabolism + spiceMetabolism)) * Math.Pow(y + spice, (double)spiceMetabolism / (sugarMetabolism + spiceMetabolism));
     }
 
 
@@ -254,14 +253,14 @@ public class Agent : MonoBehaviour
         // i.e. must increment y value of array (up)
 
         //if vision pushes you over the grid boundary to the north
-        if (cellPosition.y + vision > world.GetRows() - 1)
+        if (cellPosition.y + visionHarvest > world.GetRows() - 1)
         {
             temp = world.GetRows() - 1;
-            leftover = cellPosition.y + vision - world.GetRows();
+            leftover = cellPosition.y + visionHarvest - world.GetRows();
         }
         else
         {
-            temp = cellPosition.y + vision;
+            temp = cellPosition.y + visionHarvest;
             leftover = 0;
         }
 
@@ -272,7 +271,7 @@ public class Agent : MonoBehaviour
             if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
             {
                 //if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
+                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(cellPosition.x, i);
@@ -289,7 +288,7 @@ public class Agent : MonoBehaviour
                 if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
                 {
                     //if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
+                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(cellPosition.x, i);
@@ -303,14 +302,14 @@ public class Agent : MonoBehaviour
         // i.e. must increment y value of array (down)
 
         // if vision pushes you over the grid boundary to the south
-        if (cellPosition.y - vision < 0)
+        if (cellPosition.y - visionHarvest < 0)
         {
             temp = 0;
-            leftover = vision - cellPosition.y;
+            leftover = visionHarvest - cellPosition.y;
         }
         else
         {
-            temp = cellPosition.y - vision;
+            temp = cellPosition.y - visionHarvest;
             leftover = 0;
         }
 
@@ -320,7 +319,7 @@ public class Agent : MonoBehaviour
             if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
             {
                 // if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
+                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(cellPosition.x, i);
@@ -338,7 +337,7 @@ public class Agent : MonoBehaviour
                 if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
                 {
                     // if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
+                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(cellPosition.x, i);
@@ -352,14 +351,14 @@ public class Agent : MonoBehaviour
         // i.e. must increment x value of array (up)
 
         //if vision pushes you over the grid boundary to the east
-        if (cellPosition.x + vision > world.GetCols() - 1)
+        if (cellPosition.x + visionHarvest > world.GetCols() - 1)
         {
             temp = world.GetCols() - 1;
-            leftover = cellPosition.x + vision - world.GetCols();
+            leftover = cellPosition.x + visionHarvest - world.GetCols();
         }
         else
         {
-            temp = cellPosition.x + vision;
+            temp = cellPosition.x + visionHarvest;
             leftover = 0;
         }
 
@@ -370,7 +369,7 @@ public class Agent : MonoBehaviour
             if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
             {
                 //if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
+                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(i, cellPosition.y);
@@ -387,7 +386,7 @@ public class Agent : MonoBehaviour
                 if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
                 {
                     //if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
+                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(i, cellPosition.y);
@@ -400,14 +399,14 @@ public class Agent : MonoBehaviour
         // LOOK WEST i.e. must increment x value of array (down)
 
         // if vision pushes you over the grid boundary to the west
-        if (cellPosition.x - vision < 0)
+        if (cellPosition.x - visionHarvest < 0)
         {
             temp = 0;
-            leftover = vision - cellPosition.x;
+            leftover = visionHarvest - cellPosition.x;
         }
         else
         {
-            temp = cellPosition.x - vision;
+            temp = cellPosition.x - visionHarvest;
             leftover = 0;
         }
 
@@ -417,7 +416,7 @@ public class Agent : MonoBehaviour
             if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
             {
                 // if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
+                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(i, cellPosition.y);
@@ -435,7 +434,7 @@ public class Agent : MonoBehaviour
                 if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
                 {
                     // if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
+                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(i, cellPosition.y);
@@ -448,14 +447,15 @@ public class Agent : MonoBehaviour
         //set agent as harvesting that cell
         world.worldArray[pos.x, pos.y].SetOccupied(true);
         //agent harvests as much as possible from cell
-        Sugar += world.worldArray[pos.x, pos.y].DepleteSugar();
-        Spice += world.worldArray[pos.x, pos.y].DepleteSpice();
+        sugar += world.worldArray[pos.x, pos.y].DepleteSugar();
+        spice += world.worldArray[pos.x, pos.y].DepleteSpice();
     }
 
 
 
 }
 
+public enum SexEnum { Male, Female };
 
 
 

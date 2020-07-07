@@ -30,15 +30,15 @@ public class Trade : MonoBehaviour
     private void MakeTrade()
     {
         //for every neighbour
-        foreach (Agent neighbour in agent.GetNeighbourAgentList())
+        foreach (Agent neighbour in agent.NeighbourAgentList)
         {
             // If MRSA = MRSB then no trade. Continue skips that iteration of the loop
-            if (agent.GetMRS() == neighbour.GetMRS())
+            if (agent.MRS == neighbour.MRS)
                 continue;
 
             // otherwise 
             // calculate price (geometric mean of the two MRSs)
-            double price = Price(agent.GetMRS(), neighbour.GetMRS());
+            double price = Price(agent.MRS, neighbour.MRS);
 
             // vars for how many sugar units are traded for spice units (and vice versa)
             int sugarUnits = SugarUnits(price);
@@ -48,7 +48,7 @@ public class Trade : MonoBehaviour
             double currentWelfareB = neighbour.Welfare(0, 0);
 
             // If MRSA > MRSB then agent A buys sugar, sells spice (A considers sugar to be relatively more valuable than agent B)
-            if (agent.GetMRS() > neighbour.GetMRS())
+            if (agent.MRS > neighbour.MRS)
             {
                 // If this trade will:
                 // (a) make both agents better off(increases the welfare of both agents), and
@@ -57,18 +57,18 @@ public class Trade : MonoBehaviour
                 double potentialWelfareA = agent.Welfare(sugarUnits, -spiceUnits);
                 double potentialWelfareB = neighbour.Welfare(-sugarUnits, spiceUnits);
 
-                if (neighbour.GetTimeUntilSugarDeath() - sugarUnits > 0)
+                if (neighbour.TimeUntilSugarDeath - sugarUnits > 0)
                 {
-                    double potentialMRSA = (agent.GetTimeUntilSpiceDeath() - spiceUnits) / (agent.GetTimeUntilSugarDeath() + sugarUnits);
-                    double potentialMRSB = (neighbour.GetTimeUntilSpiceDeath() + spiceUnits) / (neighbour.GetTimeUntilSugarDeath() - sugarUnits);
+                    double potentialMRSA = (agent.TimeUntilSpiceDeath - spiceUnits) / (agent.TimeUntilSugarDeath + sugarUnits);
+                    double potentialMRSB = (neighbour.TimeUntilSpiceDeath + spiceUnits) / (neighbour.TimeUntilSugarDeath - sugarUnits);
 
                     if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB &&
                         potentialMRSA >= potentialMRSB)
                     {
-                        agent.sugar += sugarUnits;
-                        neighbour.sugar -= sugarUnits;
-                        agent.spice -= spiceUnits;
-                        neighbour.spice += spiceUnits;
+                        agent.Sugar += sugarUnits;
+                        neighbour.Sugar -= sugarUnits;
+                        agent.Spice -= spiceUnits;
+                        neighbour.Spice += spiceUnits;
                         tradeAnalysis.AddToPrice(price);
                         tradeAnalysis.IncrementQty();
                     }
@@ -80,18 +80,18 @@ public class Trade : MonoBehaviour
                 double potentialWelfareA = agent.Welfare(-sugarUnits, +spiceUnits);
                 double potentialWelfareB = neighbour.Welfare(+sugarUnits, -spiceUnits);
 
-                if (agent.GetTimeUntilSugarDeath() - sugarUnits > 0)
+                if (agent.TimeUntilSugarDeath - sugarUnits > 0)
                 {
-                    double potentialMRSA = (agent.GetTimeUntilSpiceDeath() + spiceUnits) / (agent.GetTimeUntilSugarDeath() - sugarUnits);
-                    double potentialMRSB = (neighbour.GetTimeUntilSpiceDeath() - spiceUnits) / (neighbour.GetTimeUntilSugarDeath() + sugarUnits);
+                    double potentialMRSA = (agent.TimeUntilSpiceDeath + spiceUnits) / (agent.TimeUntilSugarDeath - sugarUnits);
+                    double potentialMRSB = (neighbour.TimeUntilSpiceDeath - spiceUnits) / (neighbour.TimeUntilSugarDeath + sugarUnits);
 
                     if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB &&
                         potentialMRSA <= potentialMRSB)
                     {
-                        agent.sugar -= sugarUnits;
-                        neighbour.sugar += sugarUnits;
-                        agent.spice += spiceUnits;
-                        neighbour.spice -= spiceUnits;
+                        agent.Sugar -= sugarUnits;
+                        neighbour.Sugar += sugarUnits;
+                        agent.Spice += spiceUnits;
+                        neighbour.Spice -= spiceUnits;
                         tradeAnalysis.AddToPrice(price);
                         tradeAnalysis.IncrementQty();
                     }
