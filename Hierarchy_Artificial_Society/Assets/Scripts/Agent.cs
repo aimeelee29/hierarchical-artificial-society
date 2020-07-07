@@ -3,31 +3,71 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ *  Main Agent class
+ *  
+ */
+
 public class Agent : MonoBehaviour
 {
-    //The following GameObjects are assigned in the KnowWorld() function. 
-    //They represent the world/environment. The agent will need to communicate with these.
-    private GameObject objWorld;
-    private GameObject objGrid;
+    /*
+     * REFERENCES
+     */
+
+    //The following variables are assigned in the KnowWorld() function. 
+    //They represent the world/environment - The agent will need to communicate with these.
     private World world;
     private GridLayout gridLayout;
     private Vector2Int cellPosition;
     //Need access to scriptable object Toggle to enable/disable certain things
     private static Toggle toggle;
-    //Need access to TradeAnalysis to report on trade metrics
-    private static TradeAnalysis tradeAnalysis;
+
+    /* 
+     * AGENT VARIABLES
+     */
 
     // initial sugar and spice endowments. Used for reproduction
-    public int sugarInit;
-    public int spiceInit;
+    private int sugarInit;
+    private int spiceInit;
 
     // sugar and spice accumulations
-    public int sugar;
-    public int spice;
+    private int sugar;
+    private int spice;
 
     // Metabolisms - how much sugar and spice the agent 'burns off' each time step
-    public int sugarMetabolism;
-    public int spiceMetabolism;
+    private int sugarMetabolism;
+    private int spiceMetabolism;
+
+    //How far they can 'see' to eat sugar/spice (in number of cells)
+    private int visionHarvest;
+    // How far an agent can 'see' to reproduce and trade
+    private int visionNeighbour;
+
+    //Agent's lifespan (in time steps), age and flag for whether they are alive
+    private int lifespan;
+    private int age;
+    private bool isAlive;
+
+    // variables to store info on best location - initially set to current cell position values
+    // used in Harvest
+    private Vector2Int pos;
+    private double maxWelfare;
+
+    // Neighbours - updated each time step (since even though there is no movement, some will be born and others will die)
+    private List<Agent> neighbourAgentList;
+
+    //attributes for reproduction
+    private int childBearingBegins;
+    private int childBearingEnds;
+    private string sex;
+
+    enum SexEnum {Male, Female};
+
+    //List of agents that current agent has mated with for that time step.
+    private List<Agent> agentReproductionList;
+    //List of children
+    private List<Agent> agentChildList;
 
     // Time until death by sugar and spice. Needed for trading.
     private double timeUntilSugarDeath;
@@ -36,71 +76,83 @@ public class Agent : MonoBehaviour
     // one unit of sugar, that is, the value of sugar in units of spice . 
     private double MRS;
 
-    //How far they can 'see' to eat sugar/spice (in number of cells)
-    public int vision;
-
-    //Agent's lifespan (in time steps), age and flag for whether they are alive
-    public int lifespan;
-    public int age;
-    public bool isAlive;
-
-    // Neighbours - updated each time step (since even though there is no movement, some will be born and others will die)
-    // Used in both reproduction and trade
-    private List<Agent> neighbourAgentList;
-
-    //attributes for reproduction
-    public int childBearingBegins;
-    public int childBearingEnds;
-    private string sex;
-    //List of agents that current agent has mated with for that time step.
-    public List<Agent> agentReproductionList;
-    //List of children
-    public List<Agent> agentChildList;
-
     //hierarchy attributes
     private int dominance;
     private int influence;
     //others go here - will use wealth, vision
     private int hierarchyScore;
 
+    /*
+     * GETTERS AND SETTERS
+     */
+
+    public int SugarInit { get => sugarInit; set => sugarInit = value; }
+    public int SpiceInit { get => spiceInit; set => spiceInit = value; }
+    public int Sugar { get => sugar; set => sugar = value; }
+    public int Spice { get => spice; set => spice = value; }
+    public int SugarMetabolism { get => sugarMetabolism; set => sugarMetabolism = value; }
+    public int SpiceMetabolism { get => spiceMetabolism; set => spiceMetabolism = value; }
+    public int VisionHarvest { get => visionHarvest; set => visionHarvest = value; } //may not need 
+    public int VisionNeighbour { get => visionNeighbour; set => visionNeighbour = value; }
+    public int Lifespan { get => lifespan; set => lifespan = value; }
+    public int Age { get => age; set => age = value; }
+    public bool IsAlive { get => isAlive; set => isAlive = value; }
+    public List<Agent> NeighbourAgentList { get => neighbourAgentList; set => neighbourAgentList = value; }
+    public int ChildBearingBegins { get => childBearingBegins; set => childBearingBegins = value; }
+    public int ChildBearingEnds { get => childBearingEnds; set => childBearingEnds = value; }
+    public string Sex { get => sex; set => sex = value; }
+    public List<Agent> AgentReproductionList { get => agentReproductionList; set => agentReproductionList = value; }
+    public List<Agent> AgentChildList { get => agentChildList; set => agentChildList = value; }
+    public double TimeUntilSugarDeath { get => timeUntilSugarDeath; set => timeUntilSugarDeath = value; }
+    public double TimeUntilSpiceDeath { get => timeUntilSpiceDeath; set => timeUntilSpiceDeath = value; }
+    public double MRS1 { get => MRS; set => MRS = value; }
+    public int Dominance { get => dominance; set => dominance = value; }
+    public int Influence { get => influence; set => influence = value; }
+    public int HierarchyScore { get => hierarchyScore; set => hierarchyScore = value; }
+
     void Awake()
     {
         KnowWorld();
         // Reference to SO Toggle so we can turn various things on and off in the model
         toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
-        // Reference to TradeAnalysis
-        tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
-        //empty list of agent's children
-        agentChildList = new List<Agent>();
-    }
+        
+        // empty list of agent's children
+        AgentChildList = new List<Agent>();
+        // 
+        pos = cellPosition;
+        maxWelfare = world.worldArray[cellPosition.x, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
+}
 
     // Update is called once per frame
     void Update()
     {
         //increase agent's age
-        ++age;
+        ++Age;
 
         //decrease sugar & spice through metabolism
-        sugar -= sugarMetabolism;
-        spice -= spiceMetabolism;
+        Sugar -= SugarMetabolism;
+        Spice -= SpiceMetabolism;
 
         //check for death
         Death();
 
-        //time until death for each commodity
-        timeUntilSugarDeath = sugar / sugarMetabolism;
-        timeUntilSpiceDeath = spice / spiceMetabolism;
-        if (timeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
-        {
-            MRS = timeUntilSpiceDeath / timeUntilSugarDeath;
-        }
-        else
-            MRS = 0;
-        
-        if (isAlive)
+             
+        if (IsAlive)
         {
             //Look around and harvest food
             Harvest();
+
+            //time until death for each commodity
+            TimeUntilSugarDeath = Sugar / SugarMetabolism;
+            TimeUntilSpiceDeath = Spice / SpiceMetabolism;
+            if (TimeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
+            {
+                MRS1 = TimeUntilSpiceDeath / TimeUntilSugarDeath;
+            }
+            else
+                MRS1 = 0;
+
+            /*
             //find neighbouring agents 
             neighbourAgentList = FindNeighbours();
             //reproduce - only if selected in toggle SO
@@ -113,17 +165,25 @@ public class Agent : MonoBehaviour
             {
                 Trade();
             }  
+            */
         }
     }
 
+    
     /*
-     * 
-     * GETTERS AND SETTERS
-     * 
-     */
     public void SetSex(string s)
     {
         sex = s;
+    }
+
+    public void SetNeighbours(List<Agent> neighbours)
+    {
+        neighbourAgentList = neighbours;
+    }
+
+    public Vector2Int GetCellPosition()
+    {
+        return cellPosition;
     }
 
     public string GetSex()
@@ -136,37 +196,56 @@ public class Agent : MonoBehaviour
         return MRS;
     }
 
+    public int GetVisionNeighbour()
+    {
+        return VisionNeighbour;
+    }
+
+    public List<Agent> GetNeighbourAgentList()
+    {
+        return neighbourAgentList;
+    }
+
+    public double GetTimeUntilSugarDeath()
+    {
+        return timeUntilSugarDeath;
+    }
+
+    public double GetTimeUntilSpiceDeath()
+    {
+        return timeUntilSpiceDeath;
+    }
+    */
+
     //this method enables the Agent to communicate with its surroundings
     public void KnowWorld()
     {
-        //Assign GameObjects through Find. 
-        objWorld = GameObject.Find("World");
-        objGrid = GameObject.Find("Grid");
         //Need access to the script attached to World GameObject
-        world = objWorld.GetComponent<World>();
-        //Need access to the GridLayout component to be able to convert World location to cell location
-        gridLayout = objGrid.GetComponent<GridLayout>();
+        world = GameObject.Find("World").GetComponent<World>();
+        //Need access to the GridLayout component of Grid to be able to convert World location to cell location
+        gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
         cellPosition = new Vector2Int(gridLayout.WorldToCell(transform.position).x, gridLayout.WorldToCell(transform.position).y);
     }
 
     //Agent will die if it reaches its lifespan or runs out of either sugar or spice
     public void Death()
     {
-        if (isAlive && (age == lifespan || sugar <= 0 || spice <= 0))
+        if (IsAlive && (Age == Lifespan || Sugar <= 0 || Spice <= 0))
         {
-            isAlive = false;
+            IsAlive = false;
             Destroy(gameObject);
         }
     }
 
+    public double Welfare(int x, int y)
+    {
+        return Math.Pow(x + Sugar, (double)SugarMetabolism / (SugarMetabolism + SpiceMetabolism)) * Math.Pow(y + Spice, (double)SpiceMetabolism / (SugarMetabolism + SpiceMetabolism));
+    }
+
+
     // Agent will need to find sugar/spice to 'eat' from surroundings.
     public void Harvest()
     {
-        // variables to store info on best location - initially set to current cell position values
-        // used for LookAround and eat
-        Vector2Int pos = cellPosition;
-        double maxWelfare = world.worldArray[cellPosition.x, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
-
         //variables to keep track of how to iterate loop (to cope with agents situated at edges)
         int temp;
         int leftover;
@@ -193,7 +272,7 @@ public class Agent : MonoBehaviour
             if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
             {
                 //if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(cellPosition.x, i);
@@ -210,7 +289,7 @@ public class Agent : MonoBehaviour
                 if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
                 {
                     //if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(cellPosition.x, i);
@@ -241,7 +320,7 @@ public class Agent : MonoBehaviour
             if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
             {
                 // if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(cellPosition.x, i);
@@ -259,7 +338,7 @@ public class Agent : MonoBehaviour
                 if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
                 {
                     // if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(cellPosition.x, i);
@@ -291,7 +370,7 @@ public class Agent : MonoBehaviour
             if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
             {
                 //if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(i, cellPosition.y);
@@ -308,7 +387,7 @@ public class Agent : MonoBehaviour
                 if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
                 {
                     //if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(i, cellPosition.y);
@@ -338,7 +417,7 @@ public class Agent : MonoBehaviour
             if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
             {
                 // if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(i, cellPosition.y);
@@ -356,7 +435,7 @@ public class Agent : MonoBehaviour
                 if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
                 {
                     // if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(i, cellPosition.y);
@@ -369,230 +448,14 @@ public class Agent : MonoBehaviour
         //set agent as harvesting that cell
         world.worldArray[pos.x, pos.y].SetOccupied(true);
         //agent harvests as much as possible from cell
-        sugar += world.worldArray[pos.x, pos.y].DepleteSugar();
-        spice += world.worldArray[pos.x, pos.y].DepleteSpice();
+        Sugar += world.worldArray[pos.x, pos.y].DepleteSugar();
+        Spice += world.worldArray[pos.x, pos.y].DepleteSpice();
     }
 
-    private List<Agent> FindNeighbours()
-    {
-        //Generate array of colliders within radius (set to vision)
-        Collider2D[] colliderList = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), vision);
 
-        //Create empty List into which fertile agents of different sex will go
-        List<Agent> neighbourAgentList = new List<Agent>();
 
-        //goes through each collider within radius
-        foreach (Collider2D neighbour in colliderList)
-        {
-            // if collider is not attached to an agent then skip that one (as overlapcircleall will also catch collider for tilemap) 
-            if (neighbour.tag != "Agent")
-                continue;
-
-            //get agent from object and add to list
-            Agent agent = neighbour.gameObject.GetComponent<Agent>();
-            if (agent.isAlive)
-                   neighbourAgentList.Add(agent);
-        }
-        return neighbourAgentList;
-    }
-
-    /*
-     * 
-     * METHODS USED FOR TRADING
-     * 
-     */
-
-    private void Trade()
-    {
-        //for every neighbour
-        foreach (Agent neighbour in neighbourAgentList)
-        {
-            // Get MRS of neighbour
-            double neighbourMRS = neighbour.GetMRS();
-            // If MRSA = MRSB then no trade. Continue skips the loop
-            if (this.GetMRS() == neighbourMRS)
-                continue;
-
-            // otherwise 
-            // calculate price (geometric mean of the two MRSs)
-            double price = Price(this.GetMRS(), neighbourMRS);
-
-            // vars for how many sugar units are traded for spice units (and vice versa)
-            int sugarUnits = SugarUnits(price);
-            int spiceUnits = SpiceUnits(price);
-                      
-            double currentWelfareA = this.Welfare(0, 0);
-            double currentWelfareB = neighbour.Welfare(0, 0);
-
-            // If MRSA > MRSB then agent A buys sugar, sells spice (A considers sugar to be relatively more valuable than agent B)
-            if (this.GetMRS() > neighbourMRS)
-            {
-                // If this trade will:
-                // (a) make both agents better off(increases the welfare of both agents), and
-                // (b) not cause the agents' MRSs to cross over one another, then the trade is made and return to start, else end.
-
-                double potentialWelfareA = this.Welfare(sugarUnits, -spiceUnits);
-                double potentialWelfareB = neighbour.Welfare(-sugarUnits, spiceUnits);
-
-                if (neighbour.timeUntilSugarDeath - sugarUnits > 0)
-                {
-                    double potentialMRSA = (timeUntilSpiceDeath - spiceUnits) / (timeUntilSugarDeath + sugarUnits);
-                    double potentialMRSB = (neighbour.timeUntilSpiceDeath + spiceUnits) / (neighbour.timeUntilSugarDeath - sugarUnits);
-
-                    if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB &&
-                        potentialMRSA >= potentialMRSB)
-                    {
-                        this.sugar += sugarUnits;
-                        neighbour.sugar -= sugarUnits;
-                        this.spice -= spiceUnits;
-                        neighbour.spice += spiceUnits;
-                        tradeAnalysis.AddToPrice(price);
-                        tradeAnalysis.IncrementQty();
-                    }
-                }
-            }
-            // Else MRSA < MRSB
-            else
-            {
-                double potentialWelfareA = this.Welfare(-sugarUnits, +spiceUnits);
-                double potentialWelfareB = neighbour.Welfare(+sugarUnits, -spiceUnits);
-
-                if (timeUntilSugarDeath - sugarUnits > 0)
-                {
-                    double potentialMRSA = (timeUntilSpiceDeath + spiceUnits) / (timeUntilSugarDeath - sugarUnits);
-                    double potentialMRSB = (neighbour.timeUntilSpiceDeath - spiceUnits) / (neighbour.timeUntilSugarDeath + sugarUnits);
-
-                    if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB &&
-                        potentialMRSA <= potentialMRSB)
-                    {
-                        this.sugar -= sugarUnits;
-                        neighbour.sugar += sugarUnits;
-                        this.spice += spiceUnits;
-                        neighbour.spice -= spiceUnits;
-                        tradeAnalysis.AddToPrice(price);
-                        tradeAnalysis.IncrementQty();
-                    }
-                }
-            }
-        }
-    }
-
-    private double Welfare(int x, int y)
-    {
-        return Math.Pow(x + sugar, (double)sugarMetabolism / (sugarMetabolism + spiceMetabolism)) * Math.Pow(y + spice, (double)spiceMetabolism / (sugarMetabolism + spiceMetabolism));
-    }
-
-    private double Price(double agent1MRS, double agent2MRS)
-    {
-        return Math.Sqrt(agent1MRS * agent2MRS);
-    }
-
-    private int SugarUnits(double p)
-    {
-        // If price(p) > 1, p units of spice are exchanged for 1 unit of sugar.
-        if (p > 1)
-            return 1;
-        // If p < 1, then 1 unit of spice is exchanged for p units of sugar
-        else
-            return (int)(1 / p);
-    }
-
-    private int SpiceUnits(double p)
-    {
-        if (p > 1)
-            return (int)p;
-        else
-            return 1;
-    }
-
-    /* 
-     * 
-     * METHODS USED FOR AGENT REPRODUCTION 
-     *
-     */
-
-    //Method which calls all relevant functions for reproduction
-    //Only calls them when reproduction from toggle is set to true
-    private void ReproductionProcess()
-    {
-        // checks if there is an empty cell adjacent to current agent's cell
-        Vector2Int currentEmpty = world.CheckEmptyCell(cellPosition.x, cellPosition.y);
-       
-        // produces list of potential partners (fertile agents of different sex) 
-        List<Agent> potentialPartners = FindFertileNeighbours();
-
-        //refreshes list of agents mated with
-        agentReproductionList = new List<Agent>();
-
-        //for each potential partner
-        foreach (Agent partner in potentialPartners)
-        {
-            // go through list of agents that current agent has mated with and ensure that they haven't mated before and to ensure they don't mate with offspring
-            if (agentReproductionList.Contains(partner) ||
-               (partner.agentReproductionList != null && agentReproductionList.Contains(this)) ||
-                agentChildList.Contains(partner))
-            {
-                continue; //skips to next iteration of loop
-            }
-  
-            // checks if there is an empty cell adjacent to the potential partner agent's cell
-            Vector2Int partnerEmpty = world.CheckEmptyCell(partner.cellPosition.x, partner.cellPosition.y);
-            
-            //if either current agent or neighbour has an empty neighbouring cell
-            if (currentEmpty.x != -1 || partnerEmpty.x !=-1)
-            {
-                //then reproduce
-                //creates gameobject for child agent
-                GameObject agentObj = CreateAgent.CreateAgentObject();
-                //sets position for child on grid
-                CreateAgent.GeneratePosition(agentObj, currentEmpty, partnerEmpty);
-                //sets Agent component values
-                Agent childCom = CreateAgent.CreateAgentComponent(agentObj, this, partner);
-                //adds partner to list of agents mated with
-                agentReproductionList.Add(partner);
-                //adds child to list of children
-                agentChildList.Add(childCom);
-
-                //agent reproduction was too much so for now have break in here, so it doesn't go through all
-                break;
-            }
-        }
-    }
-
-    // Returns true if agent is currently fertile
-    private bool Fertile()
-    {
-        return (childBearingBegins <= age && childBearingEnds > age && sugar >= sugarInit && spice >= spiceInit);
-    }
-
-    private List<Agent> FindFertileNeighbours()
-    {
-        //Create empty List into which fertile agents of different sex will go
-        List<Agent> fertileAgentList = new List<Agent>();
-
-        //for every neighbour
-        foreach (Agent neighbour in neighbourAgentList)
-        {
-            //  makes sure agent is fertile and of different sex
-            // the sex check also rules out an agent mating with itself
-            if (neighbour.Fertile() && String.Equals(neighbour.GetSex(), this.GetSex()) == false)
-            {
-                //adds to list
-                fertileAgentList.Add(neighbour);
-            }
-        }
-        return fertileAgentList;
-    }
 }
 
 
 
-//trading
 
-//The ratio of the spice to sugar quantities exchanged is simply the price. This price must, of necessity , fall in the range [MRSA , MRSB]. 
-//( change if rules were unfair?).
-//While all prices within the feasible range are " agreeable " to the agents, not all prices appear to be equally "fair." 
-//Prices near either end of the range would seem to be a better deal for one of the agents, particularly when the price range is very large. 
-
-//When an agent following M moves to a new location it has from 0 to 4 (von Neumann) neighbors. 
-//It interacts through T exactly once with each of its neighbors, selected in random order.
