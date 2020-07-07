@@ -80,6 +80,10 @@ public class Agent : MonoBehaviour
     //others go here - will use wealth, vision
     private int hierarchyScore;
 
+    // Maintain static list of 'dead' agents for object pooling
+    // Child agents will take one of these agent's memory allocation
+    private static List<Agent> availableAgents;
+
     /*
      * GETTERS AND SETTERS
      */
@@ -109,6 +113,12 @@ public class Agent : MonoBehaviour
     public int HierarchyScore { get => hierarchyScore; set => hierarchyScore = value; }
     public Vector2Int CellPosition { get => cellPosition; set => cellPosition = value; }
 
+
+    /*
+     * AWAKE & UPDATE
+     * 
+     */
+
     void Awake()
     {
         KnowWorld();
@@ -122,8 +132,7 @@ public class Agent : MonoBehaviour
         maxWelfare = world.worldArray[cellPosition.x, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
 }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //increase agent's age
         ++Age;
@@ -168,65 +177,22 @@ public class Agent : MonoBehaviour
         }
     }
 
-    
     /*
-    public void SetSex(string s)
-    {
-        sex = s;
-    }
-
-    public void SetNeighbours(List<Agent> neighbours)
-    {
-        neighbourAgentList = neighbours;
-    }
-
-    public Vector2Int GetCellPosition()
-    {
-        return cellPosition;
-    }
-
-    public string GetSex()
-    {
-        return sex;
-    }
-
-    public double GetMRS()
-    {
-        return MRS;
-    }
-
-    public int GetVisionNeighbour()
-    {
-        return VisionNeighbour;
-    }
-
-    public List<Agent> GetNeighbourAgentList()
-    {
-        return neighbourAgentList;
-    }
-
-    public double GetTimeUntilSugarDeath()
-    {
-        return timeUntilSugarDeath;
-    }
-
-    public double GetTimeUntilSpiceDeath()
-    {
-        return timeUntilSpiceDeath;
-    }
-    */
-
-    //this method enables the Agent to communicate with its surroundings
+     * MAIN AGENT METHODS
+     */
+  
+    // This method enables the Agent to communicate with its surroundings
     public void KnowWorld()
     {
         //Need access to the script attached to World GameObject
         world = GameObject.Find("World").GetComponent<World>();
         //Need access to the GridLayout component of Grid to be able to convert World location to cell location
         gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
+        //assigns cellPosition to be transform position
         cellPosition = new Vector2Int(gridLayout.WorldToCell(transform.position).x, gridLayout.WorldToCell(transform.position).y);
     }
 
-    //Agent will die if it reaches its lifespan or runs out of either sugar or spice
+    // Agent will die if it reaches its lifespan or runs out of either sugar or spice
     public void Death()
     {
         if (isAlive && (age == lifespan || sugar <= 0 || spice <= 0))
@@ -242,7 +208,7 @@ public class Agent : MonoBehaviour
     }
 
 
-    // Agent will need to find sugar/spice to 'eat' from surroundings.
+    // Agent will need to find sugar/spice to harvest from surroundings.
     public void Harvest()
     {
         //variables to keep track of how to iterate loop (to cope with agents situated at edges)
@@ -450,9 +416,6 @@ public class Agent : MonoBehaviour
         sugar += world.worldArray[pos.x, pos.y].DepleteSugar();
         spice += world.worldArray[pos.x, pos.y].DepleteSpice();
     }
-
-
-
 }
 
 public enum SexEnum { Male, Female };

@@ -42,24 +42,7 @@ public static class CreateAgent
         return agentObj;
     }
 
-    // Generates a position for agent to spawn to (RANDOM). First checks if there is already an agent there. Works recursively.
-    public static void GeneratePosition(GameObject agentObj)
-    {
-        //generate random grid position
-        int x = UnityEngine.Random.Range(0, world.GetRows() - 1);
-        int y = UnityEngine.Random.Range(0, world.GetCols() - 1);
-
-        //if no agent currently in that position then set transform to that position
-        if (world.checkAgent(x, y) == false)
-        {
-            agentObj.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
-            world.worldArray[x, y].SetAgent(agentObj);
-            return;
-        }
-        //else repeat process
-        else
-            GeneratePosition(agentObj);
-    }
+    
 
     // Generates a position for agent to spawn to (GIVEN TWO VECTORS FROM TWO PARENTS). 
     // freeVectors represent free neighbouring cells to parents. If parent has no free neighbouring cell then will be (-1, -1)
