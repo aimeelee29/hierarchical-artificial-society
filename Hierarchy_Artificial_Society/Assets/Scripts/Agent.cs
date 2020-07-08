@@ -84,6 +84,9 @@ public class Agent : MonoBehaviour
     // Child agents will take one of these agent's memory allocation
     private static List<GameObject> availableAgents = new List<GameObject>();
 
+    // Maintain static list of 'live' agents so the Agent Manager can run through them and call appropriate methods
+    private static List<Agent> liveAgents = new List<Agent>();
+
     /*
      * GETTERS AND SETTERS
      */
@@ -113,6 +116,7 @@ public class Agent : MonoBehaviour
     public int HierarchyScore { get => hierarchyScore; set => hierarchyScore = value; }
     public Vector2Int CellPosition { get => cellPosition; set => cellPosition = value; }
     public static List<GameObject> AvailableAgents { get => availableAgents; set => availableAgents = value; }
+    public static List<Agent> LiveAgents { get => liveAgents; set => liveAgents = value; }
 
 
     /*
@@ -201,6 +205,8 @@ public class Agent : MonoBehaviour
             availableAgents.Add(this.gameObject);
             // Remove agent from its location on the grid
             world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent = null;
+            // Remove agent from live agents list - not sure this is needed
+            liveAgents.Remove(this);
             // Deactivate agent
             this.gameObject.SetActive(false);
         }

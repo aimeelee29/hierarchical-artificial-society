@@ -71,6 +71,8 @@ public class Reproduction : MonoBehaviour
                     agent.AgentReproductionList.Add(partner);
                     //adds child to list of children
                     agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
+                    // adds child to list of live agents
+                    Agent.LiveAgents.Add(agentObj.GetComponent<Agent>());
 
                     //agent reproduction was too much so for now have break in here, so it doesn't go through all
                     break;

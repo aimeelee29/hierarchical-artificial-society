@@ -37,7 +37,8 @@ public class AgentFactory : MonoBehaviour
         {
             GameObject agentObj = GameObject.Instantiate(agentPrefab);
             GeneratePosition(agentObj);
-            SetAgentVars(agentObj);    
+            SetAgentVars(agentObj);
+            Agent.LiveAgents.Add(agentObj.GetComponent<Agent>());
         }
     }
 
