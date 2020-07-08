@@ -82,7 +82,7 @@ public class Agent : MonoBehaviour
 
     // Maintain static list of 'dead' agents for object pooling
     // Child agents will take one of these agent's memory allocation
-    private static List<Agent> availableAgents = new List<Agent>();
+    private static List<GameObject> availableAgents = new List<GameObject>();
 
     /*
      * GETTERS AND SETTERS
@@ -112,7 +112,7 @@ public class Agent : MonoBehaviour
     public int Influence { get => influence; set => influence = value; }
     public int HierarchyScore { get => hierarchyScore; set => hierarchyScore = value; }
     public Vector2Int CellPosition { get => cellPosition; set => cellPosition = value; }
-    public static List<Agent> AvailableAgents { get => availableAgents; set => availableAgents = value; }
+    public static List<GameObject> AvailableAgents { get => availableAgents; set => availableAgents = value; }
 
 
     /*
@@ -172,7 +172,7 @@ public class Agent : MonoBehaviour
                 Trade();
             }  
             */
-            
+            print(availableAgents.Count);
             //print(world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent);
         }
     }
@@ -198,7 +198,7 @@ public class Agent : MonoBehaviour
             print("death");
             isAlive = false;
             // Add to available agent list for object pooling purposes
-            availableAgents.Add(this);
+            availableAgents.Add(this.gameObject);
             // Remove agent from its location on the grid
             world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent = null;
             // Deactivate agent
