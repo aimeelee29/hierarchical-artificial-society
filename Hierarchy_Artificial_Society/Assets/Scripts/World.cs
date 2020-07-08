@@ -62,9 +62,11 @@ public class World : MonoBehaviour
             for (int j = 0; j < cols; ++j)
             {
                 worldArray[i, j].Growback();
-                worldArray[i, j].OccupyingAgent = null;
+                worldArray[i, j].OccupiedHarvest = false;
             }
         }
+
+        print(Agent.AvailableAgents.Count);
     }
 
     //Create cells
@@ -209,13 +211,13 @@ public class World : MonoBehaviour
 
         // Check around the cell in each direction
         // Also includes a check that it is in bounds
-        if (x + 1 < cols && worldArray[x + 1, y].OccupyingAgent == false)
+        if (x + 1 < cols && worldArray[x + 1, y].OccupyingAgent == null)
             empty = new Vector2Int(x + 1, y);
-        else if (x - 1 >= 0 && worldArray[x - 1, y].OccupyingAgent == false)
+        else if (x - 1 >= 0 && worldArray[x - 1, y].OccupyingAgent == null)
             empty = new Vector2Int(x - 1, y);
-        else if (y + 1 < rows && worldArray[x, y + 1].OccupyingAgent == false)
+        else if (y + 1 < rows && worldArray[x, y + 1].OccupyingAgent == null)
             empty = new Vector2Int(x, y + 1);
-        else if (y - 1 >= 0 && worldArray[x, y - 1].OccupyingAgent == false)
+        else if (y - 1 >= 0 && worldArray[x, y - 1].OccupyingAgent == null)
             empty = new Vector2Int(x, y - 1);
         else
             empty = new Vector2Int(-1, -1);

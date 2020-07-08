@@ -35,11 +35,6 @@ public class AgentFactory : MonoBehaviour
         //TO DO: will change the for loop when all working.
         for (int i = 0; i < 1; ++i)
         {
-            //GameObject agentObj = CreateAgent.CreateAgentObject();
-            //generates random position for agent to spawn into
-            //CreateAgent.GeneratePosition(agentObj);
-            //adds Agent script to GameObject and sets values
-            //Agent agentCom = CreateAgent.CreateAgentComponent(agentObj);
             GameObject agentObj = GameObject.Instantiate(agentPrefab);
             GeneratePosition(agentObj);
             SetAgentVars(agentObj);    
@@ -49,16 +44,17 @@ public class AgentFactory : MonoBehaviour
     // Generates a position for agent to spawn to (RANDOM). First checks if there is already an agent there. Works recursively.
     public static void GeneratePosition(GameObject agentObj)
     {
-         
-        //generate random grid position
-        int x = UnityEngine.Random.Range(0, World.Rows - 1);
-        int y = UnityEngine.Random.Range(0, World.Cols - 1);
+        // generate random grid position
+        int x = UnityEngine.Random.Range(0, World.Rows);
+        int y = UnityEngine.Random.Range(0, World.Cols);
 
         // if no agent currently in that position then set transform to that position
-        if (world.WorldArray[x, y].OccupyingAgent == false)
+        if (world.WorldArray[x, y].OccupyingAgent == null)
         {
             agentObj.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
+            // Set the agent as occupying agent in the grid location
             world.WorldArray[x, y].OccupyingAgent = agentObj.GetComponent<Agent>();
+            // Set the cell position in agent component
             agentObj.GetComponent<Agent>().CellPosition = new Vector2Int(x, y);
             return;
         }
