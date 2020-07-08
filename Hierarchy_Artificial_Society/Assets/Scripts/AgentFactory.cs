@@ -19,7 +19,11 @@ public class AgentFactory : MonoBehaviour
     private static GridLayout gridLayout;
 
     // Can set this to the Agent prefab from inspector
-    [SerializeField] private GameObject agentPrefab;
+    [SerializeField] private GameObject agentPrefab = null;
+
+    /*
+     * METHODS
+     */
 
     // Start is called before the first frame update
     void Start()
@@ -29,16 +33,16 @@ public class AgentFactory : MonoBehaviour
         gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
 
         //TO DO: will change the for loop when all working.
-        for (int i = 0; i < 15; ++i)
+        for (int i = 0; i < 1; ++i)
         {
             //GameObject agentObj = CreateAgent.CreateAgentObject();
             //generates random position for agent to spawn into
             //CreateAgent.GeneratePosition(agentObj);
             //adds Agent script to GameObject and sets values
             //Agent agentCom = CreateAgent.CreateAgentComponent(agentObj);
-            GameObject.Instantiate(agentPrefab);
-            GeneratePosition(agentPrefab);
-
+            GameObject agentObj = GameObject.Instantiate(agentPrefab);
+            GeneratePosition(agentObj);
+            SetAgentVars(agentObj);    
         }
     }
 
@@ -47,19 +51,48 @@ public class AgentFactory : MonoBehaviour
     {
          
         //generate random grid position
-        int x = UnityEngine.Random.Range(0, world.GetRows() - 1);
-        int y = UnityEngine.Random.Range(0, world.GetCols() - 1);
+        int x = UnityEngine.Random.Range(0, World.Rows - 1);
+        int y = UnityEngine.Random.Range(0, World.Cols - 1);
 
-        //if no agent currently in that position then set transform to that position
-        if (world.checkAgent(x, y) == false)
+        // if no agent currently in that position then set transform to that position
+        if (world.WorldArray[x, y].OccupyingAgent == false)
         {
             agentObj.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
-            world.worldArray[x, y].SetAgent(agentObj);
+            world.WorldArray[x, y].OccupyingAgent = agentObj.GetComponent<Agent>();
+            agentObj.GetComponent<Agent>().CellPosition = new Vector2Int(x, y);
             return;
         }
-        //else repeat process
+        // else repeat process
         else
             GeneratePosition(agentObj);
+    }
+
+    // Sets Agent variables
+    public static void SetAgentVars(GameObject agentObj)
+    {
+        Agent agentCom = agentObj.GetComponent<Agent>();
+        //TODO - finish this. And also use values used for trading section of sugarscape. Am putting in dummy values currently.
+        agentCom.Sugar = UnityEngine.Random.Range(25, 51); // max exclusive
+        agentCom.Spice = UnityEngine.Random.Range(25, 51);
+        agentCom.SugarInit = agentCom.Sugar;
+        agentCom.SpiceInit = agentCom.Spice;
+        agentCom.SugarMetabolism = UnityEngine.Random.Range(1, 6);
+        agentCom.SpiceMetabolism = UnityEngine.Random.Range(1, 6);
+        agentCom.VisionHarvest = UnityEngine.Random.Range(1, 6);
+        int sex = UnityEngine.Random.Range(1, 3);
+        if (sex == 1)
+            agentCom.Sex = SexEnum.Female;
+        else if (sex == 2)
+            agentCom.Sex = SexEnum.Male;
+        agentCom.IsAlive = true;
+        agentCom.ChildBearingBegins = UnityEngine.Random.Range(12, 16);
+        agentCom.ChildBearingEnds = UnityEngine.Random.Range(35, 46);
+        int lifespan = UnityEngine.Random.Range(60, 101);
+        agentCom.Lifespan = lifespan;
+        agentCom.Age = UnityEngine.Random.Range(1, lifespan + 1);
+        //agentCom.dominance =
+        //agentCom.influence = 
+        return;
     }
 
 }

@@ -5,20 +5,41 @@ using UnityEngine.Tilemaps;
 
 public class World : MonoBehaviour
 {
-    //determines the size of the world
-    [SerializeField] private static int rows = 50;
-    [SerializeField] private static int cols = 50;
-    //represents world as a 2D array of cells
-    public Cell[,] worldArray = new Cell[rows,cols];
+    /*
+     * REFERENCES
+     */
 
-    //Needs to know about TileMap in order to do shading for mountains
+    //Needs to know about TileMap in order to do colour shading for mountains
     private GameObject objTileMap;
     private Tilemap envTilemap;
 
-    //amount of sugar/spice at top of mountain
+    /*
+     * VARIABLES
+     */
+
+    // Determines the size of the world
+    [SerializeField] private static int rows = 50;
+    [SerializeField] private static int cols = 50;
+
+    // Represents world as a 2D array of cells
+    private Cell[,] worldArray = new Cell[rows, cols];
+
+    // Amount of sugar/spice at top of mountain
     [SerializeField] private int mountainTops = 8;
-    //amount of sugar/spice between mountains
+    // Amount of sugar/spice between mountains
     [SerializeField] private int wasteland = 1;
+
+    /*
+     * GETTERS AND SETTERS
+     */
+
+    public Cell[,] WorldArray { get => worldArray; set => worldArray = value; }
+    public static int Rows { get => rows; set => rows = value; }
+    public static int Cols { get => cols; set => cols = value; }
+
+    /* 
+     * METHODS
+     */
 
     // Start is called before the first frame update
     void Awake()
@@ -29,11 +50,9 @@ public class World : MonoBehaviour
         objTileMap = GameObject.Find("Environment");
         envTilemap = objTileMap.GetComponent<Tilemap>();
         //calls Mountains method to populate the cells with sugar/spice
-        Mountains();
-        
+        Mountains(); 
     }
 
-   
     // For all cells, set occupied for harvest to false as we want to refresh each update
     // also initiate growback
     void LateUpdate()
@@ -43,11 +62,10 @@ public class World : MonoBehaviour
             for (int j = 0; j < cols; ++j)
             {
                 worldArray[i, j].Growback();
-                worldArray[i, j].SetOccupied(false);
+                worldArray[i, j].OccupyingAgent = null;
             }
         }
     }
-
 
     //Create cells
     private void PopulateArray()
@@ -56,7 +74,7 @@ public class World : MonoBehaviour
         {
             for (int j = 0; j < cols; ++j)
             {
-                worldArray[i, j] = new Cell(i, j);                  
+                worldArray[i, j] = new Cell();                  
             }
         }
     }
@@ -96,131 +114,114 @@ public class World : MonoBehaviour
                 if (((i - a) * (i - a) + (j - b) * (j - b)) <= innerR * innerR ||
                     ((i - c) * (i - c) + (j - d) * (j - d)) <= innerR * innerR)
                 {
-                    worldArray[i, j].SetSugar(mountainTops);
-                    worldArray[i, j].SetMaxSugar(mountainTops);
+                    worldArray[i, j].CurSugar = mountainTops;
+                    worldArray[i, j].MaxSugar = mountainTops;
                     //set spice to 1 for these locations
-                    worldArray[i, j].SetSpice(wasteland);
-                    worldArray[i, j].SetMaxSpice(wasteland);
+                    worldArray[i, j].CurSpice = wasteland;
+                    worldArray[i, j].MaxSpice = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.25f, 0.25f, 0, 0.75f));
                 }
                 
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= secondR * secondR || 
                          ((i - c) * (i - c) + (j - d) * (j - d)) <= secondR * secondR)
                 {
-                    worldArray[i, j].SetSugar(mountainTops - mountainTops/4);
-                    worldArray[i, j].SetMaxSugar(mountainTops - mountainTops / 4);
-                    worldArray[i, j].SetSpice(wasteland);
-                    worldArray[i, j].SetMaxSpice(wasteland);
+                    worldArray[i, j].CurSugar = mountainTops - mountainTops / 4;
+                    worldArray[i, j].MaxSugar = mountainTops - mountainTops / 4;
+                    worldArray[i, j].CurSpice = wasteland;
+                    worldArray[i, j].MaxSpice = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.5f, 0.5f, 0, 0.75f));
                 }
 
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= thirdR * thirdR ||
                          ((i - c) * (i - c) + (j - d) * (j - d)) <= thirdR * thirdR)
                 {
-                    worldArray[i, j].SetSugar(mountainTops - (2 * (mountainTops / 4)));
-                    worldArray[i, j].SetMaxSugar(mountainTops - (2 * (mountainTops / 4)));
-                    worldArray[i, j].SetSpice(1);
-                    worldArray[i, j].SetMaxSpice(1);
+                    worldArray[i, j].CurSugar = mountainTops - (2 * (mountainTops / 4));
+                    worldArray[i, j].MaxSugar = mountainTops - (2 * (mountainTops / 4));
+                    worldArray[i, j].CurSpice = 1;
+                    worldArray[i, j].MaxSpice = 1;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.75f, 0.75f, 0, 0.75f));
                 }
                 //widest sugar circle
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= outerR * outerR ||
                          ((i - c) * (i - c) + (j - d) * (j - d)) <= outerR * outerR)
                 {
-                    worldArray[i, j].SetSugar(mountainTops - (3 * (mountainTops / 4)));
-                    worldArray[i, j].SetMaxSugar(mountainTops - (3 * (mountainTops / 4)));
-                    worldArray[i, j].SetSpice(wasteland);
-                    worldArray[i, j].SetMaxSpice(wasteland);
+                    worldArray[i, j].CurSugar = mountainTops - (3 * (mountainTops / 4));
+                    worldArray[i, j].MaxSugar = mountainTops - (3 * (mountainTops / 4));
+                    worldArray[i, j].CurSpice = wasteland;
+                    worldArray[i, j].MaxSpice = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(1, 1, 0, 0.75f));
                 }
                 //smallest spice circle
                 else if (((i - e) * (i - e) + (j - f) * (j - f)) <= innerR * innerR ||
                          ((i - g) * (i - g) + (j - h) * (j - h)) <= innerR * innerR)
                 {
-                    worldArray[i, j].SetSpice(mountainTops);
-                    worldArray[i, j].SetMaxSpice(mountainTops);
+                    worldArray[i, j].CurSpice = mountainTops;
+                    worldArray[i, j].MaxSpice = mountainTops;
                     //set sugar to 1 at these locations
-                    worldArray[i, j].SetSugar(1);
-                    worldArray[i, j].SetMaxSugar(1);
+                    worldArray[i, j].CurSugar = 1;
+                    worldArray[i, j].MaxSugar = 1;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.25f, 0, 0.75f));
                 }
                 else if (((i - e) * (i - e) + (j - f) * (j - f)) <= secondR * secondR ||
                          ((i - g) * (i - g) + (j - h) * (j - h)) <= secondR * secondR)
                 {
-                    worldArray[i, j].SetSpice(mountainTops - mountainTops / 4);
-                    worldArray[i, j].SetMaxSpice(mountainTops - mountainTops / 4);
-                    worldArray[i, j].SetSugar(wasteland);
-                    worldArray[i, j].SetMaxSugar(wasteland);
+                    worldArray[i, j].CurSpice = mountainTops - mountainTops / 4;
+                    worldArray[i, j].MaxSpice = mountainTops - mountainTops / 4;
+                    worldArray[i, j].CurSugar = wasteland;
+                    worldArray[i, j].MaxSugar = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.5f, 0, 0.75f));
                 }
                 else if (((i - e) * (i - e) + (j - f) * (j - f)) <= thirdR * thirdR ||
                          ((i - g) * (i - g) + (j - h) * (j - h)) <= thirdR * thirdR)
                 {
-                    worldArray[i, j].SetSpice(mountainTops - (2 * (mountainTops / 4)));
-                    worldArray[i, j].SetMaxSpice(mountainTops - (2 * (mountainTops / 4)));
-                    worldArray[i, j].SetSugar(wasteland);
-                    worldArray[i, j].SetMaxSugar(wasteland);
+                    worldArray[i, j].CurSpice = mountainTops - (2 * (mountainTops / 4));
+                    worldArray[i, j].MaxSpice = mountainTops - (2 * (mountainTops / 4));
+                    worldArray[i, j].CurSugar = wasteland;
+                    worldArray[i, j].MaxSugar = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.75f, 0, 0.75f));
                 }
                 //widest spice circle
                 else if (((i - e) * (i - e) + (j - f) * (j - f)) <= outerR * outerR ||
                          ((i - g) * (i - g) + (j - h) * (j - h)) <= outerR * outerR)
                 {
-                    worldArray[i, j].SetSpice(mountainTops - (3 * (mountainTops / 4)));
-                    worldArray[i, j].SetMaxSpice(mountainTops - (3 * (mountainTops / 4)));
-                    worldArray[i, j].SetSugar(wasteland);
-                    worldArray[i, j].SetMaxSugar(wasteland);
+                    worldArray[i, j].CurSpice = mountainTops - (3 * (mountainTops / 4));
+                    worldArray[i, j].MaxSpice = mountainTops - (3 * (mountainTops / 4));
+                    worldArray[i, j].CurSugar = wasteland;
+                    worldArray[i, j].MaxSugar = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.9f, 0, 0.75f));
                 }
                 else
                 {
-                    worldArray[i, j].SetSugar(wasteland);
-                    worldArray[i, j].SetMaxSugar(wasteland);
-                    worldArray[i, j].SetSpice(wasteland);
-                    worldArray[i, j].SetMaxSpice(wasteland);
+                    worldArray[i, j].CurSugar = wasteland;
+                    worldArray[i, j].MaxSugar = wasteland;
+                    worldArray[i, j].CurSpice = wasteland;
+                    worldArray[i, j].MaxSpice = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0, 0, 0));
                 }
             }
         }
     }
 
-    //check if an agent occupies a particular cell
-    public bool checkAgent(int x, int y)
-    {
-        return worldArray[x, y].GetAgent() != null;
-    }
-
-    //Getters for rows and cols
-    public int GetRows()
-    {
-        return rows;
-    }
-    
-    public int GetCols()
-    {
-        return cols;
-    }
-
-    //checks if any neighbouring cell is empty
+    // Checks if any neighbouring cell is empty
     public Vector2Int CheckEmptyCell(int x, int y)
     {
         Vector2Int empty;
 
-        //check around the cell in each direction
-        //also includes a check that it is in bounds
-        if (x + 1 < GetCols() && checkAgent(x + 1, y) == false)
+        // Check around the cell in each direction
+        // Also includes a check that it is in bounds
+        if (x + 1 < cols && worldArray[x + 1, y].OccupyingAgent == false)
             empty = new Vector2Int(x + 1, y);
-        else if (x - 1 >= 0 && checkAgent(x - 1, y) == false)
+        else if (x - 1 >= 0 && worldArray[x - 1, y].OccupyingAgent == false)
             empty = new Vector2Int(x - 1, y);
-        else if (y + 1 < GetRows() && checkAgent(x, y + 1) == false)
+        else if (y + 1 < rows && worldArray[x, y + 1].OccupyingAgent == false)
             empty = new Vector2Int(x, y + 1);
-        else if (y - 1 >= 0 && checkAgent(x, y - 1) == false)
+        else if (y - 1 >= 0 && worldArray[x, y - 1].OccupyingAgent == false)
             empty = new Vector2Int(x, y - 1);
         else
             empty = new Vector2Int(-1, -1);
 
-        //if any of the above cells are empty then Vector2 empty will be assigned and we return it.
-        //Otherwise will return (-1, -1) since Vector2 is non nullable.
+        // If any of the above cells are empty then Vector2 empty will be assigned and we return it.
+        // Otherwise will return (-1, -1) since Vector2 is non nullable.
         return empty;
     }
 }

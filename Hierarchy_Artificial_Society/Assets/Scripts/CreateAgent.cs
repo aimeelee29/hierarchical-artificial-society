@@ -69,38 +69,12 @@ public static class CreateAgent
         //sets position to free vector chosen
         childObj.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
         //tells world that agent is in that cell
-        world.worldArray[x, y].SetAgent(childObj);
+        world.WorldArray[x, y].OccupyingAgent = childObj.GetComponent<Agent>();
     }
 
     // Generates the Agent component for the object and sets values (RANDOM)
     // TO DO: once done all checks don't need to return Agent?
-    public static Agent CreateAgentComponent(GameObject obj)
-    {
-        Agent agentCom = obj.AddComponent<Agent>();
-        //assigns variables below.
-        //TODO - finish this. And also use values used for trading section of sugarscape. Am putting in dummy values currently.
-        agentCom.Sugar = UnityEngine.Random.Range(25, 51); // max exclusive
-        agentCom.Spice = UnityEngine.Random.Range(25, 51);
-        agentCom.SugarInit = agentCom.Sugar;
-        agentCom.SpiceInit = agentCom.Spice;
-        agentCom.SugarMetabolism = UnityEngine.Random.Range(1, 6);
-        agentCom.SpiceMetabolism = UnityEngine.Random.Range(1, 6);
-        agentCom.VisionHarvest = UnityEngine.Random.Range(1, 6);
-        int sex = UnityEngine.Random.Range(1, 3);
-        if (sex == 1)
-            agentCom.Sex = SexEnum.Female;
-        else if(sex == 2)
-            agentCom.Sex = SexEnum.Male;
-        agentCom.IsAlive = true;
-        agentCom.ChildBearingBegins = UnityEngine.Random.Range(12, 16);
-        agentCom.ChildBearingEnds = UnityEngine.Random.Range(35, 46);
-        int lifespan = UnityEngine.Random.Range(60, 101);
-        agentCom.Lifespan = lifespan;
-        agentCom.Age = UnityEngine.Random.Range(1, lifespan + 1);
-        //agentCom.dominance =
-        //agentCom.influence = 
-        return agentCom;
-    }
+    
 
     // Generates the Agent component for the object and sets values (GIVEN TWO PARENTS)
     public static Agent CreateAgentComponent(GameObject agentObj, Agent parentOne, Agent parentTwo)

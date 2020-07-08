@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class Cell
@@ -9,29 +10,43 @@ public class Cell
     // maximum levels of sugar and spice that can exist in the cell
     private int maxSugar;
     private int maxSpice;
+    
     // current levels of sugar and spice in the cell
     private int curSugar;
     private int curSpice;
-
-    // x and y co ordinates - no sure I need these
-    private int x;
-    private int y;
 
     //how many units of sugar and spice grows back per time frame
     private static int growbackFactor = 1;
 
     //reference of agent occupying cell. To be set when agents spawn (either initially or through reproduction/replacement).
-    private GameObject occupyingAgent;
+    private Agent occupyingAgent;
 
     //shows if an agent is harvesting cell. To be set when agents look around to find best location (and refreshed each update)
     private bool occupiedHarvest;
 
-    //constructor
-    public Cell(int x, int y)
+    /*
+     * GETTERS AND SETTERS
+     */
+
+    public int MaxSugar { get => maxSugar; set => maxSugar = value; }
+    public int MaxSpice { get => maxSpice; set => maxSpice = value; }
+    public int CurSugar { get => curSugar; set => curSugar = value; }
+    public int CurSpice { get => curSpice; set => curSpice = value; }
+    public Agent OccupyingAgent { get => occupyingAgent; set => occupyingAgent = value; }
+    public bool OccupiedHarvest { get => occupiedHarvest; set => occupiedHarvest = value; }
+
+    public int DepleteSugar()
     {
-        this.x = x;
-        this.y = y;
-        occupiedHarvest = false;
+        int temp = curSugar;
+        curSugar = 0;
+        return temp;
+    }
+
+    public int DepleteSpice()
+    {
+        int temp = curSpice;
+        curSpice = 0;
+        return temp;
     }
 
     public void Growback()
@@ -63,74 +78,6 @@ public class Cell
         }
     }
 
-    //Setters
-
-    public void SetSugar(int s)
-    {
-        curSugar = s;
-    }
-
-    public void SetSpice(int s)
-    {
-        curSpice = s;
-    }
-
-    public void SetMaxSugar(int s)
-    {
-        maxSugar = s;
-    }
-
-    public void SetMaxSpice(int s)
-    {
-        maxSpice = s;
-    }
-    
-    public void SetAgent(GameObject agentObj)
-    {
-        occupyingAgent = agentObj;
-    }
-
-    public void SetOccupied(bool isOccupied)
-    {
-        occupiedHarvest = isOccupied;
-    }
-
-    //Getters
-
-    public int GetSugar()
-    {
-        return curSugar;
-    }
-
-    public int GetSpice()
-    {
-        return curSpice;
-    }
-
-    public GameObject GetAgent()
-    {
-        return occupyingAgent;
-    }
-
-    public bool GetOccupied()
-    {
-        return occupiedHarvest;
-    }
-
-    public int DepleteSugar()
-    {
-        int temp = curSugar;
-        curSugar = 0;
-        return temp;   
-    }
-
-    public int DepleteSpice()
-    {
-        int temp = curSpice;
-        curSpice = 0;
-        return temp;
-    }
-
     //Used to determine which site would produce most benefit to agent
     public double Welfare(int agSugar, int agSpice, int agSugarMet, int agSpiceMet)
     {
@@ -138,3 +85,5 @@ public class Cell
 
     }
 }
+
+

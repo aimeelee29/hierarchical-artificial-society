@@ -65,7 +65,7 @@ public class Agent : MonoBehaviour
     //List of agents that current agent has mated with for that time step.
     private List<Agent> agentReproductionList;
     //List of children
-    private List<Agent> agentChildList;
+    private List<Agent> agentChildList = new List<Agent>();
 
     // Time until death by sugar and spice. Needed for trading.
     private double timeUntilSugarDeath;
@@ -82,7 +82,7 @@ public class Agent : MonoBehaviour
 
     // Maintain static list of 'dead' agents for object pooling
     // Child agents will take one of these agent's memory allocation
-    private static List<Agent> availableAgents;
+    private static List<Agent> availableAgents = new List<Agent>();
 
     /*
      * GETTERS AND SETTERS
@@ -107,7 +107,7 @@ public class Agent : MonoBehaviour
     public List<Agent> AgentChildList { get => agentChildList; set => agentChildList = value; }
     public double TimeUntilSugarDeath { get => timeUntilSugarDeath; set => timeUntilSugarDeath = value; }
     public double TimeUntilSpiceDeath { get => timeUntilSpiceDeath; set => timeUntilSpiceDeath = value; }
-    public double MRS { get => MRS; set => MRS = value; }
+    public double MRS { get => mrs; set => mrs = value; }
     public int Dominance { get => dominance; set => dominance = value; }
     public int Influence { get => influence; set => influence = value; }
     public int HierarchyScore { get => hierarchyScore; set => hierarchyScore = value; }
@@ -124,41 +124,38 @@ public class Agent : MonoBehaviour
         KnowWorld();
         // Reference to SO Toggle so we can turn various things on and off in the model
         toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
-        
-        // empty list of agent's children
-        AgentChildList = new List<Agent>();
+
         // 
         pos = cellPosition;
-        maxWelfare = world.worldArray[cellPosition.x, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
+        maxWelfare = world.WorldArray[cellPosition.x, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
 }
 
     void FixedUpdate()
     {
         //increase agent's age
-        ++Age;
+        ++age;
 
         //decrease sugar & spice through metabolism
-        Sugar -= SugarMetabolism;
-        Spice -= SpiceMetabolism;
+        sugar -= sugarMetabolism;
+        spice -= spiceMetabolism;
 
         //check for death
         Death();
 
-             
         if (IsAlive)
         {
             //Look around and harvest food
             Harvest();
 
             //time until death for each commodity
-            TimeUntilSugarDeath = Sugar / SugarMetabolism;
-            TimeUntilSpiceDeath = Spice / SpiceMetabolism;
-            if (TimeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
+            timeUntilSugarDeath = sugar / sugarMetabolism;
+            timeUntilSpiceDeath = spice / spiceMetabolism;
+            if (timeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
             {
-                MRS = TimeUntilSpiceDeath / TimeUntilSugarDeath;
+                mrs = timeUntilSpiceDeath / timeUntilSugarDeath;
             }
             else
-                MRS = 0;
+                mrs = 0;
 
             /*
             //find neighbouring agents 
@@ -184,12 +181,12 @@ public class Agent : MonoBehaviour
     // This method enables the Agent to communicate with its surroundings
     public void KnowWorld()
     {
-        //Need access to the script attached to World GameObject
+        // Need access to the script attached to World GameObject
         world = GameObject.Find("World").GetComponent<World>();
-        //Need access to the GridLayout component of Grid to be able to convert World location to cell location
+        // Need access to the GridLayout component of Grid to be able to convert World location to cell location
         gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
-        //assigns cellPosition to be transform position
-        cellPosition = new Vector2Int(gridLayout.WorldToCell(transform.position).x, gridLayout.WorldToCell(transform.position).y);
+        // Assigns cellPosition to be transform position
+        //cellPosition = new Vector2Int(gridLayout.WorldToCell(transform.position).x, gridLayout.WorldToCell(transform.position).y);
     }
 
     // Agent will die if it reaches its lifespan or runs out of either sugar or spice
@@ -198,7 +195,13 @@ public class Agent : MonoBehaviour
         if (isAlive && (age == lifespan || sugar <= 0 || spice <= 0))
         {
             isAlive = false;
-            Destroy(gameObject);
+            // Add to available agent list for object pooling purposes
+            availableAgents.Add(this);
+            // Remove agent from its location on the grid
+
+            // Deactivate Agent
+            this.gameObject.SetActive(false);
+
         }
     }
 
@@ -219,10 +222,10 @@ public class Agent : MonoBehaviour
         // i.e. must increment y value of array (up)
 
         //if vision pushes you over the grid boundary to the north
-        if (cellPosition.y + visionHarvest > world.GetRows() - 1)
+        if (cellPosition.y + visionHarvest > World.Rows - 1)
         {
-            temp = world.GetRows() - 1;
-            leftover = cellPosition.y + visionHarvest - world.GetRows();
+            temp = World.Rows - 1;
+            leftover = cellPosition.y + visionHarvest - World.Rows;
         }
         else
         {
@@ -234,10 +237,10 @@ public class Agent : MonoBehaviour
         for (int i = cellPosition.y+1; i <= temp; ++i)
         {
             //if location isn't already ane at location for another agent
-            if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
+            if (world.WorldArray[cellPosition.x, i].OccupyingAgent == null)
             {
                 //if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                double curWelfare = world.WorldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(cellPosition.x, i);
@@ -251,10 +254,10 @@ public class Agent : MonoBehaviour
             for (int i = 0; i <= leftover; ++i)
             {
                 //if location isn't already ane at location for another agent
-                if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
+                if (world.WorldArray[cellPosition.x, i].OccupyingAgent == null)
                 {
                     //if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    double curWelfare = world.WorldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(cellPosition.x, i);
@@ -282,10 +285,10 @@ public class Agent : MonoBehaviour
         for (int i = cellPosition.y - 1; i >= 0; --i)
         {
             //if location isn't already ane at location for another agent
-            if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
+            if (world.WorldArray[cellPosition.x, i].OccupyingAgent == null)
             {
                 // if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                double curWelfare = world.WorldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(cellPosition.x, i);
@@ -297,13 +300,13 @@ public class Agent : MonoBehaviour
         if (leftover > 0)
         {
             // iterate over
-            for (int i = world.GetRows()-1; i >= leftover; --i)
+            for (int i = World.Rows - 1; i >= leftover; --i)
             {
                 //if location isn't already ane at location for another agent
-                if (world.worldArray[cellPosition.x, i].GetOccupied() == false)
+                if (world.WorldArray[cellPosition.x, i].OccupyingAgent == null)
                 {
                     // if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    double curWelfare = world.WorldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(cellPosition.x, i);
@@ -317,10 +320,10 @@ public class Agent : MonoBehaviour
         // i.e. must increment x value of array (up)
 
         //if vision pushes you over the grid boundary to the east
-        if (cellPosition.x + visionHarvest > world.GetCols() - 1)
+        if (cellPosition.x + visionHarvest > World.Cols - 1)
         {
-            temp = world.GetCols() - 1;
-            leftover = cellPosition.x + visionHarvest - world.GetCols();
+            temp = World.Cols - 1;
+            leftover = cellPosition.x + visionHarvest - World.Cols;
         }
         else
         {
@@ -332,10 +335,10 @@ public class Agent : MonoBehaviour
         for (int i = cellPosition.x + 1; i <= temp; ++i)
         {
             //if location isn't already ane at location for another agent
-            if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
+            if (world.WorldArray[i, cellPosition.y].OccupyingAgent == null)
             {
                 //if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                double curWelfare = world.WorldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(i, cellPosition.y);
@@ -349,10 +352,10 @@ public class Agent : MonoBehaviour
             for (int i = 0; i <= leftover; ++i)
             {
                 //if location isn't already ane at location for another agent
-                if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
+                if (world.WorldArray[i, cellPosition.y].OccupyingAgent == null)
                 {
                     //if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    double curWelfare = world.WorldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(i, cellPosition.y);
@@ -379,10 +382,10 @@ public class Agent : MonoBehaviour
         for (int i = cellPosition.x - 1; i >= 0; --i)
         {
             //if location isn't already ane at location for another agent
-            if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
+            if (world.WorldArray[i, cellPosition.y].OccupyingAgent == null)
             {
                 // if current cell will produce highest welfare so far
-                double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                double curWelfare = world.WorldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(i, cellPosition.y);
@@ -394,13 +397,13 @@ public class Agent : MonoBehaviour
         if (leftover > 0)
         {
             // iterate over
-            for (int i = world.GetCols()-1; i >= leftover; --i)
+            for (int i = World.Cols - 1; i >= leftover; --i)
             {
                 //if location isn't already ane at location for another agent
-                if (world.worldArray[i, cellPosition.y].GetOccupied() == false)
+                if (world.WorldArray[i, cellPosition.y].OccupyingAgent == null)
                 {
                     // if current cell will produce highest welfare so far
-                    double curWelfare = world.worldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    double curWelfare = world.WorldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(i, cellPosition.y);
@@ -411,10 +414,10 @@ public class Agent : MonoBehaviour
         }
 
         //set agent as harvesting that cell
-        world.worldArray[pos.x, pos.y].SetOccupied(true);
+        world.WorldArray[pos.x, pos.y].OccupyingAgent = this;
         //agent harvests as much as possible from cell
-        sugar += world.worldArray[pos.x, pos.y].DepleteSugar();
-        spice += world.worldArray[pos.x, pos.y].DepleteSpice();
+        sugar += world.WorldArray[pos.x, pos.y].DepleteSugar();
+        spice += world.WorldArray[pos.x, pos.y].DepleteSpice();
     }
 }
 
