@@ -175,10 +175,6 @@ public class Agent : MonoBehaviour
         dominance = UnityEngine.Random.Range(1, 5);
         influence = UnityEngine.Random.Range(1, 5);
 
-        // Set intial pos and maxwelfare used for harvest method. Used to be in awake of agent but needed variables not yet assigned.
-        pos = cellPosition;
-        maxWelfare = Welfare(world.WorldArray[cellPosition.x, cellPosition.y].CurSugar, world.WorldArray[cellPosition.x, cellPosition.y].CurSpice);
-
         return;
     }
 
@@ -309,6 +305,11 @@ public class Agent : MonoBehaviour
     // Agent will need to find sugar/spice to harvest from surroundings.
     public void Harvest()
     {
+        // Resets pos and maxWelfare to be that of current cell
+        // Set intial pos and maxwelfare used for harvest method. Used to be in awake of agent but needed variables not yet assigned.
+        pos = cellPosition;
+        maxWelfare = Welfare(world.WorldArray[cellPosition.x, cellPosition.y].CurSugar, world.WorldArray[cellPosition.x, cellPosition.y].CurSpice);
+
         //variables to keep track of how to iterate loop (to cope with agents situated at edges)
         int temp;
         int leftover;
