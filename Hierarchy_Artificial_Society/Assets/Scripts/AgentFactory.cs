@@ -20,6 +20,8 @@ public class AgentFactory : MonoBehaviour
 
     // Can set this to the Agent prefab from inspector
     [SerializeField] private GameObject agentPrefab = null;
+    // Can set this to number of agents you want to spawn in inspector
+    [SerializeField] private int numberOfAgents = 0;
 
     /*
     * METHOD FOR INITIAL SPAWN
@@ -33,7 +35,7 @@ public class AgentFactory : MonoBehaviour
         gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
 
         //TO DO: will change the for loop when all working.
-        for (int i = 0; i < 1; ++i)
+        for (int i = 0; i < numberOfAgents; ++i)
         {
             GameObject agentObj = GameObject.Instantiate(agentPrefab);
             agentObj.GetComponent<Agent>().InitPosition();

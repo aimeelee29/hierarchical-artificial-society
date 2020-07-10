@@ -149,14 +149,16 @@ public class Agent : MonoBehaviour
     // Sets values (Initial - Random)
     public void InitVars()
     {
-        sugar = UnityEngine.Random.Range(25, 51); // max exclusive
-        spice = UnityEngine.Random.Range(25, 51);
+        //sugar = UnityEngine.Random.Range(25, 51); // max exclusive
+        //spice = UnityEngine.Random.Range(25, 51);
+        sugar = 10; // TESTING
+        spice = 20; //TESTING
         sugarInit = sugar;
         spiceInit = spice;
         sugarMetabolism = UnityEngine.Random.Range(1, 6);
         spiceMetabolism = UnityEngine.Random.Range(1, 6);
         //visionHarvest = UnityEngine.Random.Range(1, 6);
-        visionHarvest = 10;
+        visionHarvest = 10; //TESTING
         visionNeighbour = UnityEngine.Random.Range(20, 30);
         int sexRand = UnityEngine.Random.Range(1, 3);
         if (sexRand == 1)
