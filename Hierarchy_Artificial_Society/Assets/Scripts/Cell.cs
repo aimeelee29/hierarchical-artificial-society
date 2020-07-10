@@ -4,9 +4,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
+/*
+ * 
+ * Class which represents each cell of grid
+ * 
+ */
+
 public class Cell
 {
-
     // maximum levels of sugar and spice that can exist in the cell
     private int maxSugar;
     private int maxSpice;
@@ -35,6 +40,10 @@ public class Cell
     public Agent OccupyingAgent { get => occupyingAgent; set => occupyingAgent = value; }
     public bool OccupiedHarvest { get => occupiedHarvest; set => occupiedHarvest = value; }
 
+    /*
+     * MAIN METHODS
+     */
+
     public int DepleteSugar()
     {
         int temp = curSugar;
@@ -47,14 +56,6 @@ public class Cell
         int temp = curSpice;
         curSpice = 0;
         return temp;
-    }
-
-    //TEST METHOD - TO DELETE
-    public void Deplete()
-    {
-        curSugar -= 2;
-        curSpice -= 2;
-        return;
     }
 
     public void Growback()

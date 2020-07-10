@@ -33,11 +33,11 @@ public class AgentFactory : MonoBehaviour
         gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
 
         //TO DO: will change the for loop when all working.
-        for (int i = 0; i < 0; ++i)
+        for (int i = 0; i < 1; ++i)
         {
             GameObject agentObj = GameObject.Instantiate(agentPrefab);
             GeneratePosition(agentObj);
-            SetAgentVars(agentObj);
+            agentObj.GetComponent<Agent>().InitVars();
             Agent.LiveAgents.Add(agentObj.GetComponent<Agent>());
         }
     }
@@ -64,6 +64,7 @@ public class AgentFactory : MonoBehaviour
             GeneratePosition(agentObj);
     }
 
+    /*
     // Sets Agent variables
     public void SetAgentVars(GameObject agentObj)
     {
@@ -75,7 +76,8 @@ public class AgentFactory : MonoBehaviour
         agentCom.SpiceInit = agentCom.Spice;
         agentCom.SugarMetabolism = UnityEngine.Random.Range(1, 6);
         agentCom.SpiceMetabolism = UnityEngine.Random.Range(1, 6);
-        agentCom.VisionHarvest = UnityEngine.Random.Range(1, 6);
+        //agentCom.VisionHarvest = UnityEngine.Random.Range(1, 6);
+        agentCom.VisionHarvest = 10;
         agentCom.VisionNeighbour = UnityEngine.Random.Range(20, 30);
         int sex = UnityEngine.Random.Range(1, 3);
         if (sex == 1)
@@ -90,8 +92,14 @@ public class AgentFactory : MonoBehaviour
         agentCom.Age = UnityEngine.Random.Range(1, lifespan + 1);
         //agentCom.dominance =
         //agentCom.influence = 
+
+        // Set intial pos and maxwelfare used for harvest method. Used to be in awake of agent but needed variables not yet assigned.
+        agentCom.Pos = agentCom.CellPosition;
+        agentCom.MaxWelfare = agentCom.Welfare(world.WorldArray[CellPosition.x, CellPosition.y].CurSugar, world.WorldArray[CellPosition.x, CellPosition.y].CurSpice);
+
         return;
     }
+    */
 
     /*
      * METHODS FOR CREATING CHILD AGENT
@@ -140,7 +148,7 @@ public class AgentFactory : MonoBehaviour
         // tells world that agent is in that cell
         world.WorldArray[x, y].OccupyingAgent = childObj.GetComponent<Agent>();
     }
-
+    /*
     // Generates the Agent component for the object and sets values (from inheritance given two parents)
     public void CreateAgentComponent(GameObject agentObj, Agent parentOne, Agent parentTwo)
     {
@@ -178,7 +186,7 @@ public class AgentFactory : MonoBehaviour
         else
             agentCom.ChildBearingEnds = parentTwo.ChildBearingEnds;
 
-        // sex and lifespan is still random
+        // Sex and lifespan is still random
         int sex = UnityEngine.Random.Range(1, 3);
         if (sex == 1)
             agentCom.Sex = SexEnum.Female;
@@ -188,7 +196,9 @@ public class AgentFactory : MonoBehaviour
         agentCom.IsAlive = true;
         agentCom.Age = 0;
 
+        // Add child to list of live agents
         Agent.LiveAgents.Add(agentCom);
         return;
     }
+    */
 }

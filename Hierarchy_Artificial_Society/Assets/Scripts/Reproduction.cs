@@ -68,7 +68,7 @@ public class Reproduction : MonoBehaviour
                     // sets position for child on grid
                     agentFactory.GenerateChildPosition(agentObj, currentEmpty, partnerEmpty);
                     // sets Agent component values
-                    agentFactory.CreateAgentComponent(agentObj, agent, partner);
+                    agentObj.GetComponent<Agent>().InitVars(agent, partner);
                     // adds partner to list of agents mated with
                     agent.AgentReproductionList.Add(partner);
                     // adds child to list of children

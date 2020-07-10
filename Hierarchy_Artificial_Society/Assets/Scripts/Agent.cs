@@ -125,10 +125,7 @@ public class Agent : MonoBehaviour
     void Awake()
     {
         KnowWorld();
-        // for harvest
-        pos = cellPosition;
-        maxWelfare = world.WorldArray[cellPosition.x, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
-}
+    }
 
     void FixedUpdate()
     {
@@ -147,6 +144,87 @@ public class Agent : MonoBehaviour
         world = GameObject.Find("World").GetComponent<World>();
         // Need access to the GridLayout component of Grid to be able to convert World location to cell location
         gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
+    }
+
+    public void InitVars()
+    {
+        sugar = UnityEngine.Random.Range(25, 51); // max exclusive
+        spice = UnityEngine.Random.Range(25, 51);
+        sugarInit = sugar;
+        spiceInit = spice;
+        sugarMetabolism = UnityEngine.Random.Range(1, 6);
+        spiceMetabolism = UnityEngine.Random.Range(1, 6);
+        //visionHarvest = UnityEngine.Random.Range(1, 6);
+        visionHarvest = 10;
+        visionNeighbour = UnityEngine.Random.Range(20, 30);
+        int sexRand = UnityEngine.Random.Range(1, 3);
+        if (sexRand == 1)
+            sex = SexEnum.Female;
+        else if (sexRand == 2)
+            sex = SexEnum.Male;
+        isAlive = true;
+        childBearingBegins = UnityEngine.Random.Range(12, 16);
+        childBearingEnds = UnityEngine.Random.Range(35, 46);
+        lifespan = UnityEngine.Random.Range(60, 101);
+        age = UnityEngine.Random.Range(1, lifespan + 1);
+        dominance = UnityEngine.Random.Range(1, 5);
+        influence = UnityEngine.Random.Range(1, 5);
+
+        // Set intial pos and maxwelfare used for harvest method. Used to be in awake of agent but needed variables not yet assigned.
+        pos = cellPosition;
+        maxWelfare = Welfare(world.WorldArray[CellPosition.x, CellPosition.y].CurSugar, world.WorldArray[CellPosition.x, CellPosition.y].CurSpice);
+
+        return;
+    }
+
+    public void InitVars(Agent parentOne, Agent parentTwo)
+    {
+        // initial endowment is half of mother's + half of father's initial endowment
+        sugar = (parentOne.SugarInit / 2) + (parentTwo.SugarInit / 2);
+        spice = (parentOne.SpiceInit / 2) + (parentTwo.SugarInit / 2);
+        sugarInit = sugar;
+        spiceInit = spice;
+
+        //then randomely take one of parents' attributes
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            sugarMetabolism = parentOne.SugarMetabolism;
+        else
+            sugarMetabolism = parentTwo.SugarMetabolism;
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            spiceMetabolism = parentOne.SpiceMetabolism;
+        else
+            spiceMetabolism = parentTwo.SpiceMetabolism;
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            visionHarvest = parentOne.VisionHarvest;
+        else
+            visionHarvest = parentTwo.VisionHarvest;
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            visionNeighbour = parentOne.VisionNeighbour;
+        else
+            visionNeighbour = parentTwo.VisionNeighbour;
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            childBearingBegins = parentOne.ChildBearingBegins;
+        else
+            childBearingBegins = parentTwo.ChildBearingBegins;
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            childBearingEnds = parentOne.ChildBearingEnds;
+        else
+            childBearingEnds = parentTwo.ChildBearingEnds;
+
+        // Sex and lifespan is still random
+        int sexRand = UnityEngine.Random.Range(1, 3);
+        if (sexRand == 1)
+            sex = SexEnum.Female;
+        else if (sexRand == 2)
+            sex = SexEnum.Male;
+        lifespan = UnityEngine.Random.Range(60, 101);
+        isAlive = true;
+        age = 0;
+
+        //dominance =
+        //influence = 
+
+        return;
     }
 
     // Agent will die if it reaches its lifespan or runs out of either sugar or spice
@@ -179,6 +257,7 @@ public class Agent : MonoBehaviour
         //variables to keep track of how to iterate loop (to cope with agents situated at edges)
         int temp;
         int leftover;
+        print("itial max welfare = " + maxWelfare);
 
         // LOOK NORTH
         // i.e. must increment y value of array (up)
@@ -203,10 +282,12 @@ public class Agent : MonoBehaviour
             {
                 //if current cell will produce highest welfare so far
                 double curWelfare = world.WorldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                print("curWelfare = " + curWelfare);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(cellPosition.x, i);
                     maxWelfare = curWelfare;
+                    print(maxWelfare);
                 }
             }
         }
@@ -220,10 +301,12 @@ public class Agent : MonoBehaviour
                 {
                     //if current cell will produce highest welfare so far
                     double curWelfare = world.WorldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    print("curWelfare = " + curWelfare);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(cellPosition.x, i);
                         maxWelfare = curWelfare;
+                        print(maxWelfare);
                     }
                 }
             }
@@ -251,10 +334,12 @@ public class Agent : MonoBehaviour
             {
                 // if current cell will produce highest welfare so far
                 double curWelfare = world.WorldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                print("curWelfare = " + curWelfare);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(cellPosition.x, i);
                     maxWelfare = curWelfare;
+                    print(maxWelfare);
                 }
             }
         }
@@ -269,10 +354,12 @@ public class Agent : MonoBehaviour
                 {
                     // if current cell will produce highest welfare so far
                     double curWelfare = world.WorldArray[cellPosition.x, i].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    print("curWelfare = " + curWelfare);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(cellPosition.x, i);
                         maxWelfare = curWelfare;
+                        print(maxWelfare);
                     }
                 }
             }
@@ -301,6 +388,7 @@ public class Agent : MonoBehaviour
             {
                 //if current cell will produce highest welfare so far
                 double curWelfare = world.WorldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                print("curWelfare = " + curWelfare);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(i, cellPosition.y);
@@ -318,6 +406,7 @@ public class Agent : MonoBehaviour
                 {
                     //if current cell will produce highest welfare so far
                     double curWelfare = world.WorldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    print("curWelfare = " + curWelfare);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(i, cellPosition.y);
@@ -348,6 +437,7 @@ public class Agent : MonoBehaviour
             {
                 // if current cell will produce highest welfare so far
                 double curWelfare = world.WorldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                print("curWelfare = " + curWelfare);
                 if (curWelfare > maxWelfare)
                 {
                     pos = new Vector2Int(i, cellPosition.y);
@@ -366,6 +456,7 @@ public class Agent : MonoBehaviour
                 {
                     // if current cell will produce highest welfare so far
                     double curWelfare = world.WorldArray[i, cellPosition.y].Welfare(sugar, spice, sugarMetabolism, spiceMetabolism);
+                    print("curWelfare = " + curWelfare);
                     if (curWelfare > maxWelfare)
                     {
                         pos = new Vector2Int(i, cellPosition.y);
@@ -374,7 +465,7 @@ public class Agent : MonoBehaviour
                 }
             }
         }
-        print("harvest");
+        print("vision = " + visionHarvest);
         print("sug bef = " + sugar);
         // Set agent as harvesting that cell
         world.WorldArray[pos.x, pos.y].OccupiedHarvest = true;
