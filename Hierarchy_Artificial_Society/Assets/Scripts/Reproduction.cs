@@ -66,7 +66,7 @@ public class Reproduction : MonoBehaviour
                     // creates gameobject for child agent
                     GameObject agentObj = agentFactory.CreateChild();
                     // sets position for child on grid
-                    agentFactory.GenerateChildPosition(agentObj, currentEmpty, partnerEmpty);
+                    agentObj.GetComponent<Agent>().InitPosition(currentEmpty, partnerEmpty);
                     // sets Agent component values
                     agentObj.GetComponent<Agent>().InitVars(agent, partner);
                     // adds partner to list of agents mated with

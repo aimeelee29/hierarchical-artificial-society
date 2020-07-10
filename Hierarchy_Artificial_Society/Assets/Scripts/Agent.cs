@@ -229,8 +229,7 @@ public class Agent : MonoBehaviour
         return;
     }
 
-    // Sets position (Initial - Random)
-    // Generates a position for agent to spawn to (RANDOM). First checks if there is already an agent there. Works recursively.
+    // Sets position (Initial - Random). First checks if there is already an agent there. Works recursively.
     public void InitPosition()
     {
         // generate random grid position
@@ -250,6 +249,33 @@ public class Agent : MonoBehaviour
         // else repeat process
         else
             InitPosition();
+    }
+
+    // Sets values (given two parents)
+    public void InitPosition(Vector2Int freeVector1, Vector2Int freeVector2)
+    {
+        // If neither parent have a free neighbouring cell then return
+        if (freeVector1.x == -1 && freeVector2.x == -1)
+            return;
+
+        int x;
+        int y;
+
+        // Position for child is one of the empty neighbouring cells to one of the parents
+        if (freeVector1.x != -1)
+        {
+            x = freeVector1.x;
+            y = freeVector1.y;
+        }
+        else
+        {
+            x = freeVector2.x;
+            y = freeVector2.y;
+        }
+        // sets position to free vector chosen
+        this.gameObject.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
+        // tells world that agent is in that cell
+        world.WorldArray[x, y].OccupyingAgent = this;
     }
 
     // Agent will die if it reaches its lifespan or runs out of either sugar or spice
