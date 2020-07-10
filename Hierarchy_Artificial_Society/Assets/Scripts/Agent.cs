@@ -146,6 +146,7 @@ public class Agent : MonoBehaviour
         gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
     }
 
+    // Sets values (Initial - Random)
     public void InitVars()
     {
         sugar = UnityEngine.Random.Range(25, 51); // max exclusive
@@ -177,6 +178,7 @@ public class Agent : MonoBehaviour
         return;
     }
 
+    // Sets values (from inheritance given two parents)
     public void InitVars(Agent parentOne, Agent parentTwo)
     {
         // initial endowment is half of mother's + half of father's initial endowment
@@ -225,6 +227,29 @@ public class Agent : MonoBehaviour
         //influence = 
 
         return;
+    }
+
+    // Sets position (Initial - Random)
+    // Generates a position for agent to spawn to (RANDOM). First checks if there is already an agent there. Works recursively.
+    public void InitPosition()
+    {
+        // generate random grid position
+        int x = UnityEngine.Random.Range(0, World.Rows);
+        int y = UnityEngine.Random.Range(0, World.Cols);
+
+        // if no agent currently in that position then set transform to that position
+        if (world.WorldArray[x, y].OccupyingAgent == null)
+        {
+            this.gameObject.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
+            // Set the agent as occupying agent in the grid location
+            world.WorldArray[x, y].OccupyingAgent = this;
+            // Set the cell position in agent component
+            cellPosition = new Vector2Int(x, y);
+            return;
+        }
+        // else repeat process
+        else
+            InitPosition();
     }
 
     // Agent will die if it reaches its lifespan or runs out of either sugar or spice
