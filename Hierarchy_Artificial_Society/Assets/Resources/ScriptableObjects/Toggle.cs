@@ -5,12 +5,13 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Toggle : ScriptableObject
 {
-    //Ability to toggle things on and off
-    //persistent warning error when private and serializable so change these to public
-    [SerializeField] private bool reproduction;
-    [SerializeField] private bool varyingPrefs; // TBC: if I will include this
-    [SerializeField] private bool hierarchy;
-    [SerializeField] private bool trade;
+    // Ability to toggle things on and off
+    // You set these in the inspector
+    // Persistent warning error when so I have set to false in script (but will be overriden by inspector)
+    [SerializeField] private bool reproduction = false;
+    //[SerializeField] private bool varyingPrefs; // TBC: if I will include this
+    [SerializeField] private bool hierarchy = false;
+    [SerializeField] private bool trade = false;
 
     /*
      * 
