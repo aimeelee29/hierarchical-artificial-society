@@ -11,25 +11,6 @@ using UnityEngine;
 
 public class Reproduction : MonoBehaviour
 {
-    /*
-     * References
-     */
-
-    // Reference to Agent
-    //private Agent agent;
-    // Reference to world
-    private static World world;
-    // Reference to AgentFactory to call create child methods
-    private static AgentFactory agentFactory;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //agent = GetComponent<Agent>();
-        //world = GameObject.Find("World").GetComponent<World>();
-        agentFactory = GameObject.Find("Agent Factory").GetComponent<AgentFactory>();
-    }
-
     public void ReproductionProcess(Agent agent, World world)
     {
         //world = GameObject.Find("World").GetComponent<World>();
@@ -64,17 +45,17 @@ public class Reproduction : MonoBehaviour
                     print("reproduce");
                     // then reproduce
                     // creates gameobject for child agent
-                    GameObject agentObj = agentFactory.CreateChild();
+                    GameObject agentObj = GameObject.Find("Agent Factory").GetComponent<AgentFactory>().CreateChild();
                     // sets position for child on grid
                     agentObj.GetComponent<Agent>().InitPosition(currentEmpty, partnerEmpty);
                     // sets Agent component values
                     agentObj.GetComponent<Agent>().InitVars(agent, partner);
                     // adds partner to list of agents mated with
                     agent.AgentReproductionList.Add(partner);
-                    // adds child to list of children
+                    // adds child to agent's list of children - dont think i need this now
                     agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
-                    // adds child to list of live agents
-                    Agent.LiveAgents.Add(agentObj.GetComponent<Agent>());
+                    // adds child to list of child agents
+                    Agent.ChildAgents.Add(agentObj.GetComponent<Agent>());
 
                     //agent reproduction was too much so for now have break in here, so it doesn't go through all
                     break;

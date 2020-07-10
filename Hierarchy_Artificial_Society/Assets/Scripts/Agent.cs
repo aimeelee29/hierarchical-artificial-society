@@ -52,18 +52,10 @@ public class Agent : MonoBehaviour
     private Vector2Int pos;
     private double maxWelfare;
 
-    // Neighbours - updated each time step (since even though there is no movement, some will be born and others will die)
-    private List<Agent> neighbourAgentList = new List<Agent>();
-
     // Attributes for reproduction
     private int childBearingBegins;
     private int childBearingEnds;
     private SexEnum sex;
-
-    // List of agents that current agent has mated with for that time step.
-    private List<Agent> agentReproductionList = new List<Agent>();
-    // List of children
-    private List<Agent> agentChildList = new List<Agent>();
 
     // Time until death by sugar and spice. Needed for trading.
     private double timeUntilSugarDeath;
@@ -78,12 +70,29 @@ public class Agent : MonoBehaviour
     //others go here - will use wealth, vision
     private int hierarchyScore;
 
+    /*
+     * LISTS
+     */
+
+    // Neighbours - updated each time step (since even though there is no movement, some will be born and others will die)
+    private List<Agent> neighbourAgentList = new List<Agent>();
+    // List of agents that current agent has mated with for that time step.
+    private List<Agent> agentReproductionList = new List<Agent>();
+    // List of children of agent
+    private List<Agent> agentChildList = new List<Agent>();
+    
+    // STATIC LISTS
+
     // Maintain static list of 'dead' agents for object pooling
     // Child agents will take one of these agent's memory allocation
     private static List<GameObject> availableAgents = new List<GameObject>();
 
     // Maintain static list of 'live' agents so the Agent Manager can run through them and call appropriate methods
     private static List<Agent> liveAgents = new List<Agent>();
+
+    // Maintain static list of child agents (refreshed each time step)
+    // Needed for manager, since can't alter live agent list while you are iterating through it.
+    private static List<Agent> childAgents = new List<Agent>();
 
     /*
      * GETTERS AND SETTERS
@@ -115,7 +124,7 @@ public class Agent : MonoBehaviour
     public Vector2Int CellPosition { get => cellPosition; set => cellPosition = value; }
     public static List<GameObject> AvailableAgents { get => availableAgents; set => availableAgents = value; }
     public static List<Agent> LiveAgents { get => liveAgents; set => liveAgents = value; }
-
+    public static List<Agent> ChildAgents { get => childAgents; set => childAgents = value; }
 
     /*
      * AWAKE & UPDATE
@@ -149,18 +158,18 @@ public class Agent : MonoBehaviour
     // Sets values (Initial - Random)
     public void InitVars()
     {
-        //sugar = UnityEngine.Random.Range(25, 51); // max exclusive
-        //spice = UnityEngine.Random.Range(25, 51);
-        sugar = 10; //TESTING
-        spice = 20; //TESTING
+        sugar = UnityEngine.Random.Range(25, 51); // max exclusive
+        spice = UnityEngine.Random.Range(25, 51);
+        //sugar = 20; //TESTING
+        //spice = 10; //TESTING
         sugarInit = sugar;
         spiceInit = spice;
-        //sugarMetabolism = UnityEngine.Random.Range(1, 6);
-        //spiceMetabolism = UnityEngine.Random.Range(1, 6);
-        sugarMetabolism = 2;//TESTING
-        spiceMetabolism = 2;//TESTING
-        //visionHarvest = UnityEngine.Random.Range(1, 6);
-        visionHarvest = 10; //TESTING
+        sugarMetabolism = UnityEngine.Random.Range(1, 6);
+        spiceMetabolism = UnityEngine.Random.Range(1, 6);
+        //sugarMetabolism = 2;//TESTING
+        //spiceMetabolism = 2;//TESTING
+        visionHarvest = UnityEngine.Random.Range(1, 6);
+        //visionHarvest = 10; //TESTING
         visionNeighbour = UnityEngine.Random.Range(20, 30);
         int sexRand = UnityEngine.Random.Range(1, 3);
         if (sexRand == 1)
@@ -301,7 +310,6 @@ public class Agent : MonoBehaviour
         return Math.Pow(x + sugar, (double)sugarMetabolism / (sugarMetabolism + spiceMetabolism)) * Math.Pow(y + spice, (double)spiceMetabolism / (sugarMetabolism + spiceMetabolism));
     }
 
-
     // Agent will need to find sugar/spice to harvest from surroundings.
     public void Harvest()
     {
@@ -313,9 +321,9 @@ public class Agent : MonoBehaviour
         //variables to keep track of how to iterate loop (to cope with agents situated at edges)
         int temp;
         int leftover;
-        print("initial max welfare = " + maxWelfare);
-        print("initial pos = " + pos);
-        print("initial sug and spice = " + world.WorldArray[cellPosition.x, cellPosition.y].CurSugar + " " + world.WorldArray[cellPosition.x, cellPosition.y].CurSpice);
+        //print("initial max welfare = " + maxWelfare);
+        //print("initial pos = " + pos);
+        //print("initial sug and spice = " + world.WorldArray[cellPosition.x, cellPosition.y].CurSugar + " " + world.WorldArray[cellPosition.x, cellPosition.y].CurSpice);
 
         // LOOK NORTH
         // i.e. must increment y value of array (up)
@@ -520,15 +528,15 @@ public class Agent : MonoBehaviour
                 }
             }
         }
-        print("final pos = " + pos);
-        print("final welf = " + maxWelfare);
-        print("sug bef = " + sugar);
+        //print("final pos = " + pos);
+        //print("final welf = " + maxWelfare);
+        //print("spi bef = " + spice);
         // Set agent as harvesting that cell
         world.WorldArray[pos.x, pos.y].OccupiedHarvest = true;
         // Agent harvests as much as possible from cell
         sugar += world.WorldArray[pos.x, pos.y].DepleteSugar();
         spice += world.WorldArray[pos.x, pos.y].DepleteSpice();
-        print("sug aft = " + sugar);
+        //print("spi aft = " + spice);
     }
 }
 

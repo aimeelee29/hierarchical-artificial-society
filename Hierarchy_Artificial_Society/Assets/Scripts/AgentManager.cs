@@ -59,7 +59,7 @@ public class AgentManager : MonoBehaviour
                 agent.MRS = 0;
         }
 
-        // can't change collection when iterating so need this step
+        // can't change collection when iterating so need this step to remove dead agents from live list
         foreach (GameObject deadAgent in Agent.AvailableAgents)
         {
             Agent.LiveAgents.Remove(deadAgent.GetComponent<Agent>());
@@ -91,6 +91,15 @@ public class AgentManager : MonoBehaviour
                     agent.GetComponent<Reproduction>().ReproductionProcess(agent, world);
                 }
             }
+
+            // Add children to live list
+            foreach (Agent child in Agent.ChildAgents)
+            {
+                Agent.LiveAgents.Add(child);
+            }
+
+            // Reset child list
+            Agent.ChildAgents.Clear();
         }
 
         /* 
