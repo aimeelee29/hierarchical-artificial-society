@@ -49,6 +49,14 @@ public class Cell
         return temp;
     }
 
+    //TEST METHOD - TO DELETE
+    public void Deplete()
+    {
+        curSugar -= 2;
+        curSpice -= 2;
+        return;
+    }
+
     public void Growback()
     {
         //if there is no growback then do nothing

@@ -11,27 +11,26 @@ using UnityEngine;
 
 public class Trade : MonoBehaviour
 {
-    // Reference NeighbourVision component in order to access list of neighbouring agents.
-   //  NeighbourVision neighbourVision = GetComponent<NeighbourVision>();
-
-    // Reference to Agent
-    private Agent agent;
-
     //Need access to TradeAnalysis to report on trade metrics
-    private static TradeAnalysis tradeAnalysis;
+    //private static TradeAnalysis tradeAnalysis;
 
     void Start()
     {
-        agent = GetComponent<Agent>();
+        //agent = GetComponent<Agent>();
         //Defined in start since find cannot be used directly in MonoBehaviour
-        tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
+       // tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
     }
 
-    private void MakeTrade()
+    public void MakeTrade(Agent agent, TradeAnalysis tradeAnalysis)
     {
-        //for every neighbour
+        // For every neighbour
         foreach (Agent neighbour in agent.NeighbourAgentList)
         {
+            //TradeAnalysis tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
+            //print(agent.NeighbourAgentList.Count);
+            //print(agent.MRS);
+            //print(neighbour.MRS);
+            //print(agent == neighbour);
             // If MRSA = MRSB then no trade. Continue skips that iteration of the loop
             if (agent.MRS == neighbour.MRS)
                 continue;
@@ -65,6 +64,7 @@ public class Trade : MonoBehaviour
                     if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB &&
                         potentialMRSA >= potentialMRSB)
                     {
+                        //print("trade");
                         agent.Sugar += sugarUnits;
                         neighbour.Sugar -= sugarUnits;
                         agent.Spice -= spiceUnits;
@@ -88,6 +88,7 @@ public class Trade : MonoBehaviour
                     if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB &&
                         potentialMRSA <= potentialMRSB)
                     {
+                        //print("trade");
                         agent.Sugar -= sugarUnits;
                         neighbour.Sugar += sugarUnits;
                         agent.Spice += spiceUnits;

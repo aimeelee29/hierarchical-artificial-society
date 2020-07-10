@@ -11,27 +11,13 @@ using UnityEngine;
 
 public class NeighbourVision : MonoBehaviour
 {
-    // reference to agent
-    private Agent agent;
-
-    void Start()
-    {
-        agent = GetComponent<Agent>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Sets the agent's neighbour list 
-        agent.NeighbourAgentList = FindNeighbours();
-    }
-
     // Method to find neighbours
-    private List<Agent> FindNeighbours()
+    public List<Agent> FindNeighbours(Agent agent)
     {
         //Generate array of colliders within radius (set to vision)
-        //does transform need to ome from agent??
+        //does transform need to come from agent??
         Collider2D[] colliderList = Physics2D.OverlapCircleAll(new Vector2(agent.transform.position.x, agent.transform.position.y), agent.VisionNeighbour);
+        //print("collider list length = " + colliderList.Length);
 
         //Create empty List
         List<Agent> neighbourAgentList = new List<Agent>();
@@ -40,13 +26,12 @@ public class NeighbourVision : MonoBehaviour
         foreach (Collider2D neighbour in colliderList)
         {
             // if collider is not attached to an agent then skip this iteration (as overlapcircleall will also catch collider for tilemap) 
-            if (neighbour.tag != "Agent")
+            // also removes itself
+            if (neighbour.tag != "Agent" || neighbour == agent)
                 continue;
 
-            //get agent from object and add to list
-            Agent agent = neighbour.gameObject.GetComponent<Agent>();
-            if (agent.IsAlive)
-                neighbourAgentList.Add(agent);
+            if (agent.IsAlive) //may not need this now
+                neighbourAgentList.Add(neighbour.GetComponent<Agent>());
         }
         return neighbourAgentList;
     }

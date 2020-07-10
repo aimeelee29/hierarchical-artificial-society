@@ -33,7 +33,7 @@ public class AgentFactory : MonoBehaviour
         gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
 
         //TO DO: will change the for loop when all working.
-        for (int i = 0; i < 1; ++i)
+        for (int i = 0; i < 0; ++i)
         {
             GameObject agentObj = GameObject.Instantiate(agentPrefab);
             GeneratePosition(agentObj);
@@ -76,6 +76,7 @@ public class AgentFactory : MonoBehaviour
         agentCom.SugarMetabolism = UnityEngine.Random.Range(1, 6);
         agentCom.SpiceMetabolism = UnityEngine.Random.Range(1, 6);
         agentCom.VisionHarvest = UnityEngine.Random.Range(1, 6);
+        agentCom.VisionNeighbour = UnityEngine.Random.Range(20, 30);
         int sex = UnityEngine.Random.Range(1, 3);
         if (sex == 1)
             agentCom.Sex = SexEnum.Female;
@@ -111,7 +112,6 @@ public class AgentFactory : MonoBehaviour
         {
             agentObj = GameObject.Instantiate(agentPrefab);
         }
- 
         return agentObj;
     }
 
@@ -166,6 +166,10 @@ public class AgentFactory : MonoBehaviour
         else
             agentCom.VisionHarvest = parentTwo.VisionHarvest;
         if (UnityEngine.Random.Range(1, 3) == 1)
+            agentCom.VisionNeighbour = parentOne.VisionNeighbour;
+        else
+            agentCom.VisionNeighbour = parentTwo.VisionNeighbour;
+        if (UnityEngine.Random.Range(1, 3) == 1)
             agentCom.ChildBearingBegins = parentOne.ChildBearingBegins;
         else
             agentCom.ChildBearingBegins = parentTwo.ChildBearingBegins;
@@ -184,6 +188,7 @@ public class AgentFactory : MonoBehaviour
         agentCom.IsAlive = true;
         agentCom.Age = 0;
 
+        Agent.LiveAgents.Add(agentCom);
         return;
     }
 }

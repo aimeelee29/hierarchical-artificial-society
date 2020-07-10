@@ -20,8 +20,6 @@ public class Agent : MonoBehaviour
     private World world;
     private GridLayout gridLayout;
     private Vector2Int cellPosition;
-    //Need access to scriptable object Toggle to enable/disable certain things
-    private static Toggle toggle;
 
     /* 
      * AGENT VARIABLES
@@ -55,7 +53,7 @@ public class Agent : MonoBehaviour
     private double maxWelfare;
 
     // Neighbours - updated each time step (since even though there is no movement, some will be born and others will die)
-    private List<Agent> neighbourAgentList;
+    private List<Agent> neighbourAgentList = new List<Agent>();
 
     // Attributes for reproduction
     private int childBearingBegins;
@@ -63,7 +61,7 @@ public class Agent : MonoBehaviour
     private SexEnum sex;
 
     // List of agents that current agent has mated with for that time step.
-    private List<Agent> agentReproductionList;
+    private List<Agent> agentReproductionList = new List<Agent>();
     // List of children
     private List<Agent> agentChildList = new List<Agent>();
 
@@ -127,64 +125,21 @@ public class Agent : MonoBehaviour
     void Awake()
     {
         KnowWorld();
-        // Reference to SO Toggle so we can turn various things on and off in the model
-        toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
-
-        // 
+        // for harvest
         pos = cellPosition;
         maxWelfare = world.WorldArray[cellPosition.x, cellPosition.y].Welfare(Sugar, Spice, SugarMetabolism, SpiceMetabolism);
 }
 
     void FixedUpdate()
     {
-        //increase agent's age
-        ++age;
-
-        //decrease sugar & spice through metabolism
-        sugar -= sugarMetabolism;
-        spice -= spiceMetabolism;
-
-        //check for death
-        Death();
-
-        if (IsAlive)
-        {
-            // Look around and harvest food
-            Harvest();
-
-            //time until death for each commodity
-            timeUntilSugarDeath = sugar / sugarMetabolism;
-            timeUntilSpiceDeath = spice / spiceMetabolism;
-            if (timeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
-            {
-                mrs = timeUntilSpiceDeath / timeUntilSugarDeath;
-            }
-            else
-                mrs = 0;
-
-            /*
-            //find neighbouring agents 
-            neighbourAgentList = FindNeighbours();
-            //reproduce - only if selected in toggle SO
-            if (toggle.GetReproduction())
-            {
-                ReproductionProcess();
-            }
-            //trade - only if selected in toggle SO
-            if (toggle.GetTrade())
-            {
-                Trade();
-            }  
-            */
-            print(availableAgents.Count);
-            //print(world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent);
-        }
+        //print(liveAgents.Count);
+        //print(world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent);
     }
 
     /*
      * MAIN AGENT METHODS
      */
-  
+
     // This method enables the Agent to communicate with its surroundings
     public void KnowWorld()
     {
@@ -199,14 +154,14 @@ public class Agent : MonoBehaviour
     {
         if (isAlive && (age == lifespan || sugar <= 0 || spice <= 0))
         {
-            print("death");
+            //print("death");
             isAlive = false;
             // Add to available agent list for object pooling purposes
             availableAgents.Add(this.gameObject);
             // Remove agent from its location on the grid
             world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent = null;
             // Remove agent from live agents list - not sure this is needed
-            liveAgents.Remove(this);
+            //liveAgents.Remove(this);
             // Deactivate agent
             this.gameObject.SetActive(false);
         }
@@ -419,12 +374,14 @@ public class Agent : MonoBehaviour
                 }
             }
         }
-
+        print("harvest");
+        print("sug bef = " + sugar);
         // Set agent as harvesting that cell
         world.WorldArray[pos.x, pos.y].OccupiedHarvest = true;
         // Agent harvests as much as possible from cell
         sugar += world.WorldArray[pos.x, pos.y].DepleteSugar();
         spice += world.WorldArray[pos.x, pos.y].DepleteSpice();
+        print("sug aft = " + sugar);
     }
 }
 

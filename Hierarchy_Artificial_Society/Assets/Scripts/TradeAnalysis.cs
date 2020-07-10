@@ -53,7 +53,8 @@ public class TradeAnalysis : MonoBehaviour
         quantityClass = new Quantity();
     }
 
-    void LateUpdate()
+    // Script execution order - set to run after Manager class
+    void FixedUpdate()
     {
         // add new entry in lists with total price and quantity for that update
         avPriceClass.avPriceList.Add(price/ quantity);
@@ -65,8 +66,6 @@ public class TradeAnalysis : MonoBehaviour
         int end = start + 100;
         graphScriptPrice.CreateGraph(avPriceClass.avPriceList, start, end);
         graphScriptQty.CreateGraph(quantityClass.quantityList, start, end);
-
-        //Debug.Log(quantity);
 
         // then reset price and qty
         price = 0;

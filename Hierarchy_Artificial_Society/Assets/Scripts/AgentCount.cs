@@ -33,7 +33,7 @@ public class AgentCount : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //call count method to count number of agents
         Count();

@@ -57,16 +57,7 @@ public class World : MonoBehaviour
     // also initiate growback
     void LateUpdate()
     {
-        for (int i = 0; i < rows; ++i)
-        {
-            for (int j = 0; j < cols; ++j)
-            {
-                worldArray[i, j].Growback();
-                worldArray[i, j].OccupiedHarvest = false;
-            }
-        }
-
-        print(Agent.AvailableAgents.Count);
+        
     }
 
     //Create cells
@@ -139,8 +130,8 @@ public class World : MonoBehaviour
                 {
                     worldArray[i, j].CurSugar = mountainTops - (2 * (mountainTops / 4));
                     worldArray[i, j].MaxSugar = mountainTops - (2 * (mountainTops / 4));
-                    worldArray[i, j].CurSpice = 1;
-                    worldArray[i, j].MaxSpice = 1;
+                    worldArray[i, j].CurSpice = wasteland;
+                    worldArray[i, j].MaxSpice = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.75f, 0.75f, 0, 0.75f));
                 }
                 //widest sugar circle
@@ -159,9 +150,8 @@ public class World : MonoBehaviour
                 {
                     worldArray[i, j].CurSpice = mountainTops;
                     worldArray[i, j].MaxSpice = mountainTops;
-                    //set sugar to 1 at these locations
-                    worldArray[i, j].CurSugar = 1;
-                    worldArray[i, j].MaxSugar = 1;
+                    worldArray[i, j].CurSugar = wasteland;
+                    worldArray[i, j].MaxSugar = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.25f, 0, 0.75f));
                 }
                 else if (((i - e) * (i - e) + (j - f) * (j - f)) <= secondR * secondR ||

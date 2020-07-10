@@ -16,22 +16,23 @@ public class Reproduction : MonoBehaviour
      */
 
     // Reference to Agent
-    private Agent agent;
+    //private Agent agent;
     // Reference to world
-    private World world;
+    private static World world;
     // Reference to AgentFactory to call create child methods
-    private AgentFactory agentFactory;
+    private static AgentFactory agentFactory;
 
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<Agent>();
-        world = GameObject.Find("World").GetComponent<World>();
+        //agent = GetComponent<Agent>();
+        //world = GameObject.Find("World").GetComponent<World>();
         agentFactory = GameObject.Find("Agent Factory").GetComponent<AgentFactory>();
     }
 
-    private void ReproductionProcess()
+    public void ReproductionProcess(Agent agent, World world)
     {
+        //world = GameObject.Find("World").GetComponent<World>();
         // checks if there is an empty cell adjacent to current agent's cell - this will move to be handled by manager?
         Vector2Int currentEmpty = world.CheckEmptyCell(agent.CellPosition.x, agent.CellPosition.y);
 
@@ -41,7 +42,7 @@ public class Reproduction : MonoBehaviour
         foreach (Agent partner in agent.NeighbourAgentList)
         {
             // if the neighbour isn't a potential partner then skip
-            if (!IsNeighbourPotentialPartner(partner))
+            if (!IsNeighbourPotentialPartner(agent, partner))
                 continue;
             // if it is a potential partner
             else
@@ -60,6 +61,7 @@ public class Reproduction : MonoBehaviour
                 //if either current agent or neighbour has an empty neighbouring cell
                 if (currentEmpty.x != -1 || partnerEmpty.x != -1)
                 {
+                    print("reproduce");
                     // then reproduce
                     // creates gameobject for child agent
                     GameObject agentObj = agentFactory.CreateChild();
@@ -67,9 +69,9 @@ public class Reproduction : MonoBehaviour
                     agentFactory.GenerateChildPosition(agentObj, currentEmpty, partnerEmpty);
                     // sets Agent component values
                     agentFactory.CreateAgentComponent(agentObj, agent, partner);
-                    //adds partner to list of agents mated with
+                    // adds partner to list of agents mated with
                     agent.AgentReproductionList.Add(partner);
-                    //adds child to list of children
+                    // adds child to list of children
                     agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
                     // adds child to list of live agents
                     Agent.LiveAgents.Add(agentObj.GetComponent<Agent>());
@@ -84,11 +86,15 @@ public class Reproduction : MonoBehaviour
     // Returns true if agent is currently fertile
     private bool IsFertile(Agent agent)
     {
+        //print(agent.Sugar >= agent.SugarInit && agent.Spice >= agent.SpiceInit);
         return (agent.ChildBearingBegins <= agent.Age && agent.ChildBearingEnds > agent.Age && agent.Sugar >= agent.SugarInit && agent.Spice >= agent.SpiceInit);
     }
 
-    private bool IsNeighbourPotentialPartner(Agent neighbour)
+    private bool IsNeighbourPotentialPartner(Agent agent, Agent neighbour)
     {
+        //print("IsNeighbourPotentialPartner");
+        //print(IsFertile(neighbour));
+        //print(IsFertile(neighbour) && neighbour.Sex != agent.Sex);
         //  makes sure agent is fertile and of different sex
         // the different sex check also rules out an agent mating with itself
         return (IsFertile(neighbour) && neighbour.Sex != agent.Sex);
