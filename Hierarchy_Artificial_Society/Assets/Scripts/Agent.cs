@@ -344,7 +344,6 @@ public class Agent : MonoBehaviour
                 {
                     pos = new Vector2Int(cellPosition.x, i);
                     maxWelfare = curWelfare;
-                    print(maxWelfare);
                 }
             }
         }
@@ -363,7 +362,6 @@ public class Agent : MonoBehaviour
                     {
                         pos = new Vector2Int(cellPosition.x, i);
                         maxWelfare = curWelfare;
-                        print(maxWelfare);
                     }
                 }
             }
@@ -384,7 +382,7 @@ public class Agent : MonoBehaviour
             leftover = 0;
         }
 
-        for (int i = cellPosition.y - 1; i >= 0; --i)
+        for (int i = cellPosition.y - 1; i >= temp; --i)
         {
             //if location isn't already ane at location for another agent
             if (world.WorldArray[cellPosition.x, i].OccupiedHarvest == false)
@@ -396,7 +394,6 @@ public class Agent : MonoBehaviour
                 {
                     pos = new Vector2Int(cellPosition.x, i);
                     maxWelfare = curWelfare;
-                    print(maxWelfare);
                 }
             }
         }
@@ -416,7 +413,7 @@ public class Agent : MonoBehaviour
                     {
                         pos = new Vector2Int(cellPosition.x, i);
                         maxWelfare = curWelfare;
-                        print(maxWelfare);
+                        //print(maxWelfare);
                     }
                 }
             }
@@ -487,7 +484,7 @@ public class Agent : MonoBehaviour
             leftover = 0;
         }
 
-        for (int i = cellPosition.x - 1; i >= 0; --i)
+        for (int i = cellPosition.x - 1; i >= temp; --i)
         {
             //if location isn't already ane at location for another agent
             if (world.WorldArray[i, cellPosition.y].OccupiedHarvest == false)
