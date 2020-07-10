@@ -86,13 +86,6 @@ public class Cell
                 curSpice += growbackFactor;
         }
     }
-
-    //Used to determine which site would produce most benefit to agent
-    public double Welfare(int agSugar, int agSpice, int agSugarMet, int agSpiceMet)
-    {
-        return Math.Pow(agSugar + curSugar, (double)agSugarMet / (agSugarMet + agSpiceMet)) * Math.Pow(agSpice + curSpice, (double)agSpiceMet / (agSugarMet + agSpiceMet));
-
-    }
 }
 
 
