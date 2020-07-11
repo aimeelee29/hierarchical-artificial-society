@@ -17,11 +17,10 @@ public class Reproduction : MonoBehaviour
         // checks if there is an empty cell adjacent to current agent's cell - this will move to be handled by manager?
         Vector2Int currentEmpty = world.CheckEmptyCell(agent.CellPosition.x, agent.CellPosition.y);
 
-        // refreshes list of agents mated with - this will move to be handled by manager
-        agent.AgentReproductionList = new List<Agent>();
-
         foreach (Agent partner in agent.NeighbourAgentList)
         {
+            //print("neighbour count = " + agent.NeighbourAgentList.Count);
+            print(IsNeighbourPotentialPartner(agent, partner));
             // if the neighbour isn't a potential partner then skip
             if (!IsNeighbourPotentialPartner(agent, partner))
                 continue;
@@ -42,7 +41,7 @@ public class Reproduction : MonoBehaviour
                 //if either current agent or neighbour has an empty neighbouring cell
                 if (currentEmpty.x != -1 || partnerEmpty.x != -1)
                 {
-                    print("reproduce");
+                    //print("reproduce");
                     // then reproduce
                     // creates gameobject for child agent
                     GameObject agentObj = GameObject.Find("Agent Factory").GetComponent<AgentFactory>().CreateChild();
@@ -67,7 +66,6 @@ public class Reproduction : MonoBehaviour
     // Returns true if agent is currently fertile
     private bool IsFertile(Agent agent)
     {
-        //print(agent.Sugar >= agent.SugarInit && agent.Spice >= agent.SpiceInit);
         return (agent.ChildBearingBegins <= agent.Age && agent.ChildBearingEnds > agent.Age && agent.Sugar >= agent.SugarInit && agent.Spice >= agent.SpiceInit);
     }
 

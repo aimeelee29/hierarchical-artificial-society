@@ -64,8 +64,14 @@ public class AgentManager : MonoBehaviour
         {
             Agent.LiveAgents.Remove(deadAgent.GetComponent<Agent>());
         }
-        
-        if (Agent.LiveAgents.Count > 1)
+
+        // Wipes each agent's list of agents they have mated with in that time step
+        foreach (Agent agent in Agent.LiveAgents)
+        {
+            agent.AgentReproductionList.Clear();
+        }
+
+            if (Agent.LiveAgents.Count > 1)
         {
             // Finds neighbours 
             foreach (Agent agent in Agent.LiveAgents)

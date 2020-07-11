@@ -27,11 +27,10 @@ public class NeighbourVision : MonoBehaviour
         {
             // if collider is not attached to an agent then skip this iteration (as overlapcircleall will also catch collider for tilemap) 
             // also removes itself
-            if (neighbour.tag != "Agent" || neighbour == agent)
+            if (neighbour.tag != "Agent" || neighbour.gameObject == agent.gameObject)
                 continue;
 
-            if (agent.IsAlive) //may not need this now
-                neighbourAgentList.Add(neighbour.GetComponent<Agent>());
+            neighbourAgentList.Add(neighbour.GetComponent<Agent>());
         }
         return neighbourAgentList;
     }

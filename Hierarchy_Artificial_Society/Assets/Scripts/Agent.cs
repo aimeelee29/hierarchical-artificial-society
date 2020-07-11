@@ -170,17 +170,21 @@ public class Agent : MonoBehaviour
         //spiceMetabolism = 2;//TESTING
         visionHarvest = UnityEngine.Random.Range(1, 6);
         //visionHarvest = 10; //TESTING
-        visionNeighbour = UnityEngine.Random.Range(20, 30);
+        visionNeighbour = UnityEngine.Random.Range(20, 30);    
         int sexRand = UnityEngine.Random.Range(1, 3);
         if (sexRand == 1)
             sex = SexEnum.Female;
         else if (sexRand == 2)
             sex = SexEnum.Male;
+        print(sex);
+
         isAlive = true;
-        childBearingBegins = UnityEngine.Random.Range(12, 16);
+        //childBearingBegins = UnityEngine.Random.Range(12, 16);
         childBearingEnds = UnityEngine.Random.Range(35, 46);
+        childBearingBegins = 12; //TESTING
         lifespan = UnityEngine.Random.Range(60, 101);
-        age = UnityEngine.Random.Range(1, lifespan + 1);
+        //age = UnityEngine.Random.Range(1, lifespan + 1);
+        age = 12;
         dominance = UnityEngine.Random.Range(1, 5);
         influence = UnityEngine.Random.Range(1, 5);
 
