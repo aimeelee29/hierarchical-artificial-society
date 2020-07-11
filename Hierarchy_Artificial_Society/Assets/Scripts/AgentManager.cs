@@ -47,16 +47,6 @@ public class AgentManager : MonoBehaviour
 
             // Look around and harvest food
             agent.Harvest();
-
-            //time until death for each commodity
-            agent.TimeUntilSugarDeath = agent.Sugar / agent.SugarMetabolism;
-            agent.TimeUntilSpiceDeath = agent.Spice / agent.SpiceMetabolism;
-            if (agent.TimeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
-            {
-                agent.MRS = agent.TimeUntilSpiceDeath / agent.TimeUntilSugarDeath;
-            }
-            else
-                agent.MRS = 0;
         }
 
         // can't change collection when iterating so need this step to remove dead agents from live list
@@ -85,6 +75,15 @@ public class AgentManager : MonoBehaviour
             {
                 foreach (Agent agent in Agent.LiveAgents)
                 {
+                    //time until death for each commodity
+                    agent.TimeUntilSugarDeath = agent.Sugar / agent.SugarMetabolism;
+                    agent.TimeUntilSpiceDeath = agent.Spice / agent.SpiceMetabolism;
+                    if (agent.TimeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
+                    {
+                        agent.MRS = agent.TimeUntilSpiceDeath / agent.TimeUntilSugarDeath;
+                    }
+                    else
+                        agent.MRS = 0;
                     agent.GetComponent<Trade>().MakeTrade(agent, tradeAnalysis);
                 }
             }
