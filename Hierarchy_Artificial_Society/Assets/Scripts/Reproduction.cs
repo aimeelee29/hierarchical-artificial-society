@@ -20,13 +20,16 @@ public class Reproduction : MonoBehaviour
         foreach (Agent partner in agent.NeighbourAgentList)
         {
             //print("neighbour count = " + agent.NeighbourAgentList.Count);
-            print(IsNeighbourPotentialPartner(agent, partner));
+            //print(IsNeighbourPotentialPartner(agent, partner));
             // if the neighbour isn't a potential partner then skip
             if (!IsNeighbourPotentialPartner(agent, partner))
                 continue;
             // if it is a potential partner
             else
             {
+                //print("agent repro list" + agent.AgentReproductionList.Count);
+                //print("partner repro list" + partner.AgentReproductionList.Count);
+
                 // go through list of agents that current agent has mated with and ensure that they haven't mated before and to ensure they don't mate with offspring
                 if (agent.AgentReproductionList.Contains(partner) ||
                    (partner.AgentReproductionList != null && partner.AgentReproductionList.Contains(agent)) ||
@@ -37,6 +40,9 @@ public class Reproduction : MonoBehaviour
 
                 // checks if there is an empty cell adjacent to the potential partner agent's cell
                 Vector2Int partnerEmpty = world.CheckEmptyCell(partner.CellPosition.x, partner.CellPosition.y);
+
+               // print("partner empty = " + partnerEmpty);
+               // print("agent empty = " + currentEmpty);
 
                 //if either current agent or neighbour has an empty neighbouring cell
                 if (currentEmpty.x != -1 || partnerEmpty.x != -1)

@@ -71,7 +71,7 @@ public class AgentManager : MonoBehaviour
             agent.AgentReproductionList.Clear();
         }
 
-            if (Agent.LiveAgents.Count > 1)
+        if (Agent.LiveAgents.Count > 1)
         {
             // Finds neighbours 
             foreach (Agent agent in Agent.LiveAgents)

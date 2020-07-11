@@ -176,15 +176,15 @@ public class Agent : MonoBehaviour
             sex = SexEnum.Female;
         else if (sexRand == 2)
             sex = SexEnum.Male;
-        print(sex);
+       // print(sex);
 
         isAlive = true;
-        //childBearingBegins = UnityEngine.Random.Range(12, 16);
+        childBearingBegins = UnityEngine.Random.Range(12, 16);
         childBearingEnds = UnityEngine.Random.Range(35, 46);
-        childBearingBegins = 12; //TESTING
+        //childBearingBegins = 12; //TESTING
         lifespan = UnityEngine.Random.Range(60, 101);
-        //age = UnityEngine.Random.Range(1, lifespan + 1);
-        age = 12;
+        age = UnityEngine.Random.Range(1, lifespan + 1);
+        //age = 12;
         dominance = UnityEngine.Random.Range(1, 5);
         influence = UnityEngine.Random.Range(1, 5);
 
@@ -270,25 +270,44 @@ public class Agent : MonoBehaviour
         // If neither parent have a free neighbouring cell then return
         if (freeVector1.x == -1 && freeVector2.x == -1)
             return;
-
-        int x;
-        int y;
-
-        // Position for child is one of the empty neighbouring cells to one of the parents
-        if (freeVector1.x != -1)
-        {
-            x = freeVector1.x;
-            y = freeVector1.y;
-        }
+        
         else
         {
-            x = freeVector2.x;
-            y = freeVector2.y;
+            int x;
+            int y;
+
+            // If both have free neighbouring cell then pick at random
+            if (freeVector1.x != -1 && freeVector2.x != -1)
+            {
+                int rand = UnityEngine.Random.Range(1, 3);
+                if (rand == 1)
+                {
+                    x = freeVector1.x;
+                    y = freeVector1.y;
+                }
+                else
+                {
+                    x = freeVector2.x;
+                    y = freeVector2.y;
+                }
+            }
+            // If agent 1 has free neighbouring cell
+            else if (freeVector1.x != -1)
+            {
+                x = freeVector1.x;
+                y = freeVector1.y;
+            }
+            // If agent 2 has free neighbouring cell
+            else
+            {
+                x = freeVector2.x;
+                y = freeVector2.y;
+            }
+            // sets position to free vector chosen
+            this.gameObject.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
+            // tells world that agent is in that cell
+            world.WorldArray[x, y].OccupyingAgent = this;
         }
-        // sets position to free vector chosen
-        this.gameObject.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
-        // tells world that agent is in that cell
-        world.WorldArray[x, y].OccupyingAgent = this;
     }
 
     // Agent will die if it reaches its lifespan or runs out of either sugar or spice
