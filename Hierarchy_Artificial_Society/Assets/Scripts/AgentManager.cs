@@ -68,15 +68,8 @@ public class AgentManager : MonoBehaviour
             {
                 agent.NeighbourAgentList = agent.GetComponent<NeighbourVision>().FindNeighbours(agent);
                 // print(agent.NeighbourAgentList);
-                //time until death for each commodity
-                agent.TimeUntilSugarDeath = agent.Sugar / agent.SugarMetabolism;
-                agent.TimeUntilSpiceDeath = agent.Spice / agent.SpiceMetabolism;
-                if (agent.TimeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
-                {
-                    agent.MRS = agent.TimeUntilSpiceDeath / agent.TimeUntilSugarDeath;
-                }
-                else
-                    agent.MRS = 0;
+
+                agent.MRS = agent.GetComponent<Trade>().CalcMRS(agent);
             }
             
             // Trade - only if selected in toggle (in inspector)

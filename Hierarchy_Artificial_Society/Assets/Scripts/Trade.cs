@@ -11,51 +11,33 @@ using UnityEngine;
 
 public class Trade : MonoBehaviour
 {
-    //Need access to TradeAnalysis to report on trade metrics
-    //private static TradeAnalysis tradeAnalysis;
-
-    void Start()
-    {
-        //agent = GetComponent<Agent>();
-        //Defined in start since find cannot be used directly in MonoBehaviour
-       // tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
-    }
-
     public void MakeTrade(Agent agent, TradeAnalysis tradeAnalysis)
     {
         // For every neighbour
         foreach (Agent neighbour in agent.NeighbourAgentList)
         {
-            //TradeAnalysis tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
-            //print(agent.NeighbourAgentList.Count);
-            //print(agent.MRS);
-            //print(neighbour.MRS);
-            //print(agent == neighbour);
             // If MRSA = MRSB then no trade. Continue skips that iteration of the loop
             if (agent.MRS == neighbour.MRS)
                 continue;
+
+            // If already traded in that time step then no trade
             print("about to trade");
             print("agent sugar = " + agent.Sugar + "(" + agent.SugarMetabolism + ")" + " agent spice = " + agent.Spice + "(" + agent.SpiceMetabolism + ")");
             print("neighbour sugar = " + neighbour.Sugar + "(" + neighbour.SugarMetabolism + ")" + " neighbour spice = " + neighbour.Spice + "(" + neighbour.SpiceMetabolism + ")");
             print("agent MRS =" + agent.MRS);
             print("neighbour MRS =" + neighbour.MRS);
+
             // otherwise 
-            // calculate price (geometric mean of the two MRSs)
-            double price = Price(agent.MRS, neighbour.MRS);
-            print(price);
-
-            // vars for how many sugar units are traded for spice units (and vice versa)
-            int sugarUnits = SugarUnits(price);
-            int spiceUnits = SpiceUnits(price);
-
-            print("sug units = " + sugarUnits);
-            print("spi units = " + spiceUnits);
-
-            double currentWelfareA = agent.Welfare(0, 0);
-            double currentWelfareB = neighbour.Welfare(0, 0);
-
-            print("agent cur welf = " + currentWelfareA);
-            print("neighbour cur welf = " + currentWelfareB);
+            // Set up vars needed
+            double price; 
+            int sugarUnits; 
+            int spiceUnits;
+            double currentWelfareA;
+            double currentWelfareB;
+            double potentialWelfareA;
+            double potentialWelfareB;
+            double potentialMRSA;
+            double potentialMRSB;
 
             // If MRSA > MRSB then agent A buys sugar, sells spice (A considers sugar to be relatively more valuable than agent B)
             if (agent.MRS > neighbour.MRS)
@@ -64,19 +46,38 @@ public class Trade : MonoBehaviour
                 // (a) make both agents better off(increases the welfare of both agents), and
                 // (b) not cause the agents' MRSs to cross over one another, then the trade is made and return to start, else end.
 
-                double potentialWelfareA = agent.Welfare(sugarUnits, -spiceUnits);
-                double potentialWelfareB = neighbour.Welfare(-sugarUnits, spiceUnits);
-
-                print("agent pot welf = " + currentWelfareA);
-                print("neighbour pot welf = " + currentWelfareB);
-
-                if (neighbour.TimeUntilSugarDeath - sugarUnits > 0)
+                // while mrss don't cross over each other, trade with agent
+                while (agent.MRS > neighbour.MRS)
                 {
-                    double potentialMRSA = (agent.TimeUntilSpiceDeath - spiceUnits) / (agent.TimeUntilSugarDeath + sugarUnits);
-                    double potentialMRSB = (neighbour.TimeUntilSpiceDeath + spiceUnits) / (neighbour.TimeUntilSugarDeath - sugarUnits);
+                    // Calculate price (geometric mean of the two MRSs)
+                    price = Price(agent.MRS, neighbour.MRS);
+                    // Calculate quantities to be traded
+                    sugarUnits = SugarUnits(price);
+                    spiceUnits = SpiceUnits(price);
+                    print("price = " + price);
+                    print("sug units = " + sugarUnits);
+                    print("spi units = " + spiceUnits);
 
-                    if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB &&
-                        potentialMRSA >= potentialMRSB)
+                    // Calculate current welfare to be able to compare with potential welfare
+                    currentWelfareA = agent.Welfare(0, 0);
+                    currentWelfareB = neighbour.Welfare(0, 0);
+                    print("agent cur welf = " + currentWelfareA);
+                    print("neighbour cur welf = " + currentWelfareB);
+
+                    //Calculate potential welfare after trade
+                    potentialWelfareA = agent.Welfare(sugarUnits, -spiceUnits);
+                    potentialWelfareB = neighbour.Welfare(-sugarUnits, spiceUnits);
+                    print("agent pot welf = " + potentialWelfareA);
+                    print("neighbour pot welf = " + potentialWelfareB);
+
+                    if (neighbour.TimeUntilSugarDeath - sugarUnits > 0)
+                    {
+                        potentialMRSA = (agent.TimeUntilSpiceDeath - spiceUnits) / (agent.TimeUntilSugarDeath + sugarUnits);
+                        potentialMRSB = (neighbour.TimeUntilSpiceDeath + spiceUnits) / (neighbour.TimeUntilSugarDeath - sugarUnits);
+                    }
+
+                    // Only make trade if it benefits both agents
+                    if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB)
                     {
                         print("trade");
                         agent.Sugar += sugarUnits;
@@ -88,25 +89,49 @@ public class Trade : MonoBehaviour
 
                         print("agent new sugar = " + agent.Sugar + " agent spice = " + agent.Spice);
                         print("neighbour new sugar = " + neighbour.Sugar + " neighbour spice = " + neighbour.Spice);
+
+                        // Update MRS
+                        agent.MRS = CalcMRS(agent);
+                        neighbour.MRS = CalcMRS(neighbour);
                     }
+                    else
+                        break;
                 }
             }
             // Else MRSA < MRSB
             else
             {
-                double potentialWelfareA = agent.Welfare(-sugarUnits, +spiceUnits);
-                double potentialWelfareB = neighbour.Welfare(+sugarUnits, -spiceUnits);
-
-                print("agent pot welf = " + currentWelfareA);
-                print("neighbour pot welf = " + currentWelfareB);
-
-                if (agent.TimeUntilSugarDeath - sugarUnits > 0)
+                while (agent.MRS < neighbour.MRS)
                 {
-                    double potentialMRSA = (agent.TimeUntilSpiceDeath + spiceUnits) / (agent.TimeUntilSugarDeath - sugarUnits);
-                    double potentialMRSB = (neighbour.TimeUntilSpiceDeath - spiceUnits) / (neighbour.TimeUntilSugarDeath + sugarUnits);
+                    // Calculate price (geometric mean of the two MRSs)
+                    price = Price(agent.MRS, neighbour.MRS);
+                    // Calculate quantities to be traded
+                    sugarUnits = SugarUnits(price);
+                    spiceUnits = SpiceUnits(price);
+                    print("price = " + price);
+                    print("sug units = " + sugarUnits);
+                    print("spi units = " + spiceUnits);
 
-                    if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB &&
-                        potentialMRSA <= potentialMRSB)
+                    // Calculate current welfare to be able to compare with potential welfare
+                    currentWelfareA = agent.Welfare(0, 0);
+                    currentWelfareB = neighbour.Welfare(0, 0);
+                    print("agent cur welf = " + currentWelfareA);
+                    print("neighbour cur welf = " + currentWelfareB);
+
+                    // Calculate potential welfare after trade
+                    potentialWelfareA = agent.Welfare(-sugarUnits, spiceUnits);
+                    potentialWelfareB = neighbour.Welfare(sugarUnits, -spiceUnits);
+                    print("agent pot welf = " + potentialWelfareA);
+                    print("neighbour pot welf = " + potentialWelfareB);
+
+                    if (agent.TimeUntilSugarDeath - sugarUnits > 0)
+                    {
+                        potentialMRSA = (agent.TimeUntilSpiceDeath + spiceUnits) / (agent.TimeUntilSugarDeath - sugarUnits);
+                        potentialMRSB = (neighbour.TimeUntilSpiceDeath - spiceUnits) / (neighbour.TimeUntilSugarDeath + sugarUnits);
+                    }
+                
+
+                    if (potentialWelfareA > currentWelfareA && potentialWelfareB > currentWelfareB)
                     {
                         print("trade");
                         agent.Sugar -= sugarUnits;
@@ -118,10 +143,33 @@ public class Trade : MonoBehaviour
 
                         print("agent new sugar = " + agent.Sugar + " agent spice = " + agent.Spice);
                         print("neighbour new sugar = " + neighbour.Sugar + " neighbour spice = " + neighbour.Spice);
+                        
+                        // Update MRS
+                        agent.MRS = CalcMRS(agent);
+                        neighbour.MRS = CalcMRS(neighbour);
                     }
+                    else
+                        break;
                 }
             }
         }
+    }
+
+    public double CalcMRS(Agent agent)
+    {
+        //time until death for each commodity - used for trading
+        agent.TimeUntilSugarDeath = agent.Sugar / agent.SugarMetabolism;
+        agent.TimeUntilSpiceDeath = agent.Spice / agent.SpiceMetabolism;
+        double MRS;
+
+        if (agent.TimeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
+        {
+            MRS = agent.TimeUntilSpiceDeath / agent.TimeUntilSugarDeath;
+        }
+        else
+            MRS = 0;
+
+        return MRS;
     }
 
     private double Price(double agent1MRS, double agent2MRS)
@@ -148,14 +196,9 @@ public class Trade : MonoBehaviour
     }
 
 }
-
-//trading
-
 //The ratio of the spice to sugar quantities exchanged is simply the price. This price must, of necessity , fall in the range [MRSA , MRSB]. 
 //( change if rules were unfair?).
 //While all prices within the feasible range are " agreeable " to the agents, not all prices appear to be equally "fair." 
 //Prices near either end of the range would seem to be a better deal for one of the agents, particularly when the price range is very large. 
 
-//When an agent following M moves to a new location it has from 0 to 4 (von Neumann) neighbors. 
-//It interacts through T exactly once with each of its neighbors, selected in random order.
 
