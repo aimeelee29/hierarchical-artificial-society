@@ -89,7 +89,7 @@ public class AgentManager : MonoBehaviour
             {
                 foreach (Agent agent in Agent.LiveAgents)
                 {
-                    agent.GetComponent<Reproduction>().ReproductionProcess(agent, world);
+                    Reproduction.ReproductionProcess(agent, world);
                 }
             }
 

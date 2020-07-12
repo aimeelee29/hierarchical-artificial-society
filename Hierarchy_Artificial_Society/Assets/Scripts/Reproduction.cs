@@ -9,9 +9,9 @@ using UnityEngine;
  *  
  */
 
-public class Reproduction : MonoBehaviour
+public static class Reproduction
 {
-    public void ReproductionProcess(Agent agent, World world)
+    public static void ReproductionProcess(Agent agent, World world)
     {
         //world = GameObject.Find("World").GetComponent<World>();
         // checks if there is an empty cell adjacent to current agent's cell - this will move to be handled by manager?
@@ -68,12 +68,12 @@ public class Reproduction : MonoBehaviour
     }
 
     // Returns true if agent is currently fertile
-    private bool IsFertile(Agent agent)
+    private static bool IsFertile(Agent agent)
     {
         return (agent.ChildBearingBegins <= agent.Age && agent.ChildBearingEnds > agent.Age && agent.Sugar >= agent.SugarInit && agent.Spice >= agent.SpiceInit);
     }
 
-    private bool IsNeighbourPotentialPartner(Agent agent, Agent neighbour)
+    private static bool IsNeighbourPotentialPartner(Agent agent, Agent neighbour)
     {
         //print("IsNeighbourPotentialPartner");
         //print(IsFertile(neighbour));
