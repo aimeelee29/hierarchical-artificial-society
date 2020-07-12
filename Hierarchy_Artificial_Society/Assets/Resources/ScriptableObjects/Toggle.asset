@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: Toggle
   m_EditorClassIdentifier: 
   reproduction: 1
-  varyingPrefs: 0
   hierarchy: 0
   trade: 1

@@ -173,7 +173,7 @@ public class Agent : MonoBehaviour
         //spiceMetabolism = 2;//TESTING
         visionHarvest = UnityEngine.Random.Range(1, 6);
         //visionHarvest = 10; //TESTING
-        visionNeighbour = UnityEngine.Random.Range(20, 30);    
+        visionNeighbour = UnityEngine.Random.Range(25, 30);    
         int sexRand = UnityEngine.Random.Range(1, 3);
         if (sexRand == 1)
             sex = SexEnum.Female;
@@ -318,6 +318,14 @@ public class Agent : MonoBehaviour
     {
         if (isAlive && (age == lifespan || sugar <= 0 || spice <= 0))
         {
+            /*
+            if (age == lifespan)
+                print("lifespan");
+            else if (sugar <= 0)
+                print("sugar");
+            else
+                print("spice");
+            */
             //print("death");
             isAlive = false;
             // Add to available agent list for object pooling purposes

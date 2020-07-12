@@ -21,7 +21,7 @@ public class Cell
     private int curSpice;
 
     //how many units of sugar and spice grows back per time frame
-    private static int growbackFactor = 1;
+    private static int growbackFactor = 3;
 
     //reference of agent occupying cell. To be set when agents spawn (either initially or through reproduction/replacement).
     private Agent occupyingAgent;

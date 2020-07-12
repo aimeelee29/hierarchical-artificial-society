@@ -31,7 +31,9 @@ public static class Reproduction
                 //print("partner repro list" + partner.AgentReproductionList.Count);
 
                 // go through list of agents that partner has mated with and ensure that they haven't mated before and also ensure they don't mate with offspring
-                if (partner.AgentReproductionList.Contains(agent) || agent.AgentChildList.Contains(partner))
+                if (partner.AgentReproductionList.Contains(agent) 
+                    //|| agent.AgentChildList.Contains(partner)
+                    )
                 {
                     continue; //skips to next iteration of loop
                 }

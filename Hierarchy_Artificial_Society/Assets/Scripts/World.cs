@@ -25,9 +25,13 @@ public class World : MonoBehaviour
     private Cell[,] worldArray = new Cell[rows, cols];
 
     // Amount of sugar/spice at top of mountain
-    [SerializeField] private int mountainTops = 8;
+    [SerializeField] private static int mountainTops = 20;
+    // Amount of sugar/spice on other tiers
+    private static int secondTier = mountainTops - mountainTops / 4;
+    private static int thirdTier = secondTier - mountainTops / 4;
+    private static int fourthTier = thirdTier - mountainTops / 4;
     // Amount of sugar/spice between mountains
-    [SerializeField] private int wasteland = 1;
+    [SerializeField] private static int wasteland = 2;
 
     /*
      * GETTERS AND SETTERS
@@ -36,6 +40,8 @@ public class World : MonoBehaviour
     public Cell[,] WorldArray { get => worldArray; set => worldArray = value; }
     public static int Rows { get => rows; set => rows = value; }
     public static int Cols { get => cols; set => cols = value; }
+    public static int MountainTops { get => mountainTops; set => mountainTops = value; }
+    public static int Wasteland { get => wasteland; set => wasteland = value; }
 
     /* 
      * METHODS
@@ -51,13 +57,6 @@ public class World : MonoBehaviour
         envTilemap = objTileMap.GetComponent<Tilemap>();
         //calls Mountains method to populate the cells with sugar/spice
         Mountains(); 
-    }
-
-    // For all cells, set occupied for harvest to false as we want to refresh each update
-    // also initiate growback
-    void LateUpdate()
-    {
-        
     }
 
     //Create cells
@@ -103,13 +102,13 @@ public class World : MonoBehaviour
         {
             for (int j = 0; j < cols; ++j)
             {
-                //smallest sugar circle
+                // smallest sugar circle
                 if (((i - a) * (i - a) + (j - b) * (j - b)) <= innerR * innerR ||
                     ((i - c) * (i - c) + (j - d) * (j - d)) <= innerR * innerR)
                 {
                     worldArray[i, j].CurSugar = mountainTops;
                     worldArray[i, j].MaxSugar = mountainTops;
-                    //set spice to 1 for these locations
+                    // set spice to 1 for these locations
                     worldArray[i, j].CurSpice = wasteland;
                     worldArray[i, j].MaxSpice = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.25f, 0.25f, 0, 0.75f));
@@ -118,8 +117,8 @@ public class World : MonoBehaviour
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= secondR * secondR || 
                          ((i - c) * (i - c) + (j - d) * (j - d)) <= secondR * secondR)
                 {
-                    worldArray[i, j].CurSugar = mountainTops - mountainTops / 4;
-                    worldArray[i, j].MaxSugar = mountainTops - mountainTops / 4;
+                    worldArray[i, j].CurSugar = secondTier;
+                    worldArray[i, j].MaxSugar = secondTier;
                     worldArray[i, j].CurSpice = wasteland;
                     worldArray[i, j].MaxSpice = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.5f, 0.5f, 0, 0.75f));
@@ -128,8 +127,8 @@ public class World : MonoBehaviour
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= thirdR * thirdR ||
                          ((i - c) * (i - c) + (j - d) * (j - d)) <= thirdR * thirdR)
                 {
-                    worldArray[i, j].CurSugar = mountainTops - (2 * (mountainTops / 4));
-                    worldArray[i, j].MaxSugar = mountainTops - (2 * (mountainTops / 4));
+                    worldArray[i, j].CurSugar = thirdTier;
+                    worldArray[i, j].MaxSugar = thirdTier;
                     worldArray[i, j].CurSpice = wasteland;
                     worldArray[i, j].MaxSpice = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0.75f, 0.75f, 0, 0.75f));
@@ -138,8 +137,8 @@ public class World : MonoBehaviour
                 else if (((i - a) * (i - a) + (j - b) * (j - b)) <= outerR * outerR ||
                          ((i - c) * (i - c) + (j - d) * (j - d)) <= outerR * outerR)
                 {
-                    worldArray[i, j].CurSugar = mountainTops - (3 * (mountainTops / 4));
-                    worldArray[i, j].MaxSugar = mountainTops - (3 * (mountainTops / 4));
+                    worldArray[i, j].CurSugar = fourthTier;
+                    worldArray[i, j].MaxSugar = fourthTier;
                     worldArray[i, j].CurSpice = wasteland;
                     worldArray[i, j].MaxSpice = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(1, 1, 0, 0.75f));
@@ -157,8 +156,8 @@ public class World : MonoBehaviour
                 else if (((i - e) * (i - e) + (j - f) * (j - f)) <= secondR * secondR ||
                          ((i - g) * (i - g) + (j - h) * (j - h)) <= secondR * secondR)
                 {
-                    worldArray[i, j].CurSpice = mountainTops - mountainTops / 4;
-                    worldArray[i, j].MaxSpice = mountainTops - mountainTops / 4;
+                    worldArray[i, j].CurSpice = secondTier;
+                    worldArray[i, j].MaxSpice = secondTier;
                     worldArray[i, j].CurSugar = wasteland;
                     worldArray[i, j].MaxSugar = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.5f, 0, 0.75f));
@@ -166,8 +165,8 @@ public class World : MonoBehaviour
                 else if (((i - e) * (i - e) + (j - f) * (j - f)) <= thirdR * thirdR ||
                          ((i - g) * (i - g) + (j - h) * (j - h)) <= thirdR * thirdR)
                 {
-                    worldArray[i, j].CurSpice = mountainTops - (2 * (mountainTops / 4));
-                    worldArray[i, j].MaxSpice = mountainTops - (2 * (mountainTops / 4));
+                    worldArray[i, j].CurSpice = thirdTier;
+                    worldArray[i, j].MaxSpice = thirdTier;
                     worldArray[i, j].CurSugar = wasteland;
                     worldArray[i, j].MaxSugar = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.75f, 0, 0.75f));
@@ -176,8 +175,8 @@ public class World : MonoBehaviour
                 else if (((i - e) * (i - e) + (j - f) * (j - f)) <= outerR * outerR ||
                          ((i - g) * (i - g) + (j - h) * (j - h)) <= outerR * outerR)
                 {
-                    worldArray[i, j].CurSpice = mountainTops - (3 * (mountainTops / 4));
-                    worldArray[i, j].MaxSpice = mountainTops - (3 * (mountainTops / 4));
+                    worldArray[i, j].CurSpice = fourthTier;
+                    worldArray[i, j].MaxSpice = fourthTier;
                     worldArray[i, j].CurSugar = wasteland;
                     worldArray[i, j].MaxSugar = wasteland;
                     envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0.9f, 0, 0.75f));

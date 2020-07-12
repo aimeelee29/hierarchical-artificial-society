@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 /*
  * 
@@ -15,14 +16,20 @@ public class AgentManager : MonoBehaviour
     private static Toggle toggle;
     // Need access to world
     private static World world;
+    // Need access to tilemap for tile colour
+    private static Tilemap envTilemap;
     // Need access to tradeanalysis
     TradeAnalysis tradeAnalysis;
+
+    // Vars used for colours later on
+    float colourVal;
 
     void Start()
     {
         toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
         world = GameObject.Find("World").GetComponent<World>();
         tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
+        envTilemap = GameObject.Find("Environment").GetComponent<Tilemap>();
     }
 
     // Update is called once per frame
@@ -114,7 +121,26 @@ public class AgentManager : MonoBehaviour
             {                
                 world.WorldArray[i, j].Growback();
                 world.WorldArray[i, j].OccupiedHarvest = false;
+
+                // Update Colour
+                // if both sugar and spice is low, then set to white
+                if (world.WorldArray[i,j].CurSugar <= World.Wasteland && world.WorldArray[i, j].CurSpice <= World.Wasteland)
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0, 0, 0));
+                // if more sugar then colour yellow
+                else if (world.WorldArray[i, j].CurSugar > world.WorldArray[i, j].CurSpice)
+                {
+                    colourVal = ((world.WorldArray[i, j].CurSugar - World.Wasteland) * (0.75f)) / (World.MountainTops - World.Wasteland);
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(1 - colourVal, 1- colourVal, 0, 0.75f));
+                }
+                else
+                {
+                    colourVal = (((world.WorldArray[i, j].CurSpice - World.Wasteland) * (0.75f - 0.1f)) / (World.MountainTops - World.Wasteland)) + 0.1f;
+                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 1 - colourVal, 0, 0.75f));
+                }
             }
         }
     }
 }
+
+
+
