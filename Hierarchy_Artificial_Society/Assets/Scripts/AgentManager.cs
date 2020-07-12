@@ -64,12 +64,14 @@ public class AgentManager : MonoBehaviour
         if (Agent.LiveAgents.Count > 1)
         {
             // Finds neighbours 
+            // Also calculates MRS in prep for trade and wipes agent's trading list
             foreach (Agent agent in Agent.LiveAgents)
             {
                 agent.NeighbourAgentList = agent.GetComponent<NeighbourVision>().FindNeighbours(agent);
                 // print(agent.NeighbourAgentList);
 
-                agent.MRS = agent.GetComponent<Trade>().CalcMRS(agent);
+                agent.MRS = Trade.CalcMRS(agent);
+                agent.AgentTradeList.Clear();
             }
             
             // Trade - only if selected in toggle (in inspector)
@@ -78,7 +80,7 @@ public class AgentManager : MonoBehaviour
                 foreach (Agent agent in Agent.LiveAgents)
                 {
                     
-                    agent.GetComponent<Trade>().MakeTrade(agent, tradeAnalysis);
+                    Trade.MakeTrade(agent, tradeAnalysis);
                 }
             }
 

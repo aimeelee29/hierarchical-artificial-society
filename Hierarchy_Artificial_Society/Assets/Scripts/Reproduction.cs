@@ -30,10 +30,8 @@ public class Reproduction : MonoBehaviour
                 //print("agent repro list" + agent.AgentReproductionList.Count);
                 //print("partner repro list" + partner.AgentReproductionList.Count);
 
-                // go through list of agents that current agent has mated with and ensure that they haven't mated before and to ensure they don't mate with offspring
-                if (agent.AgentReproductionList.Contains(partner) ||
-                   (partner.AgentReproductionList != null && partner.AgentReproductionList.Contains(agent)) ||
-                    agent.AgentChildList.Contains(partner))
+                // go through list of agents that partner has mated with and ensure that they haven't mated before and also ensure they don't mate with offspring
+                if (partner.AgentReproductionList.Contains(agent) || agent.AgentChildList.Contains(partner))
                 {
                     continue; //skips to next iteration of loop
                 }

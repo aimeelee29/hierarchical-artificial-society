@@ -80,6 +80,8 @@ public class Agent : MonoBehaviour
     private List<Agent> agentReproductionList = new List<Agent>();
     // List of children of agent
     private List<Agent> agentChildList = new List<Agent>();
+    // List of agents that current agent has traded with for that time step.
+    private List<Agent> agentTradeList = new List<Agent>();
     
     // STATIC LISTS
 
@@ -125,6 +127,7 @@ public class Agent : MonoBehaviour
     public static List<GameObject> AvailableAgents { get => availableAgents; set => availableAgents = value; }
     public static List<Agent> LiveAgents { get => liveAgents; set => liveAgents = value; }
     public static List<Agent> ChildAgents { get => childAgents; set => childAgents = value; }
+    public List<Agent> AgentTradeList { get => agentTradeList; set => agentTradeList = value; }
 
     /*
      * AWAKE & UPDATE
