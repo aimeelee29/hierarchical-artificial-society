@@ -164,8 +164,11 @@ public class Agent : MonoBehaviour
     // Sets values (Initial - Random)
     public void InitVars()
     {
-        sugar = UnityEngine.Random.Range(25, 51); // max exclusive
-        spice = UnityEngine.Random.Range(25, 51);
+        //sugar = UnityEngine.Random.Range(25, 51); // max exclusive
+        //spice = UnityEngine.Random.Range(25, 51);
+        //trying to lessen growth through setting parameters differently
+        sugar = UnityEngine.Random.Range(20, 31); // max exclusive
+        spice = UnityEngine.Random.Range(20, 31);
         //sugar = 20; //TESTING
         //spice = 10; //TESTING
         sugarInit = sugar;
@@ -203,6 +206,10 @@ public class Agent : MonoBehaviour
         // initial endowment is half of mother's + half of father's initial endowment
         sugar = (parentOne.SugarInit / 2) + (parentTwo.SugarInit / 2);
         spice = (parentOne.SpiceInit / 2) + (parentTwo.SugarInit / 2);
+        parentOne.Sugar -= (parentOne.SugarInit / 2);
+        parentOne.Spice -= (parentOne.SpiceInit / 2);
+        parentTwo.Sugar -= (parentTwo.SugarInit / 2);
+        parentTwo.Spice -= (parentTwo.SpiceInit / 2);
         sugarInit = sugar;
         spiceInit = spice;
 

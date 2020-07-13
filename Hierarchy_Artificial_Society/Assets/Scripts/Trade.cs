@@ -13,15 +13,24 @@ public static class Trade
 {
     public static void MakeTrade(Agent agent, TradeAnalysis tradeAnalysis)
     {
+        //keeps track of number of trades made
+       // int potentialTradeCount = 0;
+
         // For every neighbour
         foreach (Agent neighbour in agent.NeighbourAgentList)
         {
+            //increment potential trade count
+           // ++potentialTradeCount;
+
             // If they have already traded then skip
             if (neighbour.AgentTradeList.Contains(agent))
                 continue;
             // If MRSA = MRSB then no trade. Continue skips that iteration of the loop
             if (agent.MRS == neighbour.MRS)
                 continue;
+
+            //if (potentialTradeCount == 5)
+              //  break;
 
             // If already traded in that time step then no trade
             //print("about to trade");
