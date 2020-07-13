@@ -96,6 +96,9 @@ public class Agent : MonoBehaviour
     // Needed for manager, since can't alter live agent list while you are iterating through it.
     private static List<Agent> childAgents = new List<Agent>();
 
+    //for testing
+    public bool isChild = false;
+
     /*
      * GETTERS AND SETTERS
      */
@@ -203,6 +206,9 @@ public class Agent : MonoBehaviour
         sugarInit = sugar;
         spiceInit = spice;
 
+        //print("sug = " + sugar);
+        //print("spi = " + spice);
+
         //then randomely take one of parents' attributes
         if (UnityEngine.Random.Range(1, 3) == 1)
             sugarMetabolism = parentOne.SugarMetabolism;
@@ -212,6 +218,7 @@ public class Agent : MonoBehaviour
             spiceMetabolism = parentOne.SpiceMetabolism;
         else
             spiceMetabolism = parentTwo.SpiceMetabolism;
+        
         if (UnityEngine.Random.Range(1, 3) == 1)
             visionHarvest = parentOne.VisionHarvest;
         else
@@ -241,7 +248,19 @@ public class Agent : MonoBehaviour
 
         //dominance =
         //influence = 
-
+        /*
+        print("sug met = " + SugarMetabolism);
+        print("spi met = " + SpiceMetabolism);
+        print("vis harvest = " + VisionHarvest);
+        print("vis neighbour = " + VisionNeighbour);
+        print("child bearing beg =" + ChildBearingBegins);
+        print("child bearing end =" + ChildBearingEnds);
+        print("lifespan = " + lifespan);
+        print("age = " + age);
+        print("isalive = " + isAlive);
+        print("sex = " + sex);
+        */
+        isChild = true;
         return;
     }
 
@@ -258,7 +277,7 @@ public class Agent : MonoBehaviour
             this.gameObject.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
             // Set the agent as occupying agent in the grid location
             world.WorldArray[x, y].OccupyingAgent = this;
-            // Set the cell position in agent component
+            // Set the cell position for agent
             cellPosition = new Vector2Int(x, y);
             return;
         }
@@ -310,6 +329,8 @@ public class Agent : MonoBehaviour
             this.gameObject.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
             // tells world that agent is in that cell
             world.WorldArray[x, y].OccupyingAgent = this;
+            // Set cell position for agent
+            cellPosition = new Vector2Int(x, y);
         }
     }
 
@@ -320,11 +341,11 @@ public class Agent : MonoBehaviour
         {
             /*
             if (age == lifespan)
-                print("lifespan");
+                print("lifespan death");
             else if (sugar <= 0)
-                print("sugar");
+                print("sugar death");
             else
-                print("spice");
+                print("spice death");
             */
             //print("death");
             isAlive = false;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 /*
@@ -16,12 +17,13 @@ public static class Reproduction
         //world = GameObject.Find("World").GetComponent<World>();
         // checks if there is an empty cell adjacent to current agent's cell - this will move to be handled by manager?
         Vector2Int currentEmpty = world.CheckEmptyCell(agent.CellPosition.x, agent.CellPosition.y);
-
+        //UnityEngine.Debug.Log("is child =" + agent.isChild);
+        //UnityEngine.Debug.Log("neighbour count = " + agent.NeighbourAgentList.Count);
         foreach (Agent partner in agent.NeighbourAgentList)
         {
-            //print("neighbour count = " + agent.NeighbourAgentList.Count);
-            //print(IsNeighbourPotentialPartner(agent, partner));
             // if the neighbour isn't a potential partner then skip
+            //UnityEngine.Debug.Log("partner is child = " + partner.isChild);
+            //UnityEngine.Debug.Log("potential partner = " + IsNeighbourPotentialPartner(agent, partner));
             if (!IsNeighbourPotentialPartner(agent, partner))
                 continue;
             // if it is a potential partner
@@ -78,8 +80,8 @@ public static class Reproduction
     private static bool IsNeighbourPotentialPartner(Agent agent, Agent neighbour)
     {
         //print("IsNeighbourPotentialPartner");
-        //print(IsFertile(neighbour));
-        //print(IsFertile(neighbour) && neighbour.Sex != agent.Sex);
+        //UnityEngine.Debug.Log("neihbour fertile = " + IsFertile(neighbour));
+        //UnityEngine.Debug.Log("opposite sex = " + (neighbour.Sex != agent.Sex));
         //  makes sure agent is fertile and of different sex
         // the different sex check also rules out an agent mating with itself
         return (IsFertile(neighbour) && neighbour.Sex != agent.Sex);

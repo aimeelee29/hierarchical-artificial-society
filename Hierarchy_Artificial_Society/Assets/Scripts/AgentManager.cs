@@ -50,10 +50,7 @@ public class AgentManager : MonoBehaviour
             agent.Spice -= agent.SpiceMetabolism;
 
             //check for death
-            agent.Death();
-
-            // Look around and harvest food
-            agent.Harvest();
+            agent.Death();            
         }
 
         // can't change collection when iterating so need this step to remove dead agents from live list
@@ -62,9 +59,12 @@ public class AgentManager : MonoBehaviour
             Agent.LiveAgents.Remove(deadAgent.GetComponent<Agent>());
         }
 
-        // Wipes each agent's list of agents they have mated with in that time step
         foreach (Agent agent in Agent.LiveAgents)
         {
+            // Look around and harvest food
+            agent.Harvest();
+
+            // Wipes each agent's list of agents they have mated with in previous time step
             agent.AgentReproductionList.Clear();
         }
 
@@ -86,7 +86,6 @@ public class AgentManager : MonoBehaviour
             {
                 foreach (Agent agent in Agent.LiveAgents)
                 {
-                    
                     Trade.MakeTrade(agent, tradeAnalysis);
                 }
             }
@@ -100,6 +99,9 @@ public class AgentManager : MonoBehaviour
                 }
             }
 
+            //print(Agent.ChildAgents.Count);
+            //print(Agent.LiveAgents.Count);
+            
             // Add children to live list
             foreach (Agent child in Agent.ChildAgents)
             {
@@ -108,6 +110,9 @@ public class AgentManager : MonoBehaviour
 
             // Reset child list
             Agent.ChildAgents.Clear();
+
+            //print(Agent.ChildAgents.Count);
+            //print(Agent.LiveAgents.Count);
         }
 
         /* 
