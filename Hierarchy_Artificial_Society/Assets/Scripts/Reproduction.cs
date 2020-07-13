@@ -33,8 +33,10 @@ public static class Reproduction
                 //print("partner repro list" + partner.AgentReproductionList.Count);
 
                 // go through list of agents that partner has mated with and ensure that they haven't mated before and also ensure they don't mate with offspring
-                if (partner.AgentReproductionList.Contains(agent) || agent.AgentChildList.Contains(partner)
+                if (partner.AgentReproductionList.Contains(agent) 
+                    //|| agent.AgentChildList.Contains(partner
                     )
+                 
                 {
                     continue; //skips to next iteration of loop
                 }
@@ -48,7 +50,7 @@ public static class Reproduction
                 //if either current agent or neighbour has an empty neighbouring cell
                 if (currentEmpty.x != -1 || partnerEmpty.x != -1)
                 {
-                    //print("reproduce");
+                    UnityEngine.Debug.Log("reproduce");
                     // then reproduce
                     // creates gameobject for child agent
                     GameObject agentObj = GameObject.Find("Agent Factory").GetComponent<AgentFactory>().CreateChild();
@@ -64,7 +66,7 @@ public static class Reproduction
                     Agent.ChildAgents.Add(agentObj.GetComponent<Agent>());
 
                     //agent reproduction was too much so for now have break in here, so it doesn't go through all
-                    break;
+                   // break;
                 }
             }
         }

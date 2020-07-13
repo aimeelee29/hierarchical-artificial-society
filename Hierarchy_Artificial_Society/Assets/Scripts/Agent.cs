@@ -164,11 +164,11 @@ public class Agent : MonoBehaviour
     // Sets values (Initial - Random)
     public void InitVars()
     {
-        //sugar = UnityEngine.Random.Range(25, 51); // max exclusive
-        //spice = UnityEngine.Random.Range(25, 51);
+        sugar = UnityEngine.Random.Range(25, 51); // max exclusive
+        spice = UnityEngine.Random.Range(25, 51);
         //trying to lessen growth through setting parameters differently
-        sugar = UnityEngine.Random.Range(20, 31); // max exclusive
-        spice = UnityEngine.Random.Range(20, 31);
+        //sugar = UnityEngine.Random.Range(20, 31); // max exclusive
+        //spice = UnityEngine.Random.Range(20, 31);
         //sugar = 20; //TESTING
         //spice = 10; //TESTING
         sugarInit = sugar;
