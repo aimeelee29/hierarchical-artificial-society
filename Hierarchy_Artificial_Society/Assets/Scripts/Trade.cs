@@ -97,6 +97,7 @@ public static class Trade
                         agent.Spice -= spiceUnits;
                         neighbour.Spice += spiceUnits;
                         tradeAnalysis.AddToPrice(price);
+                        tradeAnalysis.AddToUnits(sugarUnits);
                         tradeAnalysis.IncrementQty();
                         agent.AgentTradeList.Add(neighbour);
 
@@ -155,6 +156,7 @@ public static class Trade
                         agent.Spice += spiceUnits;
                         neighbour.Spice -= spiceUnits;
                         tradeAnalysis.AddToPrice(price);
+                        tradeAnalysis.AddToUnits(sugarUnits);
                         tradeAnalysis.IncrementQty();
                         agent.AgentTradeList.Add(neighbour);
 

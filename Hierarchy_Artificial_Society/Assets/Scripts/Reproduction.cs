@@ -50,7 +50,7 @@ public static class Reproduction
                 //if either current agent or neighbour has an empty neighbouring cell
                 if (currentEmpty.x != -1 || partnerEmpty.x != -1)
                 {
-                    UnityEngine.Debug.Log("reproduce");
+                    //UnityEngine.Debug.Log("reproduce");
                     // then reproduce
                     // creates gameobject for child agent
                     GameObject agentObj = GameObject.Find("Agent Factory").GetComponent<AgentFactory>().CreateChild();

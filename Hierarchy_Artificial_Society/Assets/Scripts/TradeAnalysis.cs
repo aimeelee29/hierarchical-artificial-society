@@ -18,12 +18,14 @@ public class TradeAnalysis : MonoBehaviour
     // Variables that get updated each time step
     // total price 
     private double price;
+    // total units traded (sugar)
+    private int units;
     // total number of trades
     private int quantity;
 
-    //instance of AvPriceList class which holds list of average prices- needs to be its own class for serialisation
+    //instance of AvPriceList class which holds list of average prices and average units class - needs to be its own class for serialisation
     AvPrice avPriceClass;
-    Quantity quantityClass;
+    AvUnits avUnitsClass;
 
     [Serializable]
     public class AvPrice
@@ -33,10 +35,10 @@ public class TradeAnalysis : MonoBehaviour
     }
 
     [Serializable]
-    public class Quantity
+    public class AvUnits
     {
         //List with average trade price for each time step
-        public List<int> quantityList = new List<int>();
+        public List<int> avUnitsList = new List<int>();
     }
 
     // Start is called before the first frame update
@@ -50,25 +52,25 @@ public class TradeAnalysis : MonoBehaviour
 
         //create instances of classes
         avPriceClass = new AvPrice();
-        quantityClass = new Quantity();
+        avUnitsClass = new AvUnits();
     }
 
     // Script execution order - set to run after Manager class
     void FixedUpdate()
     {
         // add new entry in lists with total price and quantity for that update
-        avPriceClass.avPriceList.Add(price/ quantity);
-        quantityClass.quantityList.Add(quantity);
+        avPriceClass.avPriceList.Add(price / quantity);
+        avUnitsClass.avUnitsList.Add(units / quantity);
 
         //for graph display
         //specify start and end points for display (since we can only display 100 points at a time)
-        int start = (avPriceClass.avPriceList.Count / 100) * 100;
-        int end = start + 100;
-        graphScriptPrice.CreateGraph(avPriceClass.avPriceList, start, end);
-        graphScriptQty.CreateGraph(quantityClass.quantityList, start, end);
+        int i = avPriceClass.avPriceList.Count - 1;
+        graphScriptPrice.CreateGraph(avPriceClass.avPriceList, i);
+        graphScriptQty.CreateGraph(avUnitsClass.avUnitsList, i);
 
-        // then reset price and qty
+        // then reset price , unitsand qty
         price = 0;
+        units = 0;
         quantity = 0;
     }
 
@@ -77,9 +79,15 @@ public class TradeAnalysis : MonoBehaviour
         price += p;
     }
 
+    public void AddToUnits(int q)
+    {
+        units += q;
+    }
+
+    // Need to also keep track of total number of trades to compute averages
     public void IncrementQty()
     {
-        quantity += 1;
+        ++quantity;
     }
 
     public void SaveXML()
@@ -89,9 +97,9 @@ public class TradeAnalysis : MonoBehaviour
         save.Serialize(path, avPriceClass);
         path.Close();
 
-        save = new XmlSerializer(typeof(Quantity));
+        save = new XmlSerializer(typeof(AvUnits));
         path = new FileStream(Application.dataPath + "/XMLFiles/TradeQuantity.xml", FileMode.Create);
-        save.Serialize(path, quantityClass);
+        save.Serialize(path, avUnitsClass);
         path.Close();
     }
 }

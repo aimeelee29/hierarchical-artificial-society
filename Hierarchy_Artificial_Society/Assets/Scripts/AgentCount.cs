@@ -39,10 +39,10 @@ public class AgentCount : MonoBehaviour
         Count();
 
         //for graph display
-        //specify start and end points for display (since we can only display 100 points at a time)
-        int start = (agentCountList.agentCount.Count / 100) * 100;
-        int end = start + 100;
-        graphScript.CreateGraph(agentCountList.agentCount, start, end);
+        //Set i to last entry in list so we only plot the new point each update
+        int i = agentCountList.agentCount.Count - 1;
+        graphScript.CreateGraph(agentCountList.agentCount, i);
+
     }
 
     public void Count()

@@ -9,13 +9,16 @@ public class TradeQtyGraph : MonoBehaviour
     private RectTransform plotArea;
     //image of points to plot
     public Sprite circleSprite;
+    // Array to store points on graph
+    // Enables us to reallocate memory after 100
+    public static GameObject[] circleList = new GameObject[100];
 
     void Awake()
     {
         plotArea = transform.Find("Trade Qty Plot Area").GetComponent<RectTransform>();
     }
 
-    private void Circle(Vector2 anchor)
+    private GameObject Circle(Vector2 anchor)
     {
         GameObject point = new GameObject("circle", typeof(Image));
         point.transform.SetParent(plotArea, false);
@@ -27,19 +30,23 @@ public class TradeQtyGraph : MonoBehaviour
         //lower left corner
         pointRectTransform.anchorMin = new Vector2(0, 0);
         pointRectTransform.anchorMax = new Vector2(0, 0);
+        return point;
     }
 
-    public void CreateGraph(List<int> graphPoints, int start, int end)
+    public void CreateGraph(List<int> graphPoints, int i)
     {
         float graphHeight = plotArea.sizeDelta.y;
         float yMax = 200f;
         float xSize = 10f;
 
-        for (int i = start; i < graphPoints.Count; ++i)
+        float x = (i % 100) * xSize;
+        float y = (graphPoints[i] / yMax) * graphHeight;
+
+        if (i < 100)
+            circleList[i] = Circle(new Vector2(x, y));
+        else
         {
-            float x = (i % 100) * xSize;
-            float y = (graphPoints[i] / yMax) * graphHeight;
-            Circle(new Vector2(x, y));
+            circleList[i % 100].GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
         }
     }
 }
