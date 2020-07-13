@@ -59,16 +59,25 @@ public class TradeAnalysis : MonoBehaviour
     void FixedUpdate()
     {
         // add new entry in lists with total price and quantity for that update
-        avPriceClass.avPriceList.Add(price / quantity);
-        avUnitsClass.avUnitsList.Add(units / quantity);
+        if (quantity>0)
+        {
+            avPriceClass.avPriceList.Add(price / quantity);
+            avUnitsClass.avUnitsList.Add(units / quantity);
+        }
+        else
+        {
+            avPriceClass.avPriceList.Add(0);
+            avUnitsClass.avUnitsList.Add(0);
+        }
 
         //for graph display
         //specify start and end points for display (since we can only display 100 points at a time)
+        
         int i = avPriceClass.avPriceList.Count - 1;
         graphScriptPrice.CreateGraph(avPriceClass.avPriceList, i);
         graphScriptQty.CreateGraph(avUnitsClass.avUnitsList, i);
 
-        // then reset price , unitsand qty
+        // then reset price , units and qty
         price = 0;
         units = 0;
         quantity = 0;
@@ -87,7 +96,7 @@ public class TradeAnalysis : MonoBehaviour
     // Need to also keep track of total number of trades to compute averages
     public void IncrementQty()
     {
-        ++quantity;
+        quantity += 1;
     }
 
     public void SaveXML()

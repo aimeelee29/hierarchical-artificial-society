@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 /*
@@ -96,9 +97,10 @@ public static class Trade
                         neighbour.Sugar -= sugarUnits;
                         agent.Spice -= spiceUnits;
                         neighbour.Spice += spiceUnits;
-                        tradeAnalysis.AddToPrice(price);
-                        tradeAnalysis.AddToUnits(sugarUnits);
                         tradeAnalysis.IncrementQty();
+                        tradeAnalysis.AddToPrice(price);
+                        //UnityEngine.Debug.Log("neg sug " + (sugarUnits < 0));
+                        tradeAnalysis.AddToUnits(sugarUnits);
                         agent.AgentTradeList.Add(neighbour);
 
                         //print("agent new sugar = " + agent.Sugar + " agent spice = " + agent.Spice);
@@ -155,9 +157,10 @@ public static class Trade
                         neighbour.Sugar += sugarUnits;
                         agent.Spice += spiceUnits;
                         neighbour.Spice -= spiceUnits;
-                        tradeAnalysis.AddToPrice(price);
-                        tradeAnalysis.AddToUnits(sugarUnits);
                         tradeAnalysis.IncrementQty();
+                        tradeAnalysis.AddToPrice(price);
+                        //UnityEngine.Debug.Log("neg sug " + (sugarUnits < 0));
+                        tradeAnalysis.AddToUnits(sugarUnits);
                         agent.AgentTradeList.Add(neighbour);
 
                         //print("agent new sugar = " + agent.Sugar + " agent spice = " + agent.Spice);
