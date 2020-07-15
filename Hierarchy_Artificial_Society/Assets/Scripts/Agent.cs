@@ -67,8 +67,7 @@ public class Agent : MonoBehaviour
     //hierarchy attributes
     private int dominance;
     private int influence;
-    //others go here - will use wealth, vision
-    private int hierarchyScore;
+    private int socialRank;
 
     /*
      * LISTS
@@ -125,7 +124,7 @@ public class Agent : MonoBehaviour
     public double MRS { get => mrs; set => mrs = value; }
     public int Dominance { get => dominance; set => dominance = value; }
     public int Influence { get => influence; set => influence = value; }
-    public int HierarchyScore { get => hierarchyScore; set => hierarchyScore = value; }
+    public int SocialRank { get => socialRank; set => socialRank = value; }
     public Vector2Int CellPosition { get => cellPosition; set => cellPosition = value; }
     public static List<GameObject> AvailableAgents { get => availableAgents; set => availableAgents = value; }
     public static List<Agent> LiveAgents { get => liveAgents; set => liveAgents = value; }
@@ -140,12 +139,6 @@ public class Agent : MonoBehaviour
     void Awake()
     {
         KnowWorld();
-    }
-
-    void FixedUpdate()
-    {
-        //print(liveAgents.Count);
-        //print(world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent);
     }
 
     /*
@@ -194,8 +187,8 @@ public class Agent : MonoBehaviour
         lifespan = UnityEngine.Random.Range(60, 101);
         age = UnityEngine.Random.Range(1, lifespan + 1);
         //age = 12;
-        dominance = UnityEngine.Random.Range(1, 5);
-        influence = UnityEngine.Random.Range(1, 5);
+        dominance = UnityEngine.Random.Range(1, 4);
+        influence = UnityEngine.Random.Range(1, 4);
 
         return;
     }
@@ -600,6 +593,14 @@ public class Agent : MonoBehaviour
         spice += world.WorldArray[pos.x, pos.y].DepleteSpice();
         //print("spi aft = " + spice);
     }
+
+    /*
+    // Adds up vars to create a social ranking
+    public void Rank()
+    {
+        int combinedScore = dominance + influence + visionHarvest 
+    }
+    */
 }
 
 public enum SexEnum { Male, Female };

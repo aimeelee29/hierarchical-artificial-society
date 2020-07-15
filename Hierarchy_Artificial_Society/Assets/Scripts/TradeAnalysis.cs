@@ -16,11 +16,11 @@ public class TradeAnalysis : MonoBehaviour
     private TradeQtyGraph graphScriptQty;
 
     // Variables that get updated each time step
-    // total price 
+    // Total price 
     private double price;
-    // total units traded (sugar)
+    // Total units traded (sugar)
     private int units;
-    // total number of trades
+    // Total number of trades
     private int quantity;
 
     //instance of AvPriceList class which holds list of average prices and average units class - needs to be its own class for serialisation

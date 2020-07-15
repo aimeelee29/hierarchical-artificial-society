@@ -22,7 +22,7 @@ public class AgentManager : MonoBehaviour
     TradeAnalysis tradeAnalysis;
 
     // Vars used for colours later on
-    float colourVal;
+    private float colourVal;
 
     void Start()
     {
@@ -35,6 +35,7 @@ public class AgentManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        
         /*
          * AGENT MANAGEMENT
          */
@@ -80,7 +81,7 @@ public class AgentManager : MonoBehaviour
                 agent.MRS = Trade.CalcMRS(agent);
                 agent.AgentTradeList.Clear();
             }
-            
+
             // Trade - only if selected in toggle (in inspector)
             if (toggle.GetTrade())
             {
@@ -101,7 +102,7 @@ public class AgentManager : MonoBehaviour
 
             //print(Agent.ChildAgents.Count);
             //print(Agent.LiveAgents.Count);
-            
+
             // Add children to live list
             foreach (Agent child in Agent.ChildAgents)
             {
@@ -113,6 +114,7 @@ public class AgentManager : MonoBehaviour
 
             //print(Agent.ChildAgents.Count);
             //print(Agent.LiveAgents.Count);
+
         }
 
         /* 
