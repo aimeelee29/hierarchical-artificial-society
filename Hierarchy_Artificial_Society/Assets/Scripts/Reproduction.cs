@@ -21,7 +21,7 @@ public static class Reproduction
         //UnityEngine.Debug.Log("neighbour count = " + agent.NeighbourAgentList.Count);
 
         // To keep track of how many times the agent has reproduced
-        int counter;
+        int counter = 0;
 
         foreach (Agent partner in agent.NeighbourAgentList)
         {
