@@ -67,6 +67,7 @@ public class AgentManager : MonoBehaviour
 
         foreach (Agent agent in Agent.LiveAgents)
         {
+            //print("pre harvest " + agent.Sugar + agent.Spice);
             // Look around and harvest food
             agent.Harvest();
 
@@ -78,10 +79,15 @@ public class AgentManager : MonoBehaviour
 
         if (Agent.LiveAgents.Count > 1)
         {
+            
             // Finds neighbours 
             // Also calculates MRS in prep for trade and wipes agent's trading list
             foreach (Agent agent in Agent.LiveAgents)
             {
+
+                if (agent.Sugar <= 0 || agent.Spice <= 0)
+                    print("pre trade ");
+
                 agent.NeighbourAgentList = agent.GetComponent<NeighbourVision>().FindNeighbours(agent);
                 // print(agent.NeighbourAgentList);
 
@@ -95,7 +101,7 @@ public class AgentManager : MonoBehaviour
                 foreach (Agent agent in Agent.LiveAgents)
                 {
                     Trade.MakeTrade(agent, tradeAnalysis);
-                    //print("sug/spi post trade " + agent.Sugar + " " + agent.Spice);
+                   //print("post trade " + agent.Sugar + " " + agent.Spice);
                 }
             }
 
@@ -104,6 +110,7 @@ public class AgentManager : MonoBehaviour
             {
                 foreach (Agent agent in Agent.LiveAgents)
                 {
+                    //"pre rep"
                     Reproduction.ReproductionProcess(agent, world);
                 }
             }

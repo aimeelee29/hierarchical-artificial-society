@@ -18,8 +18,8 @@ public class WealthDistributionAnalysis : MonoBehaviour
         // Add wealth to wealth list
         foreach (Agent agent in Agent.LiveAgents)
         {
-            print("sug " + agent.Sugar);
-            print("spi " + agent.Spice);
+            //print("sug " + agent.Sugar);
+            //print("spi " + agent.Spice);
             wealthDist.AddtoWealth(agent.Sugar + agent.Spice);
         }
 
