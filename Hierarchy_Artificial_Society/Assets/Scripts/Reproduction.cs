@@ -19,6 +19,10 @@ public static class Reproduction
         Vector2Int currentEmpty = world.CheckEmptyCell(agent.CellPosition.x, agent.CellPosition.y);
         //UnityEngine.Debug.Log("is child =" + agent.isChild);
         //UnityEngine.Debug.Log("neighbour count = " + agent.NeighbourAgentList.Count);
+
+        // To keep track of how many times the agent has reproduced
+        int counter;
+
         foreach (Agent partner in agent.NeighbourAgentList)
         {
             // if the neighbour isn't a potential partner then skip
@@ -48,7 +52,7 @@ public static class Reproduction
                // print("agent empty = " + currentEmpty);
 
                 //if either current agent or neighbour has an empty neighbouring cell
-                if (currentEmpty.x != -1 || partnerEmpty.x != -1)
+                if ((currentEmpty.x != -1 || partnerEmpty.x != -1) && counter <= 4)
                 {
                     //UnityEngine.Debug.Log("reproduce");
                     // then reproduce
@@ -64,6 +68,8 @@ public static class Reproduction
                     agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
                     // adds child to list of child agents
                     Agent.ChildAgents.Add(agentObj.GetComponent<Agent>());
+                    // increment counter
+                    ++counter;
 
                     //agent reproduction was too much so for now have break in here, so it doesn't go through all
                    // break;
