@@ -13,7 +13,7 @@ public class OnTradingButtonClick : MonoBehaviour
 {
     private TradeAnalysis tradeAnalysis;
 
-    void Awake()
+    void Start()
     {
         tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
     }
