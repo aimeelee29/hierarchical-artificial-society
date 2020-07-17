@@ -19,7 +19,11 @@ public class AgentManager : MonoBehaviour
     // Need access to tilemap for tile colour
     private static Tilemap envTilemap;
     // Need access to tradeanalysis
-    TradeAnalysis tradeAnalysis;
+    private TradeAnalysis tradeAnalysis;
+    // Need access to wealth dist analysis
+    private WealthDistributionAnalysis wealthDistAnalysis;
+    // // Counter to keep track of number of fixedupdates
+    private int updateCounter = 0;
 
     // Vars used for colours later on
     private float colourVal;
@@ -29,6 +33,7 @@ public class AgentManager : MonoBehaviour
         toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
         world = GameObject.Find("World").GetComponent<World>();
         tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
+        wealthDistAnalysis = GameObject.Find("Analysis: Wealth Distribution").GetComponent<WealthDistributionAnalysis>();
         envTilemap = GameObject.Find("Environment").GetComponent<Tilemap>();
     }
 
@@ -67,6 +72,8 @@ public class AgentManager : MonoBehaviour
 
             // Wipes each agent's list of agents they have mated with in previous time step
             agent.AgentReproductionList.Clear();
+
+            print("post harvest" + agent.Sugar + " " + agent.Spice);
         }
 
         if (Agent.LiveAgents.Count > 1)
@@ -88,6 +95,7 @@ public class AgentManager : MonoBehaviour
                 foreach (Agent agent in Agent.LiveAgents)
                 {
                     Trade.MakeTrade(agent, tradeAnalysis);
+                    //print("sug/spi post trade " + agent.Sugar + " " + agent.Spice);
                 }
             }
 
@@ -107,6 +115,7 @@ public class AgentManager : MonoBehaviour
             foreach (Agent child in Agent.ChildAgents)
             {
                 Agent.LiveAgents.Add(child);
+                //print(child.Sugar + child.Spice);
             }
 
             // Reset child list
@@ -114,6 +123,17 @@ public class AgentManager : MonoBehaviour
 
             //print(Agent.ChildAgents.Count);
             //print(Agent.LiveAgents.Count);
+
+            //print(Agent.AvailableAgents.Count);
+
+            // Incremenent Counter
+            ++updateCounter;
+
+            //Create new class every ten updates to report wealth distribution
+            if (updateCounter % 10 == 1)
+            {
+                wealthDistAnalysis.CreateWealthFile(updateCounter);
+            }
 
         }
 

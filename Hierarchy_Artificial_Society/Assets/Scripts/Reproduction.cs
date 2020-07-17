@@ -28,7 +28,7 @@ public static class Reproduction
             // if the neighbour isn't a potential partner then skip
             //UnityEngine.Debug.Log("partner is child = " + partner.isChild);
             //UnityEngine.Debug.Log("potential partner = " + IsNeighbourPotentialPartner(agent, partner));
-            if (!IsNeighbourPotentialPartner(agent, partner))
+            if (IsNeighbourPotentialPartner(agent, partner) == false)
                 continue;
             // if it is a potential partner
             else
@@ -65,14 +65,11 @@ public static class Reproduction
                     // adds partner to list of agents mated with
                     agent.AgentReproductionList.Add(partner);
                     // adds child to agent's list of children - dont think i need this now
-                    agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
+                    //agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
                     // adds child to list of child agents
                     Agent.ChildAgents.Add(agentObj.GetComponent<Agent>());
                     // increment counter
                     ++counter;
-
-                    //agent reproduction was too much so for now have break in here, so it doesn't go through all
-                   // break;
                 }
             }
         }

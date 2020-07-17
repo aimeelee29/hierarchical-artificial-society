@@ -25,7 +25,7 @@ public class World : MonoBehaviour
     private Cell[,] worldArray = new Cell[rows, cols];
 
     // Amount of sugar/spice at top of mountain
-    [SerializeField] private static int mountainTops = 14;
+    [SerializeField] private static int mountainTops = 12;
     // Amount of sugar/spice on other tiers
     private static int secondTier = mountainTops - mountainTops / 4;
     private static int thirdTier = secondTier - mountainTops / 4;

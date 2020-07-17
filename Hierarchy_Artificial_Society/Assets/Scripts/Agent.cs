@@ -198,13 +198,20 @@ public class Agent : MonoBehaviour
     {
         // initial endowment is half of mother's + half of father's initial endowment
         sugar = (parentOne.SugarInit / 2) + (parentTwo.SugarInit / 2);
-        spice = (parentOne.SpiceInit / 2) + (parentTwo.SugarInit / 2);
+        spice = (parentOne.SpiceInit / 2) + (parentTwo.SpiceInit / 2);
         parentOne.Sugar -= (parentOne.SugarInit / 2);
         parentOne.Spice -= (parentOne.SpiceInit / 2);
         parentTwo.Sugar -= (parentTwo.SugarInit / 2);
         parentTwo.Spice -= (parentTwo.SpiceInit / 2);
+        print("parent sugar " + parentOne.Sugar + "(" + (parentOne.SugarInit / 2) + ")");
+        print("parent sugar " + parentTwo.Sugar + "(" + (parentTwo.SugarInit / 2) + ")");
+        print("parent spice " + parentOne.Spice + "(" + (parentOne.SpiceInit / 2) + ")");
+        print("parent spice " + parentTwo.Spice + "(" + (parentTwo.SpiceInit / 2) + ")");
+        print("parents alive " + parentOne.IsAlive + " " + parentTwo.IsAlive);
         sugarInit = sugar;
         spiceInit = spice;
+        print("agent sugar" + this.sugar + "(" + sugarInit + ")");
+        print("agent spice" + this.spice + "(" + spiceInit + ")");
 
         //print("sug = " + sugar);
         //print("spi = " + spice);
@@ -236,6 +243,15 @@ public class Agent : MonoBehaviour
         else
             childBearingEnds = parentTwo.ChildBearingEnds;
 
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            dominance = parentOne.Dominance;
+        else
+            dominance = parentTwo.Dominance;
+        if (UnityEngine.Random.Range(1, 3) == 1)
+            dominance = parentOne.Influence;
+        else
+            dominance = parentTwo.Influence;
+
         // Sex and lifespan is still random
         int sexRand = UnityEngine.Random.Range(1, 3);
         if (sexRand == 1)
@@ -246,8 +262,6 @@ public class Agent : MonoBehaviour
         isAlive = true;
         age = 0;
 
-        //dominance =
-        //influence = 
         /*
         print("sug met = " + SugarMetabolism);
         print("spi met = " + SpiceMetabolism);
@@ -337,7 +351,7 @@ public class Agent : MonoBehaviour
     // Agent will die if it reaches its lifespan or runs out of either sugar or spice
     public void Death()
     {
-        if (isAlive && (age == lifespan || sugar <= 0 || spice <= 0))
+        if (isAlive && (age >= lifespan || sugar <= 0 || spice <= 0))
         {
             /*
             if (age == lifespan)
@@ -353,8 +367,6 @@ public class Agent : MonoBehaviour
             availableAgents.Add(this.gameObject);
             // Remove agent from its location on the grid
             world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent = null;
-            // Remove agent from live agents list - not sure this is needed
-            //liveAgents.Remove(this);
             // Deactivate agent
             this.gameObject.SetActive(false);
         }
@@ -598,7 +610,7 @@ public class Agent : MonoBehaviour
     // Adds up vars to create a social ranking
     public void Rank()
     {
-        int combinedScore = dominance + influence + visionHarvest 
+        int combinedScore = dominance + influence + visionHarvest
     }
     */
 }

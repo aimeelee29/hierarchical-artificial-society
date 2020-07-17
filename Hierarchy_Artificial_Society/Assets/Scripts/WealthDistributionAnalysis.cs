@@ -8,29 +8,22 @@ using System.IO; //file management
 
 public class WealthDistributionAnalysis : MonoBehaviour
 {
-
-    // Counter to keep track of number of fixedupdates
-    private int updateCounter;
-
-    private WealthDistribution wealthDist;
-
-    void FixedUpdate()
+    public void CreateWealthFile(int updateCounter)
     {
-        // Incremenent Counter
-        ++updateCounter;
+        // Create new instance of the wealth class
+        WealthDistribution wealthDist = new WealthDistribution();
+        // Assign the updatecount
+        wealthDist.fixedUpdateCount = updateCounter;
 
-        //Create new class every ten updates to report wealth distribution
-        if (updateCounter % 10 == 1)
+        // Add wealth to wealth list
+        foreach (Agent agent in Agent.LiveAgents)
         {
-            wealthDist = new WealthDistribution(updateCounter);
-            // Add wealth to wealth list
-            foreach (Agent agent in Agent.LiveAgents)
-            {
-                wealthDist.AddtoWealth(agent.Sugar + agent.Spice);
-            }
-
-            SaveXML();
+            print("sug " + agent.Sugar);
+            print("spi " + agent.Spice);
+            wealthDist.AddtoWealth(agent.Sugar + agent.Spice);
         }
+
+        SaveXML(wealthDist, updateCounter);
     }
     
     [Serializable]
@@ -40,26 +33,26 @@ public class WealthDistributionAnalysis : MonoBehaviour
         public int fixedUpdateCount;
         // List which keeps track of number of agents with that wealth
         // index of list will be wealth, and value will be count
-        List<int> wealthDist = new List<int>();
-
-        //Constructor
-        public WealthDistribution(int i)
-        {
-            fixedUpdateCount = i;
-        }
+        //List<int> wealthDist = new List<int>(); // change to array
+        int[] wealthDist = new int[400];
 
         public void AddtoWealth(int w)
         {
-            ++wealthDist[w];
+            print(w);
+            //print(wealthDist[w]);
+            if (w > 399)
+                ++wealthDist[399];
+            else
+                ++wealthDist[w];
         }
 
 
     }
 
-    public void SaveXML()
+    public void SaveXML(WealthDistribution wealthDist, int updatecounter)
     {
         XmlSerializer save = new XmlSerializer(typeof(WealthDistribution));
-        FileStream path = new FileStream(Application.dataPath + "/XMLFiles/WealthDistribution" + updateCounter + ".xml", FileMode.Create);
+        FileStream path = new FileStream(Application.dataPath + "/XMLFiles/WealthDistribution" + updatecounter + ".xml", FileMode.Create);
         save.Serialize(path, wealthDist);
         path.Close();
     }
