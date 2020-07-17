@@ -38,7 +38,7 @@ public class WealthDistributionAnalysis : MonoBehaviour
 
         public void AddtoWealth(int w)
         {
-            print(w);
+            //print(w);
             //print(wealthDist[w]);
             if (w > 399)
                 ++wealthDist[399];

@@ -203,15 +203,15 @@ public class Agent : MonoBehaviour
         parentOne.Spice -= (parentOne.SpiceInit / 2);
         parentTwo.Sugar -= (parentTwo.SugarInit / 2);
         parentTwo.Spice -= (parentTwo.SpiceInit / 2);
-        print("parent sugar " + parentOne.Sugar + "(" + (parentOne.SugarInit / 2) + ")");
-        print("parent sugar " + parentTwo.Sugar + "(" + (parentTwo.SugarInit / 2) + ")");
-        print("parent spice " + parentOne.Spice + "(" + (parentOne.SpiceInit / 2) + ")");
-        print("parent spice " + parentTwo.Spice + "(" + (parentTwo.SpiceInit / 2) + ")");
-        print("parents alive " + parentOne.IsAlive + " " + parentTwo.IsAlive);
+        //print("parent sugar " + parentOne.Sugar + "(" + (parentOne.SugarInit / 2) + ")");
+        //print("parent sugar " + parentTwo.Sugar + "(" + (parentTwo.SugarInit / 2) + ")");
+        //print("parent spice " + parentOne.Spice + "(" + (parentOne.SpiceInit / 2) + ")");
+        //print("parent spice " + parentTwo.Spice + "(" + (parentTwo.SpiceInit / 2) + ")");
+        //print("parents alive " + parentOne.IsAlive + " " + parentTwo.IsAlive);
         sugarInit = sugar;
         spiceInit = spice;
-        print("agent sugar" + this.sugar + "(" + sugarInit + ")");
-        print("agent spice" + this.spice + "(" + spiceInit + ")");
+        //print("agent sugar" + this.sugar + "(" + sugarInit + ")");
+        //print("agent spice" + this.spice + "(" + spiceInit + ")");
 
         //print("sug = " + sugar);
         //print("spi = " + spice);

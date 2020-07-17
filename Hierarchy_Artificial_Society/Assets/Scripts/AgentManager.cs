@@ -73,7 +73,7 @@ public class AgentManager : MonoBehaviour
             // Wipes each agent's list of agents they have mated with in previous time step
             agent.AgentReproductionList.Clear();
 
-            print("post harvest" + agent.Sugar + " " + agent.Spice);
+            //print("post harvest" + agent.Sugar + " " + agent.Spice);
         }
 
         if (Agent.LiveAgents.Count > 1)
