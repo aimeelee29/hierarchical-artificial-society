@@ -26,6 +26,7 @@ public class World : MonoBehaviour
 
     // Amount of sugar/spice at top of mountain
     [SerializeField] private static int mountainTops = 14;
+
     // Amount of sugar/spice on other tiers
     private static int secondTier = mountainTops - mountainTops / 4;
     private static int thirdTier = secondTier - mountainTops / 4;

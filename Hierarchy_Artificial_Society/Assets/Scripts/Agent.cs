@@ -614,7 +614,7 @@ public class Agent : MonoBehaviour
         //print("spi aft = " + spice);
     }
 
-    // Adds up vars to create a social ranking
+    // Adds up vars to create a social ranking (from 1-5)
     public void Rank()
     {
         int lower = maxWealth/3;
@@ -627,6 +627,21 @@ public class Agent : MonoBehaviour
         else
             wealthScore = 3;
         int combinedScore = dominance + influence + visionHarvest + wealthScore;
+
+        if (combinedScore >= 12)
+            socialRank = 1;
+        else if (combinedScore == 11)
+            socialRank = 2;
+        else if (combinedScore == 10)
+            socialRank = 3;
+        else if (combinedScore == 9)
+            socialRank = 4;
+        else if (combinedScore == 8)
+            socialRank = 5;
+        else if (combinedScore == 7)
+            socialRank = 6;
+        else
+            socialRank = 7;
     }
 }
 

@@ -19,11 +19,11 @@ public class AgentManager : MonoBehaviour
     // Need access to tilemap for tile colour
     private static Tilemap envTilemap;
     // Need access to tradeanalysis
-    private TradeAnalysis tradeAnalysis;
+    private static TradeAnalysis tradeAnalysis;
     // Need access to wealth dist analysis
-    private WealthDistributionAnalysis wealthDistAnalysis;
+    private static WealthDistributionAnalysis wealthDistAnalysis;
     // // Counter to keep track of number of fixedupdates
-    private int updateCounter = 0;
+    private static int updateCounter = 0;
 
     // Vars used for colours later on
     private float colourVal;
