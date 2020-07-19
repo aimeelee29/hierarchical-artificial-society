@@ -34,4 +34,33 @@ public class NeighbourVision : MonoBehaviour
         }
         return neighbourAgentList;
     }
+
+    // Method to find neighbours if restrict neighbour toggle is turned on
+
+    public List<Agent> FindNeighboursRestricted(Agent agent)
+    {
+        //Generate array of colliders within radius (set to vision)
+        //does transform need to come from agent??
+        Collider2D[] colliderList = Physics2D.OverlapCircleAll(new Vector2(agent.transform.position.x, agent.transform.position.y), agent.VisionNeighbour);
+        //print("collider list length = " + colliderList.Length);
+
+        //Create empty List
+        List<Agent> neighbourAgentList = new List<Agent>();
+
+        //goes through each collider within radius
+        foreach (Collider2D neighbour in colliderList)
+        {
+            // if collider is not attached to an agent then skip this iteration (as overlapcircleall will also catch collider for tilemap) 
+            // also removes itself
+            // also removes any agent that isn't of similar social rank
+            int rankDiff = neighbour.GetComponent<Agent>().SocialRank - agent.SocialRank;
+            rankDiff = (rankDiff < 0) ? -rankDiff : rankDiff;
+
+            if (neighbour.tag != "Agent" || neighbour.gameObject == agent.gameObject || rankDiff < 2)
+                continue;
+
+            neighbourAgentList.Add(neighbour.GetComponent<Agent>());
+        }
+        return neighbourAgentList;
+    }
 }

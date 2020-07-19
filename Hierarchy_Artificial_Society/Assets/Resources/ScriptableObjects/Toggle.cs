@@ -9,11 +9,9 @@ public class Toggle : ScriptableObject
     // You set these in the inspector
     // Persistent warning error when so I have set to false in script (but will be overriden by inspector)
     [SerializeField] private bool reproduction = false;
-    //[SerializeField] private bool varyingPrefs; // TBC: if I will include this
-    [SerializeField] private bool hierarchy = false;
     [SerializeField] private bool trade = false;
-    [SerializeField] private bool restrictNeighbour = false;
-    [SerializeField] private bool biasTrade = false;
+    [SerializeField] private bool hierarchyRestrictNeighbour = false;
+    [SerializeField] private bool hierarchyBiasTrade = false;
 
     /*
      * 
@@ -26,11 +24,6 @@ public class Toggle : ScriptableObject
         return reproduction;
     }
 
-    public bool GetHierarchy()
-    {
-        return hierarchy;
-    }
-
     public bool GetTrade()
     {
         return trade;
@@ -38,11 +31,11 @@ public class Toggle : ScriptableObject
 
     public bool GetRestrictNeighbour()
     {
-        return restrictNeighbour;
+        return hierarchyRestrictNeighbour;
     }
 
     public bool GetBiasTrade()
     {
-        return biasTrade;
+        return hierarchyBiasTrade;
     }
 }

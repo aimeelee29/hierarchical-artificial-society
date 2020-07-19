@@ -88,11 +88,11 @@ public class AgentManager : MonoBehaviour
             foreach (Agent agent in Agent.LiveAgents)
             {
 
-                if (agent.Sugar <= 0 || agent.Spice <= 0)
-                    print("pre trade ");
-
-                agent.NeighbourAgentList = agent.GetComponent<NeighbourVision>().FindNeighbours(agent);
-                // print(agent.NeighbourAgentList);
+                //If neighbour restrictions are toggled on then it calls restricted variation of findneighbours
+                if (toggle.GetRestrictNeighbour())
+                    agent.NeighbourAgentList = agent.GetComponent<NeighbourVision>().FindNeighboursRestricted(agent);
+                else
+                    agent.NeighbourAgentList = agent.GetComponent<NeighbourVision>().FindNeighbours(agent);
 
                 agent.MRS = Trade.CalcMRS(agent);
                 agent.AgentTradeList.Clear();
