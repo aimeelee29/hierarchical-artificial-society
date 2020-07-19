@@ -11,7 +11,7 @@ public class WealthDistributionAnalysis : MonoBehaviour
     public void CreateWealthFile(int updateCounter)
     {
         // Create new instance of the wealth class
-        WealthDistribution wealthDist = new WealthDistribution();
+        WealthDistribution wealthDistClass = new WealthDistribution();
 
         // Variable to hold agent's wealth
         int wealth;
@@ -24,12 +24,12 @@ public class WealthDistributionAnalysis : MonoBehaviour
             //print("sug " + agent.Sugar);
             //print("spi " + agent.Spice);
             wealth = agent.Sugar + agent.Spice;
-            wealthDist.AddtoWealth(wealth);
+            wealthDistClass.AddtoWealth(wealth);
             if (wealth > maxWealth)
                 maxWealth = wealth;
         }
 
-        SaveXML(wealthDist, updateCounter);
+        SaveXML(wealthDistClass, updateCounter);
 
         // Update the agent static variable for max wealth
         Agent.MaxWealth = maxWealth;
@@ -41,7 +41,9 @@ public class WealthDistributionAnalysis : MonoBehaviour
         // List which keeps track of number of agents with that wealth
         // index of list will be wealth, and value will be count
         //List<int> wealthDist = new List<int>(); // change to array
-        int[] wealthDist = new int[400];
+        private int[] wealthDist = new int[400];
+
+        public int[] WealthDist { get => wealthDist; set => wealthDist = value; }
 
         public void AddtoWealth(int w)
         {
@@ -54,11 +56,11 @@ public class WealthDistributionAnalysis : MonoBehaviour
         }
     }
 
-    public void SaveXML(WealthDistribution wealthDist, int updatecounter)
+    public void SaveXML(WealthDistribution wealthDistClass, int updatecounter)
     {
         XmlSerializer save = new XmlSerializer(typeof(WealthDistribution));
         FileStream path = new FileStream(Application.dataPath + "/XMLFiles/WealthDistribution" + updatecounter + ".xml", FileMode.Create);
-        save.Serialize(path, wealthDist);
+        save.Serialize(path, wealthDistClass);
         path.Close();
     }
 }

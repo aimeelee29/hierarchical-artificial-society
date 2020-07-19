@@ -22,6 +22,8 @@ public class AgentManager : MonoBehaviour
     private static TradeAnalysis tradeAnalysis;
     // Need access to wealth dist analysis
     private static WealthDistributionAnalysis wealthDistAnalysis;
+    // Need access to social rank analysis
+    private static SocialRankAnalysis socialRankAnalysis;
     // // Counter to keep track of number of fixedupdates
     private static int updateCounter = 0;
 
@@ -34,6 +36,7 @@ public class AgentManager : MonoBehaviour
         world = GameObject.Find("World").GetComponent<World>();
         tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
         wealthDistAnalysis = GameObject.Find("Analysis: Wealth Distribution").GetComponent<WealthDistributionAnalysis>();
+        socialRankAnalysis = GameObject.Find("Analysis: Social Rank").GetComponent<SocialRankAnalysis>();
         envTilemap = GameObject.Find("Environment").GetComponent<Tilemap>();
     }
 
@@ -140,6 +143,7 @@ public class AgentManager : MonoBehaviour
             if (updateCounter % 10 == 1)
             {
                 wealthDistAnalysis.CreateWealthFile(updateCounter);
+                socialRankAnalysis.CreateRankFile(updateCounter);
             }
 
         }
