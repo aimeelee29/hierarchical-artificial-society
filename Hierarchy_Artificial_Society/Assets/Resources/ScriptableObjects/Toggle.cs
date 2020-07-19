@@ -12,6 +12,8 @@ public class Toggle : ScriptableObject
     //[SerializeField] private bool varyingPrefs; // TBC: if I will include this
     [SerializeField] private bool hierarchy = false;
     [SerializeField] private bool trade = false;
+    [SerializeField] private bool restrictNeighbour = false;
+    [SerializeField] private bool biasTrade = false;
 
     /*
      * 
@@ -32,5 +34,15 @@ public class Toggle : ScriptableObject
     public bool GetTrade()
     {
         return trade;
+    }
+
+    public bool GetRestrictNeighbour()
+    {
+        return restrictNeighbour;
+    }
+
+    public bool GetBiasTrade()
+    {
+        return biasTrade;
     }
 }
