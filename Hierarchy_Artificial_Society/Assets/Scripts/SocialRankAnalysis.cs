@@ -35,6 +35,7 @@ public class SocialRankAnalysis : MonoBehaviour
 
         public void AddtoRank(int w)
         {
+           //print(w);
             ++rankDist[w - 1];
         }
     }

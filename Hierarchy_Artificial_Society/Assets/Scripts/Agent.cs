@@ -270,6 +270,8 @@ public class Agent : MonoBehaviour
         isAlive = true;
         age = 0;
 
+        Rank();
+
         /*
         print("sug met = " + SugarMetabolism);
         print("spi met = " + SpiceMetabolism);
