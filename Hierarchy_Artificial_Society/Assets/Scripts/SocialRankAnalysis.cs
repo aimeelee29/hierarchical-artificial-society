@@ -43,7 +43,7 @@ public class SocialRankAnalysis : MonoBehaviour
     public void SaveXML(SocialRank rankClass, int updatecounter)
     {
         XmlSerializer save = new XmlSerializer(typeof(SocialRank));
-        FileStream path = new FileStream(Application.dataPath + "/XMLFiles/WealthDistribution" + updatecounter + ".xml", FileMode.Create);
+        FileStream path = new FileStream(Application.dataPath + "/XMLFiles/SocialRank" + updatecounter + ".xml", FileMode.Create);
         save.Serialize(path, rankClass);
         path.Close();
     }
