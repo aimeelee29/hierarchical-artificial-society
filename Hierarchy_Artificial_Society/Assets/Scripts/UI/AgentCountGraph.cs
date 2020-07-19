@@ -7,29 +7,23 @@ public class AgentCountGraph : MonoBehaviour
 {
     //area we will plot points on
     private RectTransform plotArea;
-    //image of points to plot
-    public Sprite circleSprite;
     // Array to store points on graph
     // Enables us to reallocate memory after 100
     public static GameObject[] circleList = new GameObject[100];
+    // Can set this to the circle prefab from inspector
+    [SerializeField] private GameObject circlePrefab = null;
 
     void Awake()
     {
         plotArea = transform.Find("Agent Count Plot Area").GetComponent<RectTransform>();
     }
 
-    private GameObject Circle(Vector2 anchor) // should change to prefab
+    private GameObject Circle(Vector2 anchor)
     {
-        GameObject point = new GameObject("circle", typeof(Image));
+        GameObject point = GameObject.Instantiate(circlePrefab); ;
         point.transform.SetParent(plotArea, false);
-        point.GetComponent<Image>().sprite = circleSprite;
         RectTransform pointRectTransform = point.GetComponent<RectTransform>();
         pointRectTransform.anchoredPosition = anchor;
-        //size of each point
-        pointRectTransform.sizeDelta = new Vector2(10, 10);
-        //lower left corner
-        pointRectTransform.anchorMin = new Vector2(0, 0);
-        pointRectTransform.anchorMax = new Vector2(0, 0);
         return point;
     }
 

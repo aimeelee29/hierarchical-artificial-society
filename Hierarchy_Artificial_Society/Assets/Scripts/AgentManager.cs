@@ -139,7 +139,7 @@ public class AgentManager : MonoBehaviour
             // Incremenent Counter
             ++updateCounter;
 
-            //Create new class every ten updates to report wealth distribution
+            //Create new class every ten updates to report wealth distribution and social rank distribution
             if (updateCounter % 10 == 1)
             {
                 wealthDistAnalysis.CreateWealthFile(updateCounter);
