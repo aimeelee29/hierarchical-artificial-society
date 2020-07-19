@@ -81,7 +81,7 @@ public class Agent : MonoBehaviour
     private List<Agent> agentChildList = new List<Agent>();
     // List of agents that current agent has traded with for that time step.
     private List<Agent> agentTradeList = new List<Agent>();
-    
+
     // STATIC LISTS
 
     // Maintain static list of 'dead' agents for object pooling
@@ -97,6 +97,9 @@ public class Agent : MonoBehaviour
 
     //for testing
     public bool isChild = false;
+
+    // Static variable showing maximum wealth level amount agents for that time step
+    private static int maxWealth;
 
     /*
      * GETTERS AND SETTERS
@@ -130,6 +133,7 @@ public class Agent : MonoBehaviour
     public static List<Agent> LiveAgents { get => liveAgents; set => liveAgents = value; }
     public static List<Agent> ChildAgents { get => childAgents; set => childAgents = value; }
     public List<Agent> AgentTradeList { get => agentTradeList; set => agentTradeList = value; }
+    public static int MaxWealth { get => maxWealth; set => maxWealth = value; }
 
     /*
      * AWAKE & UPDATE
@@ -141,6 +145,10 @@ public class Agent : MonoBehaviour
         KnowWorld();
     }
 
+    void FixedUpdate()
+    {
+        Rank();
+    }
     /*
      * MAIN AGENT METHODS
      */
@@ -606,13 +614,20 @@ public class Agent : MonoBehaviour
         //print("spi aft = " + spice);
     }
 
-    /*
     // Adds up vars to create a social ranking
     public void Rank()
     {
-        int combinedScore = dominance + influence + visionHarvest
+        int lower = maxWealth/3;
+        int mid = lower * 2;
+        int wealthScore;
+        if (sugar + spice < lower)
+            wealthScore = 1;
+        else if (sugar + spice < mid)
+            wealthScore = 2;
+        else
+            wealthScore = 3;
+        int combinedScore = dominance + influence + visionHarvest + wealthScore;
     }
-    */
 }
 
 public enum SexEnum { Male, Female };

@@ -12,25 +12,32 @@ public class WealthDistributionAnalysis : MonoBehaviour
     {
         // Create new instance of the wealth class
         WealthDistribution wealthDist = new WealthDistribution();
-        // Assign the updatecount
-        wealthDist.fixedUpdateCount = updateCounter;
+
+        // Variable to hold agent's wealth
+        int wealth;
+        // Variable to hold max wealth - feeds into social rank
+        int maxWealth = 0;
 
         // Add wealth to wealth list
         foreach (Agent agent in Agent.LiveAgents)
         {
             //print("sug " + agent.Sugar);
             //print("spi " + agent.Spice);
-            wealthDist.AddtoWealth(agent.Sugar + agent.Spice);
+            wealth = agent.Sugar + agent.Spice;
+            wealthDist.AddtoWealth(wealth);
+            if (wealth > maxWealth)
+                maxWealth = wealth;
         }
 
         SaveXML(wealthDist, updateCounter);
+
+        // Update the agent static variable for max wealth
+        Agent.MaxWealth = maxWealth;
     }
     
     [Serializable]
     public class WealthDistribution
     {
-        // Keeps track of what update number this is for.
-        public int fixedUpdateCount;
         // List which keeps track of number of agents with that wealth
         // index of list will be wealth, and value will be count
         //List<int> wealthDist = new List<int>(); // change to array
@@ -45,8 +52,6 @@ public class WealthDistributionAnalysis : MonoBehaviour
             else
                 ++wealthDist[w];
         }
-
-
     }
 
     public void SaveXML(WealthDistribution wealthDist, int updatecounter)
