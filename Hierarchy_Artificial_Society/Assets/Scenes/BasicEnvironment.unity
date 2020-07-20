@@ -716,7 +716,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed376a73f64b1b4381bfbbc47d609e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 3}
   circlePrefab: {fileID: 3644382875150829218, guid: 191b56a45275da1429e6dd853db8812e,
     type: 3}
 --- !u!1 &901669830
@@ -23180,7 +23179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc9fc7ff7749c0c45be748580f66aab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 3}
   circlePrefab: {fileID: 3644382875150829218, guid: 191b56a45275da1429e6dd853db8812e,
     type: 3}
 --- !u!1 &1016047094
@@ -24361,7 +24359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentPrefab: {fileID: 2362399314511595749, guid: 52dd6519dcf9a5a438d3f1c3d228a93a,
     type: 3}
-  numberOfAgents: 10
+  numberOfAgents: 2
 --- !u!4 &1993809427
 Transform:
   m_ObjectHideFlags: 0
