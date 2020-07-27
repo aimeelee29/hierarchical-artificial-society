@@ -24,6 +24,7 @@ public class AgentManager : MonoBehaviour
     private static WealthDistributionAnalysis wealthDistAnalysis;
     // Need access to social rank analysis
     private static SocialRankAnalysis socialRankAnalysis;
+    private static SocialMobilityAnalysis socialMobilityAnalysis;
     // // Counter to keep track of number of fixedupdates
     private static int updateCounter = 0;
 
@@ -37,6 +38,7 @@ public class AgentManager : MonoBehaviour
         tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
         wealthDistAnalysis = GameObject.Find("Analysis: Wealth Distribution").GetComponent<WealthDistributionAnalysis>();
         socialRankAnalysis = GameObject.Find("Analysis: Social Rank").GetComponent<SocialRankAnalysis>();
+        socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
         envTilemap = GameObject.Find("Environment").GetComponent<Tilemap>();
     }
 
@@ -96,6 +98,7 @@ public class AgentManager : MonoBehaviour
 
                 agent.MRS = Trade.CalcMRS(agent);
                 agent.AgentTradeList.Clear();
+                agent.TotalTradesinUpdate = 0;
             }
 
             // Trade - only if selected in toggle (in inspector)
@@ -103,8 +106,21 @@ public class AgentManager : MonoBehaviour
             {
                 foreach (Agent agent in Agent.LiveAgents)
                 {
-                    Trade.MakeTrade(agent, tradeAnalysis);
-                   //print("post trade " + agent.Sugar + " " + agent.Spice);
+                    Trade.MakeTrade(agent, tradeAnalysis, toggle.GetBiasTrade());
+                    //print("post trade " + agent.Sugar + " " + agent.Spice);
+
+                    //Trades have an effect on an agent's influence 
+                    if (agent.TotalTradesinUpdate > 0)
+                        ++agent.InfluenceCounter;
+                    else
+                        --agent.InfluenceCounter;
+
+                    /*
+                    if (agent.InfluenceCounter > 0)
+                        print(">0");
+                    else
+                        print("<0");
+                    */
                 }
             }
 
@@ -145,7 +161,17 @@ public class AgentManager : MonoBehaviour
                 wealthDistAnalysis.CreateWealthFile(updateCounter);
                 socialRankAnalysis.CreateRankFile(updateCounter);
             }
+            // Create new class on 500th update to report on social mobility
+            if (updateCounter % 500 == 0)
+            {
+                foreach (Agent agent in Agent.AllAgents)
+                {
+                    SocialRankChange socRankChange = new SocialRankChange(agent.IsChild, agent.BegSocialRank, agent.BegSocialRank, agent.SocialRank, agent.NumberRankChanges);
+                    socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socRankChange);
+                }
 
+                socialMobilityAnalysis.CreateMobilityFile(updateCounter);
+            }
         }
 
         /* 

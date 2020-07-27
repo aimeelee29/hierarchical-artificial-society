@@ -67,7 +67,15 @@ public class Agent : MonoBehaviour
     //hierarchy attributes
     private int dominance;
     private int influence;
-    private int socialRank;
+    private int begSocialRank; // social rank at birth (or initial spawn).
+    private int socialRank; // current social rank
+    private int trackSocialRank; // helper variable used for keeping tracking of how many times agent has changed social rank.
+    private int numberRankChanges = 0; // keeps track of how many times an Agent has changed social rank.
+
+    // Number of trades affect influence - TBC total number of trades or does it go by timestep
+    private int totalTrades = 0;
+    private int totalTradesinUpdate = 0;
+    private int influenceCounter = 0;
 
     /*
      * LISTS
@@ -95,8 +103,11 @@ public class Agent : MonoBehaviour
     // Needed for manager, since can't alter live agent list while you are iterating through it.
     private static List<Agent> childAgents = new List<Agent>();
 
+    //Static list of all agents (alive or dead)
+    private static List<Agent> allAgents; // = new List<Agent>();
+
     //for testing
-    public bool isChild = false;
+    private bool isChild = false;
 
     // Static variable showing maximum wealth level amount agents for that time step
     private static int maxWealth;
@@ -134,6 +145,13 @@ public class Agent : MonoBehaviour
     public static List<Agent> ChildAgents { get => childAgents; set => childAgents = value; }
     public List<Agent> AgentTradeList { get => agentTradeList; set => agentTradeList = value; }
     public static int MaxWealth { get => maxWealth; set => maxWealth = value; }
+    public int TotalTrades { get => totalTrades; set => totalTrades = value; }
+    public int TotalTradesinUpdate { get => totalTradesinUpdate; set => totalTradesinUpdate = value; }
+    public int InfluenceCounter { get => influenceCounter; set => influenceCounter = value; }
+    public static List<Agent> AllAgents { get => allAgents; set => allAgents = value; }
+    public int BegSocialRank { get => begSocialRank; set => begSocialRank = value; }
+    public int NumberRankChanges { get => numberRankChanges; set => numberRankChanges = value; }
+    public bool IsChild { get => isChild; set => isChild = value; }
 
     /*
      * AWAKE & UPDATE
@@ -148,7 +166,16 @@ public class Agent : MonoBehaviour
     void FixedUpdate()
     {
         Rank();
+
+        //if current social ranking has changed
+        if (socialRank != trackSocialRank)
+        {
+            trackSocialRank = socialRank;
+            ++numberRankChanges;
+        }
+            
     }
+
     /*
      * MAIN AGENT METHODS
      */
@@ -197,6 +224,10 @@ public class Agent : MonoBehaviour
         //age = 12;
         dominance = UnityEngine.Random.Range(1, 4);
         influence = UnityEngine.Random.Range(1, 4);
+
+        Rank();
+        begSocialRank = socialRank;
+        trackSocialRank = socialRank;
 
         return;
     }
@@ -271,6 +302,8 @@ public class Agent : MonoBehaviour
         age = 0;
 
         Rank();
+        begSocialRank = socialRank;
+        trackSocialRank = socialRank;
 
         /*
         print("sug met = " + SugarMetabolism);

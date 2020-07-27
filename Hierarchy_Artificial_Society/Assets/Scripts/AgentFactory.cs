@@ -41,6 +41,7 @@ public class AgentFactory : MonoBehaviour
             agentObj.GetComponent<Agent>().InitPosition();
             agentObj.GetComponent<Agent>().InitVars();
             Agent.LiveAgents.Add(agentObj.GetComponent<Agent>());
+            Agent.AllAgents.Add(agentObj.GetComponent<Agent>());
         }
     }
 

@@ -68,6 +68,8 @@ public static class Reproduction
                     //agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
                     // adds child to list of child agents
                     Agent.ChildAgents.Add(agentObj.GetComponent<Agent>());
+                    // adds child to list of all agents
+                    Agent.AllAgents.Add(agentObj.GetComponent<Agent>());
                     // increment counter
                     ++counter;
                 }
