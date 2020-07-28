@@ -104,7 +104,7 @@ public class Agent : MonoBehaviour
     private static List<Agent> childAgents = new List<Agent>();
 
     //Static list of all agents (alive or dead)
-    private static List<Agent> allAgents; // = new List<Agent>();
+    private static List<Agent> allAgents = new List<Agent>();
 
     //for testing
     private bool isChild = false;

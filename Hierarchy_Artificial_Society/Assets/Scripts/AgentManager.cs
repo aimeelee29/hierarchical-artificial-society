@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -162,7 +163,7 @@ public class AgentManager : MonoBehaviour
                 socialRankAnalysis.CreateRankFile(updateCounter);
             }
             // Create new class on 500th update to report on social mobility
-            if (updateCounter % 500 == 0)
+            if (updateCounter % 50 == 0)
             {
                 foreach (Agent agent in Agent.AllAgents)
                 {
@@ -173,6 +174,8 @@ public class AgentManager : MonoBehaviour
                 socialMobilityAnalysis.CreateMobilityFile(updateCounter);
             }
         }
+
+        //print(Agent.AllAgents.Count);
 
         /* 
          * WORLD MANAGEMENT

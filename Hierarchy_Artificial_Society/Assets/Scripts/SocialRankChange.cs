@@ -20,4 +20,9 @@ public class SocialRankChange
         numberChanges = change;
         age = a;
     }
+
+    public SocialRankChange()
+    {
+        
+    }
 }
