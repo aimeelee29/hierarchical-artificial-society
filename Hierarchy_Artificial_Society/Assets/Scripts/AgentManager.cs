@@ -167,7 +167,7 @@ public class AgentManager : MonoBehaviour
             {
                 foreach (Agent agent in Agent.AllAgents)
                 {
-                    SocialRankChange socRankChange = new SocialRankChange(agent.IsChild, agent.BegSocialRank, agent.BegSocialRank, agent.SocialRank, agent.NumberRankChanges, agent.Age);
+                    SocialRankChange socRankChange = new SocialRankChange(agent.IsChild, agent.BegSocialRank, agent.SocialRank, agent.NumberRankChanges, agent.Age);
                     socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socRankChange);
                 }
 
