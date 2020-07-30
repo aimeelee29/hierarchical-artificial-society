@@ -162,12 +162,12 @@ public class AgentManager : MonoBehaviour
                 wealthDistAnalysis.CreateWealthFile(updateCounter);
                 socialRankAnalysis.CreateRankFile(updateCounter);
             }
-            // Create new class on 500th update to report on social mobility
+            // Create new class on 50th update to report on social mobility
             if (updateCounter % 50 == 0)
             {
                 foreach (Agent agent in Agent.AllAgents)
                 {
-                    SocialRankChange socRankChange = new SocialRankChange(agent.IsChild, agent.BegSocialRank, agent.BegSocialRank, agent.SocialRank, agent.NumberRankChanges);
+                    SocialRankChange socRankChange = new SocialRankChange(agent.IsChild, agent.BegSocialRank, agent.BegSocialRank, agent.SocialRank, agent.NumberRankChanges, agent.Age);
                     socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socRankChange);
                 }
 

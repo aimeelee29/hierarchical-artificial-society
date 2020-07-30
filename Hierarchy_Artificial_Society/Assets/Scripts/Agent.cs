@@ -201,8 +201,8 @@ public class Agent : MonoBehaviour
         //spice = 10; //TESTING
         sugarInit = sugar;
         spiceInit = spice;
-        sugarMetabolism = UnityEngine.Random.Range(1, 6);
-        spiceMetabolism = UnityEngine.Random.Range(1, 6);
+        sugarMetabolism = UnityEngine.Random.Range(2, 7);
+        spiceMetabolism = UnityEngine.Random.Range(2, 7);
         //sugarMetabolism = 2;//TESTING
         //spiceMetabolism = 2;//TESTING
         visionHarvest = UnityEngine.Random.Range(1, 6);
