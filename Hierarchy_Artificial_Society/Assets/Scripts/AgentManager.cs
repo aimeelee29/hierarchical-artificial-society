@@ -75,6 +75,7 @@ public class AgentManager : MonoBehaviour
             Agent.LiveAgents.Remove(deadAgent.GetComponent<Agent>());
         }
 
+        print(Agent.LiveAgents.Count);
         foreach (Agent agent in Agent.LiveAgents)
         {
             //print("pre harvest " + agent.Sugar + agent.Spice);
@@ -173,15 +174,17 @@ public class AgentManager : MonoBehaviour
                 {
                     SocialMobility socMob = new SocialMobility(agent.IsChild, agent.BegSocialRank, agent.SocialRank, agent.NumberRankChanges, agent.Age);
                     socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socMob);
-                    AgentProfile agProf = new AgentProfile(agent.SugarMetabolism, agent.SpiceMetabolism, agent.VisionHarvest, agent.VisionNeighbour, agent.Lifespan, agent.Dominance, agent.Influence, agent.Age);
+                    AgentProfile agProf = new AgentProfile(agent.SugarMetabolism, agent.SpiceMetabolism, agent.VisionHarvest, agent.VisionNeighbour, agent.Lifespan, agent.Dominance, agent.Influence, agent.Age, agent.CellPosition);
                     agentProfileAnalysis.agentProfileListClass.agentProfileList.Add(agProf);
-
                 }
+                socialMobilityAnalysis.CreateMobilityFile(updateCounter);
+                agentProfileAnalysis.CreateAgentProfileFile(updateCounter);
                 //Wipe all agents list so you don't keep adding the same agents to the dataset
                 Agent.AllAgents.Clear();
-                print("agent tag = " + GameObject.FindGameObjectsWithTag("Agent").Length + " " + updateCounter);
-                print("social mobility analysis list = " + socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Count + " " + updateCounter);
-                socialMobilityAnalysis.CreateMobilityFile(updateCounter);
+
+                //print("agent tag = " + GameObject.FindGameObjectsWithTag("Agent").Length + " " + updateCounter);
+                //print("social mobility analysis list = " + socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Count + " " + updateCounter);
+                
             }
         }
 

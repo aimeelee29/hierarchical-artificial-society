@@ -4,7 +4,7 @@ using UnityEngine;
 
 /*
  * 
- *  Class which handles initial spawning of agents
+ *  Class which handles spawning of agents - both initial spawn and creation of children
  *  
  */
  
@@ -60,6 +60,8 @@ public class AgentFactory : MonoBehaviour
             agentObj = Agent.AvailableAgents[0];
             // Removes it from available list
             Agent.AvailableAgents.Remove(agentObj);
+            // Activates it
+            agentObj.SetActive(true);
         }
         else
         {

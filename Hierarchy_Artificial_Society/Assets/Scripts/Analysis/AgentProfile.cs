@@ -12,9 +12,10 @@ public class AgentProfile
     public int dominance;
     public int influence;
     public int age;
+    public Vector2Int cellPosition;
 
     // Constructor
-    public AgentProfile(int m1, int m2, int v1, int v2, int life, int dom, int inf, int a)
+    public AgentProfile(int m1, int m2, int v1, int v2, int life, int dom, int inf, int a, Vector2Int cp)
     {
         sugarMetabolism = m1;
         spiceMetabolism = m2;
@@ -24,6 +25,7 @@ public class AgentProfile
         dominance = dom;
         influence = inf;
         age = a;
+        cellPosition = cp;
     }
 
     public AgentProfile()
