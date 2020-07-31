@@ -26,7 +26,10 @@ public class AgentManager : MonoBehaviour
     // Need access to social rank analysis
     private static SocialRankAnalysis socialRankAnalysis;
     private static SocialMobilityAnalysis socialMobilityAnalysis;
-    // // Counter to keep track of number of fixedupdates
+    // Need access to agent profile analysis
+    private static AgentProfileAnalysis agentProfileAnalysis;
+
+    // Counter to keep track of number of fixedupdates
     private static int updateCounter = 0;
 
     // Vars used for colours later on
@@ -40,6 +43,7 @@ public class AgentManager : MonoBehaviour
         wealthDistAnalysis = GameObject.Find("Analysis: Wealth Distribution").GetComponent<WealthDistributionAnalysis>();
         socialRankAnalysis = GameObject.Find("Analysis: Social Rank").GetComponent<SocialRankAnalysis>();
         socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
+        agentProfileAnalysis = GameObject.Find("Analysis: Agent Profiles").GetComponent<AgentProfileAnalysis>();
         envTilemap = GameObject.Find("Environment").GetComponent<Tilemap>();
     }
 
@@ -156,21 +160,27 @@ public class AgentManager : MonoBehaviour
             // Incremenent Counter
             ++updateCounter;
 
-            //Create new class every ten updates to report wealth distribution and social rank distribution
-            if (updateCounter % 10 == 1)
+            //Create new class every 20 updates to report wealth distribution and social rank distribution
+            if (updateCounter % 20 == 1)
             {
                 wealthDistAnalysis.CreateWealthFile(updateCounter);
                 socialRankAnalysis.CreateRankFile(updateCounter);
             }
-            // Create new class on 50th update to report on social mobility
-            if (updateCounter % 50 == 0)
+            // Create new class on 50th update to report on social mobility and agent profiling
+            if (updateCounter % 50 == 1)
             {
                 foreach (Agent agent in Agent.AllAgents)
                 {
-                    SocialRankChange socRankChange = new SocialRankChange(agent.IsChild, agent.BegSocialRank, agent.SocialRank, agent.NumberRankChanges, agent.Age);
-                    socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socRankChange);
-                }
+                    SocialMobility socMob = new SocialMobility(agent.IsChild, agent.BegSocialRank, agent.SocialRank, agent.NumberRankChanges, agent.Age);
+                    socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socMob);
+                    AgentProfile agProf = new AgentProfile(agent.SugarMetabolism, agent.SpiceMetabolism, agent.VisionHarvest, agent.VisionNeighbour, agent.Lifespan, agent.Dominance, agent.Influence, agent.Age);
+                    agentProfileAnalysis.agentProfileListClass.agentProfileList.Add(agProf);
 
+                }
+                //Wipe all agents list so you don't keep adding the same agents to the dataset
+                Agent.AllAgents.Clear();
+                print("agent tag = " + GameObject.FindGameObjectsWithTag("Agent").Length + " " + updateCounter);
+                print("social mobility analysis list = " + socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Count + " " + updateCounter);
                 socialMobilityAnalysis.CreateMobilityFile(updateCounter);
             }
         }

@@ -20,7 +20,7 @@ public class SocialMobilityAnalysis : MonoBehaviour
     [Serializable]
     public class SocialMobilityList
     {
-        public List<SocialRankChange> socialMobilityList = new List<SocialRankChange>();
+        public List<SocialMobility> socialMobilityList = new List<SocialMobility>();
     }
 
     public void CreateMobilityFile(int updatecounter)
