@@ -115,12 +115,13 @@ public class AgentManager : MonoBehaviour
                     Trade.MakeTrade(agent, tradeAnalysis, toggle.GetBiasTrade());
                     //print("post trade " + agent.Sugar + " " + agent.Spice);
 
+                    /*
                     //Trades have an effect on an agent's influence 
                     if (agent.TotalTradesinUpdate > 0)
                         ++agent.InfluenceCounter;
                     else
                         --agent.InfluenceCounter;
-
+                    */
                     /*
                     if (agent.InfluenceCounter > 0)
                         print(">0");
