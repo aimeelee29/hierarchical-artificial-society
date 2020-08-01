@@ -162,15 +162,13 @@ public class AgentManager : MonoBehaviour
             // Incremenent Counter
             ++updateCounter;
 
-            //Create new class every 20 updates to report wealth distribution and social rank distribution
-            if (updateCounter % 20 == 1)
-            {
-                wealthDistAnalysis.CreateWealthFile(updateCounter);
-                socialRankAnalysis.CreateRankFile(updateCounter);
-            }
+            // Create new class every 50 updates to report wealth distribution and social rank distribution
             // Create new class on 50th update to report on social mobility and agent profiling
             if (updateCounter % 50 == 1)
             {
+                wealthDistAnalysis.CreateWealthFile(updateCounter);
+                socialRankAnalysis.CreateRankFile(updateCounter);
+
                 foreach (Agent agent in Agent.AllAgents)
                 {
                     SocialMobility socMob = new SocialMobility(agent.IsChild, agent.BegSocialRank, agent.SocialRank, agent.NumberRankChanges, agent.Age);
@@ -178,8 +176,10 @@ public class AgentManager : MonoBehaviour
                     AgentProfile agProf = new AgentProfile(agent.SugarMetabolism, agent.SpiceMetabolism, agent.VisionHarvest, agent.VisionNeighbour, agent.Lifespan, agent.Dominance, agent.Influence, agent.Age, agent.CellPosition);
                     agentProfileAnalysis.agentProfileListClass.agentProfileList.Add(agProf);
                 }
+
                 socialMobilityAnalysis.CreateMobilityFile(updateCounter);
                 agentProfileAnalysis.CreateAgentProfileFile(updateCounter);
+
                 //Wipe all agents list so you don't keep adding the same agents to the dataset
                 Agent.AllAgents.Clear();
 
