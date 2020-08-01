@@ -34,7 +34,6 @@ public class AgentFactory : MonoBehaviour
         world = GameObject.Find("World").GetComponent<World>();
         gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
 
-        //TO DO: will change the for loop when all working.
         for (int i = 0; i < numberOfAgents; ++i)
         {
             GameObject agentObj = GameObject.Instantiate(agentPrefab);
