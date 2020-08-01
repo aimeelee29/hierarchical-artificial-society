@@ -287,9 +287,9 @@ public class Agent : MonoBehaviour
         else
             dominance = parentTwo.Dominance;
         if (UnityEngine.Random.Range(1, 3) == 1)
-            dominance = parentOne.Influence;
+            influence = parentOne.Influence;
         else
-            dominance = parentTwo.Influence;
+            influence = parentTwo.Influence;
 
         // Sex and lifespan is still random
         int sexRand = UnityEngine.Random.Range(1, 3);
