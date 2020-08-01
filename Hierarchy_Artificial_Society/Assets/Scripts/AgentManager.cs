@@ -75,7 +75,7 @@ public class AgentManager : MonoBehaviour
             Agent.LiveAgents.Remove(deadAgent.GetComponent<Agent>());
         }
 
-        print(Agent.LiveAgents.Count);
+        //print(Agent.LiveAgents.Count);
         foreach (Agent agent in Agent.LiveAgents)
         {
             //print("pre harvest " + agent.Sugar + agent.Spice);
