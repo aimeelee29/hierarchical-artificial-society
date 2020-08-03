@@ -23,8 +23,12 @@ public static class Reproduction
         // To keep track of how many times the agent has reproduced
         int counter = 0;
 
-        foreach (Agent partner in agent.NeighbourAgentList)
+        Agent partner;
+
+        //foreach (Agent partner in agent.NeighbourAgentList)
+        for (int i = 0; i < agent.NeighbourAgentList.Count; ++i)
         {
+            partner = agent.NeighbourAgentList[i];
             // If agent isn't fertile, return
             if (!IsFertile(agent))
                 return;

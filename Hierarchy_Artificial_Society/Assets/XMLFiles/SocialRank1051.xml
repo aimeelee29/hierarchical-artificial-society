@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<SocialRank xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <RankDist>
+    <int>123</int>
+    <int>182</int>
+    <int>246</int>
+    <int>160</int>
+    <int>101</int>
+    <int>0</int>
+    <int>0</int>
+  </RankDist>
+</SocialRank>

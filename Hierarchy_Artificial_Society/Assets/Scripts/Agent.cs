@@ -20,6 +20,7 @@ public class Agent : MonoBehaviour
     private World world;
     private GridLayout gridLayout;
     private Vector2Int cellPosition;
+    private Vector2 transformPosition;
 
     /* 
      * AGENT VARIABLES
@@ -152,6 +153,7 @@ public class Agent : MonoBehaviour
     public int BegSocialRank { get => begSocialRank; set => begSocialRank = value; }
     public int NumberRankChanges { get => numberRankChanges; set => numberRankChanges = value; }
     public bool IsChild { get => isChild; set => isChild = value; }
+    public Vector2 TransformPosition { get => transformPosition; set => transformPosition = value; }
 
     /*
      * AWAKE & UPDATE
@@ -332,10 +334,11 @@ public class Agent : MonoBehaviour
         if (world.WorldArray[x, y].OccupyingAgent == null)
         {
             this.gameObject.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
+            transformPosition.Set(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
             // Set the agent as occupying agent in the grid location
             world.WorldArray[x, y].OccupyingAgent = this;
             // Set the cell position for agent
-            cellPosition = new Vector2Int(x, y);
+            cellPosition.Set(x, y);
             return;
         }
         // else repeat process
@@ -384,10 +387,11 @@ public class Agent : MonoBehaviour
             }
             // sets position to free vector chosen
             this.gameObject.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
+            transformPosition.Set(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
             // tells world that agent is in that cell
             world.WorldArray[x, y].OccupyingAgent = this;
             // Set cell position for agent
-            cellPosition = new Vector2Int(x, y);
+            cellPosition.Set(x, y);
         }
     }
 
@@ -412,6 +416,21 @@ public class Agent : MonoBehaviour
             world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent = null;
             // Deactivate agent
             this.gameObject.SetActive(false);
+
+            // if reproduction isn't selected then replacement happens when an agent dies.
+            if (!Resources.Load<Toggle>("ScriptableObjects/Toggle").GetReproduction())
+            {
+                // creates gameobject for child agent
+                GameObject agentObj = GameObject.Find("Agent Factory").GetComponent<AgentFactory>().CreateChild();
+                // sets position for child on grid
+                agentObj.GetComponent<Agent>().InitPosition();
+                // sets Agent component values
+                agentObj.GetComponent<Agent>().InitVars();
+                // adds child to list of child agents
+                Agent.ChildAgents.Add(agentObj.GetComponent<Agent>());
+                // adds child to list of all agents
+                Agent.AllAgents.Add(agentObj.GetComponent<Agent>());
+            }
         }
     }
 
@@ -461,7 +480,7 @@ public class Agent : MonoBehaviour
                 //print("curWelfare = " + curWelfare);
                 if (curWelfare > maxWelfare)
                 {
-                    pos = new Vector2Int(cellPosition.x, i);
+                    pos.Set(cellPosition.x, i);
                     maxWelfare = curWelfare;
                 }
             }
@@ -479,7 +498,7 @@ public class Agent : MonoBehaviour
                     //print("curWelfare = " + curWelfare);
                     if (curWelfare > maxWelfare)
                     {
-                        pos = new Vector2Int(cellPosition.x, i);
+                        pos.Set(cellPosition.x, i);
                         maxWelfare = curWelfare;
                     }
                 }
@@ -511,7 +530,7 @@ public class Agent : MonoBehaviour
                 //print("curWelfare = " + curWelfare);
                 if (curWelfare > maxWelfare)
                 {
-                    pos = new Vector2Int(cellPosition.x, i);
+                    pos.Set(cellPosition.x, i);
                     maxWelfare = curWelfare;
                 }
             }
@@ -530,7 +549,7 @@ public class Agent : MonoBehaviour
                     //print("curWelfare = " + curWelfare);
                     if (curWelfare > maxWelfare)
                     {
-                        pos = new Vector2Int(cellPosition.x, i);
+                        pos.Set(cellPosition.x, i);
                         maxWelfare = curWelfare;
                         //print(maxWelfare);
                     }
@@ -564,7 +583,7 @@ public class Agent : MonoBehaviour
                 //print("curWelfare = " + curWelfare);
                 if (curWelfare > maxWelfare)
                 {
-                    pos = new Vector2Int(i, cellPosition.y);
+                    pos.Set(i, cellPosition.y);
                     maxWelfare = curWelfare;
                 }
             }
@@ -582,7 +601,7 @@ public class Agent : MonoBehaviour
                     //print("curWelfare = " + curWelfare);
                     if (curWelfare > maxWelfare)
                     {
-                        pos = new Vector2Int(i, cellPosition.y);
+                        pos.Set(i, cellPosition.y);
                         maxWelfare = curWelfare;
                     }
                 }
@@ -613,7 +632,7 @@ public class Agent : MonoBehaviour
                 //print("curWelfare = " + curWelfare);
                 if (curWelfare > maxWelfare)
                 {
-                    pos = new Vector2Int(i, cellPosition.y);
+                    pos.Set(i, cellPosition.y);
                     maxWelfare = curWelfare;
                 }
             }
@@ -632,7 +651,7 @@ public class Agent : MonoBehaviour
                     //print("curWelfare = " + curWelfare);
                     if (curWelfare > maxWelfare)
                     {
-                        pos = new Vector2Int(i, cellPosition.y);
+                        pos.Set(i, cellPosition.y);
                         maxWelfare = curWelfare;
                     }
                 }

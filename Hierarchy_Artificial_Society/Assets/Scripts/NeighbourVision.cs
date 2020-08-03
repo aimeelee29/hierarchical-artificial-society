@@ -9,58 +9,57 @@ using UnityEngine;
  * 
  */
 
-public class NeighbourVision : MonoBehaviour
+public static class NeighbourVision
 {
     // Method to find neighbours
-    public List<Agent> FindNeighbours(Agent agent)
+    public static void FindNeighbours(Agent agent)
     {
         //Generate array of colliders within radius (set to vision)
-        //does transform need to come from agent??
-        Collider2D[] colliderList = Physics2D.OverlapCircleAll(new Vector2(agent.transform.position.x, agent.transform.position.y), agent.VisionNeighbour);
-        //print("collider list length = " + colliderList.Length);
+        Collider2D[] colliderList = Physics2D.OverlapCircleAll(agent.TransformPosition, agent.VisionNeighbour);
 
-        //Create empty List
-        List<Agent> neighbourAgentList = new List<Agent>();
+        Collider2D neighbour;
 
-        //goes through each collider within radius
-        foreach (Collider2D neighbour in colliderList)
+        //goes through each collider within vision sradius
+        for (int i = 0; i < colliderList.Length; ++i)
         {
+            neighbour = colliderList[i];
             // if collider is not attached to an agent then skip this iteration (as overlapcircleall will also catch collider for tilemap) 
             // also removes itself
             if (neighbour.tag != "Agent" || neighbour.gameObject == agent.gameObject)
+            {
                 continue;
-
-            neighbourAgentList.Add(neighbour.GetComponent<Agent>());
+            }
+            agent.NeighbourAgentList.Add(neighbour.GetComponent<Agent>());
         }
-        return neighbourAgentList;
+        return ;
     }
 
     // Method to find neighbours if restrict neighbour toggle is turned on
-
-    public List<Agent> FindNeighboursRestricted(Agent agent)
+    public static void FindNeighboursRestricted(Agent agent)
     {
         //Generate array of colliders within radius (set to vision)
         //does transform need to come from agent??
-        Collider2D[] colliderList = Physics2D.OverlapCircleAll(new Vector2(agent.transform.position.x, agent.transform.position.y), agent.VisionNeighbour);
+        Collider2D[] colliderList = Physics2D.OverlapCircleAll(agent.TransformPosition, agent.VisionNeighbour);
         //print("collider list length = " + colliderList.Length);
 
-        //Create empty List
-        List<Agent> neighbourAgentList = new List<Agent>();
+        Collider2D neighbour;
 
         //goes through each collider within radius
-        foreach (Collider2D neighbour in colliderList)
+        for (int i = 0; i < colliderList.Length; ++i)
         {
+            neighbour = colliderList[i];
             // if collider is not attached to an agent then skip this iteration (as overlapcircleall will also catch collider for tilemap) 
             // also removes itself
             // also removes any agent that isn't of similar social rank
             int rankDiff = neighbour.GetComponent<Agent>().SocialRank - agent.SocialRank;
             rankDiff = (rankDiff < 0) ? -rankDiff : rankDiff;
 
-            if (neighbour.tag != "Agent" || neighbour.gameObject == agent.gameObject || rankDiff < 2)
+            if (neighbour.tag != "Agent" || neighbour.gameObject == agent.gameObject || rankDiff > 2)
+            {
                 continue;
-
-            neighbourAgentList.Add(neighbour.GetComponent<Agent>());
+            }
+            agent.NeighbourAgentList.Add(neighbour.GetComponent<Agent>());
         }
-        return neighbourAgentList;
+        return;
     }
 }

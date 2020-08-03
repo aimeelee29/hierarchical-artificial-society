@@ -50,14 +50,17 @@ public class AgentManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+
         /*
          * AGENT MANAGEMENT
          */
+        Agent agent;
 
         // First Updates things which don't rely on other agents
-        foreach (Agent agent in Agent.LiveAgents)
+        //foreach (Agent agent in Agent.LiveAgents)
+        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
+            agent = Agent.LiveAgents[i];
             //increase agent's age
             ++agent.Age;
 
@@ -76,118 +79,107 @@ public class AgentManager : MonoBehaviour
         }
 
         //print(Agent.LiveAgents.Count);
-        foreach (Agent agent in Agent.LiveAgents)
+        //foreach (Agent agent in Agent.LiveAgents)
+        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
+            agent = Agent.LiveAgents[i];
             //print("pre harvest " + agent.Sugar + agent.Spice);
             // Look around and harvest food
             agent.Harvest();
 
             // Wipes each agent's list of agents they have mated with in previous time step
             agent.AgentReproductionList.Clear();
+            // Wipes each agent's neighbour list
+            agent.NeighbourAgentList.Clear();
 
             //print("post harvest" + agent.Sugar + " " + agent.Spice);
         }
 
-        if (Agent.LiveAgents.Count > 1)
+        // Finds neighbours 
+        // Also calculates MRS in prep for trade and wipes agent's trading list
+        //foreach (Agent agent in Agent.LiveAgents)
+        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
-            
-            // Finds neighbours 
-            // Also calculates MRS in prep for trade and wipes agent's trading list
-            foreach (Agent agent in Agent.LiveAgents)
+            agent = Agent.LiveAgents[i];
+            //If neighbour restrictions are toggled on then it calls restricted variation of findneighbours
+            if (toggle.GetRestrictNeighbour())
             {
-
-                //If neighbour restrictions are toggled on then it calls restricted variation of findneighbours
-                if (toggle.GetRestrictNeighbour())
-                    agent.NeighbourAgentList = agent.GetComponent<NeighbourVision>().FindNeighboursRestricted(agent);
-                else
-                    agent.NeighbourAgentList = agent.GetComponent<NeighbourVision>().FindNeighbours(agent);
-
-                agent.MRS = Trade.CalcMRS(agent);
-                agent.AgentTradeList.Clear();
-                agent.TotalTradesinUpdate = 0;
+                NeighbourVision.FindNeighboursRestricted(agent);
+            }   
+            else
+            {
+                NeighbourVision.FindNeighbours(agent);
             }
+            agent.MRS = Trade.CalcMRS(agent);
+            agent.AgentTradeList.Clear();
+            agent.TotalTradesinUpdate = 0;
+        }
 
-            // Trade - only if selected in toggle (in inspector)
-            if (toggle.GetTrade())
+        // Trade - only if selected in toggle (in inspector)
+        if (toggle.GetTrade())
+        {
+            for (int i = 0; i < Agent.LiveAgents.Count; ++i)
             {
-                foreach (Agent agent in Agent.LiveAgents)
-                {
-                    Trade.MakeTrade(agent, tradeAnalysis, toggle.GetBiasTrade());
-                    //print("post trade " + agent.Sugar + " " + agent.Spice);
-
-                    /*
-                    //Trades have an effect on an agent's influence 
-                    if (agent.TotalTradesinUpdate > 0)
-                        ++agent.InfluenceCounter;
-                    else
-                        --agent.InfluenceCounter;
-                    */
-                    /*
-                    if (agent.InfluenceCounter > 0)
-                        print(">0");
-                    else
-                        print("<0");
-                    */
-                }
-            }
-
-            // Reproduce - only if selected in toggle (in inspector)
-            if (toggle.GetReproduction())
-            {
-                foreach (Agent agent in Agent.LiveAgents)
-                {
-                    //"pre rep"
-                    Reproduction.ReproductionProcess(agent, world);
-                }
-            }
-
-            //print(Agent.ChildAgents.Count);
-            //print(Agent.LiveAgents.Count);
-
-            // Add children to live list
-            foreach (Agent child in Agent.ChildAgents)
-            {
-                Agent.LiveAgents.Add(child);
-                //print(child.Sugar + child.Spice);
-            }
-
-            // Reset child list
-            Agent.ChildAgents.Clear();
-
-            //print(Agent.ChildAgents.Count);
-            //print(Agent.LiveAgents.Count);
-
-            //print(Agent.AvailableAgents.Count);
-
-            // Incremenent Counter
-            ++updateCounter;
-
-            // Create new class every 50 updates to report wealth distribution and social rank distribution
-            // Create new class on 50th update to report on social mobility and agent profiling
-            if (updateCounter % 50 == 1)
-            {
-                wealthDistAnalysis.CreateWealthFile(updateCounter);
-                socialRankAnalysis.CreateRankFile(updateCounter);
-
-                foreach (Agent agent in Agent.AllAgents)
-                {
-                    SocialMobility socMob = new SocialMobility(agent.IsChild, agent.BegSocialRank, agent.SocialRank, agent.NumberRankChanges, agent.Age);
-                    socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socMob);
-                    AgentProfile agProf = new AgentProfile(agent.SugarMetabolism, agent.SpiceMetabolism, agent.VisionHarvest, agent.VisionNeighbour, agent.Lifespan, agent.Dominance, agent.Influence, agent.Age, agent.CellPosition);
-                    agentProfileAnalysis.agentProfileListClass.agentProfileList.Add(agProf);
-                }
-
-                socialMobilityAnalysis.CreateMobilityFile(updateCounter);
-                agentProfileAnalysis.CreateAgentProfileFile(updateCounter);
-
-                //Wipe all agents list so you don't keep adding the same agents to the dataset
-                Agent.AllAgents.Clear();
-
-                //print("agent tag = " + GameObject.FindGameObjectsWithTag("Agent").Length + " " + updateCounter);
-                //print("social mobility analysis list = " + socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Count + " " + updateCounter);
-                
+                Trade.MakeTrade(Agent.LiveAgents[i], tradeAnalysis, toggle.GetBiasTrade());
             }
         }
+
+        // Reproduce - only if selected in toggle (in inspector)
+        if (toggle.GetReproduction())
+        {
+            for (int i = 0; i < Agent.LiveAgents.Count; ++i)
+            {
+                Reproduction.ReproductionProcess(Agent.LiveAgents[i], world);
+            }
+        }
+
+        //print(Agent.ChildAgents.Count);
+        //print(Agent.LiveAgents.Count);
+
+        // Add children to live list
+        for (int i = 0; i < Agent.ChildAgents.Count; ++i)
+        {
+            Agent.LiveAgents.Add(Agent.ChildAgents[i]);
+            //print(child.Sugar + child.Spice);
+        }
+
+        // Reset child list
+        Agent.ChildAgents.Clear();
+
+        //print(Agent.ChildAgents.Count);
+        //print(Agent.LiveAgents.Count);
+
+        //print(Agent.AvailableAgents.Count);
+
+        // Incremenent Counter
+        ++updateCounter;
+
+        // Create new class every 50 updates to report wealth distribution and social rank distribution
+        // Create new class on 50th update to report on social mobility and agent profiling
+        if (updateCounter % 50 == 1)
+        {
+            wealthDistAnalysis.CreateWealthFile(updateCounter);
+            socialRankAnalysis.CreateRankFile(updateCounter);
+
+            foreach (Agent ag in Agent.AllAgents)
+            {
+                SocialMobility socMob = new SocialMobility(ag.IsChild, ag.BegSocialRank, ag.SocialRank, ag.NumberRankChanges, ag.Age);
+                socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socMob);
+                AgentProfile agProf = new AgentProfile(ag.SugarMetabolism, ag.SpiceMetabolism, ag.VisionHarvest, ag.VisionNeighbour, ag.Lifespan, ag.Dominance, ag.Influence, ag.Age, ag.CellPosition);
+                agentProfileAnalysis.agentProfileListClass.agentProfileList.Add(agProf);
+            }
+
+            socialMobilityAnalysis.CreateMobilityFile(updateCounter);
+            agentProfileAnalysis.CreateAgentProfileFile(updateCounter);
+
+            //Wipe all agents list so you don't keep adding the same agents to the dataset
+            Agent.AllAgents.Clear();
+
+            //print("agent tag = " + GameObject.FindGameObjectsWithTag("Agent").Length + " " + updateCounter);
+            //print("social mobility analysis list = " + socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Count + " " + updateCounter);
+            
+        }
+        
 
         //print(Agent.AllAgents.Count);
 
