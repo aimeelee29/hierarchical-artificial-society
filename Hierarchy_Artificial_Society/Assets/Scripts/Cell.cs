@@ -45,6 +45,15 @@ public class Cell
     public Vector3Int CellCoords { get => cellCoords; set => cellCoords = value; }
 
     /*
+     * CONSTRUCTOR
+     */
+
+    public Cell(int i, int j)
+    {
+        cellCoords.Set(i, j, 0);
+    }
+
+    /*
      * MAIN METHODS
      */
 

@@ -51,9 +51,13 @@ public class AgentManager : MonoBehaviour
     void FixedUpdate()
     {
 
+        // Incremenent Counter
+        ++updateCounter;
+
         /*
          * AGENT MANAGEMENT
          */
+
         Agent agent;
 
         // First Updates things which don't rely on other agents
@@ -89,9 +93,11 @@ public class AgentManager : MonoBehaviour
 
             // Wipes each agent's list of agents they have mated with in previous time step
             agent.AgentReproductionList.Clear();
-            // Wipes each agent's neighbour list
-            agent.NeighbourAgentList.Clear();
-
+            // Wipes each agent's neighbour list - only on every ten updates since overlapcircle is slow
+            if (updateCounter % 10 == 1)
+            {
+                agent.NeighbourAgentList.Clear();
+            }
             //print("post harvest" + agent.Sugar + " " + agent.Spice);
         }
 
@@ -101,14 +107,17 @@ public class AgentManager : MonoBehaviour
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
             agent = Agent.LiveAgents[i];
-            //If neighbour restrictions are toggled on then it calls restricted variation of findneighbours
-            if (toggle.GetRestrictNeighbour())
+            if (updateCounter % 10 == 1)
             {
-                NeighbourVision.FindNeighboursRestricted(agent);
-            }   
-            else
-            {
-                NeighbourVision.FindNeighbours(agent);
+                //If neighbour restrictions are toggled on then it calls restricted variation of findneighbours
+                if (toggle.GetRestrictNeighbour())
+                {
+                    NeighbourVision.FindNeighboursRestricted(agent);
+                }
+                else
+                {
+                    NeighbourVision.FindNeighbours(agent);
+                }
             }
             agent.MRS = Trade.CalcMRS(agent);
             agent.AgentTradeList.Clear();
@@ -151,8 +160,7 @@ public class AgentManager : MonoBehaviour
 
         //print(Agent.AvailableAgents.Count);
 
-        // Incremenent Counter
-        ++updateCounter;
+        
 
         // Create new class every 50 updates to report wealth distribution and social rank distribution
         // Create new class on 50th update to report on social mobility and agent profiling
