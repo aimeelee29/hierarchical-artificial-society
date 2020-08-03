@@ -20,6 +20,9 @@ public class Cell
     private int curSugar;
     private int curSpice;
 
+    // cell co-ordinates - used in Manager class to set colour of cell
+    private Vector3Int cellCoords;
+
     //how many units of sugar and spice grows back per time frame
     private static int growbackFactor = 2;
 
@@ -39,6 +42,7 @@ public class Cell
     public int CurSpice { get => curSpice; set => curSpice = value; }
     public Agent OccupyingAgent { get => occupyingAgent; set => occupyingAgent = value; }
     public bool OccupiedHarvest { get => occupiedHarvest; set => occupiedHarvest = value; }
+    public Vector3Int CellCoords { get => cellCoords; set => cellCoords = value; }
 
     /*
      * MAIN METHODS

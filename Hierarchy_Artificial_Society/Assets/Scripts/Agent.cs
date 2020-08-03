@@ -22,6 +22,9 @@ public class Agent : MonoBehaviour
     private Vector2Int cellPosition;
     private Vector2 transformPosition;
 
+    // Refer to current component for use in other scripts (avoiding using GetComponent which is slow)
+    //private Agent agentComponent;
+
     /* 
      * AGENT VARIABLES
      */
@@ -154,6 +157,7 @@ public class Agent : MonoBehaviour
     public int NumberRankChanges { get => numberRankChanges; set => numberRankChanges = value; }
     public bool IsChild { get => isChild; set => isChild = value; }
     public Vector2 TransformPosition { get => transformPosition; set => transformPosition = value; }
+   // public Agent AgentComponent { get => agentComponent; set => agentComponent = value; }
 
     /*
      * AWAKE & UPDATE
@@ -163,6 +167,7 @@ public class Agent : MonoBehaviour
     void Awake()
     {
         KnowWorld();
+        //agentComponent = this;
     }
 
     void FixedUpdate()
@@ -175,7 +180,6 @@ public class Agent : MonoBehaviour
             trackSocialRank = socialRank;
             ++numberRankChanges;
         }
-            
     }
 
     /*
@@ -244,18 +248,8 @@ public class Agent : MonoBehaviour
         parentOne.Spice -= (parentOne.SpiceInit / 2);
         parentTwo.Sugar -= (parentTwo.SugarInit / 2);
         parentTwo.Spice -= (parentTwo.SpiceInit / 2);
-        //print("parent sugar " + parentOne.Sugar + "(" + (parentOne.SugarInit / 2) + ")");
-        //print("parent sugar " + parentTwo.Sugar + "(" + (parentTwo.SugarInit / 2) + ")");
-        //print("parent spice " + parentOne.Spice + "(" + (parentOne.SpiceInit / 2) + ")");
-        //print("parent spice " + parentTwo.Spice + "(" + (parentTwo.SpiceInit / 2) + ")");
-        //print("parents alive " + parentOne.IsAlive + " " + parentTwo.IsAlive);
         sugarInit = sugar;
         spiceInit = spice;
-        //print("agent sugar" + this.sugar + "(" + sugarInit + ")");
-        //print("agent spice" + this.spice + "(" + spiceInit + ")");
-
-        //print("sug = " + sugar);
-        //print("spi = " + spice);
 
         //then randomely take one of parents' attributes
         if (UnityEngine.Random.Range(1, 3) == 1)
@@ -266,7 +260,6 @@ public class Agent : MonoBehaviour
             spiceMetabolism = parentOne.SpiceMetabolism;
         else
             spiceMetabolism = parentTwo.SpiceMetabolism;
-        
         if (UnityEngine.Random.Range(1, 3) == 1)
             visionHarvest = parentOne.VisionHarvest;
         else
@@ -422,10 +415,11 @@ public class Agent : MonoBehaviour
             {
                 // creates gameobject for child agent
                 GameObject agentObj = GameObject.Find("Agent Factory").GetComponent<AgentFactory>().CreateChild();
+                Agent agentComponent = agentObj.GetComponent<Agent>();
                 // sets position for child on grid
-                agentObj.GetComponent<Agent>().InitPosition();
+                agentComponent.InitPosition();
                 // sets Agent component values
-                agentObj.GetComponent<Agent>().InitVars();
+                agentComponent.InitVars();
                 // adds child to list of child agents
                 Agent.ChildAgents.Add(agentObj.GetComponent<Agent>());
                 // adds child to list of all agents

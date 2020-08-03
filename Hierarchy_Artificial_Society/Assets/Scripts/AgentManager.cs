@@ -198,17 +198,17 @@ public class AgentManager : MonoBehaviour
                 // Update Colour
                 // if both sugar and spice is low, then set to white
                 if (world.WorldArray[i,j].CurSugar <= World.Wasteland && world.WorldArray[i, j].CurSpice <= World.Wasteland)
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 0, 0, 0));
+                    envTilemap.SetColor(world.WorldArray[i, j].CellCoords, new Color(0, 0, 0, 0));
                 // if more sugar then colour yellow
                 else if (world.WorldArray[i, j].CurSugar > world.WorldArray[i, j].CurSpice)
                 {
                     colourVal = ((world.WorldArray[i, j].CurSugar - World.Wasteland) * (0.75f)) / (World.MountainTops - World.Wasteland);
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(1 - colourVal, 1- colourVal, 0, 0.75f));
+                    envTilemap.SetColor(world.WorldArray[i, j].CellCoords, new Color(1 - colourVal, 1- colourVal, 0, 0.75f));
                 }
                 else
                 {
                     colourVal = (((world.WorldArray[i, j].CurSpice - World.Wasteland) * (0.75f - 0.1f)) / (World.MountainTops - World.Wasteland)) + 0.1f;
-                    envTilemap.SetColor(new Vector3Int(i, j, 0), new Color(0, 1 - colourVal, 0, 0.75f));
+                    envTilemap.SetColor(world.WorldArray[i, j].CellCoords, new Color(0, 1 - colourVal, 0, 0.75f));
                 }
             }
         }

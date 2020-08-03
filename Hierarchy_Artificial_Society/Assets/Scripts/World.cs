@@ -67,7 +67,8 @@ public class World : MonoBehaviour
         {
             for (int j = 0; j < cols; ++j)
             {
-                worldArray[i, j] = new Cell();                  
+                worldArray[i, j] = new Cell();
+                worldArray[i, j].CellCoords.Set(i, j, 0);
             }
         }
     }

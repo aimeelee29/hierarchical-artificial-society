@@ -14,8 +14,7 @@ public static class Reproduction
 {
     public static void ReproductionProcess(Agent agent, World world)
     {
-        //world = GameObject.Find("World").GetComponent<World>();
-        // checks if there is an empty cell adjacent to current agent's cell - this will move to be handled by manager?
+        // checks if there is an empty cell adjacent to current agent's cell
         Vector2Int currentEmpty = world.CheckEmptyCell(agent.CellPosition.x, agent.CellPosition.y);
         //UnityEngine.Debug.Log("is child =" + agent.isChild);
         //UnityEngine.Debug.Log("neighbour count = " + agent.NeighbourAgentList.Count);
@@ -31,12 +30,16 @@ public static class Reproduction
             partner = agent.NeighbourAgentList[i];
             // If agent isn't fertile, return
             if (!IsFertile(agent))
+            {
                 return;
+            }
             // if the neighbour isn't a potential partner then skip
             //UnityEngine.Debug.Log("partner is child = " + partner.isChild);
             //UnityEngine.Debug.Log("potential partner = " + IsNeighbourPotentialPartner(agent, partner));
             if (IsNeighbourPotentialPartner(agent, partner) == false)
+            {
                 continue;
+            }
             // if it is a potential partner
             else
             {
@@ -62,18 +65,19 @@ public static class Reproduction
                     // then reproduce
                     // creates gameobject for child agent
                     GameObject agentObj = GameObject.Find("Agent Factory").GetComponent<AgentFactory>().CreateChild();
+                    Agent agentComponent = agentObj.GetComponent<Agent>();
                     // sets position for child on grid
-                    agentObj.GetComponent<Agent>().InitPosition(currentEmpty, partnerEmpty);
+                    agentComponent.InitPosition(currentEmpty, partnerEmpty);
                     // sets Agent component values
-                    agentObj.GetComponent<Agent>().InitVars(agent, partner);
+                    agentComponent.InitVars(agent, partner);
                     // adds partner to list of agents mated with
-                    agent.AgentReproductionList.Add(partner);
+                    agentComponent.AgentReproductionList.Add(partner);
                     // adds child to agent's list of children - dont think i need this now
                     //agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
                     // adds child to list of child agents
-                    Agent.ChildAgents.Add(agentObj.GetComponent<Agent>());
+                    Agent.ChildAgents.Add(agentComponent);
                     // adds child to list of all agents
-                    Agent.AllAgents.Add(agentObj.GetComponent<Agent>());
+                    Agent.AllAgents.Add(agentComponent);
                     // increment counter
                     ++counter;
                 }

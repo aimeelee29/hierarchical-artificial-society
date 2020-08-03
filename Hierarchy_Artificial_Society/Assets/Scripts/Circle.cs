@@ -14,9 +14,10 @@ public class Circle : MonoBehaviour
         GetComponent<Image>().sprite = circleSprite;
         RectTransform pointRectTransform = GetComponent<RectTransform>();
         //size of each point
-        pointRectTransform.sizeDelta = new Vector2(10, 10);
+        pointRectTransform.sizeDelta = new Vector2Int(10, 10);
         //lower left corner of plot area
-        pointRectTransform.anchorMin = new Vector2(0, 0);
-        pointRectTransform.anchorMax = new Vector2(0, 0);
+        Vector2Int origin = new Vector2Int(0, 0);
+        pointRectTransform.anchorMin = origin;
+        pointRectTransform.anchorMax = origin;
     }
 }
