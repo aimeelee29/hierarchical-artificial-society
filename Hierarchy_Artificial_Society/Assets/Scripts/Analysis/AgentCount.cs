@@ -35,20 +35,14 @@ public class AgentCount : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //call count method to count number of agents
-        Count();
+        //count number of agents
+        agentCountList.agentCount.Add(Agent.LiveAgents.Count);
 
         //for graph display
         //Set i to last entry in list so we only plot the new point each update
         int i = agentCountList.agentCount.Count - 1;
         graphScript.CreateGraph(agentCountList.agentCount, i);
 
-    }
-
-    public void Count()
-    {
-        //add count of agents to the list
-        agentCountList.agentCount.Add(GameObject.FindGameObjectsWithTag("Agent").Length);
     }
 
     public void SaveXML()

@@ -23,14 +23,17 @@ public class Cell
     // cell co-ordinates - used in Manager class to set colour of cell
     private Vector3Int cellCoords;
 
-    //how many units of sugar and spice grows back per time frame
+    // how many units of sugar and spice grows back per time frame
     private static int growbackFactor = 2;
 
-    //reference of agent occupying cell. To be set when agents spawn (either initially or through reproduction/replacement).
+    // reference of agent occupying cell. To be set when agents spawn (either initially or through reproduction/replacement).
     private Agent occupyingAgent;
 
-    //shows if an agent is harvesting cell. To be set when agents look around to find best location (and refreshed each update)
+    // shows if an agent is harvesting cell. To be set when agents look around to find best location (and refreshed each update)
     private bool occupiedHarvest;
+
+    // colour variable which will change depending on how much resource is at that location
+    public Color cellColor = new Color();
 
     /*
      * GETTERS AND SETTERS
@@ -43,6 +46,7 @@ public class Cell
     public Agent OccupyingAgent { get => occupyingAgent; set => occupyingAgent = value; }
     public bool OccupiedHarvest { get => occupiedHarvest; set => occupiedHarvest = value; }
     public Vector3Int CellCoords { get => cellCoords; set => cellCoords = value; }
+    //public Color CellColor { get => cellColor; set => cellColor = value; }
 
     /*
      * CONSTRUCTOR

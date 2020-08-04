@@ -8,11 +8,13 @@ public class Circle : MonoBehaviour
 
     //image of points to plot
     public Sprite circleSprite;
+    // Hold reference to rect transform component
+    public RectTransform pointRectTransform;
 
     void Awake()
     {
         GetComponent<Image>().sprite = circleSprite;
-        RectTransform pointRectTransform = GetComponent<RectTransform>();
+        pointRectTransform = GetComponent<RectTransform>();
         //size of each point
         pointRectTransform.sizeDelta = new Vector2Int(10, 10);
         //lower left corner of plot area

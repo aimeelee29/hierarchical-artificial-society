@@ -28,6 +28,8 @@ public class AgentManager : MonoBehaviour
     private static SocialMobilityAnalysis socialMobilityAnalysis;
     // Need access to agent profile analysis
     private static AgentProfileAnalysis agentProfileAnalysis;
+    // Need access to carrying capacity analysis
+    private static AgentCount agentCount;
 
     // Counter to keep track of number of fixedupdates
     private static int updateCounter = 0;
@@ -44,6 +46,7 @@ public class AgentManager : MonoBehaviour
         socialRankAnalysis = GameObject.Find("Analysis: Social Rank").GetComponent<SocialRankAnalysis>();
         socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
         agentProfileAnalysis = GameObject.Find("Analysis: Agent Profiles").GetComponent<AgentProfileAnalysis>();
+        agentCount = GameObject.Find("Analysis: Agent Count").GetComponent<AgentCount>();
         envTilemap = GameObject.Find("Environment").GetComponent<Tilemap>();
     }
 
@@ -160,10 +163,7 @@ public class AgentManager : MonoBehaviour
 
         //print(Agent.AvailableAgents.Count);
 
-        
-
-        // Create new class every 50 updates to report wealth distribution and social rank distribution
-        // Create new class on 50th update to report on social mobility and agent profiling
+        // Analysis files created every 50 updates
         if (updateCounter % 50 == 1)
         {
             wealthDistAnalysis.CreateWealthFile(updateCounter);
@@ -179,6 +179,8 @@ public class AgentManager : MonoBehaviour
 
             socialMobilityAnalysis.CreateMobilityFile(updateCounter);
             agentProfileAnalysis.CreateAgentProfileFile(updateCounter);
+            agentCount.SaveXML();
+            tradeAnalysis.SaveXML();
 
             //Wipe all agents list so you don't keep adding the same agents to the dataset
             Agent.AllAgents.Clear();
@@ -202,21 +204,28 @@ public class AgentManager : MonoBehaviour
             {                
                 world.WorldArray[i, j].Growback();
                 world.WorldArray[i, j].OccupiedHarvest = false;
-
+                
+                
                 // Update Colour
-                // if both sugar and spice is low, then set to white
-                if (world.WorldArray[i,j].CurSugar <= World.Wasteland && world.WorldArray[i, j].CurSpice <= World.Wasteland)
-                    envTilemap.SetColor(world.WorldArray[i, j].CellCoords, new Color(0, 0, 0, 0));
-                // if more sugar then colour yellow
-                else if (world.WorldArray[i, j].CurSugar > world.WorldArray[i, j].CurSpice)
+                // if both sugar and spice is low, then don't do anything since already white
+                // if more sugar then colour shades of yellow
+                if (world.WorldArray[i, j].CurSugar > world.WorldArray[i, j].CurSpice)
                 {
-                    colourVal = ((world.WorldArray[i, j].CurSugar - World.Wasteland) * (0.75f)) / (World.MountainTops - World.Wasteland);
-                    envTilemap.SetColor(world.WorldArray[i, j].CellCoords, new Color(1 - colourVal, 1- colourVal, 0, 0.75f));
+                    colourVal = 1 - (((world.WorldArray[i, j].CurSugar - World.Wasteland) * (0.75f)) / (World.MountainTops - World.Wasteland));
+                    world.WorldArray[i, j].cellColor.r = colourVal;
+                    world.WorldArray[i, j].cellColor.g = colourVal;
+                    world.WorldArray[i, j].cellColor.b = 0;
+                    world.WorldArray[i, j].cellColor.a = 0.75f;
+                    envTilemap.SetColor(world.WorldArray[i, j].CellCoords, world.WorldArray[i, j].cellColor);
                 }
-                else
+                else if (world.WorldArray[i, j].CurSugar < world.WorldArray[i, j].CurSpice)
                 {
-                    colourVal = (((world.WorldArray[i, j].CurSpice - World.Wasteland) * (0.75f - 0.1f)) / (World.MountainTops - World.Wasteland)) + 0.1f;
-                    envTilemap.SetColor(world.WorldArray[i, j].CellCoords, new Color(0, 1 - colourVal, 0, 0.75f));
+                    colourVal = 1 - ((((world.WorldArray[i, j].CurSpice - World.Wasteland) * (0.75f - 0.1f)) / (World.MountainTops - World.Wasteland)) + 0.1f);
+                    world.WorldArray[i, j].cellColor.r = 0;
+                    world.WorldArray[i, j].cellColor.g = colourVal;
+                    world.WorldArray[i, j].cellColor.b = 0;
+                    world.WorldArray[i, j].cellColor.a = 0.75f;
+                    envTilemap.SetColor(world.WorldArray[i, j].CellCoords, world.WorldArray[i, j].cellColor);
                 }
             }
         }

@@ -38,7 +38,7 @@ public class TradeAnalysis : MonoBehaviour
     public class AvUnits
     {
         //List with average trade price for each time step
-        public List<int> avUnitsList = new List<int>();
+        public List<double> avUnitsList = new List<double>();
     }
 
     // Start is called before the first frame update
@@ -62,7 +62,7 @@ public class TradeAnalysis : MonoBehaviour
         if (quantity>0)
         {
             avPriceClass.avPriceList.Add(price / quantity);
-            avUnitsClass.avUnitsList.Add(units / quantity);
+            avUnitsClass.avUnitsList.Add((double)units / quantity);
         }
         else
         {
