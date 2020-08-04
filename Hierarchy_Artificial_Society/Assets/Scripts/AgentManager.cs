@@ -76,7 +76,17 @@ public class AgentManager : MonoBehaviour
             agent.Spice -= agent.SpiceMetabolism;
 
             //check for death
-            agent.Death();            
+            if (toggle.GetReproduction())
+            {
+                print("death");
+                agent.Death();
+            }
+            else
+            {
+                print("death and replace");
+                agent.DeathandReplacement();
+            }
+                       
         }
 
         // can't change collection when iterating so need this step to remove dead agents from live list
@@ -96,6 +106,7 @@ public class AgentManager : MonoBehaviour
 
             // Wipes each agent's list of agents they have mated with in previous time step
             agent.AgentReproductionList.Clear();
+            
             // Wipes each agent's neighbour list - only on every ten updates since overlapcircle is slow
             if (updateCounter % 10 == 1)
             {

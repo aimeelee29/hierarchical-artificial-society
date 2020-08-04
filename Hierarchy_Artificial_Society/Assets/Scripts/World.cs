@@ -63,11 +63,13 @@ public class World : MonoBehaviour
     //Create cells
     private void PopulateArray()
     {
+        //int no = 0;
         for (int i = 0; i < rows; ++i)
         {
             for (int j = 0; j < cols; ++j)
             {
                 worldArray[i, j] = new Cell(i, j);
+                //print(no + " " + worldArray[i, j].CellCoords);
             }
         }
     }

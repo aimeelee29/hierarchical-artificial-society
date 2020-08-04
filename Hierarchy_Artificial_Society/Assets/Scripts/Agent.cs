@@ -22,9 +22,6 @@ public class Agent : MonoBehaviour
     private Vector2Int cellPosition;
     private Vector2 transformPosition;
 
-    // Refer to current component for use in other scripts (avoiding using GetComponent which is slow)
-    //private Agent agentComponent;
-
     /* 
      * AGENT VARIABLES
      */
@@ -157,7 +154,6 @@ public class Agent : MonoBehaviour
     public int NumberRankChanges { get => numberRankChanges; set => numberRankChanges = value; }
     public bool IsChild { get => isChild; set => isChild = value; }
     public Vector2 TransformPosition { get => transformPosition; set => transformPosition = value; }
-   // public Agent AgentComponent { get => agentComponent; set => agentComponent = value; }
 
     /*
      * AWAKE & UPDATE
@@ -316,7 +312,8 @@ public class Agent : MonoBehaviour
         return;
     }
 
-    // Sets position (Initial - Random). First checks if there is already an agent there. Works recursively.
+    // Sets position (Initial - Random). First checks if there is already an agent there. Works recursively
+    
     public void InitPosition()
     {
         // generate random grid position
@@ -338,6 +335,25 @@ public class Agent : MonoBehaviour
         else
             InitPosition();
     }
+    
+    
+    public void InitPosition(int numberOfAgents, int agentNo)
+    {
+        // Agent number multiplied by spacing between cells tells us what cell number the agent spawns into
+        int cellNumber = agentNo * ((World.Rows * World.Cols) / numberOfAgents);
+        int x = cellNumber % World.Rows;
+        int y = cellNumber / World.Cols;
+
+        this.gameObject.transform.position = gridLayout.CellToWorld(new Vector3Int(x, y, 0));
+        transformPosition.Set(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
+        // Set the agent as occupying agent in the grid location
+        world.WorldArray[x, y].OccupyingAgent = this;
+        // Set the cell position for agent
+        cellPosition.Set(x, y);
+        //print("Agent no = " + agentNo + "x=" + x + " y=" + y);
+        return;
+    }
+   
 
     // Sets values (given two parents)
     public void InitPosition(Vector2Int freeVector1, Vector2Int freeVector2)
@@ -409,24 +425,31 @@ public class Agent : MonoBehaviour
             world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent = null;
             // Deactivate agent
             this.gameObject.SetActive(false);
-
-            // if reproduction isn't selected then replacement happens when an agent dies.
-            if (!Resources.Load<Toggle>("ScriptableObjects/Toggle").GetReproduction())
-            {
-                // creates gameobject for child agent
-                GameObject agentObj = GameObject.Find("Agent Factory").GetComponent<AgentFactory>().CreateChild();
-                Agent agentComponent = agentObj.GetComponent<Agent>();
-                // sets position for child on grid
-                agentComponent.InitPosition();
-                // sets Agent component values
-                agentComponent.InitVars();
-                // adds child to list of child agents
-                Agent.ChildAgents.Add(agentObj.GetComponent<Agent>());
-                // adds child to list of all agents
-                Agent.AllAgents.Add(agentObj.GetComponent<Agent>());
-            }
         }
     }
+
+
+        // Agent will die if it reaches its lifespan or runs out of either sugar or spice
+        public void DeathandReplacement()
+        {
+            if (isAlive && (age >= lifespan || sugar <= 0 || spice <= 0))
+            {
+            /*
+            if (age == lifespan)
+                print("lifespan death");
+            else if (sugar <= 0)
+                print("sugar death");
+            else
+                print("spice death");
+            */
+            //print("death");
+
+            // just need to redefine variables. Position and memory can be directly taken
+             this.InitVars();
+             // adds child to list of all agents
+             Agent.AllAgents.Add(this);
+            }
+        }
 
     public double Welfare(int x, int y)
     {

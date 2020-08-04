@@ -15,20 +15,19 @@ public class Cell
     // maximum levels of sugar and spice that can exist in the cell
     private int maxSugar;
     private int maxSpice;
-    
     // current levels of sugar and spice in the cell
     private int curSugar;
     private int curSpice;
 
     // cell co-ordinates - used in Manager class to set colour of cell
     private Vector3Int cellCoords;
+    //private int cellNumber;
 
     // how many units of sugar and spice grows back per time frame
     private static int growbackFactor = 2;
 
     // reference of agent occupying cell. To be set when agents spawn (either initially or through reproduction/replacement).
     private Agent occupyingAgent;
-
     // shows if an agent is harvesting cell. To be set when agents look around to find best location (and refreshed each update)
     private bool occupiedHarvest;
 
