@@ -29,7 +29,7 @@ public class SocialRankAnalysis : MonoBehaviour
         // List which keeps track of number of agents with that wealth
         // index of list will be wealth, and value will be count
         //List<int> wealthDist = new List<int>(); // change to array
-        private int[] rankDist = new int[7];
+        private int[] rankDist = new int[15];
 
         public int[] RankDist { get => rankDist; set => rankDist = value; }
 

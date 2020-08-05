@@ -2,14 +2,14 @@
 <AgentProfileList xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <agentProfileList>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>77</lifespan>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>98</lifespan>
       <dominance>1</dominance>
-      <influence>2</influence>
-      <age>62</age>
+      <influence>1</influence>
+      <age>54</age>
       <cellPosition>
         <x>0</x>
         <y>0</y>
@@ -17,27 +17,27 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>95</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>80</age>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>75</lifespan>
+      <dominance>1</dominance>
+      <influence>2</influence>
+      <age>14</age>
       <cellPosition>
         <x>12</x>
         <y>0</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
       <visionNeighbour>28</visionNeighbour>
-      <lifespan>77</lifespan>
+      <lifespan>100</lifespan>
       <dominance>3</dominance>
-      <influence>1</influence>
-      <age>37</age>
+      <influence>2</influence>
+      <age>85</age>
       <cellPosition>
         <x>24</x>
         <y>0</y>
@@ -46,38 +46,38 @@
     <AgentProfile>
       <sugarMetabolism>5</sugarMetabolism>
       <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>91</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>89</age>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>96</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>16</age>
       <cellPosition>
         <x>36</x>
         <y>0</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>72</lifespan>
-      <dominance>1</dominance>
-      <influence>2</influence>
-      <age>6</age>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>85</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>10</age>
       <cellPosition>
         <x>48</x>
         <y>0</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
+      <sugarMetabolism>3</sugarMetabolism>
       <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>61</lifespan>
-      <dominance>1</dominance>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>71</lifespan>
+      <dominance>2</dominance>
       <influence>3</influence>
       <age>40</age>
       <cellPosition>
@@ -87,139 +87,139 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>92</lifespan>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>71</lifespan>
       <dominance>3</dominance>
-      <influence>2</influence>
-      <age>66</age>
+      <influence>1</influence>
+      <age>9</age>
       <cellPosition>
         <x>22</x>
         <y>1</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>78</lifespan>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>88</lifespan>
       <dominance>1</dominance>
-      <influence>1</influence>
-      <age>74</age>
+      <influence>3</influence>
+      <age>36</age>
       <cellPosition>
         <x>34</x>
         <y>1</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>92</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>32</age>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>66</lifespan>
+      <dominance>3</dominance>
+      <influence>2</influence>
+      <age>28</age>
       <cellPosition>
         <x>46</x>
         <y>1</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
       <visionNeighbour>28</visionNeighbour>
-      <lifespan>94</lifespan>
-      <dominance>1</dominance>
+      <lifespan>96</lifespan>
+      <dominance>2</dominance>
       <influence>1</influence>
-      <age>24</age>
+      <age>35</age>
       <cellPosition>
         <x>8</x>
         <y>2</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>60</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>25</age>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>76</lifespan>
+      <dominance>2</dominance>
+      <influence>2</influence>
+      <age>69</age>
       <cellPosition>
         <x>20</x>
         <y>2</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>82</lifespan>
-      <dominance>1</dominance>
-      <influence>1</influence>
-      <age>59</age>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>95</lifespan>
+      <dominance>3</dominance>
+      <influence>2</influence>
+      <age>15</age>
       <cellPosition>
         <x>32</x>
         <y>2</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
       <visionHarvest>5</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>87</lifespan>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>76</lifespan>
       <dominance>2</dominance>
       <influence>3</influence>
-      <age>30</age>
+      <age>35</age>
       <cellPosition>
         <x>44</x>
         <y>2</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>63</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>57</age>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>91</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>55</age>
       <cellPosition>
         <x>6</x>
         <y>3</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>62</lifespan>
-      <dominance>3</dominance>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>79</lifespan>
+      <dominance>2</dominance>
       <influence>1</influence>
-      <age>5</age>
+      <age>22</age>
       <cellPosition>
         <x>18</x>
         <y>3</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>80</lifespan>
-      <dominance>3</dominance>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>95</lifespan>
+      <dominance>2</dominance>
       <influence>1</influence>
-      <age>9</age>
+      <age>75</age>
       <cellPosition>
         <x>30</x>
         <y>3</y>
@@ -227,125 +227,125 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
       <visionHarvest>4</visionHarvest>
       <visionNeighbour>29</visionNeighbour>
-      <lifespan>76</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>65</age>
+      <lifespan>86</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>42</age>
       <cellPosition>
         <x>42</x>
         <y>3</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
       <visionHarvest>2</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>98</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>27</age>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>90</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>61</age>
       <cellPosition>
         <x>4</x>
         <y>4</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>99</lifespan>
-      <dominance>3</dominance>
-      <influence>3</influence>
-      <age>7</age>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>94</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>70</age>
       <cellPosition>
         <x>16</x>
         <y>4</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
+      <sugarMetabolism>5</sugarMetabolism>
       <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>75</lifespan>
-      <dominance>3</dominance>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>65</lifespan>
+      <dominance>1</dominance>
       <influence>1</influence>
-      <age>55</age>
+      <age>8</age>
       <cellPosition>
         <x>28</x>
         <y>4</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>79</lifespan>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>85</lifespan>
       <dominance>1</dominance>
-      <influence>2</influence>
-      <age>37</age>
+      <influence>3</influence>
+      <age>73</age>
       <cellPosition>
         <x>40</x>
         <y>4</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>99</lifespan>
-      <dominance>3</dominance>
-      <influence>3</influence>
-      <age>92</age>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>76</lifespan>
+      <dominance>2</dominance>
+      <influence>2</influence>
+      <age>61</age>
       <cellPosition>
         <x>2</x>
         <y>5</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
       <spiceMetabolism>5</spiceMetabolism>
       <visionHarvest>3</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>92</lifespan>
-      <dominance>1</dominance>
-      <influence>1</influence>
-      <age>9</age>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>88</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>27</age>
       <cellPosition>
         <x>14</x>
         <y>5</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>99</lifespan>
-      <dominance>2</dominance>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>70</lifespan>
+      <dominance>3</dominance>
       <influence>2</influence>
-      <age>16</age>
+      <age>7</age>
       <cellPosition>
         <x>26</x>
         <y>5</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
       <visionHarvest>4</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>85</lifespan>
-      <dominance>1</dominance>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>61</lifespan>
+      <dominance>3</dominance>
       <influence>1</influence>
-      <age>7</age>
+      <age>15</age>
       <cellPosition>
         <x>38</x>
         <y>5</y>
@@ -353,27 +353,27 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>97</lifespan>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>67</lifespan>
       <dominance>1</dominance>
-      <influence>3</influence>
-      <age>50</age>
+      <influence>1</influence>
+      <age>30</age>
       <cellPosition>
         <x>0</x>
         <y>6</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>74</lifespan>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>98</lifespan>
       <dominance>2</dominance>
-      <influence>1</influence>
-      <age>43</age>
+      <influence>3</influence>
+      <age>70</age>
       <cellPosition>
         <x>12</x>
         <y>6</y>
@@ -381,13 +381,13 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
       <visionNeighbour>26</visionNeighbour>
-      <lifespan>74</lifespan>
-      <dominance>2</dominance>
+      <lifespan>82</lifespan>
+      <dominance>1</dominance>
       <influence>2</influence>
-      <age>59</age>
+      <age>9</age>
       <cellPosition>
         <x>24</x>
         <y>6</y>
@@ -395,40 +395,40 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
       <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>64</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>19</age>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>70</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>39</age>
       <cellPosition>
         <x>36</x>
         <y>6</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
+      <sugarMetabolism>3</sugarMetabolism>
       <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
+      <visionHarvest>4</visionHarvest>
       <visionNeighbour>29</visionNeighbour>
-      <lifespan>64</lifespan>
-      <dominance>2</dominance>
+      <lifespan>89</lifespan>
+      <dominance>1</dominance>
       <influence>2</influence>
-      <age>36</age>
+      <age>23</age>
       <cellPosition>
         <x>48</x>
         <y>6</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>63</lifespan>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>61</lifespan>
       <dominance>3</dominance>
-      <influence>2</influence>
+      <influence>3</influence>
       <age>51</age>
       <cellPosition>
         <x>10</x>
@@ -436,70 +436,70 @@
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
+      <sugarMetabolism>2</sugarMetabolism>
       <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>92</lifespan>
-      <dominance>3</dominance>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>62</lifespan>
+      <dominance>2</dominance>
       <influence>1</influence>
-      <age>87</age>
+      <age>38</age>
       <cellPosition>
         <x>22</x>
         <y>7</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
+      <sugarMetabolism>5</sugarMetabolism>
       <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>70</lifespan>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>91</lifespan>
       <dominance>1</dominance>
-      <influence>3</influence>
-      <age>69</age>
+      <influence>2</influence>
+      <age>47</age>
       <cellPosition>
         <x>34</x>
         <y>7</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
       <visionHarvest>5</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>95</lifespan>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>86</lifespan>
       <dominance>3</dominance>
       <influence>3</influence>
-      <age>12</age>
+      <age>61</age>
       <cellPosition>
         <x>46</x>
         <y>7</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>60</lifespan>
-      <dominance>1</dominance>
-      <influence>2</influence>
-      <age>4</age>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>76</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>30</age>
       <cellPosition>
         <x>8</x>
         <y>8</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>76</lifespan>
-      <dominance>2</dominance>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>71</lifespan>
+      <dominance>3</dominance>
       <influence>2</influence>
-      <age>33</age>
+      <age>22</age>
       <cellPosition>
         <x>20</x>
         <y>8</y>
@@ -507,69 +507,69 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
       <visionHarvest>2</visionHarvest>
       <visionNeighbour>26</visionNeighbour>
-      <lifespan>99</lifespan>
-      <dominance>3</dominance>
-      <influence>3</influence>
-      <age>36</age>
+      <lifespan>98</lifespan>
+      <dominance>2</dominance>
+      <influence>2</influence>
+      <age>74</age>
       <cellPosition>
         <x>32</x>
         <y>8</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
       <visionNeighbour>25</visionNeighbour>
-      <lifespan>98</lifespan>
+      <lifespan>62</lifespan>
       <dominance>3</dominance>
-      <influence>1</influence>
-      <age>49</age>
+      <influence>2</influence>
+      <age>29</age>
       <cellPosition>
         <x>44</x>
         <y>8</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
       <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>92</lifespan>
-      <dominance>3</dominance>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>81</lifespan>
+      <dominance>2</dominance>
       <influence>3</influence>
-      <age>35</age>
+      <age>47</age>
       <cellPosition>
         <x>6</x>
         <y>9</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
       <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
+      <visionHarvest>4</visionHarvest>
       <visionNeighbour>27</visionNeighbour>
-      <lifespan>74</lifespan>
+      <lifespan>75</lifespan>
       <dominance>3</dominance>
-      <influence>3</influence>
-      <age>67</age>
+      <influence>2</influence>
+      <age>9</age>
       <cellPosition>
         <x>18</x>
         <y>9</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>90</lifespan>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>65</lifespan>
       <dominance>2</dominance>
-      <influence>2</influence>
-      <age>11</age>
+      <influence>1</influence>
+      <age>40</age>
       <cellPosition>
         <x>30</x>
         <y>9</y>
@@ -577,54 +577,54 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
       <visionHarvest>3</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>60</lifespan>
-      <dominance>2</dominance>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>78</lifespan>
+      <dominance>1</dominance>
       <influence>1</influence>
-      <age>37</age>
+      <age>43</age>
       <cellPosition>
         <x>42</x>
         <y>9</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>96</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>32</age>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>78</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>23</age>
       <cellPosition>
         <x>4</x>
         <y>10</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
+      <sugarMetabolism>3</sugarMetabolism>
       <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>88</lifespan>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>65</lifespan>
       <dominance>2</dominance>
-      <influence>1</influence>
-      <age>12</age>
+      <influence>2</influence>
+      <age>58</age>
       <cellPosition>
         <x>16</x>
         <y>10</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>83</lifespan>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>84</lifespan>
       <dominance>1</dominance>
-      <influence>2</influence>
+      <influence>1</influence>
       <age>25</age>
       <cellPosition>
         <x>28</x>
@@ -632,938 +632,938 @@
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>72</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>30</age>
-      <cellPosition>
-        <x>40</x>
-        <y>10</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
       <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>72</lifespan>
-      <dominance>1</dominance>
-      <influence>2</influence>
-      <age>69</age>
-      <cellPosition>
-        <x>2</x>
-        <y>11</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
       <visionHarvest>5</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>61</lifespan>
-      <dominance>1</dominance>
-      <influence>2</influence>
-      <age>38</age>
-      <cellPosition>
-        <x>14</x>
-        <y>11</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>88</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>10</age>
-      <cellPosition>
-        <x>26</x>
-        <y>11</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>96</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>91</age>
-      <cellPosition>
-        <x>38</x>
-        <y>11</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>95</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>9</age>
-      <cellPosition>
-        <x>0</x>
-        <y>12</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>67</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>61</age>
-      <cellPosition>
-        <x>12</x>
-        <y>12</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>67</lifespan>
-      <dominance>1</dominance>
-      <influence>1</influence>
-      <age>9</age>
-      <cellPosition>
-        <x>24</x>
-        <y>12</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>62</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>32</age>
-      <cellPosition>
-        <x>36</x>
-        <y>12</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>75</lifespan>
-      <dominance>2</dominance>
-      <influence>3</influence>
-      <age>73</age>
-      <cellPosition>
-        <x>48</x>
-        <y>12</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>65</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>60</age>
-      <cellPosition>
-        <x>10</x>
-        <y>13</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>76</lifespan>
-      <dominance>1</dominance>
-      <influence>2</influence>
-      <age>29</age>
-      <cellPosition>
-        <x>22</x>
-        <y>13</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>83</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>42</age>
-      <cellPosition>
-        <x>34</x>
-        <y>13</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>85</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>70</age>
-      <cellPosition>
-        <x>46</x>
-        <y>13</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>70</lifespan>
-      <dominance>2</dominance>
-      <influence>3</influence>
-      <age>18</age>
-      <cellPosition>
-        <x>8</x>
-        <y>14</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>95</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>67</age>
-      <cellPosition>
-        <x>20</x>
-        <y>14</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>78</lifespan>
-      <dominance>3</dominance>
-      <influence>3</influence>
-      <age>61</age>
-      <cellPosition>
-        <x>32</x>
-        <y>14</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>87</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>64</age>
-      <cellPosition>
-        <x>44</x>
-        <y>14</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>100</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>79</age>
-      <cellPosition>
-        <x>6</x>
-        <y>15</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>76</lifespan>
-      <dominance>1</dominance>
-      <influence>1</influence>
-      <age>24</age>
-      <cellPosition>
-        <x>18</x>
-        <y>15</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>97</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>67</age>
-      <cellPosition>
-        <x>30</x>
-        <y>15</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>92</lifespan>
-      <dominance>1</dominance>
-      <influence>2</influence>
-      <age>35</age>
-      <cellPosition>
-        <x>42</x>
-        <y>15</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>62</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>26</age>
-      <cellPosition>
-        <x>4</x>
-        <y>16</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>66</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>52</age>
-      <cellPosition>
-        <x>16</x>
-        <y>16</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>65</lifespan>
-      <dominance>3</dominance>
-      <influence>3</influence>
-      <age>21</age>
-      <cellPosition>
-        <x>28</x>
-        <y>16</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>62</lifespan>
-      <dominance>2</dominance>
-      <influence>3</influence>
-      <age>11</age>
-      <cellPosition>
-        <x>40</x>
-        <y>16</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>63</lifespan>
-      <dominance>1</dominance>
-      <influence>1</influence>
-      <age>33</age>
-      <cellPosition>
-        <x>2</x>
-        <y>17</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>95</lifespan>
-      <dominance>2</dominance>
-      <influence>3</influence>
-      <age>15</age>
-      <cellPosition>
-        <x>14</x>
-        <y>17</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>97</lifespan>
-      <dominance>3</dominance>
-      <influence>3</influence>
-      <age>79</age>
-      <cellPosition>
-        <x>26</x>
-        <y>17</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>90</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>83</age>
-      <cellPosition>
-        <x>38</x>
-        <y>17</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>63</lifespan>
-      <dominance>3</dominance>
-      <influence>3</influence>
-      <age>35</age>
-      <cellPosition>
-        <x>0</x>
-        <y>18</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>88</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>37</age>
-      <cellPosition>
-        <x>12</x>
-        <y>18</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>74</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>28</age>
-      <cellPosition>
-        <x>24</x>
-        <y>18</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>66</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>35</age>
-      <cellPosition>
-        <x>36</x>
-        <y>18</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>86</lifespan>
-      <dominance>1</dominance>
-      <influence>2</influence>
-      <age>4</age>
-      <cellPosition>
-        <x>48</x>
-        <y>18</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>78</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>59</age>
-      <cellPosition>
-        <x>10</x>
-        <y>19</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>70</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>23</age>
-      <cellPosition>
-        <x>22</x>
-        <y>19</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>72</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>61</age>
-      <cellPosition>
-        <x>34</x>
-        <y>19</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>60</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>41</age>
-      <cellPosition>
-        <x>46</x>
-        <y>19</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>85</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>28</age>
-      <cellPosition>
-        <x>8</x>
-        <y>20</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>89</lifespan>
-      <dominance>1</dominance>
-      <influence>1</influence>
-      <age>78</age>
-      <cellPosition>
-        <x>20</x>
-        <y>20</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>64</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>32</age>
-      <cellPosition>
-        <x>32</x>
-        <y>20</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>84</lifespan>
-      <dominance>1</dominance>
-      <influence>1</influence>
-      <age>63</age>
-      <cellPosition>
-        <x>44</x>
-        <y>20</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>76</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>35</age>
-      <cellPosition>
-        <x>6</x>
-        <y>21</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>61</lifespan>
-      <dominance>3</dominance>
-      <influence>3</influence>
-      <age>52</age>
-      <cellPosition>
-        <x>18</x>
-        <y>21</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>95</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>44</age>
-      <cellPosition>
-        <x>30</x>
-        <y>21</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>90</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>6</age>
-      <cellPosition>
-        <x>42</x>
-        <y>21</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>95</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>31</age>
-      <cellPosition>
-        <x>4</x>
-        <y>22</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>76</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>55</age>
-      <cellPosition>
-        <x>16</x>
-        <y>22</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>84</lifespan>
-      <dominance>3</dominance>
-      <influence>3</influence>
-      <age>4</age>
-      <cellPosition>
-        <x>28</x>
-        <y>22</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>82</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>55</age>
-      <cellPosition>
-        <x>40</x>
-        <y>22</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>88</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>74</age>
-      <cellPosition>
-        <x>2</x>
-        <y>23</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>83</lifespan>
-      <dominance>2</dominance>
-      <influence>3</influence>
-      <age>49</age>
-      <cellPosition>
-        <x>14</x>
-        <y>23</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>90</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>65</age>
-      <cellPosition>
-        <x>26</x>
-        <y>23</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>61</lifespan>
-      <dominance>1</dominance>
-      <influence>2</influence>
-      <age>20</age>
-      <cellPosition>
-        <x>38</x>
-        <y>23</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>69</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>10</age>
-      <cellPosition>
-        <x>0</x>
-        <y>24</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>82</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>24</age>
-      <cellPosition>
-        <x>12</x>
-        <y>24</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>71</lifespan>
-      <dominance>1</dominance>
-      <influence>2</influence>
-      <age>55</age>
-      <cellPosition>
-        <x>24</x>
-        <y>24</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>70</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>17</age>
-      <cellPosition>
-        <x>36</x>
-        <y>24</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>100</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>37</age>
-      <cellPosition>
-        <x>48</x>
-        <y>24</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>78</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>23</age>
-      <cellPosition>
-        <x>10</x>
-        <y>25</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>96</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>18</age>
-      <cellPosition>
-        <x>22</x>
-        <y>25</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
       <visionNeighbour>25</visionNeighbour>
       <lifespan>80</lifespan>
       <dominance>3</dominance>
       <influence>3</influence>
-      <age>28</age>
+      <age>12</age>
       <cellPosition>
-        <x>34</x>
-        <y>25</y>
+        <x>40</x>
+        <y>10</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>81</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>52</age>
+      <cellPosition>
+        <x>2</x>
+        <y>11</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>90</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>78</age>
+      <cellPosition>
+        <x>14</x>
+        <y>11</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>77</lifespan>
+      <dominance>1</dominance>
+      <influence>2</influence>
+      <age>11</age>
+      <cellPosition>
+        <x>26</x>
+        <y>11</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>63</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>31</age>
+      <cellPosition>
+        <x>38</x>
+        <y>11</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
       <visionHarvest>1</visionHarvest>
       <visionNeighbour>27</visionNeighbour>
-      <lifespan>91</lifespan>
-      <dominance>2</dominance>
+      <lifespan>80</lifespan>
+      <dominance>1</dominance>
       <influence>2</influence>
-      <age>68</age>
+      <age>61</age>
       <cellPosition>
-        <x>46</x>
-        <y>25</y>
+        <x>0</x>
+        <y>12</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>100</lifespan>
+      <dominance>3</dominance>
+      <influence>1</influence>
+      <age>48</age>
+      <cellPosition>
+        <x>12</x>
+        <y>12</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>87</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>49</age>
+      <cellPosition>
+        <x>24</x>
+        <y>12</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>79</lifespan>
+      <dominance>3</dominance>
+      <influence>2</influence>
+      <age>8</age>
+      <cellPosition>
+        <x>36</x>
+        <y>12</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>62</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>36</age>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>79</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>42</age>
       <cellPosition>
-        <x>8</x>
-        <y>26</y>
+        <x>48</x>
+        <y>12</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>90</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>23</age>
+      <cellPosition>
+        <x>10</x>
+        <y>13</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>6</sugarMetabolism>
       <spiceMetabolism>3</spiceMetabolism>
       <visionHarvest>3</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>84</lifespan>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>81</lifespan>
       <dominance>1</dominance>
       <influence>2</influence>
+      <age>46</age>
+      <cellPosition>
+        <x>22</x>
+        <y>13</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>88</lifespan>
+      <dominance>3</dominance>
+      <influence>1</influence>
+      <age>87</age>
+      <cellPosition>
+        <x>34</x>
+        <y>13</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>92</lifespan>
+      <dominance>3</dominance>
+      <influence>2</influence>
+      <age>14</age>
+      <cellPosition>
+        <x>46</x>
+        <y>13</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>63</lifespan>
+      <dominance>3</dominance>
+      <influence>1</influence>
+      <age>59</age>
+      <cellPosition>
+        <x>8</x>
+        <y>14</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>72</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>2</age>
+      <cellPosition>
+        <x>20</x>
+        <y>14</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>72</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>42</age>
+      <cellPosition>
+        <x>32</x>
+        <y>14</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>69</lifespan>
+      <dominance>1</dominance>
+      <influence>2</influence>
+      <age>13</age>
+      <cellPosition>
+        <x>44</x>
+        <y>14</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>92</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>74</age>
+      <cellPosition>
+        <x>6</x>
+        <y>15</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>62</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>49</age>
+      <cellPosition>
+        <x>18</x>
+        <y>15</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>82</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>41</age>
+      <cellPosition>
+        <x>30</x>
+        <y>15</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>89</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>12</age>
+      <cellPosition>
+        <x>42</x>
+        <y>15</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>62</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>41</age>
+      <cellPosition>
+        <x>4</x>
+        <y>16</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>73</lifespan>
+      <dominance>3</dominance>
+      <influence>2</influence>
+      <age>12</age>
+      <cellPosition>
+        <x>16</x>
+        <y>16</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>64</lifespan>
+      <dominance>3</dominance>
+      <influence>2</influence>
+      <age>32</age>
+      <cellPosition>
+        <x>28</x>
+        <y>16</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>85</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>2</age>
+      <cellPosition>
+        <x>40</x>
+        <y>16</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>74</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>67</age>
+      <cellPosition>
+        <x>2</x>
+        <y>17</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>83</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>26</age>
+      <cellPosition>
+        <x>14</x>
+        <y>17</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>84</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>80</age>
+      <cellPosition>
+        <x>26</x>
+        <y>17</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>61</lifespan>
+      <dominance>3</dominance>
+      <influence>1</influence>
+      <age>48</age>
+      <cellPosition>
+        <x>38</x>
+        <y>17</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>70</lifespan>
+      <dominance>3</dominance>
+      <influence>2</influence>
+      <age>55</age>
+      <cellPosition>
+        <x>0</x>
+        <y>18</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>92</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>68</age>
+      <cellPosition>
+        <x>12</x>
+        <y>18</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>84</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>45</age>
+      <cellPosition>
+        <x>24</x>
+        <y>18</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>66</lifespan>
+      <dominance>3</dominance>
+      <influence>2</influence>
+      <age>57</age>
+      <cellPosition>
+        <x>36</x>
+        <y>18</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>63</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>58</age>
+      <cellPosition>
+        <x>48</x>
+        <y>18</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>90</lifespan>
+      <dominance>1</dominance>
+      <influence>2</influence>
+      <age>43</age>
+      <cellPosition>
+        <x>10</x>
+        <y>19</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>65</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>2</age>
+      <cellPosition>
+        <x>22</x>
+        <y>19</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>86</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>79</age>
+      <cellPosition>
+        <x>34</x>
+        <y>19</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>72</lifespan>
+      <dominance>1</dominance>
+      <influence>2</influence>
+      <age>36</age>
+      <cellPosition>
+        <x>46</x>
+        <y>19</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>73</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>65</age>
+      <cellPosition>
+        <x>8</x>
+        <y>20</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>98</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>89</age>
+      <cellPosition>
+        <x>20</x>
+        <y>20</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>62</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
       <age>52</age>
+      <cellPosition>
+        <x>32</x>
+        <y>20</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>61</lifespan>
+      <dominance>3</dominance>
+      <influence>2</influence>
+      <age>9</age>
+      <cellPosition>
+        <x>44</x>
+        <y>20</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>77</lifespan>
+      <dominance>1</dominance>
+      <influence>2</influence>
+      <age>28</age>
+      <cellPosition>
+        <x>6</x>
+        <y>21</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>70</lifespan>
+      <dominance>3</dominance>
+      <influence>2</influence>
+      <age>60</age>
+      <cellPosition>
+        <x>18</x>
+        <y>21</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>96</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>61</age>
+      <cellPosition>
+        <x>30</x>
+        <y>21</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>66</lifespan>
+      <dominance>2</dominance>
+      <influence>2</influence>
+      <age>30</age>
+      <cellPosition>
+        <x>42</x>
+        <y>21</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>70</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>57</age>
+      <cellPosition>
+        <x>4</x>
+        <y>22</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>88</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>44</age>
+      <cellPosition>
+        <x>16</x>
+        <y>22</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>66</lifespan>
+      <dominance>3</dominance>
+      <influence>1</influence>
+      <age>13</age>
+      <cellPosition>
+        <x>28</x>
+        <y>22</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>95</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>17</age>
+      <cellPosition>
+        <x>40</x>
+        <y>22</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>75</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>19</age>
+      <cellPosition>
+        <x>2</x>
+        <y>23</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>78</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>12</age>
+      <cellPosition>
+        <x>14</x>
+        <y>23</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>88</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>52</age>
+      <cellPosition>
+        <x>26</x>
+        <y>23</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>66</lifespan>
+      <dominance>3</dominance>
+      <influence>1</influence>
+      <age>17</age>
+      <cellPosition>
+        <x>38</x>
+        <y>23</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>94</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>18</age>
+      <cellPosition>
+        <x>0</x>
+        <y>24</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>85</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>75</age>
+      <cellPosition>
+        <x>12</x>
+        <y>24</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>88</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>16</age>
+      <cellPosition>
+        <x>24</x>
+        <y>24</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>98</lifespan>
+      <dominance>1</dominance>
+      <influence>2</influence>
+      <age>2</age>
+      <cellPosition>
+        <x>36</x>
+        <y>24</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>68</lifespan>
+      <dominance>1</dominance>
+      <influence>2</influence>
+      <age>33</age>
+      <cellPosition>
+        <x>48</x>
+        <y>24</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>82</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>81</age>
+      <cellPosition>
+        <x>10</x>
+        <y>25</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>70</lifespan>
+      <dominance>1</dominance>
+      <influence>2</influence>
+      <age>2</age>
+      <cellPosition>
+        <x>22</x>
+        <y>25</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>67</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>39</age>
+      <cellPosition>
+        <x>34</x>
+        <y>25</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>65</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>42</age>
+      <cellPosition>
+        <x>46</x>
+        <y>25</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>87</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>3</age>
+      <cellPosition>
+        <x>8</x>
+        <y>26</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>67</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>26</age>
       <cellPosition>
         <x>20</x>
         <y>26</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
       <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>64</lifespan>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>73</lifespan>
       <dominance>1</dominance>
-      <influence>1</influence>
-      <age>28</age>
+      <influence>3</influence>
+      <age>5</age>
       <cellPosition>
         <x>32</x>
         <y>26</y>
@@ -1571,41 +1571,41 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>77</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>28</age>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>90</lifespan>
+      <dominance>3</dominance>
+      <influence>2</influence>
+      <age>39</age>
       <cellPosition>
         <x>44</x>
         <y>26</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
+      <sugarMetabolism>2</sugarMetabolism>
       <spiceMetabolism>3</spiceMetabolism>
       <visionHarvest>4</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>73</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>2</age>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>77</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>65</age>
       <cellPosition>
         <x>6</x>
         <y>27</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>73</lifespan>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>90</lifespan>
       <dominance>2</dominance>
-      <influence>3</influence>
-      <age>28</age>
+      <influence>2</influence>
+      <age>15</age>
       <cellPosition>
         <x>18</x>
         <y>27</y>
@@ -1614,40 +1614,40 @@
     <AgentProfile>
       <sugarMetabolism>6</sugarMetabolism>
       <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>65</lifespan>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>70</lifespan>
       <dominance>3</dominance>
-      <influence>1</influence>
-      <age>33</age>
+      <influence>2</influence>
+      <age>38</age>
       <cellPosition>
         <x>30</x>
         <y>27</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>74</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>25</age>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>95</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>22</age>
       <cellPosition>
         <x>42</x>
         <y>27</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
       <visionNeighbour>28</visionNeighbour>
-      <lifespan>70</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>29</age>
+      <lifespan>93</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>62</age>
       <cellPosition>
         <x>4</x>
         <y>28</y>
@@ -1658,150 +1658,150 @@
       <spiceMetabolism>6</spiceMetabolism>
       <visionHarvest>4</visionHarvest>
       <visionNeighbour>25</visionNeighbour>
-      <lifespan>62</lifespan>
-      <dominance>2</dominance>
+      <lifespan>82</lifespan>
+      <dominance>1</dominance>
       <influence>3</influence>
-      <age>15</age>
+      <age>25</age>
       <cellPosition>
         <x>16</x>
         <y>28</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
       <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>66</lifespan>
-      <dominance>1</dominance>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>70</lifespan>
+      <dominance>2</dominance>
       <influence>2</influence>
-      <age>59</age>
+      <age>16</age>
       <cellPosition>
         <x>28</x>
         <y>28</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
+      <sugarMetabolism>6</sugarMetabolism>
       <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>73</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>59</age>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>92</lifespan>
+      <dominance>1</dominance>
+      <influence>2</influence>
+      <age>85</age>
       <cellPosition>
         <x>40</x>
         <y>28</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
       <visionHarvest>1</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>83</lifespan>
-      <dominance>3</dominance>
-      <influence>3</influence>
-      <age>18</age>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>100</lifespan>
+      <dominance>2</dominance>
+      <influence>2</influence>
+      <age>80</age>
       <cellPosition>
         <x>2</x>
         <y>29</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
       <visionHarvest>1</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>60</lifespan>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>68</lifespan>
       <dominance>2</dominance>
-      <influence>1</influence>
-      <age>12</age>
+      <influence>2</influence>
+      <age>39</age>
       <cellPosition>
         <x>14</x>
         <y>29</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
       <visionHarvest>2</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>62</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>31</age>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>89</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>55</age>
       <cellPosition>
         <x>26</x>
         <y>29</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
       <visionHarvest>5</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>68</lifespan>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>90</lifespan>
       <dominance>3</dominance>
-      <influence>1</influence>
-      <age>2</age>
+      <influence>3</influence>
+      <age>18</age>
       <cellPosition>
         <x>38</x>
         <y>29</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
       <visionNeighbour>26</visionNeighbour>
-      <lifespan>67</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>18</age>
+      <lifespan>94</lifespan>
+      <dominance>2</dominance>
+      <influence>2</influence>
+      <age>22</age>
       <cellPosition>
         <x>0</x>
         <y>30</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
       <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>85</lifespan>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>81</lifespan>
       <dominance>2</dominance>
-      <influence>3</influence>
-      <age>60</age>
+      <influence>1</influence>
+      <age>11</age>
       <cellPosition>
         <x>12</x>
         <y>30</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
       <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>67</lifespan>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>83</lifespan>
       <dominance>1</dominance>
-      <influence>2</influence>
-      <age>15</age>
+      <influence>1</influence>
+      <age>18</age>
       <cellPosition>
         <x>24</x>
         <y>30</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
+      <sugarMetabolism>5</sugarMetabolism>
       <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>97</lifespan>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>98</lifespan>
       <dominance>2</dominance>
       <influence>1</influence>
-      <age>36</age>
+      <age>42</age>
       <cellPosition>
         <x>36</x>
         <y>30</y>
@@ -1810,40 +1810,40 @@
     <AgentProfile>
       <sugarMetabolism>4</sugarMetabolism>
       <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>61</lifespan>
-      <dominance>1</dominance>
-      <influence>2</influence>
-      <age>2</age>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>89</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>66</age>
       <cellPosition>
         <x>48</x>
         <y>30</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>82</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>43</age>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>79</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>73</age>
       <cellPosition>
         <x>10</x>
         <y>31</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>61</lifespan>
-      <dominance>3</dominance>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>66</lifespan>
+      <dominance>2</dominance>
       <influence>2</influence>
-      <age>25</age>
+      <age>14</age>
       <cellPosition>
         <x>22</x>
         <y>31</y>
@@ -1851,83 +1851,83 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>89</lifespan>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>62</lifespan>
       <dominance>1</dominance>
-      <influence>2</influence>
-      <age>77</age>
+      <influence>3</influence>
+      <age>51</age>
       <cellPosition>
         <x>34</x>
         <y>31</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
+      <sugarMetabolism>6</sugarMetabolism>
       <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>76</lifespan>
-      <dominance>1</dominance>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>77</lifespan>
+      <dominance>3</dominance>
       <influence>2</influence>
-      <age>59</age>
+      <age>39</age>
       <cellPosition>
         <x>46</x>
         <y>31</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>71</lifespan>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>62</lifespan>
       <dominance>2</dominance>
-      <influence>2</influence>
-      <age>48</age>
+      <influence>1</influence>
+      <age>2</age>
       <cellPosition>
         <x>8</x>
         <y>32</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
       <visionHarvest>3</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>82</lifespan>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>98</lifespan>
       <dominance>3</dominance>
-      <influence>2</influence>
-      <age>38</age>
+      <influence>1</influence>
+      <age>96</age>
       <cellPosition>
         <x>20</x>
         <y>32</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>83</lifespan>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>95</lifespan>
       <dominance>2</dominance>
       <influence>2</influence>
-      <age>25</age>
+      <age>91</age>
       <cellPosition>
         <x>32</x>
         <y>32</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>68</lifespan>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>66</lifespan>
       <dominance>1</dominance>
-      <influence>1</influence>
-      <age>35</age>
+      <influence>2</influence>
+      <age>64</age>
       <cellPosition>
         <x>44</x>
         <y>32</y>
@@ -1935,86 +1935,30 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>71</lifespan>
-      <dominance>3</dominance>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>87</lifespan>
+      <dominance>2</dominance>
       <influence>2</influence>
-      <age>24</age>
+      <age>73</age>
       <cellPosition>
         <x>6</x>
         <y>33</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>78</lifespan>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>98</lifespan>
       <dominance>2</dominance>
       <influence>2</influence>
-      <age>34</age>
+      <age>8</age>
       <cellPosition>
         <x>18</x>
         <y>33</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>77</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>53</age>
-      <cellPosition>
-        <x>30</x>
-        <y>33</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>99</lifespan>
-      <dominance>2</dominance>
-      <influence>3</influence>
-      <age>75</age>
-      <cellPosition>
-        <x>42</x>
-        <y>33</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>74</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>54</age>
-      <cellPosition>
-        <x>4</x>
-        <y>34</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>61</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>33</age>
-      <cellPosition>
-        <x>16</x>
-        <y>34</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
@@ -2022,52 +1966,108 @@
       <spiceMetabolism>2</spiceMetabolism>
       <visionHarvest>3</visionHarvest>
       <visionNeighbour>27</visionNeighbour>
-      <lifespan>66</lifespan>
+      <lifespan>75</lifespan>
       <dominance>2</dominance>
-      <influence>2</influence>
-      <age>8</age>
+      <influence>3</influence>
+      <age>46</age>
       <cellPosition>
-        <x>28</x>
+        <x>30</x>
+        <y>33</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>92</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>91</age>
+      <cellPosition>
+        <x>42</x>
+        <y>33</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>86</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>13</age>
+      <cellPosition>
+        <x>4</x>
+        <y>34</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>96</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>60</age>
+      <cellPosition>
+        <x>16</x>
         <y>34</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>5</sugarMetabolism>
       <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>91</lifespan>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>70</lifespan>
       <dominance>1</dominance>
-      <influence>1</influence>
-      <age>19</age>
+      <influence>2</influence>
+      <age>20</age>
+      <cellPosition>
+        <x>28</x>
+        <y>34</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>71</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>12</age>
       <cellPosition>
         <x>40</x>
         <y>34</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
       <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>89</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>69</age>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>81</lifespan>
+      <dominance>2</dominance>
+      <influence>1</influence>
+      <age>41</age>
       <cellPosition>
         <x>2</x>
         <y>35</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>90</lifespan>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>64</lifespan>
       <dominance>2</dominance>
       <influence>2</influence>
-      <age>81</age>
+      <age>29</age>
       <cellPosition>
         <x>14</x>
         <y>35</y>
@@ -2076,68 +2076,68 @@
     <AgentProfile>
       <sugarMetabolism>5</sugarMetabolism>
       <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>83</lifespan>
-      <dominance>3</dominance>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>85</lifespan>
+      <dominance>2</dominance>
       <influence>2</influence>
-      <age>27</age>
+      <age>16</age>
       <cellPosition>
         <x>26</x>
         <y>35</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>75</lifespan>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>100</lifespan>
       <dominance>1</dominance>
-      <influence>2</influence>
-      <age>49</age>
+      <influence>1</influence>
+      <age>27</age>
       <cellPosition>
         <x>38</x>
         <y>35</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
+      <sugarMetabolism>5</sugarMetabolism>
       <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>95</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>68</age>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>61</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>45</age>
       <cellPosition>
         <x>0</x>
         <y>36</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>95</lifespan>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>79</lifespan>
       <dominance>1</dominance>
-      <influence>2</influence>
-      <age>75</age>
+      <influence>1</influence>
+      <age>40</age>
       <cellPosition>
         <x>12</x>
         <y>36</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
+      <sugarMetabolism>6</sugarMetabolism>
       <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
+      <visionHarvest>2</visionHarvest>
       <visionNeighbour>26</visionNeighbour>
-      <lifespan>89</lifespan>
-      <dominance>1</dominance>
+      <lifespan>77</lifespan>
+      <dominance>2</dominance>
       <influence>1</influence>
-      <age>70</age>
+      <age>65</age>
       <cellPosition>
         <x>24</x>
         <y>36</y>
@@ -2145,27 +2145,27 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>76</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>60</age>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>83</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>39</age>
       <cellPosition>
         <x>36</x>
         <y>36</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
       <visionNeighbour>27</visionNeighbour>
-      <lifespan>99</lifespan>
+      <lifespan>90</lifespan>
       <dominance>3</dominance>
-      <influence>3</influence>
-      <age>17</age>
+      <influence>2</influence>
+      <age>43</age>
       <cellPosition>
         <x>48</x>
         <y>36</y>
@@ -2173,26 +2173,26 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>94</lifespan>
-      <dominance>1</dominance>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>84</lifespan>
+      <dominance>3</dominance>
       <influence>2</influence>
-      <age>89</age>
+      <age>8</age>
       <cellPosition>
         <x>10</x>
         <y>37</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
       <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>88</lifespan>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>85</lifespan>
       <dominance>3</dominance>
-      <influence>1</influence>
+      <influence>3</influence>
       <age>56</age>
       <cellPosition>
         <x>22</x>
@@ -2200,28 +2200,28 @@
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>74</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>62</age>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>97</lifespan>
+      <dominance>2</dominance>
+      <influence>2</influence>
+      <age>1</age>
       <cellPosition>
         <x>34</x>
         <y>37</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
       <visionHarvest>4</visionHarvest>
       <visionNeighbour>29</visionNeighbour>
-      <lifespan>79</lifespan>
-      <dominance>2</dominance>
+      <lifespan>75</lifespan>
+      <dominance>3</dominance>
       <influence>1</influence>
-      <age>61</age>
+      <age>48</age>
       <cellPosition>
         <x>46</x>
         <y>37</y>
@@ -2231,39 +2231,39 @@
       <sugarMetabolism>5</sugarMetabolism>
       <spiceMetabolism>6</spiceMetabolism>
       <visionHarvest>4</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>80</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>35</age>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>97</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>94</age>
       <cellPosition>
         <x>8</x>
         <y>38</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
       <visionNeighbour>26</visionNeighbour>
-      <lifespan>89</lifespan>
-      <dominance>3</dominance>
+      <lifespan>61</lifespan>
+      <dominance>1</dominance>
       <influence>1</influence>
-      <age>15</age>
+      <age>53</age>
       <cellPosition>
         <x>20</x>
         <y>38</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
       <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>81</lifespan>
-      <dominance>2</dominance>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>76</lifespan>
+      <dominance>1</dominance>
       <influence>2</influence>
-      <age>11</age>
+      <age>50</age>
       <cellPosition>
         <x>32</x>
         <y>38</y>
@@ -2271,139 +2271,139 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>90</lifespan>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>68</lifespan>
       <dominance>3</dominance>
-      <influence>3</influence>
-      <age>15</age>
+      <influence>2</influence>
+      <age>59</age>
       <cellPosition>
         <x>44</x>
         <y>38</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
       <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>89</lifespan>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>78</lifespan>
       <dominance>2</dominance>
-      <influence>1</influence>
-      <age>25</age>
+      <influence>2</influence>
+      <age>19</age>
       <cellPosition>
         <x>6</x>
         <y>39</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>99</lifespan>
-      <dominance>2</dominance>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>71</lifespan>
+      <dominance>3</dominance>
       <influence>3</influence>
-      <age>42</age>
+      <age>13</age>
       <cellPosition>
         <x>18</x>
         <y>39</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
+      <sugarMetabolism>5</sugarMetabolism>
       <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>63</lifespan>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>69</lifespan>
       <dominance>2</dominance>
-      <influence>2</influence>
-      <age>60</age>
+      <influence>1</influence>
+      <age>66</age>
       <cellPosition>
         <x>30</x>
         <y>39</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
       <visionHarvest>3</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>72</lifespan>
-      <dominance>2</dominance>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>71</lifespan>
+      <dominance>3</dominance>
       <influence>2</influence>
-      <age>61</age>
+      <age>41</age>
       <cellPosition>
         <x>42</x>
         <y>39</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>60</lifespan>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>62</lifespan>
       <dominance>2</dominance>
       <influence>3</influence>
-      <age>17</age>
+      <age>60</age>
       <cellPosition>
         <x>4</x>
         <y>40</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>77</lifespan>
-      <dominance>1</dominance>
-      <influence>2</influence>
-      <age>49</age>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>72</lifespan>
+      <dominance>3</dominance>
+      <influence>1</influence>
+      <age>67</age>
       <cellPosition>
         <x>16</x>
         <y>40</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>96</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>68</age>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>70</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>64</age>
       <cellPosition>
         <x>28</x>
         <y>40</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>76</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>38</age>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>77</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>67</age>
       <cellPosition>
         <x>40</x>
         <y>40</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>68</lifespan>
-      <dominance>3</dominance>
-      <influence>2</influence>
-      <age>45</age>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>87</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>65</age>
       <cellPosition>
         <x>2</x>
         <y>41</y>
@@ -2411,27 +2411,27 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>97</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>60</age>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>70</lifespan>
+      <dominance>3</dominance>
+      <influence>1</influence>
+      <age>6</age>
       <cellPosition>
         <x>14</x>
         <y>41</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
       <visionNeighbour>27</visionNeighbour>
-      <lifespan>69</lifespan>
+      <lifespan>77</lifespan>
       <dominance>3</dominance>
-      <influence>1</influence>
-      <age>7</age>
+      <influence>2</influence>
+      <age>42</age>
       <cellPosition>
         <x>26</x>
         <y>41</y>
@@ -2439,13 +2439,13 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>93</lifespan>
-      <dominance>1</dominance>
-      <influence>1</influence>
-      <age>51</age>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>96</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>50</age>
       <cellPosition>
         <x>38</x>
         <y>41</y>
@@ -2453,111 +2453,111 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>98</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>5</age>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>89</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>70</age>
       <cellPosition>
         <x>0</x>
         <y>42</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
+      <sugarMetabolism>6</sugarMetabolism>
       <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>70</lifespan>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>93</lifespan>
       <dominance>1</dominance>
       <influence>2</influence>
-      <age>4</age>
+      <age>69</age>
       <cellPosition>
         <x>12</x>
         <y>42</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>60</lifespan>
+      <sugarMetabolism>3</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>67</lifespan>
       <dominance>3</dominance>
       <influence>2</influence>
-      <age>47</age>
+      <age>5</age>
       <cellPosition>
         <x>24</x>
         <y>42</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
+      <sugarMetabolism>5</sugarMetabolism>
       <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>85</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>77</age>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>76</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>68</age>
       <cellPosition>
         <x>36</x>
         <y>42</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
       <visionHarvest>3</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>64</lifespan>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>60</lifespan>
       <dominance>2</dominance>
-      <influence>2</influence>
-      <age>25</age>
+      <influence>1</influence>
+      <age>59</age>
       <cellPosition>
         <x>48</x>
         <y>42</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>87</lifespan>
-      <dominance>3</dominance>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>69</lifespan>
+      <dominance>2</dominance>
       <influence>3</influence>
-      <age>37</age>
+      <age>54</age>
       <cellPosition>
         <x>10</x>
         <y>43</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>99</lifespan>
-      <dominance>1</dominance>
-      <influence>3</influence>
-      <age>94</age>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>86</lifespan>
+      <dominance>3</dominance>
+      <influence>1</influence>
+      <age>66</age>
       <cellPosition>
         <x>22</x>
         <y>43</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>80</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>6</age>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>27</visionNeighbour>
+      <lifespan>96</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>17</age>
       <cellPosition>
         <x>34</x>
         <y>43</y>
@@ -2565,27 +2565,27 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>71</lifespan>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>64</lifespan>
       <dominance>1</dominance>
       <influence>3</influence>
-      <age>2</age>
+      <age>46</age>
       <cellPosition>
         <x>46</x>
         <y>43</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>4</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>93</lifespan>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>71</lifespan>
       <dominance>3</dominance>
-      <influence>1</influence>
-      <age>79</age>
+      <influence>2</influence>
+      <age>63</age>
       <cellPosition>
         <x>8</x>
         <y>44</y>
@@ -2593,127 +2593,141 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>6</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>62</lifespan>
-      <dominance>3</dominance>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>60</lifespan>
+      <dominance>2</dominance>
       <influence>3</influence>
-      <age>34</age>
+      <age>26</age>
       <cellPosition>
         <x>20</x>
         <y>44</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
       <visionHarvest>5</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>69</lifespan>
-      <dominance>3</dominance>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>86</lifespan>
+      <dominance>1</dominance>
       <influence>1</influence>
-      <age>26</age>
+      <age>42</age>
       <cellPosition>
         <x>32</x>
         <y>44</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>1</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
+      <sugarMetabolism>5</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>4</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
       <lifespan>90</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>46</age>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>33</age>
       <cellPosition>
         <x>44</x>
         <y>44</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>72</lifespan>
-      <dominance>2</dominance>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>4</spiceMetabolism>
+      <visionHarvest>3</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>93</lifespan>
+      <dominance>1</dominance>
       <influence>2</influence>
-      <age>12</age>
+      <age>68</age>
       <cellPosition>
         <x>6</x>
         <y>45</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>3</spiceMetabolism>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>2</spiceMetabolism>
       <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>93</lifespan>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>65</lifespan>
       <dominance>2</dominance>
-      <influence>1</influence>
-      <age>7</age>
+      <influence>2</influence>
+      <age>6</age>
       <cellPosition>
         <x>18</x>
         <y>45</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>63</lifespan>
-      <dominance>2</dominance>
-      <influence>2</influence>
-      <age>5</age>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>2</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>64</lifespan>
+      <dominance>1</dominance>
+      <influence>3</influence>
+      <age>52</age>
       <cellPosition>
         <x>30</x>
         <y>45</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>5</sugarMetabolism>
+      <sugarMetabolism>2</sugarMetabolism>
       <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>71</lifespan>
-      <dominance>2</dominance>
-      <influence>1</influence>
-      <age>38</age>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>90</lifespan>
+      <dominance>3</dominance>
+      <influence>3</influence>
+      <age>43</age>
       <cellPosition>
         <x>42</x>
         <y>45</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>26</visionNeighbour>
-      <lifespan>79</lifespan>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>5</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>68</lifespan>
       <dominance>3</dominance>
-      <influence>3</influence>
-      <age>7</age>
+      <influence>1</influence>
+      <age>48</age>
       <cellPosition>
         <x>4</x>
         <y>46</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>6</sugarMetabolism>
+      <sugarMetabolism>3</sugarMetabolism>
       <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>28</visionNeighbour>
-      <lifespan>90</lifespan>
-      <dominance>3</dominance>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>29</visionNeighbour>
+      <lifespan>98</lifespan>
+      <dominance>1</dominance>
       <influence>2</influence>
-      <age>59</age>
+      <age>12</age>
       <cellPosition>
         <x>16</x>
+        <y>46</y>
+      </cellPosition>
+    </AgentProfile>
+    <AgentProfile>
+      <sugarMetabolism>4</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>90</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>23</age>
+      <cellPosition>
+        <x>28</x>
         <y>46</y>
       </cellPosition>
     </AgentProfile>
@@ -2721,53 +2735,39 @@
       <sugarMetabolism>6</sugarMetabolism>
       <spiceMetabolism>3</spiceMetabolism>
       <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>76</lifespan>
-      <dominance>1</dominance>
-      <influence>1</influence>
-      <age>60</age>
-      <cellPosition>
-        <x>28</x>
-        <y>46</y>
-      </cellPosition>
-    </AgentProfile>
-    <AgentProfile>
-      <sugarMetabolism>2</sugarMetabolism>
-      <spiceMetabolism>2</spiceMetabolism>
-      <visionHarvest>3</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>88</lifespan>
-      <dominance>1</dominance>
-      <influence>1</influence>
-      <age>13</age>
+      <visionNeighbour>26</visionNeighbour>
+      <lifespan>81</lifespan>
+      <dominance>2</dominance>
+      <influence>2</influence>
+      <age>6</age>
       <cellPosition>
         <x>40</x>
         <y>46</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
-      <spiceMetabolism>6</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>62</lifespan>
-      <dominance>3</dominance>
-      <influence>1</influence>
-      <age>59</age>
+      <sugarMetabolism>2</sugarMetabolism>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>82</lifespan>
+      <dominance>2</dominance>
+      <influence>3</influence>
+      <age>64</age>
       <cellPosition>
         <x>2</x>
         <y>47</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>25</visionNeighbour>
-      <lifespan>92</lifespan>
-      <dominance>2</dominance>
-      <influence>3</influence>
-      <age>68</age>
+      <sugarMetabolism>6</sugarMetabolism>
+      <spiceMetabolism>6</spiceMetabolism>
+      <visionHarvest>5</visionHarvest>
+      <visionNeighbour>28</visionNeighbour>
+      <lifespan>66</lifespan>
+      <dominance>1</dominance>
+      <influence>2</influence>
+      <age>28</age>
       <cellPosition>
         <x>14</x>
         <y>47</y>
@@ -2775,27 +2775,27 @@
     </AgentProfile>
     <AgentProfile>
       <sugarMetabolism>4</sugarMetabolism>
-      <spiceMetabolism>4</spiceMetabolism>
-      <visionHarvest>5</visionHarvest>
-      <visionNeighbour>27</visionNeighbour>
-      <lifespan>80</lifespan>
-      <dominance>3</dominance>
-      <influence>3</influence>
-      <age>50</age>
+      <spiceMetabolism>3</spiceMetabolism>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>73</lifespan>
+      <dominance>1</dominance>
+      <influence>1</influence>
+      <age>55</age>
       <cellPosition>
         <x>26</x>
         <y>47</y>
       </cellPosition>
     </AgentProfile>
     <AgentProfile>
-      <sugarMetabolism>3</sugarMetabolism>
+      <sugarMetabolism>4</sugarMetabolism>
       <spiceMetabolism>5</spiceMetabolism>
-      <visionHarvest>2</visionHarvest>
-      <visionNeighbour>29</visionNeighbour>
-      <lifespan>68</lifespan>
+      <visionHarvest>1</visionHarvest>
+      <visionNeighbour>25</visionNeighbour>
+      <lifespan>75</lifespan>
       <dominance>2</dominance>
-      <influence>2</influence>
-      <age>48</age>
+      <influence>1</influence>
+      <age>18</age>
       <cellPosition>
         <x>38</x>
         <y>47</y>

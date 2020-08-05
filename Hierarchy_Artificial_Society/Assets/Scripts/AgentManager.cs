@@ -75,12 +75,12 @@ public class AgentManager : MonoBehaviour
             //check for death
             if (toggle.GetReproduction())
             {
-                print("death");
+                //print("death");
                 agent.Death();
             }
             else
             {
-                print("death and replace");
+                //print("death and replace");
                 agent.DeathandReplacement();
             }
                        
