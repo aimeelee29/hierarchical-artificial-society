@@ -20,7 +20,9 @@ public class Agent : MonoBehaviour
     private World world;
     private GridLayout gridLayout;
     private Vector2Int cellPosition;
+
     private Vector2 transformPosition;
+    private SocialMobilityAnalysis socialMobilityAnalysis;
 
     /* 
      * AGENT VARIABLES
@@ -163,10 +165,10 @@ public class Agent : MonoBehaviour
      * 
      */
 
-    void Awake()
+    void Start()
     {
         KnowWorld();
-        //agentComponent = this;
+        socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
     }
 
     void FixedUpdate()
@@ -421,6 +423,10 @@ public class Agent : MonoBehaviour
             */
             //print("death");
             isAlive = false;
+
+            // Appends agent to social mobility analysis file
+            SocMobAppend();
+
             // Add to available agent list for object pooling purposes
             availableAgents.Add(this.gameObject);
             // Remove agent from its location on the grid
@@ -435,20 +441,20 @@ public class Agent : MonoBehaviour
     {
         if (isAlive && (age >= lifespan || sugar <= 0 || spice <= 0))
         {
-        /*
-        if (age == lifespan)
-            print("lifespan death");
-        else if (sugar <= 0)
-            print("sugar death");
-        else
-            print("spice death");
-        */
-        //print("death");
-
-        // just need to redefine variables. Position and memory can be directly taken
-         this.InitVars();
-         // adds child to list of all agents
-         //Agent.AllAgents.Add(this);
+            /*
+            if (age == lifespan)
+                print("lifespan death");
+            else if (sugar <= 0)
+                print("sugar death");
+            else
+                print("spice death");
+            */
+            //print("death");
+            SocMobAppend();
+            // just need to redefine variables. Position and memory can be directly taken
+            this.InitVars();
+            // adds child to list of all agents
+            //Agent.AllAgents.Add(this);
         }
     }
 
@@ -696,6 +702,7 @@ public class Agent : MonoBehaviour
             wealthScore = 2;
         else
             wealthScore = 3;
+        /* this is what it was originally when social rank was banded. However, changing to continuous.
         int combinedScore = dominance + influence + visionHarvest + wealthScore;
 
         if (combinedScore >= 12)
@@ -712,6 +719,16 @@ public class Agent : MonoBehaviour
             socialRank = 6;
         else
             socialRank = 7;
+        */
+        socialRank = dominance + influence + visionHarvest + wealthScore;
+    }
+
+    // Deals with appending agent to social mobility analysis XML file
+    public void SocMobAppend()
+    {
+        SocialMobility socMob = new SocialMobility(this.IsChild, this.BegSocialRank, this.SocialRank, this.NumberRankChanges, this.Age);
+        socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socMob);
+        socialMobilityAnalysis.CreateMobilityFile();
     }
 }
 

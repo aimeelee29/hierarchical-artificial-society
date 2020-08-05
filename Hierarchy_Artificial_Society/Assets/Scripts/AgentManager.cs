@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-//using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -25,7 +24,6 @@ public class AgentManager : MonoBehaviour
     private static WealthDistributionAnalysis wealthDistAnalysis;
     // Need access to social rank analysis
     private static SocialRankAnalysis socialRankAnalysis;
-    private static SocialMobilityAnalysis socialMobilityAnalysis;
     // Need access to agent profile analysis
     private static AgentProfileAnalysis agentProfileAnalysis;
     // Need access to carrying capacity analysis
@@ -44,7 +42,6 @@ public class AgentManager : MonoBehaviour
         tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
         wealthDistAnalysis = GameObject.Find("Analysis: Wealth Distribution").GetComponent<WealthDistributionAnalysis>();
         socialRankAnalysis = GameObject.Find("Analysis: Social Rank").GetComponent<SocialRankAnalysis>();
-        socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
         agentProfileAnalysis = GameObject.Find("Analysis: Agent Profiles").GetComponent<AgentProfileAnalysis>();
         agentCount = GameObject.Find("Analysis: Agent Count").GetComponent<AgentCount>();
         envTilemap = GameObject.Find("Environment").GetComponent<Tilemap>();
@@ -182,13 +179,9 @@ public class AgentManager : MonoBehaviour
 
             foreach (Agent ag in Agent.LiveAgents)
             {
-                SocialMobility socMob = new SocialMobility(ag.IsChild, ag.BegSocialRank, ag.SocialRank, ag.NumberRankChanges, ag.Age);
-                socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socMob);
                 AgentProfile agProf = new AgentProfile(ag.SugarMetabolism, ag.SpiceMetabolism, ag.VisionHarvest, ag.VisionNeighbour, ag.Lifespan, ag.Dominance, ag.Influence, ag.Age, ag.CellPosition);
                 agentProfileAnalysis.agentProfileListClass.agentProfileList.Add(agProf);
             }
-
-            socialMobilityAnalysis.CreateMobilityFile(updateCounter);
             agentProfileAnalysis.CreateAgentProfileFile(updateCounter);
             agentCount.SaveXML();
             tradeAnalysis.SaveXML();

@@ -23,10 +23,10 @@ public class SocialMobilityAnalysis : MonoBehaviour
         public List<SocialMobility> socialMobilityList = new List<SocialMobility>();
     }
 
-    public void CreateMobilityFile(int updatecounter)
+    public void CreateMobilityFile()
     {
         XmlSerializer save = new XmlSerializer(typeof(SocialMobilityList));
-        FileStream path = new FileStream(Application.dataPath + "/XMLFiles/SocialMobility" + updatecounter + ".xml", FileMode.Create);
+        FileStream path = new FileStream(Application.dataPath + "/XMLFiles/SocialMobility.xml", FileMode.Append);
         save.Serialize(path, socialMobiltyListClass);
         path.Close();
     }
