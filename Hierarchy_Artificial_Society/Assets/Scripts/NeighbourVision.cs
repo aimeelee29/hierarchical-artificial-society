@@ -51,13 +51,19 @@ public static class NeighbourVision
             // if collider is not attached to an agent then skip this iteration (as overlapcircleall will also catch collider for tilemap) 
             // also removes itself
             // also removes any agent that isn't of similar social rank
-            int rankDiff = neighbour.GetComponent<Agent>().SocialRank - agent.SocialRank;
-            rankDiff = (rankDiff < 0) ? -rankDiff : rankDiff;
+            
 
-            if (neighbour.tag != "Agent" || neighbour.gameObject == agent.gameObject || rankDiff > 2)
+            if (neighbour.tag != "Agent" || neighbour.gameObject == agent.gameObject)
             {
                 continue;
             }
+            int rankDiff = neighbour.GetComponent<Agent>().SocialRank - agent.SocialRank;
+            rankDiff = (rankDiff < 0) ? -rankDiff : rankDiff;
+            if (rankDiff > 4)
+            {
+                continue;
+            }
+
             agent.NeighbourAgentList.Add(neighbour.GetComponent<Agent>());
         }
         return;

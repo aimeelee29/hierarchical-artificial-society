@@ -11,7 +11,9 @@ public class Toggle : ScriptableObject
     [SerializeField] private bool reproduction = false;
     [SerializeField] private bool trade = false;
     [SerializeField] private bool hierarchyRestrictNeighbour = false;
+    [SerializeField] private bool hierarchyRestrictNeighbourLowerRank = false;
     [SerializeField] private bool hierarchyBiasTrade = false;
+    [SerializeField] private bool hierarchyGreaterVisionHigherRank = false;
 
     /*
      * 
@@ -34,8 +36,18 @@ public class Toggle : ScriptableObject
         return hierarchyRestrictNeighbour;
     }
 
+    public bool GetRestrictNeighbourLowerRank()
+    {
+        return hierarchyRestrictNeighbourLowerRank;
+    }
+
     public bool GetBiasTrade()
     {
         return hierarchyBiasTrade;
+    }
+
+    public bool GetGreaterVisionHigherRank()
+    {
+        return hierarchyGreaterVisionHigherRank;
     }
 }

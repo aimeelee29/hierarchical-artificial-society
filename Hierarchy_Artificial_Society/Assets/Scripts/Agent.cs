@@ -219,7 +219,7 @@ public class Agent : MonoBehaviour
         //spiceMetabolism = 2;//TESTING
         visionHarvest = UnityEngine.Random.Range(1, 6);
         //visionHarvest = 10; //TESTING
-        visionNeighbour = UnityEngine.Random.Range(25, 30);    
+          
         int sexRand = UnityEngine.Random.Range(1, 3);
         if (sexRand == 1)
             sex = SexEnum.Female;
@@ -241,6 +241,23 @@ public class Agent : MonoBehaviour
         begSocialRank = socialRank;
         trackSocialRank = socialRank;
 
+        // Set vision for finding neighbours - sets upper ranks higher vision if that particular setting is on.
+        if (toggle.GetGreaterVisionHigherRank())
+        {
+            if (socialRank >= 8)
+            {
+                visionNeighbour = 30;
+            }
+            else
+            {
+                visionNeighbour = UnityEngine.Random.Range(25, 30);
+            }
+            
+        }
+        else
+        {
+            visionNeighbour = UnityEngine.Random.Range(25, 30);
+        }
         return;
     }
 

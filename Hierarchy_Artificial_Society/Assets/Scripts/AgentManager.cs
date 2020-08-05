@@ -125,6 +125,17 @@ public class AgentManager : MonoBehaviour
                 {
                     NeighbourVision.FindNeighboursRestricted(agent);
                 }
+                else if(toggle.GetRestrictNeighbourLowerRank())
+                {
+                    if(agent.SocialRank < 8)
+                    {
+                        NeighbourVision.FindNeighboursRestricted(agent);
+                    }
+                    else
+                    {
+                        NeighbourVision.FindNeighbours(agent);
+                    }
+                }
                 else
                 {
                     NeighbourVision.FindNeighbours(agent);
