@@ -30,7 +30,7 @@ public class TradeQtyGraph : MonoBehaviour
     public void CreateGraph(List<double> graphPoints, int i)
     {
         float graphHeight = plotArea.sizeDelta.y;
-        float yMax = 2f;
+        float yMax = 5f;
         float xSize = 10f;
 
         float x = (i % 100) * xSize;
