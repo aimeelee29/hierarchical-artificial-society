@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+//using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -180,7 +180,7 @@ public class AgentManager : MonoBehaviour
             wealthDistAnalysis.CreateWealthFile(updateCounter);
             socialRankAnalysis.CreateRankFile(updateCounter);
 
-            foreach (Agent ag in Agent.AllAgents)
+            foreach (Agent ag in Agent.LiveAgents)
             {
                 SocialMobility socMob = new SocialMobility(ag.IsChild, ag.BegSocialRank, ag.SocialRank, ag.NumberRankChanges, ag.Age);
                 socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socMob);
@@ -194,7 +194,7 @@ public class AgentManager : MonoBehaviour
             tradeAnalysis.SaveXML();
 
             //Wipe all agents list so you don't keep adding the same agents to the dataset
-            Agent.AllAgents.Clear();
+            //Agent.AllAgents.Clear();
 
             //print("agent tag = " + GameObject.FindGameObjectsWithTag("Agent").Length + " " + updateCounter);
             //print("social mobility analysis list = " + socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Count + " " + updateCounter);

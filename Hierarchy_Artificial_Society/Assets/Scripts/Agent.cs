@@ -91,13 +91,15 @@ public class Agent : MonoBehaviour
     // List of agents that current agent has traded with for that time step.
     private List<Agent> agentTradeList = new List<Agent>();
 
-    // STATIC LISTS
+    /*
+     * STATIC LISTS
+     */
 
     // Maintain static list of 'dead' agents for object pooling
     // Child agents will take one of these agent's memory allocation
     private static List<GameObject> availableAgents = new List<GameObject>();
 
-    // Maintain static list of 'live' agents so the Agent Manager can run through them and call appropriate methods
+    // Maintain static list of 'live' agents so the Agent Manager can run through them and call appropriate methods. Also used for agent count analysis.
     private static List<Agent> liveAgents = new List<Agent>();
 
     // Maintain static list of child agents (refreshed each time step)
@@ -105,12 +107,12 @@ public class Agent : MonoBehaviour
     private static List<Agent> childAgents = new List<Agent>();
 
     //Static list of all agents (alive or dead)
-    private static List<Agent> allAgents = new List<Agent>();
+    //private static List<Agent> allAgents = new List<Agent>();
 
-    //for testing
+    // for testing purposes and to include in analysis files
     private bool isChild = false;
 
-    // Static variable showing maximum wealth level amount agents for that time step
+    // Static variable showing maximum wealth level amount agents for that time step - used to put agents into wealth bands
     private static int maxWealth;
 
     /*
@@ -149,7 +151,7 @@ public class Agent : MonoBehaviour
     public int TotalTrades { get => totalTrades; set => totalTrades = value; }
     public int TotalTradesinUpdate { get => totalTradesinUpdate; set => totalTradesinUpdate = value; }
     public int InfluenceCounter { get => influenceCounter; set => influenceCounter = value; }
-    public static List<Agent> AllAgents { get => allAgents; set => allAgents = value; }
+    //public static List<Agent> AllAgents { get => allAgents; set => allAgents = value; }
     public int BegSocialRank { get => begSocialRank; set => begSocialRank = value; }
     public int NumberRankChanges { get => numberRankChanges; set => numberRankChanges = value; }
     public bool IsChild { get => isChild; set => isChild = value; }
@@ -447,7 +449,7 @@ public class Agent : MonoBehaviour
             // just need to redefine variables. Position and memory can be directly taken
              this.InitVars();
              // adds child to list of all agents
-             Agent.AllAgents.Add(this);
+             //Agent.AllAgents.Add(this);
             }
         }
 

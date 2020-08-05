@@ -77,7 +77,7 @@ public static class Reproduction
                     // adds child to list of child agents
                     Agent.ChildAgents.Add(agentComponent);
                     // adds child to list of all agents
-                    Agent.AllAgents.Add(agentComponent);
+                    // Agent.AllAgents.Add(agentComponent);
                     // increment counter
                     ++counter;
                 }

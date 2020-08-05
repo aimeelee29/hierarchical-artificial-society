@@ -42,7 +42,7 @@ public class AgentFactory : MonoBehaviour
             agentComponent.InitPosition(numberOfAgents, i);
             agentComponent.InitVars();
             Agent.LiveAgents.Add(agentComponent);
-            Agent.AllAgents.Add(agentComponent);
+            //Agent.AllAgents.Add(agentComponent);
         }
     }
 
