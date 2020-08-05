@@ -23,6 +23,7 @@ public class Agent : MonoBehaviour
 
     private Vector2 transformPosition;
     private SocialMobilityAnalysis socialMobilityAnalysis;
+    private Toggle toggle;
 
     /* 
      * AGENT VARIABLES
@@ -160,6 +161,7 @@ public class Agent : MonoBehaviour
     public int NumberRankChanges { get => numberRankChanges; set => numberRankChanges = value; }
     public bool IsChild { get => isChild; set => isChild = value; }
     public Vector2 TransformPosition { get => transformPosition; set => transformPosition = value; }
+    public int WealthScore { get => wealthScore; set => wealthScore = value; }
 
     /*
      * AWAKE, START & UPDATE
@@ -174,6 +176,7 @@ public class Agent : MonoBehaviour
     void Start()
     {
         socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
+        toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
     }
 
     void FixedUpdate()

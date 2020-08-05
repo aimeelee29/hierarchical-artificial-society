@@ -26,7 +26,6 @@ public class AgentProfile
         influence = inf;
         age = a;
         cellPosition = cp;
-
     }
 
     public AgentProfile()
