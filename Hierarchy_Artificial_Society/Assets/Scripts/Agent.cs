@@ -23,6 +23,7 @@ public class Agent : MonoBehaviour
 
     private Vector2 transformPosition;
     private SocialMobilityAnalysis socialMobilityAnalysis;
+
     private Toggle toggle;
 
     /* 
@@ -156,7 +157,6 @@ public class Agent : MonoBehaviour
     public int TotalTrades { get => totalTrades; set => totalTrades = value; }
     public int TotalTradesinUpdate { get => totalTradesinUpdate; set => totalTradesinUpdate = value; }
     public int InfluenceCounter { get => influenceCounter; set => influenceCounter = value; }
-    //public static List<Agent> AllAgents { get => allAgents; set => allAgents = value; }
     public int BegSocialRank { get => begSocialRank; set => begSocialRank = value; }
     public int NumberRankChanges { get => numberRankChanges; set => numberRankChanges = value; }
     public bool IsChild { get => isChild; set => isChild = value; }
@@ -205,7 +205,7 @@ public class Agent : MonoBehaviour
     }
 
     // Sets values (Initial - Random).
-    public void InitVars()
+    public void InitVars(Toggle toggle)
     {
         sugar = UnityEngine.Random.Range(25, 51); // max exclusive
         spice = UnityEngine.Random.Range(25, 51);
@@ -477,7 +477,7 @@ public class Agent : MonoBehaviour
             //print("death");
             SocMobAppend();
             // just need to redefine variables. Position and memory can be directly taken
-            this.InitVars();
+            this.InitVars(toggle);
             // adds child to list of all agents
             //Agent.AllAgents.Add(this);
         }

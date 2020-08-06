@@ -20,10 +20,9 @@ public class AgentManager : MonoBehaviour
     private static Tilemap envTilemap;
     // Need access to tradeanalysis
     private static TradeAnalysis tradeAnalysis;
-    // Need access to wealth dist analysis
-    private static WealthDistributionAnalysis wealthDistAnalysis;
-    // Need access to social rank analysis
-    private static SocialRankAnalysis socialRankAnalysis;
+    // Need access to wealth analysis
+    private static WealthDistributionAnalysis wealthDistributionAnalysis;
+    private static WealthInequalityAnalysis wealthInequalityAnalysis;
     // Need access to agent profile analysis
     private static AgentProfileAnalysis agentProfileAnalysis;
     // Need access to carrying capacity analysis
@@ -40,11 +39,11 @@ public class AgentManager : MonoBehaviour
         toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
         world = GameObject.Find("World").GetComponent<World>();
         tradeAnalysis = GameObject.Find("Analysis: Trading").GetComponent<TradeAnalysis>();
-        wealthDistAnalysis = GameObject.Find("Analysis: Wealth Distribution").GetComponent<WealthDistributionAnalysis>();
-        socialRankAnalysis = GameObject.Find("Analysis: Social Rank").GetComponent<SocialRankAnalysis>();
+        wealthDistributionAnalysis = GameObject.Find("Analysis: Wealth Distribution").GetComponent<WealthDistributionAnalysis>();
         agentProfileAnalysis = GameObject.Find("Analysis: Agent Profiles").GetComponent<AgentProfileAnalysis>();
         agentCount = GameObject.Find("Analysis: Agent Count").GetComponent<AgentCount>();
         envTilemap = GameObject.Find("Environment").GetComponent<Tilemap>();
+        wealthInequalityAnalysis = GameObject.Find("Analysis: Wealth Inequality").GetComponent<WealthInequalityAnalysis>();
     }
 
     // Update is called once per frame
@@ -182,18 +181,81 @@ public class AgentManager : MonoBehaviour
 
         //print(Agent.AvailableAgents.Count);
 
+        /*
+        * ANALYSIS
+        */
+
         // Analysis files created every 50 updates
         if (updateCounter % 50 == 1)
         {
-            wealthDistAnalysis.CreateWealthFile(updateCounter);
-            socialRankAnalysis.CreateRankFile(updateCounter);
+            //wealthDistAnalysis.CreateWealthFile(updateCounter);
+            //socialRankAnalysis.CreateRankFile(updateCounter);
 
-            foreach (Agent ag in Agent.LiveAgents)
+            // Create classes for wealth info to go into
+            WealthInequality wealthOne = new WealthInequality(1);
+            WealthInequality wealthTwo = new WealthInequality(2);
+            WealthInequality wealthThree = new WealthInequality(3);
+            WealthInequality wealthFour = new WealthInequality(4);
+
+            // Creates new agent profile list class (class contains list for agent profiles to be added to)
+            AgentProfileList agentProfileListClass = new AgentProfileList();
+            // Creates new wealth inequality list class (class contains list for wealth info to be added to)
+            WealthInequalityList wealthInequalityListClass = new WealthInequalityList();
+            // Creates new wealth distribution list class
+            // Create new instance of the wealth class
+            WealthDistributionList wealthDistListClass = new WealthDistributionList();
+
+            // Variable to hold agent's wealth
+            int wealth;
+            // Variable to hold max wealth - feeds into agent social rank
+            int maxWealth = 0;
+
+            for (int i = 0; i < Agent.LiveAgents.Count; ++i)
             {
-                AgentProfile agProf = new AgentProfile(ag.SugarMetabolism, ag.SpiceMetabolism, ag.VisionHarvest, ag.VisionNeighbour, ag.Lifespan, ag.Dominance, ag.Influence, ag.Age, ag.CellPosition);
-                agentProfileAnalysis.agentProfileListClass.agentProfileList.Add(agProf);
+                agent = Agent.LiveAgents[i];
+
+                wealth = agent.Sugar + agent.Spice;
+                wealthDistListClass.AddtoWealth(wealth);
+                if (wealth > maxWealth)
+                    maxWealth = wealth;
+
+                // Create new agent profile
+                AgentProfile agProf = new AgentProfile(agent.SugarMetabolism, agent.SpiceMetabolism, agent.VisionHarvest, agent.VisionNeighbour, agent.Lifespan, agent.Dominance, agent.Influence, agent.Age, agent.CellPosition, agent.SocialRank);
+                // add agent's profile to list
+                agentProfileListClass.agentProfileList.Add(agProf);
+                
+                // Add to wealth classes
+                if (agent.WealthScore == 1)
+                {
+                    wealthOne.AddToWealth(wealth);
+                }
+                else if (agent.WealthScore == 2)
+                {
+                    wealthTwo.AddToWealth(wealth);
+                }
+                else if (agent.WealthScore == 3)
+                {
+                    wealthThree.AddToWealth(wealth);
+                }
+                else if (agent.WealthScore == 4)
+                {
+                    wealthFour.AddToWealth(wealth);
+                }
             }
-            agentProfileAnalysis.CreateAgentProfileFile(updateCounter);
+
+            // Update the agent static variable for max wealth
+            Agent.MaxWealth = maxWealth;
+
+            // Add wealth classes to list
+            wealthInequalityListClass.wealthInequalityList.Add(wealthOne);
+            wealthInequalityListClass.wealthInequalityList.Add(wealthTwo);
+            wealthInequalityListClass.wealthInequalityList.Add(wealthThree);
+            wealthInequalityListClass.wealthInequalityList.Add(wealthFour);
+
+            //Save XMLs
+            wealthDistributionAnalysis.SaveXML(updateCounter, wealthDistListClass);
+            agentProfileAnalysis.SaveXML(updateCounter, agentProfileListClass);
+            wealthInequalityAnalysis.SaveXML(updateCounter, wealthInequalityListClass);
             agentCount.SaveXML();
             tradeAnalysis.SaveXML();
 
@@ -201,8 +263,7 @@ public class AgentManager : MonoBehaviour
             //Agent.AllAgents.Clear();
 
             //print("agent tag = " + GameObject.FindGameObjectsWithTag("Agent").Length + " " + updateCounter);
-            //print("social mobility analysis list = " + socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Count + " " + updateCounter);
-            
+            //print("social mobility analysis list = " + socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Count + " " + updateCounter); 
         }
         
 

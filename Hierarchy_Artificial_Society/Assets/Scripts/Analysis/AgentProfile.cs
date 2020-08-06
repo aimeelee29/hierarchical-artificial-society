@@ -13,9 +13,10 @@ public class AgentProfile
     public int influence;
     public int age;
     public Vector2Int cellPosition;
+    public int socialRank;
 
     // Constructor
-    public AgentProfile(int m1, int m2, int v1, int v2, int life, int dom, int inf, int a, Vector2Int cp)
+    public AgentProfile(int m1, int m2, int v1, int v2, int life, int dom, int inf, int a, Vector2Int cp, int sr)
     {
         sugarMetabolism = m1;
         spiceMetabolism = m2;
@@ -26,6 +27,7 @@ public class AgentProfile
         influence = inf;
         age = a;
         cellPosition = cp;
+        socialRank = sr;
     }
 
     public AgentProfile()

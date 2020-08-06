@@ -14,9 +14,12 @@ public class AgentFactory : MonoBehaviour
      * REFERENCES
      */
 
-    //Holds reference to World since we need to know if an agent as already spawned in that location
+    // Holds reference to World since we need to know if an agent as already spawned in that location
     private static World world;
     private static GridLayout gridLayout;
+
+    // Holds reference to Toggle to feed in to initvars on initial spawn
+    private Toggle toggle;
 
     // Can set this to the Agent prefab from inspector
     [SerializeField] private GameObject agentPrefab = null;
@@ -33,6 +36,7 @@ public class AgentFactory : MonoBehaviour
         // Set references
         world = GameObject.Find("World").GetComponent<World>();
         gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
+        toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
 
         for (int i = 0; i < numberOfAgents; ++i)
         {
@@ -40,7 +44,7 @@ public class AgentFactory : MonoBehaviour
             Agent agentComponent = agentObj.GetComponent<Agent>();
             //agentComponent.InitPosition(numberOfAgents, i);
             agentComponent.InitPosition(numberOfAgents, i);
-            agentComponent.InitVars();
+            agentComponent.InitVars(toggle);
             Agent.LiveAgents.Add(agentComponent);
             //Agent.AllAgents.Add(agentComponent);
         }
