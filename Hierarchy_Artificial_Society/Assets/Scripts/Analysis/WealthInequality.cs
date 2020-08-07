@@ -22,7 +22,6 @@ public class WealthInequality
     // Also needs parameterless constructor for serialisation
     public WealthInequality()
     {
-
     }
 
     public void AddToWealth(int w)

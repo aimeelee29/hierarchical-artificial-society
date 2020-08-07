@@ -253,13 +253,13 @@ public class Agent : MonoBehaviour
             }
             else
             {
-                visionNeighbour = UnityEngine.Random.Range(25, 30);
+                visionNeighbour = UnityEngine.Random.Range(20, 26);
             }
             
         }
         else
         {
-            visionNeighbour = UnityEngine.Random.Range(25, 30);
+            visionNeighbour = UnityEngine.Random.Range(20, 26);
         }
         return;
     }
@@ -276,12 +276,15 @@ public class Agent : MonoBehaviour
         parentTwo.Spice -= (parentTwo.SpiceInit / 2);
         sugarInit = sugar;
         spiceInit = spice;
-
+        //print("random =" + UnityEngine.Random.Range(1, 3));
         //then randomely take one of parents' attributes
+        print("P1 " + parentOne.SugarMetabolism);
+        print("P2 " + parentTwo.SugarMetabolism);
         if (UnityEngine.Random.Range(1, 3) == 1)
             sugarMetabolism = parentOne.SugarMetabolism;
         else
             sugarMetabolism = parentTwo.SugarMetabolism;
+        print(sugarMetabolism);
         if (UnityEngine.Random.Range(1, 3) == 1)
             spiceMetabolism = parentOne.SpiceMetabolism;
         else

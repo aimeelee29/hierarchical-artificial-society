@@ -14,6 +14,11 @@ public static class Reproduction
 {
     public static void ReproductionProcess(Agent agent, World world)
     {
+        // If agent isn't fertile, return
+        if (!IsFertile(agent))
+        {
+            return;
+        }
         // checks if there is an empty cell adjacent to current agent's cell
         Vector2Int currentEmpty = world.CheckEmptyCell(agent.CellPosition.x, agent.CellPosition.y);
         //UnityEngine.Debug.Log("is child =" + agent.isChild);
@@ -21,18 +26,13 @@ public static class Reproduction
 
         // To keep track of how many times the agent has reproduced
         int counter = 0;
-
         Agent partner;
 
         //foreach (Agent partner in agent.NeighbourAgentList)
         for (int i = 0; i < agent.NeighbourAgentList.Count; ++i)
         {
             partner = agent.NeighbourAgentList[i];
-            // If agent isn't fertile, return
-            if (!IsFertile(agent))
-            {
-                return;
-            }
+            
             // if the neighbour isn't a potential partner then skip
             //UnityEngine.Debug.Log("partner is child = " + partner.isChild);
             //UnityEngine.Debug.Log("potential partner = " + IsNeighbourPotentialPartner(agent, partner));
