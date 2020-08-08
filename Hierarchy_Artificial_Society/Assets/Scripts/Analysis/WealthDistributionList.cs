@@ -17,9 +17,17 @@ public class WealthDistributionList
     {
         //print(w);
         //print(wealthDist[w]);
-        if (w > 399)
+        if (w < 0)
+        {
+            ++wealthDist[0];
+        }
+        else if (w > 399)
+        {
             ++wealthDist[399];
+        }     
         else
+        {
             ++wealthDist[w];
+        }   
     }
 }

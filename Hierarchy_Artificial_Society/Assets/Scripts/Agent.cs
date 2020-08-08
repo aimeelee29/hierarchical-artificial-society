@@ -278,13 +278,13 @@ public class Agent : MonoBehaviour
         spiceInit = spice;
         //print("random =" + UnityEngine.Random.Range(1, 3));
         //then randomely take one of parents' attributes
-        print("P1 " + parentOne.SugarMetabolism);
-        print("P2 " + parentTwo.SugarMetabolism);
+        //print("P1 " + parentOne.SugarMetabolism);
+        //print("P2 " + parentTwo.SugarMetabolism);
         if (UnityEngine.Random.Range(1, 3) == 1)
             sugarMetabolism = parentOne.SugarMetabolism;
         else
             sugarMetabolism = parentTwo.SugarMetabolism;
-        print(sugarMetabolism);
+        //print(sugarMetabolism);
         if (UnityEngine.Random.Range(1, 3) == 1)
             spiceMetabolism = parentOne.SpiceMetabolism;
         else
@@ -768,7 +768,7 @@ public class Agent : MonoBehaviour
     {
         SocialMobility socMob = new SocialMobility(this.IsChild, this.BegSocialRank, this.SocialRank, this.NumberRankChanges, this.Age);
         socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socMob);
-        socialMobilityAnalysis.CreateMobilityFile();
+        //socialMobilityAnalysis.CreateMobilityFile();
     }
 }
 

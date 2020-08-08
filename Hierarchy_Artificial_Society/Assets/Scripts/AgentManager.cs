@@ -18,15 +18,14 @@ public class AgentManager : MonoBehaviour
     private static World world;
     // Need access to tilemap for tile colour
     private static Tilemap envTilemap;
-    // Need access to tradeanalysis
+    // Need access to analysis files
     private static TradeAnalysis tradeAnalysis;
-    // Need access to wealth analysis
     private static WealthDistributionAnalysis wealthDistributionAnalysis;
     private static WealthInequalityAnalysis wealthInequalityAnalysis;
-    // Need access to agent profile analysis
     private static AgentProfileAnalysis agentProfileAnalysis;
-    // Need access to carrying capacity analysis
     private static AgentCount agentCount;
+    private static SocialMobilityAnalysis socialMobilityAnalysis;
+
 
     // Counter to keep track of number of fixedupdates
     private static int updateCounter = 0;
@@ -44,6 +43,7 @@ public class AgentManager : MonoBehaviour
         agentCount = GameObject.Find("Analysis: Agent Count").GetComponent<AgentCount>();
         envTilemap = GameObject.Find("Environment").GetComponent<Tilemap>();
         wealthInequalityAnalysis = GameObject.Find("Analysis: Wealth Inequality").GetComponent<WealthInequalityAnalysis>();
+        socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
     }
 
     // Update is called once per frame
@@ -258,6 +258,7 @@ public class AgentManager : MonoBehaviour
             wealthInequalityAnalysis.SaveXML(updateCounter, wealthInequalityListClass);
             agentCount.SaveXML();
             tradeAnalysis.SaveXML();
+            socialMobilityAnalysis.SaveXML();
 
             //Wipe all agents list so you don't keep adding the same agents to the dataset
             //Agent.AllAgents.Clear();
