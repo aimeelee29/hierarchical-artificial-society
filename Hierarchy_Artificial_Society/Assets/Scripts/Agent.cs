@@ -119,6 +119,9 @@ public class Agent : MonoBehaviour
 
     // Static variable showing maximum wealth level amount agents for that time step - used to put agents into wealth bands
     private static int maxWealth;
+    private static int lowWealth;
+    private static int lowMidWealth;
+    private static int highMidWealth;
     private int wealthScore;
 
     /*
@@ -162,6 +165,9 @@ public class Agent : MonoBehaviour
     public bool IsChild { get => isChild; set => isChild = value; }
     public Vector2 TransformPosition { get => transformPosition; set => transformPosition = value; }
     public int WealthScore { get => wealthScore; set => wealthScore = value; }
+    public static int LowWealth { get => lowWealth; set => lowWealth = value; }
+    public static int LowMidWealth { get => lowMidWealth; set => lowMidWealth = value; }
+    public static int HighMidWealth { get => highMidWealth; set => highMidWealth = value; }
 
     /*
      * AWAKE, START & UPDATE
@@ -721,27 +727,7 @@ public class Agent : MonoBehaviour
     // Adds up vars to create a social ranking (from 1-5)
     public void Rank()
     {
-        int lower = maxWealth/4;
-        int lowMid = lower * 2;
-        int highMid = lower * 3;
-        
-        if (sugar + spice < lower)
-        {
-            wealthScore = 1;
-        } 
-        else if (sugar + spice < lowMid)
-        {
-            wealthScore = 2;
-        }
-        else if (sugar + spice < highMid)
-        {
-            wealthScore = 3;
-        }
-        else
-        {
-            wealthScore = 4;
-        }
-            
+           
         /* this is what it was originally when social rank was banded. However, changing to continuous.
         int combinedScore = dominance + influence + visionHarvest + wealthScore;
 

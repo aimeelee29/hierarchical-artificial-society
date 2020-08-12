@@ -181,6 +181,48 @@ public class AgentManager : MonoBehaviour
 
         //print(Agent.AvailableAgents.Count);
 
+        // Variable to hold agent's wealth
+        int wealth;
+        // Variable to hold max wealth - feeds into agent social rank
+        int maxWealth = 0;
+
+        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
+        {
+            agent = Agent.LiveAgents[i];
+
+            wealth = agent.Sugar + agent.Spice;
+
+            if (wealth > maxWealth)
+                maxWealth = wealth;
+        }
+
+        // Update the agent static variable for max wealth
+        Agent.MaxWealth = maxWealth;
+        Agent.LowWealth = maxWealth / 4;
+        Agent.LowMidWealth = Agent.LowWealth * 2;
+        Agent.HighMidWealth = Agent.LowWealth * 3;
+
+        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
+        {
+            agent = Agent.LiveAgents[i];
+
+            if (agent.Sugar + agent.Spice <= Agent.LowWealth)
+            {
+                agent.WealthScore = 1;
+            }
+            else if (agent.Sugar + agent.Spice <= Agent.LowMidWealth)
+            {
+                agent.WealthScore = 2;
+            }
+            else if (agent.Sugar + agent.Spice <= Agent.HighMidWealth)
+            {
+                agent.WealthScore = 3;
+            }
+            else
+            {
+                agent.WealthScore = 4;
+            }
+        }
         /*
         * ANALYSIS
         */
@@ -205,25 +247,19 @@ public class AgentManager : MonoBehaviour
             // Create new instance of the wealth class
             WealthDistributionList wealthDistListClass = new WealthDistributionList();
 
-            // Variable to hold agent's wealth
-            int wealth;
-            // Variable to hold max wealth - feeds into agent social rank
-            int maxWealth = 0;
-
             for (int i = 0; i < Agent.LiveAgents.Count; ++i)
             {
                 agent = Agent.LiveAgents[i];
-
                 wealth = agent.Sugar + agent.Spice;
+
                 wealthDistListClass.AddtoWealth(wealth);
-                if (wealth > maxWealth)
-                    maxWealth = wealth;
 
                 // Create new agent profile
                 AgentProfile agProf = new AgentProfile(agent.SugarMetabolism, agent.SpiceMetabolism, agent.VisionHarvest, agent.VisionNeighbour, agent.Lifespan, agent.Dominance, agent.Influence, agent.Age, agent.CellPosition, agent.SocialRank);
                 // add agent's profile to list
                 agentProfileListClass.agentProfileList.Add(agProf);
                 
+                //print(agent.WealthScore);
                 // Add to wealth classes
                 if (agent.WealthScore == 1)
                 {
@@ -242,9 +278,6 @@ public class AgentManager : MonoBehaviour
                     wealthFour.AddToWealth(wealth);
                 }
             }
-
-            // Update the agent static variable for max wealth
-            Agent.MaxWealth = maxWealth;
 
             // Add wealth classes to list
             wealthInequalityListClass.wealthInequalityList.Add(wealthOne);

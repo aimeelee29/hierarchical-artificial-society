@@ -8,10 +8,10 @@ using UnityEngine;
 
 public class WealthInequality
 {
-    private int wealthBand;
-    private int wealth;
+    public int wealthBand;
+    public int wealth;
     // Need number of agents to computer average
-    private int numberAgents;
+    public int numberAgents;
 
     // Constructor
     public WealthInequality(int band)
