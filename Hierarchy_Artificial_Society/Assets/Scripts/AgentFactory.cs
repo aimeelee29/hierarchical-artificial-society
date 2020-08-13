@@ -38,22 +38,21 @@ public class AgentFactory : MonoBehaviour
         gridLayout = GameObject.Find("Grid").GetComponent<GridLayout>();
         toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
 
+        // Spawn Agents
         for (int i = 0; i < numberOfAgents; ++i)
         {
             GameObject agentObj = GameObject.Instantiate(agentPrefab);
             Agent agentComponent = agentObj.GetComponent<Agent>();
-            //agentComponent.InitPosition(numberOfAgents, i);
             agentComponent.InitPosition(numberOfAgents, i);
             agentComponent.InitVars(toggle);
             Agent.LiveAgents.Add(agentComponent);
-            //Agent.AllAgents.Add(agentComponent);
         }
     }
 
     /*
     * METHOD FOR CREATING CHILD
     */
-    // Sits in this class so we only have to set the prefab once
+    // Sits in this class so we only have to set the prefab once in the inspector
 
     public GameObject CreateChild()
     {
@@ -67,6 +66,8 @@ public class AgentFactory : MonoBehaviour
             Agent.AvailableAgents.Remove(agentObj);
             // Activates it
             agentObj.SetActive(true);
+            // Records that the object has been reused
+            agentObj.GetComponent<Agent>().MemoryReuse = true;
         }
         else
         {

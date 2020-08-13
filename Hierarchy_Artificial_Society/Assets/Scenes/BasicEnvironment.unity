@@ -23207,7 +23207,7 @@ TilemapCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 921274962}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -24218,7 +24218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc0c20b6d9b9e64ba0176581068718a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentPrefab: {fileID: 2362399314511595749, guid: 52dd6519dcf9a5a438d3f1c3d228a93a,
+  agentPrefab: {fileID: 804066282405222785, guid: 52dd6519dcf9a5a438d3f1c3d228a93a,
     type: 3}
   numberOfAgents: 200
 --- !u!4 &1993809427

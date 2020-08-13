@@ -26,6 +26,9 @@ public class Agent : MonoBehaviour
 
     private Toggle toggle;
 
+    // Reference to child object to set its circle collider radius
+    private GameObject neighbourUpdater;
+
     /* 
      * AGENT VARIABLES
      */
@@ -56,12 +59,15 @@ public class Agent : MonoBehaviour
     // used in Harvest
     private Vector2Int pos;
     private double maxWelfare;
-    private double curWelfare; //used for harvest. Will constantly update as agent looks around cells 
+    private double curWelfare; //Will constantly update as agent looks around cells 
 
     // Attributes for reproduction
     private int childBearingBegins;
     private int childBearingEnds;
     private SexEnum sex;
+    // Set to true if agent resued memory in object pooling
+    // Used to determine if neighbour vision needs to be run for child agents
+    private bool memoryReuse = false;
 
     // Time until death by sugar and spice. Needed for trading.
     private double timeUntilSugarDeath;
@@ -168,6 +174,10 @@ public class Agent : MonoBehaviour
     public static int LowWealth { get => lowWealth; set => lowWealth = value; }
     public static int LowMidWealth { get => lowMidWealth; set => lowMidWealth = value; }
     public static int HighMidWealth { get => highMidWealth; set => highMidWealth = value; }
+    public bool MemoryReuse { get => memoryReuse; set => memoryReuse = value; }
+    public Toggle Toggle { get => toggle; set => toggle = value; }
+    public GameObject NeighbourUpdater { get => neighbourUpdater; set => neighbourUpdater = value; }
+
 
     /*
      * AWAKE, START & UPDATE
@@ -177,12 +187,13 @@ public class Agent : MonoBehaviour
     void Awake()
     {
         KnowWorld();
+        neighbourUpdater = this.transform.GetChild(0).gameObject;
     }
 
     void Start()
     {
         socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
-        toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
+        toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle"); 
     }
 
     void FixedUpdate()
@@ -255,18 +266,22 @@ public class Agent : MonoBehaviour
         {
             if (socialRank >= 8)
             {
-                visionNeighbour = 30;
+                visionNeighbour = 10;
             }
             else
             {
-                visionNeighbour = UnityEngine.Random.Range(20, 26);
+                visionNeighbour = UnityEngine.Random.Range(1, 6);
             }
             
         }
         else
         {
-            visionNeighbour = UnityEngine.Random.Range(20, 26);
+            visionNeighbour = UnityEngine.Random.Range(1, 6);
         }
+
+        // Set radius of child circle collider - this will be used to add new children to other agents' list of neighbours
+        neighbourUpdater.GetComponent<CircleCollider2D>().radius = visionNeighbour;
+
         return;
     }
 
@@ -282,10 +297,7 @@ public class Agent : MonoBehaviour
         parentTwo.Spice -= (parentTwo.SpiceInit / 2);
         sugarInit = sugar;
         spiceInit = spice;
-        //print("random =" + UnityEngine.Random.Range(1, 3));
-        //then randomely take one of parents' attributes
-        //print("P1 " + parentOne.SugarMetabolism);
-        //print("P2 " + parentTwo.SugarMetabolism);
+
         if (UnityEngine.Random.Range(1, 3) == 1)
             sugarMetabolism = parentOne.SugarMetabolism;
         else
@@ -348,6 +360,10 @@ public class Agent : MonoBehaviour
         print("sex = " + sex);
         */
         isChild = true;
+        
+        // Set radius of child circle collider - this will be used to add new children to other agents' list of neighbours
+        neighbourUpdater.GetComponent<CircleCollider2D>().radius = visionNeighbour;
+
         return;
     }
 
@@ -447,20 +463,9 @@ public class Agent : MonoBehaviour
     {
         if (isAlive && (age >= lifespan || sugar <= 0 || spice <= 0))
         {
-            /*
-            if (age == lifespan)
-                print("lifespan death");
-            else if (sugar <= 0)
-                print("sugar death");
-            else
-                print("spice death");
-            */
-            //print("death");
             isAlive = false;
-
             // Appends agent to social mobility analysis file
             SocMobAppend();
-
             // Add to available agent list for object pooling purposes
             availableAgents.Add(this.gameObject);
             // Remove agent from its location on the grid
@@ -475,20 +480,10 @@ public class Agent : MonoBehaviour
     {
         if (isAlive && (age >= lifespan || sugar <= 0 || spice <= 0))
         {
-            /*
-            if (age == lifespan)
-                print("lifespan death");
-            else if (sugar <= 0)
-                print("sugar death");
-            else
-                print("spice death");
-            */
-            //print("death");
+            // Add agent details to social mobility analysis list
             SocMobAppend();
-            // just need to redefine variables. Position and memory can be directly taken
+            // just need to redefine variables. Position, memory and neighbour list can be directly taken
             this.InitVars(toggle);
-            // adds child to list of all agents
-            //Agent.AllAgents.Add(this);
         }
     }
 

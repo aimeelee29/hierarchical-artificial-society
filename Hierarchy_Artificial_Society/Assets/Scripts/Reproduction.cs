@@ -70,14 +70,17 @@ public static class Reproduction
                     agentComponent.InitPosition(currentEmpty, partnerEmpty);
                     // sets Agent component values
                     agentComponent.InitVars(agent, partner);
+                    // if child is a new object then needs to populate neighbour vision list
+                    if (agentComponent.MemoryReuse == false)
+                    {
+                        NeighbourVision.FindNeighboursManager(agentComponent, Resources.Load<Toggle>("ScriptableObjects/Toggle"));
+                    }
                     // adds partner to list of agents mated with
                     agentComponent.AgentReproductionList.Add(partner);
                     // adds child to agent's list of children - dont think i need this now
-                    //agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
+                    agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
                     // adds child to list of child agents
                     Agent.ChildAgents.Add(agentComponent);
-                    // adds child to list of all agents
-                    // Agent.AllAgents.Add(agentComponent);
                     // increment counter
                     ++counter;
                 }

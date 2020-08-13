@@ -44,13 +44,19 @@ public class AgentManager : MonoBehaviour
         envTilemap = GameObject.Find("Environment").GetComponent<Tilemap>();
         wealthInequalityAnalysis = GameObject.Find("Analysis: Wealth Inequality").GetComponent<WealthInequalityAnalysis>();
         socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
+
+        // When agents are spawned, find neighbours method is called so agent 'knows' who is within its vision
+        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
+        {
+            NeighbourVision.FindNeighboursManager(Agent.LiveAgents[i], toggle);
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
 
-        // Incremenent Counter
+        // Incremenent Counter - keeps count of how many updates there have been
         ++updateCounter;
 
         /*
@@ -64,6 +70,7 @@ public class AgentManager : MonoBehaviour
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
             agent = Agent.LiveAgents[i];
+
             //increase agent's age
             ++agent.Age;
 
@@ -75,12 +82,12 @@ public class AgentManager : MonoBehaviour
             if (toggle.GetReproduction())
             {
                 //print("death");
-                agent.Death();
+                //agent.Death();
             }
             else
             {
                 //print("death and replace");
-                agent.DeathandReplacement();
+                //agent.DeathandReplacement();
             }
                        
         }
@@ -92,54 +99,15 @@ public class AgentManager : MonoBehaviour
         }
 
         //print(Agent.LiveAgents.Count);
-        //foreach (Agent agent in Agent.LiveAgents)
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
             agent = Agent.LiveAgents[i];
-            //print("pre harvest " + agent.Sugar + agent.Spice);
+
             // Look around and harvest food
             agent.Harvest();
-
             // Wipes each agent's list of agents they have mated with in previous time step
             agent.AgentReproductionList.Clear();
-            
-            // Wipes each agent's neighbour list - only on every ten updates since overlapcircle is slow
-            if (updateCounter % 10 == 1)
-            {
-                agent.NeighbourAgentList.Clear();
-            }
-            //print("post harvest" + agent.Sugar + " " + agent.Spice);
-        }
-
-        // Finds neighbours 
-        // Also calculates MRS in prep for trade and wipes agent's trading list
-        //foreach (Agent agent in Agent.LiveAgents)
-        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
-        {
-            agent = Agent.LiveAgents[i];
-            if (updateCounter % 10 == 1)
-            {
-                //If neighbour restrictions are toggled on then it calls restricted variation of findneighbours
-                if (toggle.GetRestrictNeighbour())
-                {
-                    NeighbourVision.FindNeighboursRestricted(agent);
-                }
-                else if(toggle.GetRestrictNeighbourLowerRank())
-                {
-                    if(agent.SocialRank < 8)
-                    {
-                        NeighbourVision.FindNeighboursRestricted(agent);
-                    }
-                    else
-                    {
-                        NeighbourVision.FindNeighbours(agent);
-                    }
-                }
-                else
-                {
-                    NeighbourVision.FindNeighbours(agent);
-                }
-            }
+            // Also calculates MRS in prep for trade and wipes agent's trading list
             agent.MRS = Trade.CalcMRS(agent);
             agent.AgentTradeList.Clear();
             agent.TotalTradesinUpdate = 0;
@@ -153,7 +121,6 @@ public class AgentManager : MonoBehaviour
                 Trade.MakeTrade(Agent.LiveAgents[i], tradeAnalysis, toggle.GetBiasTrade());
             }
         }
-
         // Reproduce - only if selected in toggle (in inspector)
         if (toggle.GetReproduction())
         {
@@ -162,9 +129,6 @@ public class AgentManager : MonoBehaviour
                 Reproduction.ReproductionProcess(Agent.LiveAgents[i], world);
             }
         }
-
-        //print(Agent.ChildAgents.Count);
-        //print(Agent.LiveAgents.Count);
 
         // Add children to live list
         for (int i = 0; i < Agent.ChildAgents.Count; ++i)
