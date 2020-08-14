@@ -28,7 +28,11 @@ public static class NeighbourVision
             // if collider is not attached to an agent then skip this iteration (as overlapcircleall will also catch collider for tilemap) 
             // also removes itself
             // checks if neighbour is already in list
-            if (neighbour.tag != "Agent" || neighbour.gameObject == agent.gameObject || agent.NeighbourAgentList.Contains(neighbourAgent))
+            // checks if neighbour is alive
+            if (neighbour.tag != "Agent" 
+                || neighbour.gameObject == agent.gameObject 
+                || agent.NeighbourAgentList.Contains(neighbourAgent)
+                || neighbourAgent.IsAlive == false)
             {
                 continue;
             }
@@ -58,7 +62,10 @@ public static class NeighbourVision
             // also removes itself
             // checks if neighbour is already in list
             // also removes any agent that isn't of similar social rank
-            if (neighbour.tag != "Agent" || neighbour.gameObject == agent.gameObject || agent.NeighbourAgentList.Contains(neighbourAgent))
+            if (neighbour.tag != "Agent" 
+                || neighbour.gameObject == agent.gameObject 
+                || agent.NeighbourAgentList.Contains(neighbourAgent)
+                || neighbourAgent.IsAlive == false)
             {
                 continue;
             }

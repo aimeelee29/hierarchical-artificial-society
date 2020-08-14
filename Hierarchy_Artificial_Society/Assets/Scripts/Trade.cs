@@ -26,7 +26,9 @@ public static class Trade
             // ++potentialTradeCount;
 
             // If they have already traded then skip
-            if (neighbour.AgentTradeList.Contains(agent))
+            // If neighbour is dead then skip
+            if (neighbour.AgentTradeList.Contains(agent)
+                || neighbour.IsAlive == false)
                 continue;
             // If MRSA = MRSB then no trade. Continue skips that iteration of the loop
             if (agent.MRS == neighbour.MRS)

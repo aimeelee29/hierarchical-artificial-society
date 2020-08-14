@@ -24,7 +24,7 @@ public class Agent : MonoBehaviour
     private Vector2 transformPosition;
     private SocialMobilityAnalysis socialMobilityAnalysis;
 
-    private Toggle toggle;
+    [SerializeField] private Toggle toggle = null;
 
     // Reference to child object to set its circle collider radius
     private GameObject neighbourUpdater;
@@ -193,7 +193,7 @@ public class Agent : MonoBehaviour
     void Start()
     {
         socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
-        toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle"); 
+        //toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle"); 
     }
 
     void FixedUpdate()
@@ -282,6 +282,7 @@ public class Agent : MonoBehaviour
         // Set radius of child circle collider - this will be used to add new children to other agents' list of neighbours
         neighbourUpdater.GetComponent<CircleCollider2D>().radius = visionNeighbour;
 
+        print("vision = " + visionNeighbour);
         return;
     }
 
@@ -754,6 +755,7 @@ public class Agent : MonoBehaviour
 }
 
 // Enum used for sex variable
+// More efficient than using strings
 public enum SexEnum { Male, Female };
 
 

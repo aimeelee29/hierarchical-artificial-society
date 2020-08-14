@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class NeighbourUpdater : MonoBehaviour
 {
-    [SerializeField] private Toggle toggle;
-
-    void Start()
-    {
-        //toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle");
-    }
+    //Set in inspector
+    [SerializeField] private Toggle toggle = null;
 
     // If child agent spawns within the agent's collider (set to agent's neighbour vision)
     void OnTriggerEnter2D(Collider2D collider)
@@ -17,6 +13,7 @@ public class NeighbourUpdater : MonoBehaviour
         
         if (collider.tag == "NeighbourUpdater")
         {
+            print("neih");
             return;
         }
 

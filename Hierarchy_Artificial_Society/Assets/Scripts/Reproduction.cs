@@ -96,11 +96,7 @@ public static class Reproduction
 
     private static bool IsNeighbourPotentialPartner(Agent agent, Agent neighbour)
     {
-        //print("IsNeighbourPotentialPartner");
-        //UnityEngine.Debug.Log("neihbour fertile = " + IsFertile(neighbour));
-        //UnityEngine.Debug.Log("opposite sex = " + (neighbour.Sex != agent.Sex));
-        //  makes sure agent is fertile and of different sex
-        // the different sex check also rules out an agent mating with itself
-        return (IsFertile(neighbour) && neighbour.Sex != agent.Sex);
+        // makes sure agent is fertile and of different sex (and alive)
+        return (IsFertile(neighbour) && neighbour.Sex != agent.Sex && neighbour.IsAlive);
     }
 }

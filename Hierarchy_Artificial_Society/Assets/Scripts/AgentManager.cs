@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -81,13 +82,11 @@ public class AgentManager : MonoBehaviour
             //check for death
             if (toggle.GetReproduction())
             {
-                //print("death");
-                //agent.Death();
+                agent.Death();
             }
             else
             {
-                //print("death and replace");
-                //agent.DeathandReplacement();
+                agent.DeathandReplacement();
             }
                        
         }
@@ -186,6 +185,7 @@ public class AgentManager : MonoBehaviour
             {
                 agent.WealthScore = 4;
             }
+            UnityEngine.Debug.Log("neighbour count = " + Agent.LiveAgents[i].NeighbourAgentList.Count);
         }
         /*
         * ANALYSIS
