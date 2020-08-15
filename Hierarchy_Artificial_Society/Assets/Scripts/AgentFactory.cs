@@ -62,8 +62,10 @@ public class AgentFactory : MonoBehaviour
         {
             // Sets agentObj as the first entry in the list (object pooling)
             agentObj = Agent.AvailableAgents[0];
+            //print("repro - taken memory");
             // Removes it from available list
             Agent.AvailableAgents.Remove(agentObj);
+            //print("count directly after = " + Agent.AvailableAgents.Count);
             // Activates it
             agentObj.SetActive(true);
             // Records that the object has been reused
@@ -72,6 +74,7 @@ public class AgentFactory : MonoBehaviour
         else
         {
             agentObj = GameObject.Instantiate(agentPrefab);
+            //print("repro - not taken memory");
         }
         return agentObj;
     }

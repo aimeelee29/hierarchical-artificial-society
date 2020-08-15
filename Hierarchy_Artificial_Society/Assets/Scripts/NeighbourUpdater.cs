@@ -13,11 +13,11 @@ public class NeighbourUpdater : MonoBehaviour
         
         if (collider.tag == "NeighbourUpdater")
         {
-            print("neih");
+            //print("neih");
             return;
         }
 
-        print("trigger");
+        //print("trigger");
 
         Agent agentCur = this.GetComponentInParent<Agent>();
         Agent agentNew = collider.GetComponentInParent<Agent>();

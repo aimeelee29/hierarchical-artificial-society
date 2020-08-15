@@ -9,9 +9,9 @@ public class WealthDistributionList
     // List which keeps track of number of agents with that wealth
     // index of list will be wealth, and value will be count
     //List<int> wealthDist = new List<int>(); // change to array
-    private int[] wealthDist = new int[400];
+    private List<int> wealthDist = new List<int>();
 
-    public int[] WealthDist { get => wealthDist; set => wealthDist = value; }
+    public List<int> WealthDist { get => wealthDist; set => wealthDist = value; }
 
     public void AddtoWealth(int w)
     {
@@ -19,15 +19,11 @@ public class WealthDistributionList
         //print(wealthDist[w]);
         if (w < 0)
         {
-            ++wealthDist[0];
-        }
-        else if (w > 399)
-        {
-            ++wealthDist[399];
-        }     
+            wealthDist.Add(0);
+        }   
         else
         {
-            ++wealthDist[w];
+            wealthDist.Add(w);
         }   
     }
 }

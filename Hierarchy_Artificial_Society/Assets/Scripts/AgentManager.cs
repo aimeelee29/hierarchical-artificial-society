@@ -67,7 +67,6 @@ public class AgentManager : MonoBehaviour
         Agent agent;
 
         // First Updates things which don't rely on other agents
-        //foreach (Agent agent in Agent.LiveAgents)
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
             agent = Agent.LiveAgents[i];
@@ -120,6 +119,7 @@ public class AgentManager : MonoBehaviour
                 Trade.MakeTrade(Agent.LiveAgents[i], tradeAnalysis, toggle.GetBiasTrade());
             }
         }
+        //print(Agent.AvailableAgents.Count);
         // Reproduce - only if selected in toggle (in inspector)
         if (toggle.GetReproduction())
         {
@@ -142,7 +142,7 @@ public class AgentManager : MonoBehaviour
         //print(Agent.ChildAgents.Count);
         //print(Agent.LiveAgents.Count);
 
-        //print(Agent.AvailableAgents.Count);
+        
 
         // Variable to hold agent's wealth
         int wealth;
@@ -185,7 +185,8 @@ public class AgentManager : MonoBehaviour
             {
                 agent.WealthScore = 4;
             }
-            UnityEngine.Debug.Log("neighbour count = " + Agent.LiveAgents[i].NeighbourAgentList.Count);
+            //print(agent.WealthScore);
+            //UnityEngine.Debug.Log("neighbour count = " + Agent.LiveAgents[i].NeighbourAgentList.Count);
         }
         /*
         * ANALYSIS

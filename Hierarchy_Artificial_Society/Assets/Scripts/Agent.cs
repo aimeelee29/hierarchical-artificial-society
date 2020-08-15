@@ -193,7 +193,6 @@ public class Agent : MonoBehaviour
     void Start()
     {
         socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
-        //toggle = Resources.Load<Toggle>("ScriptableObjects/Toggle"); 
     }
 
     void FixedUpdate()
@@ -282,7 +281,7 @@ public class Agent : MonoBehaviour
         // Set radius of child circle collider - this will be used to add new children to other agents' list of neighbours
         neighbourUpdater.GetComponent<CircleCollider2D>().radius = visionNeighbour;
 
-        print("vision = " + visionNeighbour);
+        //print("vision = " + visionNeighbour);
         return;
     }
 
