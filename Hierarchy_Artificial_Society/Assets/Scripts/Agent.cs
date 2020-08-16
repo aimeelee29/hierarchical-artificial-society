@@ -232,19 +232,24 @@ public class Agent : MonoBehaviour
         //spice = 10; //TESTING
         sugarInit = sugar;
         spiceInit = spice;
-        sugarMetabolism = UnityEngine.Random.Range(2, 7);
-        spiceMetabolism = UnityEngine.Random.Range(2, 7);
-        //sugarMetabolism = 2;//TESTING
-        //spiceMetabolism = 2;//TESTING
-        visionHarvest = UnityEngine.Random.Range(1, 6);
-        //visionHarvest = 10; //TESTING
-          
+        if (toggle.GetReproduction())
+        {
+            sugarMetabolism = 3;
+            spiceMetabolism = 3;
+            visionHarvest = 5;
+        }
+        else
+        {
+            sugarMetabolism = UnityEngine.Random.Range(2, 7);
+            spiceMetabolism = UnityEngine.Random.Range(2, 7);
+            visionHarvest = UnityEngine.Random.Range(1, 6);
+        }
+                  
         int sexRand = UnityEngine.Random.Range(1, 3);
         if (sexRand == 1)
             sex = SexEnum.Female;
         else if (sexRand == 2)
             sex = SexEnum.Male;
-       // print(sex);
 
         isAlive = true;
         childBearingBegins = UnityEngine.Random.Range(12, 16);
@@ -741,7 +746,14 @@ public class Agent : MonoBehaviour
         else
             socialRank = 7;
         */
-        socialRank = dominance + influence + visionHarvest + wealthScore;
+        if (toggle.GetReproduction())
+        {
+            socialRank = dominance + influence + wealthScore;
+        }
+        else
+        {
+            socialRank = dominance + influence + visionHarvest + wealthScore;
+        }
     }
 
     // Deals with appending agent to social mobility analysis XML file
