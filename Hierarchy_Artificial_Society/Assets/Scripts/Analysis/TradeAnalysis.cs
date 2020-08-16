@@ -26,6 +26,7 @@ public class TradeAnalysis : MonoBehaviour
     //instance of AvPriceList class which holds list of average prices and average units class - needs to be its own class for serialisation
     AvPrice avPriceClass;
     AvUnits avUnitsClass;
+    TotalUnits totUnitsClass;
 
     [Serializable]
     public class AvPrice
@@ -41,6 +42,13 @@ public class TradeAnalysis : MonoBehaviour
         public List<double> avUnitsList = new List<double>();
     }
 
+    [Serializable]
+    public class TotalUnits
+    {
+        //List with average trade price for each time step
+        public List<int> totUnitsList = new List<int>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +61,7 @@ public class TradeAnalysis : MonoBehaviour
         //create instances of classes
         avPriceClass = new AvPrice();
         avUnitsClass = new AvUnits();
+        totUnitsClass = new TotalUnits();
     }
 
     // Script execution order - set to run after Manager class
@@ -63,11 +72,13 @@ public class TradeAnalysis : MonoBehaviour
         {
             avPriceClass.avPriceList.Add(price / quantity);
             avUnitsClass.avUnitsList.Add((double)units / quantity);
+            totUnitsClass.totUnitsList.Add(units);
         }
         else
         {
             avPriceClass.avPriceList.Add(0);
             avUnitsClass.avUnitsList.Add(0);
+            totUnitsClass.totUnitsList.Add(0);
         }
 
         //for graph display
@@ -109,6 +120,11 @@ public class TradeAnalysis : MonoBehaviour
         save = new XmlSerializer(typeof(AvUnits));
         path = new FileStream(Application.dataPath + "/XMLFiles/TradeQuantity.xml", FileMode.Create);
         save.Serialize(path, avUnitsClass);
+        path.Close();
+
+        save = new XmlSerializer(typeof(TotalUnits));
+        path = new FileStream(Application.dataPath + "/XMLFiles/TradeUnitTotal.xml", FileMode.Create);
+        save.Serialize(path, totUnitsClass);
         path.Close();
     }
 }
