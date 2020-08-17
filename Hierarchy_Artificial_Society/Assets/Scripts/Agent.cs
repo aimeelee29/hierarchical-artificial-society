@@ -232,13 +232,7 @@ public class Agent : MonoBehaviour
         //spice = 10; //TESTING
         sugarInit = sugar;
         spiceInit = spice;
-        if (sugar + spice > maxWealth)
-        {
-            maxWealth = sugar + spice;
-            lowWealth = maxWealth / 4;
-            lowMidWealth = Agent.LowWealth * 2;
-            highMidWealth = Agent.LowWealth * 3;
-        }
+
         if (toggle.GetReproduction())
         {
             sugarMetabolism = 3;

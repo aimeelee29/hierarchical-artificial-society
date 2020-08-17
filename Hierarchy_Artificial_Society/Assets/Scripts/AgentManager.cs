@@ -105,7 +105,8 @@ public class AgentManager : MonoBehaviour
             Agent.LiveAgents.Remove(deadAgent.GetComponent<Agent>());
         }
 
-
+        //Reset Max Wealth
+        Agent.MaxWealth = 0;
 
         //print(Agent.LiveAgents.Count);
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
@@ -120,6 +121,8 @@ public class AgentManager : MonoBehaviour
             agent.MRS = Trade.CalcMRS(agent);
             agent.AgentTradeList.Clear();
             agent.TotalTradesinUpdate = 0;
+
+            // update max wealth - used for ranking
             agent.UpdateMaxWealth();
         }
 
