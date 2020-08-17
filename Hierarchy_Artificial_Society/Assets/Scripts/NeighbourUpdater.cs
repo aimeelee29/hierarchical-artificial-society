@@ -32,7 +32,7 @@ public class NeighbourUpdater : MonoBehaviour
 
         if (toggle.GetRestrictNeighbour())
         {
-            if (rankDiff <= 4)
+            if (rankDiff == 0)
             {
                 agentCur.NeighbourAgentList.Add(agentNew);
             }
@@ -41,7 +41,7 @@ public class NeighbourUpdater : MonoBehaviour
         {
             if (agentCur.SocialRank < 8)
             {
-                if (rankDiff <= 4)
+                if (rankDiff == 0)
                 {
                     agentCur.NeighbourAgentList.Add(agentNew);
                 }

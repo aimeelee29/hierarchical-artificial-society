@@ -47,9 +47,18 @@ public class AgentManager : MonoBehaviour
         socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
 
         // When agents are spawned, find neighbours method is called so agent 'knows' who is within its vision
+        // Also need to apply social rank
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
             NeighbourVision.FindNeighboursManager(Agent.LiveAgents[i], toggle);
+            Agent.LiveAgents[i].UpdateMaxWealth();
+        }
+        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
+        {
+            Agent.LiveAgents[i].
+            Agent.LiveAgents[i].Rank();
+            Agent.LiveAgents[i].BegSocialRank = Agent.LiveAgents[i].SocialRank;
+            Agent.LiveAgents[i].TrackSocialRank = Agent.LiveAgents[i].SocialRank;
         }
     }
 
@@ -96,6 +105,8 @@ public class AgentManager : MonoBehaviour
             Agent.LiveAgents.Remove(deadAgent.GetComponent<Agent>());
         }
 
+
+
         //print(Agent.LiveAgents.Count);
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
@@ -109,6 +120,18 @@ public class AgentManager : MonoBehaviour
             agent.MRS = Trade.CalcMRS(agent);
             agent.AgentTradeList.Clear();
             agent.TotalTradesinUpdate = 0;
+            agent.UpdateMaxWealth();
+        }
+
+        // Update social rank
+        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
+        {
+            agent = Agent.LiveAgents[i];
+
+            agent.CreateWealthScore();
+            agent.Rank();
+            //print(agent.WealthScore);
+            //UnityEngine.Debug.Log("neighbour count = " + Agent.LiveAgents[i].NeighbourAgentList.Count);
         }
 
         // Trade - only if selected in toggle (in inspector)
@@ -143,54 +166,12 @@ public class AgentManager : MonoBehaviour
         //print(Agent.LiveAgents.Count);
 
         
-
-        // Variable to hold agent's wealth
-        int wealth;
-        // Variable to hold max wealth - feeds into agent social rank
-        int maxWealth = 0;
-
-        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
-        {
-            agent = Agent.LiveAgents[i];
-
-            wealth = agent.Sugar + agent.Spice;
-
-            if (wealth > maxWealth)
-                maxWealth = wealth;
-        }
-
-        // Update the agent static variable for max wealth
-        Agent.MaxWealth = maxWealth;
-        Agent.LowWealth = maxWealth / 4;
-        Agent.LowMidWealth = Agent.LowWealth * 2;
-        Agent.HighMidWealth = Agent.LowWealth * 3;
-
-        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
-        {
-            agent = Agent.LiveAgents[i];
-
-            if (agent.Sugar + agent.Spice <= Agent.LowWealth)
-            {
-                agent.WealthScore = 1;
-            }
-            else if (agent.Sugar + agent.Spice <= Agent.LowMidWealth)
-            {
-                agent.WealthScore = 2;
-            }
-            else if (agent.Sugar + agent.Spice <= Agent.HighMidWealth)
-            {
-                agent.WealthScore = 3;
-            }
-            else
-            {
-                agent.WealthScore = 4;
-            }
-            //print(agent.WealthScore);
-            //UnityEngine.Debug.Log("neighbour count = " + Agent.LiveAgents[i].NeighbourAgentList.Count);
-        }
         /*
         * ANALYSIS
         */
+
+        // Variable to hold agent's wealth
+        int wealth;
 
         // Analysis files created every 50 updates
         if (updateCounter % 50 == 1)

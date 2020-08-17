@@ -71,12 +71,17 @@ public static class NeighbourVision
             }
             int rankDiff = neighbourAgent.SocialRank - agent.SocialRank;
             rankDiff = (rankDiff < 0) ? -rankDiff : rankDiff;
-            if (rankDiff > 4)
+            //UnityEngine.Debug.Log(neighbourAgent.SocialRank);
+            //UnityEngine.Debug.Log(agent.SocialRank);
+            if (rankDiff > 0)
             {
+                //UnityEngine.Debug.Log("skipped");
                 continue;
             }
-
-            agent.NeighbourAgentList.Add(neighbourAgent);
+            else
+            {
+                agent.NeighbourAgentList.Add(neighbourAgent);
+            }
         }
         return;
     }
@@ -87,6 +92,7 @@ public static class NeighbourVision
         //If neighbour restrictions are toggled on then it calls restricted variation of findneighbours
         if (toggle.GetRestrictNeighbour())
         {
+            //UnityEngine.Debug.Log("restrict");
             FindNeighboursRestricted(agent);
         }
         else if (toggle.GetRestrictNeighbourLowerRank())

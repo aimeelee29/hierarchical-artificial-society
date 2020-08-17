@@ -197,8 +197,6 @@ public class Agent : MonoBehaviour
 
     void FixedUpdate()
     {
-        Rank();
-
         //if current social ranking has changed
         if (socialRank != trackSocialRank)
         {
@@ -232,6 +230,13 @@ public class Agent : MonoBehaviour
         //spice = 10; //TESTING
         sugarInit = sugar;
         spiceInit = spice;
+        if (sugar + spice > maxWealth)
+        {
+            maxWealth = sugar + spice;
+            lowWealth = maxWealth / 4;
+            lowMidWealth = Agent.LowWealth * 2;
+            highMidWealth = Agent.LowWealth * 3;
+        }
         if (toggle.GetReproduction())
         {
             sugarMetabolism = 3;
@@ -260,10 +265,6 @@ public class Agent : MonoBehaviour
         //age = 12;
         dominance = UnityEngine.Random.Range(1, 4);
         influence = UnityEngine.Random.Range(1, 4);
-
-        Rank();
-        begSocialRank = socialRank;
-        trackSocialRank = socialRank;
 
         // Set vision for finding neighbours - sets upper ranks higher vision if that particular setting is on.
         if (toggle.GetGreaterVisionHigherRank())
@@ -348,6 +349,7 @@ public class Agent : MonoBehaviour
         isAlive = true;
         age = 0;
 
+        CreateWealthScore();
         Rank();
         begSocialRank = socialRank;
         trackSocialRank = socialRank;
@@ -489,6 +491,10 @@ public class Agent : MonoBehaviour
             SocMobAppend();
             // just need to redefine variables. Position, memory and neighbour list can be directly taken
             this.InitVars(toggle);
+            CreateWealthScore();
+            Rank();
+            begSocialRank = socialRank;
+            trackSocialRank = socialRank;
         }
     }
 
@@ -724,6 +730,36 @@ public class Agent : MonoBehaviour
         //print("spi aft = " + spice);
     }
 
+    public void UpdateMaxWealth()
+    {
+        if (sugar + spice > maxWealth)
+        {
+            maxWealth = sugar + spice;
+            lowWealth = maxWealth / 4;
+            lowMidWealth = lowWealth * 2;
+            highMidWealth = lowWealth * 3;
+        }
+    }
+    // Creates wealth score
+    public void CreateWealthScore()
+    {
+        if (sugar + spice <= lowWealth)
+        {
+            agent.WealthScore = 1;
+        }
+        else if (sugar + spice <= lowMidWealth)
+        {
+            agent.WealthScore = 2;
+        }
+        else if (sugar + spice <= highMidWealth)
+        {
+            agent.WealthScore = 3;
+        }
+        else
+        {
+            agent.WealthScore = 4;
+        }
+    }
     // Adds up vars to create a social ranking (from 1-5)
     public void Rank()
     {
