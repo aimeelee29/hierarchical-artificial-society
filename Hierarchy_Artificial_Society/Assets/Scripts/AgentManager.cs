@@ -55,7 +55,7 @@ public class AgentManager : MonoBehaviour
         }
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
-            Agent.LiveAgents[i].
+            Agent.LiveAgents[i].CreateWealthScore();
             Agent.LiveAgents[i].Rank();
             Agent.LiveAgents[i].BegSocialRank = Agent.LiveAgents[i].SocialRank;
             Agent.LiveAgents[i].TrackSocialRank = Agent.LiveAgents[i].SocialRank;

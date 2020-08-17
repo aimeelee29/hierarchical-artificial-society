@@ -177,6 +177,8 @@ public class Agent : MonoBehaviour
     public bool MemoryReuse { get => memoryReuse; set => memoryReuse = value; }
     public Toggle Toggle { get => toggle; set => toggle = value; }
     public GameObject NeighbourUpdater { get => neighbourUpdater; set => neighbourUpdater = value; }
+    public int BegSocialRank1 { get => begSocialRank; set => begSocialRank = value; }
+    public int TrackSocialRank { get => trackSocialRank; set => trackSocialRank = value; }
 
 
     /*
@@ -745,19 +747,19 @@ public class Agent : MonoBehaviour
     {
         if (sugar + spice <= lowWealth)
         {
-            agent.WealthScore = 1;
+            wealthScore = 1;
         }
         else if (sugar + spice <= lowMidWealth)
         {
-            agent.WealthScore = 2;
+            wealthScore = 2;
         }
         else if (sugar + spice <= highMidWealth)
         {
-            agent.WealthScore = 3;
+            wealthScore = 3;
         }
         else
         {
-            agent.WealthScore = 4;
+            wealthScore = 4;
         }
     }
     // Adds up vars to create a social ranking (from 1-5)
