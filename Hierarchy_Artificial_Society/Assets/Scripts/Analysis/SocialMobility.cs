@@ -9,7 +9,6 @@ using UnityEngine;
 public class SocialMobility
 {
     // public Agent agent;
-    public bool isChild;
     public int beginningRank;
     public int endingRank;
     public int numberChanges;
