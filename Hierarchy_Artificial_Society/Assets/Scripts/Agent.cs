@@ -164,9 +164,6 @@ public class Agent : MonoBehaviour
     public static List<Agent> LiveAgents { get => liveAgents; set => liveAgents = value; }
     public static List<Agent> ChildAgents { get => childAgents; set => childAgents = value; }
     public List<Agent> AgentTradeList { get => agentTradeList; set => agentTradeList = value; }
-    //public int TotalTrades { get => totalTrades; set => totalTrades = value; }
-    //public int TotalTradesinUpdate { get => totalTradesinUpdate; set => totalTradesinUpdate = value; }
-    //public int InfluenceCounter { get => influenceCounter; set => influenceCounter = value; }
     public int BegSocialRank { get => begSocialRank; set => begSocialRank = value; }
     public int NumberRankChanges { get => numberRankChanges; set => numberRankChanges = value; }
     public Vector2 TransformPosition { get => transformPosition; set => transformPosition = value; }
@@ -511,7 +508,7 @@ public class Agent : MonoBehaviour
 
         //variables to keep track of how to iterate loop (to cope with agents situated at edges)
         int temp;
-        int leftover;
+        //int leftover;
         //print("initial max welfare = " + maxWelfare);
         //print("initial pos = " + pos);
         //print("initial sug and spice = " + world.WorldArray[cellPosition.x, cellPosition.y].CurSugar + " " + world.WorldArray[cellPosition.x, cellPosition.y].CurSpice);
@@ -523,12 +520,12 @@ public class Agent : MonoBehaviour
         if (cellPosition.y + visionHarvest > World.Rows - 1)
         {
             temp = World.Rows - 1;
-            leftover = cellPosition.y + visionHarvest - World.Rows;
+            //leftover = cellPosition.y + visionHarvest - World.Rows;
         }
         else
         {
             temp = cellPosition.y + visionHarvest;
-            leftover = 0;
+            //leftover = 0;
         }
 
 
@@ -547,6 +544,7 @@ public class Agent : MonoBehaviour
                 }
             }
         }
+        /*
         if (leftover >0)
         {
             //iterate over
@@ -566,6 +564,7 @@ public class Agent : MonoBehaviour
                 }
             }
         }
+        */
 
         // LOOK SOUTH
         // i.e. must increment y value of array (down)
@@ -574,12 +573,12 @@ public class Agent : MonoBehaviour
         if (cellPosition.y - visionHarvest < 0)
         {
             temp = 0;
-            leftover = visionHarvest - cellPosition.y;
+            //leftover = visionHarvest - cellPosition.y;
         }
         else
         {
             temp = cellPosition.y - visionHarvest;
-            leftover = 0;
+            //leftover = 0;
         }
 
         for (int i = cellPosition.y - 1; i >= temp; --i)
@@ -597,6 +596,7 @@ public class Agent : MonoBehaviour
                 }
             }
         }
+        /*
         if (leftover > 0)
         {
             // iterate over
@@ -617,6 +617,7 @@ public class Agent : MonoBehaviour
                 }
             }
         }
+        */
 
         // LOOK EAST
         // i.e. must increment x value of array (up)
@@ -625,12 +626,12 @@ public class Agent : MonoBehaviour
         if (cellPosition.x + visionHarvest > World.Cols - 1)
         {
             temp = World.Cols - 1;
-            leftover = cellPosition.x + visionHarvest - World.Cols;
+            //leftover = cellPosition.x + visionHarvest - World.Cols;
         }
         else
         {
             temp = cellPosition.x + visionHarvest;
-            leftover = 0;
+            //leftover = 0;
         }
 
 
@@ -649,6 +650,7 @@ public class Agent : MonoBehaviour
                 }
             }
         }
+        /*
         if (leftover > 0)
         {
             //iterate over
@@ -668,6 +670,7 @@ public class Agent : MonoBehaviour
                 }
             }
         }
+        */
 
         // LOOK WEST i.e. must increment x value of array (down)
 
@@ -675,12 +678,12 @@ public class Agent : MonoBehaviour
         if (cellPosition.x - visionHarvest < 0)
         {
             temp = 0;
-            leftover = visionHarvest - cellPosition.x;
+            //leftover = visionHarvest - cellPosition.x;
         }
         else
         {
             temp = cellPosition.x - visionHarvest;
-            leftover = 0;
+            //leftover = 0;
         }
 
         for (int i = cellPosition.x - 1; i >= temp; --i)
@@ -698,6 +701,7 @@ public class Agent : MonoBehaviour
                 }
             }
         }
+        /*
         if (leftover > 0)
         {
             // iterate over
@@ -717,6 +721,7 @@ public class Agent : MonoBehaviour
                 }
             }
         }
+        */
         //print("final pos = " + pos);
         //print("final welf = " + maxWelfare);
         //print("spi bef = " + spice);

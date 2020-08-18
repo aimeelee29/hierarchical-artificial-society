@@ -127,11 +127,6 @@ public class AgentManager : MonoBehaviour
             // update max wealth - used for ranking
             agent.UpdateMaxandMinWealth();
         }
-        print("min = " +Agent.MinWealth);
-        print("max = " + Agent.MaxWealth);
-        print("low = " + Agent.LowWealth);
-        print("lowmid = " + Agent.MidWealth);
-        print("high = " + Agent.HighWealth);
 
         // Update social rank
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
