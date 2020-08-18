@@ -26,7 +26,7 @@ public class Agent : MonoBehaviour
 
     [SerializeField] private Toggle toggle = null;
 
-    // Reference to child object to set its circle collider radius
+    // Reference to child gameobject (needed to set its circle collider radius for finding neighbours)
     private GameObject neighbourUpdater;
 
     /* 
@@ -45,17 +45,17 @@ public class Agent : MonoBehaviour
     private int sugarMetabolism;
     private int spiceMetabolism;
 
-    //How far they can 'see' to eat sugar/spice (in number of cells)
+    // How far they can 'see' to eat sugar/spice (in number of cells)
     private int visionHarvest;
     // How far an agent can 'see' to reproduce and trade
     private int visionNeighbour;
 
-    //Agent's lifespan (in time steps), age and flag for whether they are alive
+    // Agent's lifespan (in time steps), age and flag for whether they are alive
     private int lifespan;
     private int age;
     private bool isAlive;
 
-    // variables to store info on best location - initially set to current cell position values
+    // Variables to store info on best location - initially set to current cell position values
     // used in Harvest
     private Vector2Int pos;
     private double maxWelfare;
@@ -72,11 +72,11 @@ public class Agent : MonoBehaviour
     // Time until death by sugar and spice. Needed for trading.
     private double timeUntilSugarDeath;
     private double timeUntilSpiceDeath;
-    // marginal rate of substitution(MRS). An agent's MRS of spice for sugar is the amount of spice the agent considers to be as valuable as 
+    // marginal rate of substitution (MRS). An agent's MRS of spice for sugar is the amount of spice the agent considers to be as valuable as 
     // one unit of sugar, that is, the value of sugar in units of spice . 
     private double mrs;
 
-    //hierarchy attributes
+    // social hierarchy attributes
     private int dominance;
     private int influence;
     private int begSocialRank; // social rank at birth (or initial spawn).
@@ -85,9 +85,9 @@ public class Agent : MonoBehaviour
     private int numberRankChanges = 0; // keeps track of how many times an Agent has changed social rank.
 
     // Number of trades affect influence - TBC total number of trades or does it go by timestep
-    private int totalTrades = 0;
-    private int totalTradesinUpdate = 0;
-    private int influenceCounter = 0;
+    //private int totalTrades = 0;
+    //private int totalTradesinUpdate = 0;
+    //private int influenceCounter = 0;
 
     /*
      * LISTS
@@ -120,14 +120,16 @@ public class Agent : MonoBehaviour
     //Static list of all agents (alive or dead)
     //private static List<Agent> allAgents = new List<Agent>();
 
-    // for testing purposes and to include in analysis files
-    private bool isChild = false;
+    /*
+     * STATIC VARIABLES
+     */
 
     // Static variable showing maximum wealth level amount agents for that time step - used to put agents into wealth bands
-    private static int maxWealth;
-    private static int lowWealth;
-    private static int lowMidWealth;
-    private static int highMidWealth;
+    private static double minWealth;
+    private static double maxWealth;
+    private static double lowWealth;
+    private static double midWealth;
+    private static double highWealth;
     private int wealthScore;
 
     /*
@@ -162,23 +164,22 @@ public class Agent : MonoBehaviour
     public static List<Agent> LiveAgents { get => liveAgents; set => liveAgents = value; }
     public static List<Agent> ChildAgents { get => childAgents; set => childAgents = value; }
     public List<Agent> AgentTradeList { get => agentTradeList; set => agentTradeList = value; }
-    public static int MaxWealth { get => maxWealth; set => maxWealth = value; }
-    public int TotalTrades { get => totalTrades; set => totalTrades = value; }
-    public int TotalTradesinUpdate { get => totalTradesinUpdate; set => totalTradesinUpdate = value; }
-    public int InfluenceCounter { get => influenceCounter; set => influenceCounter = value; }
+    //public int TotalTrades { get => totalTrades; set => totalTrades = value; }
+    //public int TotalTradesinUpdate { get => totalTradesinUpdate; set => totalTradesinUpdate = value; }
+    //public int InfluenceCounter { get => influenceCounter; set => influenceCounter = value; }
     public int BegSocialRank { get => begSocialRank; set => begSocialRank = value; }
     public int NumberRankChanges { get => numberRankChanges; set => numberRankChanges = value; }
-    public bool IsChild { get => isChild; set => isChild = value; }
     public Vector2 TransformPosition { get => transformPosition; set => transformPosition = value; }
-    public int WealthScore { get => wealthScore; set => wealthScore = value; }
-    public static int LowWealth { get => lowWealth; set => lowWealth = value; }
-    public static int LowMidWealth { get => lowMidWealth; set => lowMidWealth = value; }
-    public static int HighMidWealth { get => highMidWealth; set => highMidWealth = value; }
     public bool MemoryReuse { get => memoryReuse; set => memoryReuse = value; }
     public Toggle Toggle { get => toggle; set => toggle = value; }
     public GameObject NeighbourUpdater { get => neighbourUpdater; set => neighbourUpdater = value; }
-    public int BegSocialRank1 { get => begSocialRank; set => begSocialRank = value; }
     public int TrackSocialRank { get => trackSocialRank; set => trackSocialRank = value; }
+    public static double MinWealth { get => minWealth; set => minWealth = value; }
+    public static double MaxWealth { get => maxWealth; set => maxWealth = value; }
+    public static double LowWealth { get => lowWealth; set => lowWealth = value; }
+    public static double MidWealth { get => midWealth; set => midWealth = value; }
+    public static double HighWealth { get => highWealth; set => highWealth = value; }
+    public int WealthScore { get => wealthScore; set => wealthScore = value; }
 
 
     /*
@@ -190,6 +191,7 @@ public class Agent : MonoBehaviour
     {
         KnowWorld();
         neighbourUpdater = this.transform.GetChild(0).gameObject;
+        minWealth = Double.PositiveInfinity;
     }
 
     void Start()
@@ -237,7 +239,25 @@ public class Agent : MonoBehaviour
         {
             sugarMetabolism = 3;
             spiceMetabolism = 3;
-            visionHarvest = 5;
+            // Set vision for finding neighbours - sets upper ranks higher vision if that particular setting is on.
+            if (toggle.GetGreaterVisionHigherRank())
+            {
+                if (socialRank >= 8)
+                {
+                    visionHarvest = 7;
+                }
+                else
+                {
+                    visionHarvest = 5;
+                }
+
+            }
+            else
+            {
+                visionHarvest = 5;
+                
+            }
+            
         }
         else
         {
@@ -245,7 +265,8 @@ public class Agent : MonoBehaviour
             spiceMetabolism = UnityEngine.Random.Range(2, 7);
             visionHarvest = UnityEngine.Random.Range(1, 6);
         }
-                  
+
+        visionNeighbour = UnityEngine.Random.Range(1, 6);
         int sexRand = UnityEngine.Random.Range(1, 3);
         if (sexRand == 1)
             sex = SexEnum.Female;
@@ -261,24 +282,6 @@ public class Agent : MonoBehaviour
         //age = 12;
         dominance = UnityEngine.Random.Range(1, 4);
         influence = UnityEngine.Random.Range(1, 4);
-
-        // Set vision for finding neighbours - sets upper ranks higher vision if that particular setting is on.
-        if (toggle.GetGreaterVisionHigherRank())
-        {
-            if (socialRank >= 8)
-            {
-                visionNeighbour = 10;
-            }
-            else
-            {
-                visionNeighbour = UnityEngine.Random.Range(1, 6);
-            }
-            
-        }
-        else
-        {
-            visionNeighbour = UnityEngine.Random.Range(1, 6);
-        }
 
         // Set radius of child circle collider - this will be used to add new children to other agents' list of neighbours
         neighbourUpdater.GetComponent<CircleCollider2D>().radius = visionNeighbour;
@@ -362,8 +365,7 @@ public class Agent : MonoBehaviour
         print("isalive = " + isAlive);
         print("sex = " + sex);
         */
-        isChild = true;
-        
+
         // Set radius of child circle collider - this will be used to add new children to other agents' list of neighbours
         neighbourUpdater.GetComponent<CircleCollider2D>().radius = visionNeighbour;
 
@@ -726,15 +728,20 @@ public class Agent : MonoBehaviour
         //print("spi aft = " + spice);
     }
 
-    public void UpdateMaxWealth()
+    public void UpdateMaxandMinWealth()
     {
         if (sugar + spice > maxWealth)
         {
             maxWealth = sugar + spice;
-            lowWealth = maxWealth / 4;
-            lowMidWealth = lowWealth * 2;
-            highMidWealth = lowWealth * 3;
         }
+        if (sugar + spice < minWealth)
+        {
+            minWealth = sugar + spice;
+        }
+        double interval = (maxWealth - minWealth) / 4;
+        lowWealth = minWealth + interval;      
+        midWealth = lowWealth + interval;
+        highWealth = midWealth + interval;
     }
     // Creates wealth score
     public void CreateWealthScore()
@@ -743,11 +750,11 @@ public class Agent : MonoBehaviour
         {
             wealthScore = 1;
         }
-        else if (sugar + spice <= lowMidWealth)
+        else if (sugar + spice <= midWealth)
         {
             wealthScore = 2;
         }
-        else if (sugar + spice <= highMidWealth)
+        else if (sugar + spice <= highWealth)
         {
             wealthScore = 3;
         }
@@ -791,7 +798,7 @@ public class Agent : MonoBehaviour
     // Deals with appending agent to social mobility analysis XML file
     public void SocMobAppend()
     {
-        SocialMobility socMob = new SocialMobility(this.IsChild, this.BegSocialRank, this.SocialRank, this.NumberRankChanges, this.Age);
+        SocialMobility socMob = new SocialMobility(this.BegSocialRank, this.SocialRank, this.NumberRankChanges, this.Age);
         socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socMob);
         //socialMobilityAnalysis.CreateMobilityFile();
     }

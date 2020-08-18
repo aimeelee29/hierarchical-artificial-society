@@ -16,9 +16,8 @@ public class SocialMobility
     public int age;
 
     // Constructor
-    public SocialMobility(bool b, int ranka, int rankb, int change, int a)
+    public SocialMobility(int ranka, int rankb, int change, int a)
     {
-        isChild = b;
         beginningRank = ranka;
         endingRank = rankb;
         numberChanges = change;

@@ -34,11 +34,6 @@ public static class Trade
             if (agent.MRS == neighbour.MRS)
                 continue;
 
-
-            //if (potentialTradeCount == 5)
-            //  break;
-
-            // If already traded in that time step then no trade
             //UnityEngine.Debug.Log("about to do new trade");
             //UnityEngine.Debug.Log("agent sugar = " + agent.Sugar + "(" + agent.SugarMetabolism + ")" + " agent spice = " + agent.Spice + "(" + agent.SpiceMetabolism + ")");
             //UnityEngine.Debug.Log("neighbour sugar = " + neighbour.Sugar + "(" + neighbour.SugarMetabolism + ")" + " neighbour spice = " + neighbour.Spice + "(" + neighbour.SpiceMetabolism + ")");
@@ -46,7 +41,7 @@ public static class Trade
             //UnityEngine.Debug.Log("neighbour MRS =" + neighbour.MRS);
 
             // otherwise 
-            // Set up vars needed
+            // Set up variables needed
             double price; 
             int sugarUnits; 
             int spiceUnits;
@@ -132,10 +127,10 @@ public static class Trade
                         //UnityEngine.Debug.Log("neighbour MRS =" + neighbour.MRS);
 
                         // increment trade count variable
-                        ++agent.TotalTrades;
-                        ++neighbour.TotalTrades;
-                        ++agent.TotalTradesinUpdate;
-                        ++neighbour.TotalTradesinUpdate;
+                        //++agent.TotalTrades;
+                        //++neighbour.TotalTrades;
+                        //++agent.TotalTradesinUpdate;
+                        //++neighbour.TotalTradesinUpdate;
 
                     }
                     else
@@ -211,10 +206,10 @@ public static class Trade
                         //UnityEngine.Debug.Log("neighbour MRS =" + neighbour.MRS);
 
                         // increment trade count variable
-                        ++agent.TotalTrades;
-                        ++neighbour.TotalTrades;
-                        ++agent.TotalTradesinUpdate;
-                        ++neighbour.TotalTradesinUpdate;
+                        //++agent.TotalTrades;
+                        //++neighbour.TotalTrades;
+                        //++agent.TotalTradesinUpdate;
+                        //++neighbour.TotalTradesinUpdate;
                     }
                     else
                         break;

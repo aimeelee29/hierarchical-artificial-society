@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -51,7 +52,7 @@ public class AgentManager : MonoBehaviour
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
             NeighbourVision.FindNeighboursManager(Agent.LiveAgents[i], toggle);
-            Agent.LiveAgents[i].UpdateMaxWealth();
+            Agent.LiveAgents[i].UpdateMaxandMinWealth();
         }
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
@@ -105,8 +106,9 @@ public class AgentManager : MonoBehaviour
             Agent.LiveAgents.Remove(deadAgent.GetComponent<Agent>());
         }
 
-        //Reset Max Wealth
+        //Reset Max and Min Wealth
         Agent.MaxWealth = 0;
+        Agent.MinWealth = Double.PositiveInfinity;
 
         //print(Agent.LiveAgents.Count);
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
@@ -120,11 +122,16 @@ public class AgentManager : MonoBehaviour
             // Also calculates MRS in prep for trade and wipes agent's trading list
             agent.MRS = Trade.CalcMRS(agent);
             agent.AgentTradeList.Clear();
-            agent.TotalTradesinUpdate = 0;
+            //agent.TotalTradesinUpdate = 0;
 
             // update max wealth - used for ranking
-            agent.UpdateMaxWealth();
+            agent.UpdateMaxandMinWealth();
         }
+        print("min = " +Agent.MinWealth);
+        print("max = " + Agent.MaxWealth);
+        print("low = " + Agent.LowWealth);
+        print("lowmid = " + Agent.MidWealth);
+        print("high = " + Agent.HighWealth);
 
         // Update social rank
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
