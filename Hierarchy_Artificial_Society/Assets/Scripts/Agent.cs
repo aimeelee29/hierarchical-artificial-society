@@ -254,6 +254,7 @@ public class Agent : MonoBehaviour
                 visionHarvest = 5;
                 
             }
+            visionNeighbour = 3;
             
         }
         else
@@ -261,9 +262,10 @@ public class Agent : MonoBehaviour
             sugarMetabolism = UnityEngine.Random.Range(2, 7);
             spiceMetabolism = UnityEngine.Random.Range(2, 7);
             visionHarvest = UnityEngine.Random.Range(1, 6);
+            visionNeighbour = UnityEngine.Random.Range(1, 6);
         }
 
-        visionNeighbour = UnityEngine.Random.Range(1, 6);
+
         int sexRand = UnityEngine.Random.Range(1, 3);
         if (sexRand == 1)
             sex = SexEnum.Female;
@@ -300,6 +302,7 @@ public class Agent : MonoBehaviour
         sugarInit = sugar;
         spiceInit = spice;
 
+        /*
         if (UnityEngine.Random.Range(1, 3) == 1)
             sugarMetabolism = parentOne.SugarMetabolism;
         else
@@ -317,6 +320,7 @@ public class Agent : MonoBehaviour
             visionNeighbour = parentOne.VisionNeighbour;
         else
             visionNeighbour = parentTwo.VisionNeighbour;
+        */
         if (UnityEngine.Random.Range(1, 3) == 1)
             childBearingBegins = parentOne.ChildBearingBegins;
         else
