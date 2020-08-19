@@ -195,7 +195,6 @@ public class AgentManager : MonoBehaviour
             // Creates new wealth inequality list class (class contains list for wealth info to be added to)
             WealthInequalityList wealthInequalityListClass = new WealthInequalityList();
             // Creates new wealth distribution list class
-            // Create new instance of the wealth class
             WealthDistributionList wealthDistListClass = new WealthDistributionList();
 
             for (int i = 0; i < Agent.LiveAgents.Count; ++i)

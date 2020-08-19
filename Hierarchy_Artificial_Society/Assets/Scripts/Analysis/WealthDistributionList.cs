@@ -6,9 +6,6 @@ using UnityEngine;
 [Serializable]
 public class WealthDistributionList
 {
-    // List which keeps track of number of agents with that wealth
-    // index of list will be wealth, and value will be count
-    //List<int> wealthDist = new List<int>(); // change to array
     private List<int> wealthDist = new List<int>();
 
     public List<int> WealthDist { get => wealthDist; set => wealthDist = value; }

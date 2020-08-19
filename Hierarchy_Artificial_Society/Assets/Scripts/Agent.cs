@@ -23,6 +23,7 @@ public class Agent : MonoBehaviour
 
     private Vector2 transformPosition;
     private SocialMobilityAnalysis socialMobilityAnalysis;
+    private HarvestAnalysis harvestAnalysis;
 
     [SerializeField] private Toggle toggle = null;
 
@@ -60,6 +61,9 @@ public class Agent : MonoBehaviour
     private Vector2Int pos;
     private double maxWelfare;
     private double curWelfare; //Will constantly update as agent looks around cells 
+    // Variables to store amounts harvested
+    private int sugarHarvested; 
+    private int spiceHarvested;
 
     // Attributes for reproduction
     private int childBearingBegins;
@@ -132,6 +136,7 @@ public class Agent : MonoBehaviour
     private static double highWealth;
     private int wealthScore;
 
+
     /*
      * GETTERS AND SETTERS
      */
@@ -194,6 +199,7 @@ public class Agent : MonoBehaviour
     void Start()
     {
         socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
+        harvestAnalysis = GameObject.Find("Analysis: Harvest").GetComponent<HarvestAnalysis>();
     }
 
     void FixedUpdate()
@@ -245,13 +251,13 @@ public class Agent : MonoBehaviour
                 }
                 else
                 {
-                    visionHarvest = 5;
+                    visionHarvest = 4;
                 }
 
             }
             else
             {
-                visionHarvest = 5;
+                visionHarvest = 4;
                 
             }
             visionNeighbour = 3;
@@ -732,8 +738,12 @@ public class Agent : MonoBehaviour
         // Set agent as harvesting that cell
         world.WorldArray[pos.x, pos.y].OccupiedHarvest = true;
         // Agent harvests as much as possible from cell
-        sugar += world.WorldArray[pos.x, pos.y].DepleteSugar();
-        spice += world.WorldArray[pos.x, pos.y].DepleteSpice();
+        sugarHarvested = world.WorldArray[pos.x, pos.y].DepleteSugar();
+        spiceHarvested = world.WorldArray[pos.x, pos.y].DepleteSpice();
+        sugar += sugarHarvested;
+        spice += spiceHarvested;
+        harvestAnalysis.AddSugar(sugarHarvested);
+        harvestAnalysis.AddSpice(spiceHarvested);
         //print("spi aft = " + spice);
     }
 

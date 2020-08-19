@@ -16,7 +16,6 @@ public class Toggle : ScriptableObject
     [SerializeField] private bool hierarchyBiasTrade = false;
     [SerializeField] private bool hierarchyGreaterVisionHigherRank = false;
 
-
     /*
      * 
      * Getters
