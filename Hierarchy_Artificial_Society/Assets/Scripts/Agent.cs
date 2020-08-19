@@ -60,7 +60,7 @@ public class Agent : MonoBehaviour
     // used in Harvest
     private Vector2Int pos;
     private double maxWelfare;
-    private double curWelfare; //Will constantly update as agent looks around cells 
+    private double curWelfare; // Will constantly update as agent looks around cells 
     // Variables to store amounts harvested
     private int sugarHarvested; 
     private int spiceHarvested;
@@ -515,6 +515,9 @@ public class Agent : MonoBehaviour
         // Set intial pos and maxwelfare used for harvest method. Used to be in awake of agent but needed variables not yet assigned.
         pos = cellPosition;
         maxWelfare = Welfare(world.WorldArray[cellPosition.x, cellPosition.y].CurSugar, world.WorldArray[cellPosition.x, cellPosition.y].CurSpice);
+        // Reset sugar harvested
+        sugarHarvested = 0;
+        spiceHarvested = 0;
 
         //variables to keep track of how to iterate loop (to cope with agents situated at edges)
         int temp;

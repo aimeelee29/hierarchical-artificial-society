@@ -194,6 +194,7 @@ public static class Trade
                         tradeAnalysis.AddToPrice(price);
                         //UnityEngine.Debug.Log("neg sug " + (sugarUnits < 0));
                         tradeAnalysis.AddToUnits(sugarUnits);
+                        tradeAnalysis.AddToSpiceUnits(spiceUnits);
                         agent.AgentTradeList.Add(neighbour);
 
                         //UnityEngine.Debug.Log("agent new sugar = " + agent.Sugar + " agent spice = " + agent.Spice);
