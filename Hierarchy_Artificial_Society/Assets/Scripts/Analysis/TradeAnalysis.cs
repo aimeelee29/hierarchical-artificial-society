@@ -93,8 +93,8 @@ public class TradeAnalysis : MonoBehaviour
             avPriceClass.avPriceList.Add(price / quantity);
             avUnitsClass.avUnitsList.Add((double)units / quantity);
             totUnitsClass.totUnitsList.Add(units);
-            avSpiceUnitsClass.Add((double)spiUnits / quantity);
-            totSpiceUnitsClass.Add(spiUnits);
+            avSpiceUnitsClass.avUnitsList.Add((double)spiUnits / quantity);
+            totSpiceUnitsClass.totUnitsList.Add(spiUnits);
         }
         else
         {
