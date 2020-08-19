@@ -251,16 +251,16 @@ public class Agent : MonoBehaviour
                 }
                 else
                 {
-                    visionHarvest = 4;
+                    visionHarvest = 7;
                 }
 
             }
             else
             {
-                visionHarvest = 4;
+                visionHarvest = 7;
                 
             }
-            visionNeighbour = 3;
+            visionNeighbour = 6;
             
         }
         else
@@ -327,6 +327,13 @@ public class Agent : MonoBehaviour
         else
             visionNeighbour = parentTwo.VisionNeighbour;
         */
+
+        sugarMetabolism = parentOne.SugarMetabolism;
+        spiceMetabolism = parentOne.SpiceMetabolism;
+        visionHarvest = parentOne.VisionHarvest;
+        visionNeighbour = parentOne.VisionNeighbour;
+
+
         if (UnityEngine.Random.Range(1, 3) == 1)
             childBearingBegins = parentOne.ChildBearingBegins;
         else
