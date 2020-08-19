@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class Toggle : ScriptableObject
     [SerializeField] private bool hierarchyRestrictNeighbourLowerRank = false;
     [SerializeField] private bool hierarchyBiasTrade = false;
     [SerializeField] private bool hierarchyGreaterVisionHigherRank = false;
+
 
     /*
      * 
