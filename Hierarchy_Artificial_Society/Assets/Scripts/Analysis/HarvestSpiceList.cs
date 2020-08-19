@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class HarvestSpiceList : MonoBehaviour
+public class HarvestSpiceList
 {
     //List with count of agents for each time step
     public List<int> harvestSpiceList = new List<int>();
