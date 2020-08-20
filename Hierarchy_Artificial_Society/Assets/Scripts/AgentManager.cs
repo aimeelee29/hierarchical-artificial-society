@@ -28,7 +28,6 @@ public class AgentManager : MonoBehaviour
     private static AgentCount agentCount;
     private static SocialMobilityAnalysis socialMobilityAnalysis;
 
-
     // Counter to keep track of number of fixedupdates
     private static int updateCounter = 0;
 
@@ -240,7 +239,6 @@ public class AgentManager : MonoBehaviour
             agentProfileAnalysis.SaveXML(updateCounter, agentProfileListClass);
             wealthInequalityAnalysis.SaveXML(updateCounter, wealthInequalityListClass);
             agentCount.SaveXML();
-            tradeAnalysis.SaveXML();
             socialMobilityAnalysis.SaveXML();
 
             //Wipe all agents list so you don't keep adding the same agents to the dataset

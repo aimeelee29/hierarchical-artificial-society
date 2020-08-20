@@ -247,17 +247,17 @@ public class Agent : MonoBehaviour
             {
                 if (socialRank >= 8)
                 {
-                    visionHarvest = 7;
+                    visionHarvest = 12;
                 }
                 else
                 {
-                    visionHarvest = 7;
+                    visionHarvest = 9;
                 }
 
             }
             else
             {
-                visionHarvest = 7;
+                visionHarvest = 9;
                 
             }
             visionNeighbour = 6;
@@ -535,7 +535,7 @@ public class Agent : MonoBehaviour
 
         // LOOK NORTH
         // i.e. must increment y value of array (up)
-
+        //print("north"); ;
         //if vision pushes you over the grid boundary to the north
         if (cellPosition.y + visionHarvest > World.Rows - 1)
         {
@@ -547,20 +547,29 @@ public class Agent : MonoBehaviour
             temp = cellPosition.y + visionHarvest;
             //leftover = 0;
         }
-
+        //print("starting cell position = " + cellPosition);
+        //print("temp = " + temp);
 
         for (int i = cellPosition.y + 1; i <= temp; ++i)
         {
             //if location isn't already ane at location for another agent
             if (world.WorldArray[cellPosition.x, i].OccupiedHarvest == false)
             {
+                //print("sugar in cell = " + world.WorldArray[cellPosition.x, i].CurSugar + " spice in cell = " + world.WorldArray[cellPosition.x, i].CurSpice);
                 //if current cell will produce highest welfare so far
                 curWelfare = Welfare(world.WorldArray[cellPosition.x, i].CurSugar, world.WorldArray[cellPosition.x, i].CurSpice);
+                //print("cur welfare = " + curWelfare);
                 //print("curWelfare = " + curWelfare);
                 if (curWelfare > maxWelfare)
                 {
+                    
                     pos.Set(cellPosition.x, i);
                     maxWelfare = curWelfare;
+                    /*
+                    print("set new");
+                    print("new pos = " + pos);
+                    print("new welfare " + maxWelfare);
+                    */
                 }
             }
         }
@@ -588,7 +597,7 @@ public class Agent : MonoBehaviour
 
         // LOOK SOUTH
         // i.e. must increment y value of array (down)
-
+        //print("south"); ;
         // if vision pushes you over the grid boundary to the south
         if (cellPosition.y - visionHarvest < 0)
         {
@@ -600,12 +609,13 @@ public class Agent : MonoBehaviour
             temp = cellPosition.y - visionHarvest;
             //leftover = 0;
         }
-
+        //print("temp = " + temp);
         for (int i = cellPosition.y - 1; i >= temp; --i)
         {
             //if location isn't already ane at location for another agent
             if (world.WorldArray[cellPosition.x, i].OccupiedHarvest == false)
             {
+                //print("sugar in cell = " + world.WorldArray[cellPosition.x, i].CurSugar + " spice in cell = " + world.WorldArray[cellPosition.x, i].CurSpice);
                 // if current cell will produce highest welfare so far
                 curWelfare = Welfare(world.WorldArray[cellPosition.x, i].CurSugar, world.WorldArray[cellPosition.x, i].CurSpice);
                 //print("curWelfare = " + curWelfare);
@@ -613,6 +623,11 @@ public class Agent : MonoBehaviour
                 {
                     pos.Set(cellPosition.x, i);
                     maxWelfare = curWelfare;
+                    /*
+                    print("set new");
+                    print("new pos = " + pos);
+                    print("new welfare " + maxWelfare);
+                    */
                 }
             }
         }
@@ -641,7 +656,7 @@ public class Agent : MonoBehaviour
 
         // LOOK EAST
         // i.e. must increment x value of array (up)
-
+        //print("east");
         //if vision pushes you over the grid boundary to the east
         if (cellPosition.x + visionHarvest > World.Cols - 1)
         {
@@ -653,13 +668,14 @@ public class Agent : MonoBehaviour
             temp = cellPosition.x + visionHarvest;
             //leftover = 0;
         }
-
+        //print("temp = " + temp);
 
         for (int i = cellPosition.x + 1; i <= temp; ++i)
         {
             //if location isn't already a harvest location for another agent
             if (world.WorldArray[i, cellPosition.y].OccupiedHarvest == false)
             {
+                //print("sugar in cell = " + world.WorldArray[i, cellPosition.y].CurSugar + " spice in cell = " + world.WorldArray[i, cellPosition.y].CurSpice);
                 //if current cell will produce highest welfare so far
                 curWelfare = Welfare(world.WorldArray[i, cellPosition.y].CurSugar, world.WorldArray[i, cellPosition.y].CurSpice);
                 //print("curWelfare = " + curWelfare);
@@ -667,6 +683,11 @@ public class Agent : MonoBehaviour
                 {
                     pos.Set(i, cellPosition.y);
                     maxWelfare = curWelfare;
+                    /*
+                    print("set new");
+                    print("new pos = " + pos);
+                    print("new welfare " + maxWelfare);
+                    */
                 }
             }
         }
@@ -693,7 +714,7 @@ public class Agent : MonoBehaviour
         */
 
         // LOOK WEST i.e. must increment x value of array (down)
-
+        //print("west");
         // if vision pushes you over the grid boundary to the west
         if (cellPosition.x - visionHarvest < 0)
         {
@@ -705,12 +726,13 @@ public class Agent : MonoBehaviour
             temp = cellPosition.x - visionHarvest;
             //leftover = 0;
         }
-
+        //print("temp = " + temp);
         for (int i = cellPosition.x - 1; i >= temp; --i)
         {
             //if location isn't already ane at location for another agent
             if (world.WorldArray[i, cellPosition.y].OccupiedHarvest == false)
             {
+                //print("sugar in cell = " + world.WorldArray[i, cellPosition.y].CurSugar + " spice in cell = " + world.WorldArray[i, cellPosition.y].CurSpice);
                 // if current cell will produce highest welfare so far
                 curWelfare = Welfare(world.WorldArray[i, cellPosition.y].CurSugar, world.WorldArray[i, cellPosition.y].CurSpice);
                 //print("curWelfare = " + curWelfare);
@@ -718,6 +740,11 @@ public class Agent : MonoBehaviour
                 {
                     pos.Set(i, cellPosition.y);
                     maxWelfare = curWelfare;
+                    /*
+                    print("set new");
+                    print("new pos = " + pos);
+                    print("new welfare " + maxWelfare);
+                    */
                 }
             }
         }
@@ -750,8 +777,12 @@ public class Agent : MonoBehaviour
         // Agent harvests as much as possible from cell
         sugarHarvested = world.WorldArray[pos.x, pos.y].DepleteSugar();
         spiceHarvested = world.WorldArray[pos.x, pos.y].DepleteSpice();
+        //print("sugar harvested" + sugarHarvested);
+        //print("spice harvested" + spiceHarvested);
         sugar += sugarHarvested;
         spice += spiceHarvested;
+        //print("new sugar = " + sugar);
+        //print("new spice = " + spice);
         harvestAnalysis.AddSugar(sugarHarvested);
         harvestAnalysis.AddSpice(spiceHarvested);
         //print("spi aft = " + spice);

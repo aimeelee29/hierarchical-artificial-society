@@ -31,6 +31,8 @@ public class HarvestAnalysis : MonoBehaviour
         // reset totals
         totalSugar = 0;
         totalSpice = 0;
+        // Save XML
+        SaveXML();
     }
 
     public void AddSugar(int sug) 

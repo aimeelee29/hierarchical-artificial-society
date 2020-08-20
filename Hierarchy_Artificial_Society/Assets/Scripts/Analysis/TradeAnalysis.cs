@@ -117,6 +117,9 @@ public class TradeAnalysis : MonoBehaviour
         units = 0;
         spiUnits = 0;
         quantity = 0;
+
+        // Save XML
+        SaveXML();
     }
 
     public void AddToPrice(double p)

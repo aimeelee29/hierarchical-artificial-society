@@ -25,7 +25,7 @@ public static class Reproduction
         //UnityEngine.Debug.Log("neighbour count = " + agent.NeighbourAgentList.Count);
 
         // To keep track of how many times the agent has reproduced
-        int counter = 0;
+        //int counter = 0;
         Agent partner;
 
         //foreach (Agent partner in agent.NeighbourAgentList)
@@ -59,7 +59,9 @@ public static class Reproduction
                // print("agent empty = " + currentEmpty);
 
                 //if either current agent or neighbour has an empty neighbouring cell
-                if ((currentEmpty.x != -1 || partnerEmpty.x != -1) && counter <= 4)
+                if ((currentEmpty.x != -1 || partnerEmpty.x != -1) 
+                    //&& counter <= 4
+                    )
                 {
                     //UnityEngine.Debug.Log("reproduce");
                     // then reproduce
@@ -82,7 +84,7 @@ public static class Reproduction
                     // adds child to list of child agents
                     Agent.ChildAgents.Add(agentComponent);
                     // increment counter
-                    ++counter;
+                    //++counter;
                 }
             }
         }
