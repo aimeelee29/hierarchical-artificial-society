@@ -14,16 +14,15 @@ public static class Trade
 {
     public static void MakeTrade(Agent agent, TradeAnalysis tradeAnalysis, bool biasToggle)
     {
-        //keeps track of number of trades made
-        // int potentialTradeCount = 0;
         Agent neighbour;
+        int tradesInOne;
+
         // For every neighbour
-        //foreach (Agent neighbour in agent.NeighbourAgentList)
         for (int i = 0; i < agent.NeighbourAgentList.Count; ++i)
         {
+            // each new neighbour reset number of trades in one go
+            tradesInOne = 0;
             neighbour = agent.NeighbourAgentList[i];
-            //increment potential trade count
-            // ++potentialTradeCount;
 
             // If they have already traded then skip
             // If neighbour is dead then skip
@@ -106,15 +105,15 @@ public static class Trade
                     // Trade
                     if (goodTrade)
                     {
+                        tradesInOne = 1;
                         //UnityEngine.Debug.Log("trade");
                         agent.Sugar += sugarUnits;
                         neighbour.Sugar -= sugarUnits;
                         agent.Spice -= spiceUnits;
                         neighbour.Spice += spiceUnits;
-                        tradeAnalysis.IncrementQty();
                         tradeAnalysis.AddToPrice(price);
-                        //UnityEngine.Debug.Log("neg sug " + (sugarUnits < 0));
                         tradeAnalysis.AddToUnits(sugarUnits);
+                        tradeAnalysis.AddToSpiceUnits(spiceUnits);
                         agent.AgentTradeList.Add(neighbour);
 
                         //UnityEngine.Debug.Log("agent new sugar = " + agent.Sugar + " agent spice = " + agent.Spice);
@@ -171,7 +170,6 @@ public static class Trade
                         potentialMRSB = CalcMRS(neighbour, sugarUnits, -spiceUnits);
                     }
 
-
                     // if agent has higher social ranking then trade only needs to benefit agent
                     if (biasToggle && agent.SocialRank > neighbour.SocialRank)
                         goodTrade = potentialWelfareA > currentWelfareA;
@@ -185,14 +183,13 @@ public static class Trade
                     // Trade
                     if (goodTrade)
                     {
+                        tradesInOne = 1;
                         //UnityEngine.Debug.Log("trade");
                         agent.Sugar -= sugarUnits;
                         neighbour.Sugar += sugarUnits;
                         agent.Spice += spiceUnits;
                         neighbour.Spice -= spiceUnits;
-                        tradeAnalysis.IncrementQty();
                         tradeAnalysis.AddToPrice(price);
-                        //UnityEngine.Debug.Log("neg sug " + (sugarUnits < 0));
                         tradeAnalysis.AddToUnits(sugarUnits);
                         tradeAnalysis.AddToSpiceUnits(spiceUnits);
                         agent.AgentTradeList.Add(neighbour);
@@ -215,6 +212,11 @@ public static class Trade
                     else
                         break;
                 }
+            }
+            if (tradesInOne == 1)
+            {
+                UnityEngine.Debug.Log("Increment");
+                tradeAnalysis.IncrementQty();
             }
         }
     }
@@ -307,11 +309,10 @@ public static class Trade
             return p;
         }
         else
+        {
             return 1;
+        }    
     }
-
-
-
 }
 //The ratio of the spice to sugar quantities exchanged is simply the price. This price must, of necessity , fall in the range [MRSA , MRSB]. 
 //( change if rules were unfair?).
