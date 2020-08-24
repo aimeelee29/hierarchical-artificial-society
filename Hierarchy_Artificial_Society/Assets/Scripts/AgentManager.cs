@@ -68,6 +68,11 @@ public class AgentManager : MonoBehaviour
 
         // Incremenent Counter - keeps count of how many updates there have been
         ++updateCounter;
+        if(updateCounter >5000)
+        {
+            Application.Quit();
+            //UnityEditor.EditorApplication.isPlaying = false;
+        }
 
         /*
          * AGENT MANAGEMENT
@@ -193,6 +198,7 @@ public class AgentManager : MonoBehaviour
             AgentProfileList agentProfileListClass = new AgentProfileList();
             // Creates new wealth inequality list class (class contains list for wealth info to be added to)
             WealthInequalityList wealthInequalityListClass = new WealthInequalityList();
+            WealthInequalityIndividualList wealthInequalityIndListClass = new WealthInequalityIndividualList();
             // Creates new wealth distribution list class
             WealthDistributionList wealthDistListClass = new WealthDistributionList();
 
@@ -226,6 +232,7 @@ public class AgentManager : MonoBehaviour
                 {
                     wealthFour.AddToWealth(wealth);
                 }
+                wealthInequalityIndListClass.wealthInequalityIndList.Add(wealth);
             }
 
             // Add wealth classes to list
@@ -237,7 +244,7 @@ public class AgentManager : MonoBehaviour
             //Save XMLs
             wealthDistributionAnalysis.SaveXML(updateCounter, wealthDistListClass);
             agentProfileAnalysis.SaveXML(updateCounter, agentProfileListClass);
-            wealthInequalityAnalysis.SaveXML(updateCounter, wealthInequalityListClass);
+            wealthInequalityAnalysis.SaveXML(updateCounter, wealthInequalityListClass, wealthInequalityIndListClass);
             agentCount.SaveXML();
             socialMobilityAnalysis.SaveXML();
 

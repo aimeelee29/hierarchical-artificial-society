@@ -215,7 +215,7 @@ public static class Trade
             }
             if (tradesInOne == 1)
             {
-                UnityEngine.Debug.Log("Increment");
+                //UnityEngine.Debug.Log("Increment");
                 tradeAnalysis.IncrementQty();
             }
         }

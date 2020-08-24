@@ -16,5 +16,5 @@ MonoBehaviour:
   trade: 1
   hierarchyRestrictNeighbour: 0
   hierarchyRestrictNeighbourLowerRank: 0
-  hierarchyBiasTrade: 1
+  hierarchyBiasTrade: 0
   hierarchyGreaterVisionHigherRank: 0

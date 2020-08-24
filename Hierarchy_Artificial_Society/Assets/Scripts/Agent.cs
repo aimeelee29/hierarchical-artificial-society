@@ -247,11 +247,11 @@ public class Agent : MonoBehaviour
             {
                 if (socialRank >= 8)
                 {
-                    visionHarvest = 12;
+                    visionHarvest = 10;
                 }
                 else
                 {
-                    visionHarvest = 9;
+                    visionHarvest = 7;
                 }
 
             }
