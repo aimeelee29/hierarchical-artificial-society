@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq; // for ordering lists on a variable
 
 /*
  * 
@@ -51,8 +52,10 @@ public class AgentManager : MonoBehaviour
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
             NeighbourVision.FindNeighboursManager(Agent.LiveAgents[i], toggle);
-            Agent.LiveAgents[i].UpdateMaxandMinWealth();
         }
+        // Order list (used for assigning wealth bands)
+        Agent.LiveAgentsOrdered = OrderListWealth(Agent.LiveAgents);   
+
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
             Agent.LiveAgents[i].CreateWealthScore();
@@ -65,7 +68,6 @@ public class AgentManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         // Incremenent Counter - keeps count of how many updates there have been
         ++updateCounter;
         if(updateCounter >5000)
@@ -110,26 +112,17 @@ public class AgentManager : MonoBehaviour
             Agent.LiveAgents.Remove(deadAgent.GetComponent<Agent>());
         }
 
-        //Reset Max and Min Wealth
-        Agent.MaxWealth = 0;
-        Agent.MinWealth = Double.PositiveInfinity;
-
-        //print(Agent.LiveAgents.Count);
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
             agent = Agent.LiveAgents[i];
 
             // Look around and harvest food
-            agent.Harvest();
+            agent.HarvestResource();
             // Wipes each agent's list of agents they have mated with in previous time step
             agent.AgentReproductionList.Clear();
             // Also calculates MRS in prep for trade and wipes agent's trading list
             agent.MRS = Trade.CalcMRS(agent);
             agent.AgentTradeList.Clear();
-            //agent.TotalTradesinUpdate = 0;
-
-            // update max wealth - used for ranking
-            agent.UpdateMaxandMinWealth();
         }
 
         // Update social rank
@@ -137,10 +130,9 @@ public class AgentManager : MonoBehaviour
         {
             agent = Agent.LiveAgents[i];
 
+            Agent.LiveAgentsOrdered = OrderListWealth(Agent.LiveAgents);
             agent.CreateWealthScore();
             agent.Rank();
-            //print(agent.WealthScore);
-            //UnityEngine.Debug.Log("neighbour count = " + Agent.LiveAgents[i].NeighbourAgentList.Count);
         }
 
         // Trade - only if selected in toggle (in inspector)
@@ -198,7 +190,6 @@ public class AgentManager : MonoBehaviour
             AgentProfileList agentProfileListClass = new AgentProfileList();
             // Creates new wealth inequality list class (class contains list for wealth info to be added to)
             WealthInequalityList wealthInequalityListClass = new WealthInequalityList();
-            WealthInequalityIndividualList wealthInequalityIndListClass = new WealthInequalityIndividualList();
             // Creates new wealth distribution list class
             WealthDistributionList wealthDistListClass = new WealthDistributionList();
 
@@ -210,7 +201,7 @@ public class AgentManager : MonoBehaviour
                 wealthDistListClass.AddtoWealth(wealth);
 
                 // Create new agent profile
-                AgentProfile agProf = new AgentProfile(agent.SugarMetabolism, agent.SpiceMetabolism, agent.VisionHarvest, agent.VisionNeighbour, agent.Lifespan, agent.Dominance, agent.Influence, agent.Age, agent.CellPosition, agent.SocialRank);
+                AgentProfile agProf = new AgentProfile(agent.SugarMetabolism, agent.SpiceMetabolism, agent.VisionHarvest, agent.VisionNeighbour, agent.Lifespan, agent.Dominance, agent.Influence, agent.Age, agent.CellPosition, agent.SocialRank, agent.BegSocialRank);
                 // add agent's profile to list
                 agentProfileListClass.agentProfileList.Add(agProf);
                 
@@ -232,7 +223,7 @@ public class AgentManager : MonoBehaviour
                 {
                     wealthFour.AddToWealth(wealth);
                 }
-                wealthInequalityIndListClass.wealthInequalityIndList.Add(wealth);
+                //wealthInequalityIndListClass.wealthInequalityIndList.Add(wealth);
             }
 
             // Add wealth classes to list
@@ -244,7 +235,7 @@ public class AgentManager : MonoBehaviour
             //Save XMLs
             wealthDistributionAnalysis.SaveXML(updateCounter, wealthDistListClass);
             agentProfileAnalysis.SaveXML(updateCounter, agentProfileListClass);
-            wealthInequalityAnalysis.SaveXML(updateCounter, wealthInequalityListClass, wealthInequalityIndListClass);
+            wealthInequalityAnalysis.SaveXML(updateCounter, wealthInequalityListClass);
             agentCount.SaveXML();
             socialMobilityAnalysis.SaveXML();
 
@@ -294,6 +285,12 @@ public class AgentManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Method for ordering agent list by wealth
+    public List<Agent> OrderListWealth(List<Agent> origList)
+    {
+        return origList.OrderBy(e => (e.Sugar + e.Spice)).ToList();
     }
 }
 

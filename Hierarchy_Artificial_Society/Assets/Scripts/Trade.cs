@@ -124,13 +124,6 @@ public static class Trade
                         neighbour.MRS = CalcMRS(neighbour);
                         //UnityEngine.Debug.Log("agent MRS =" + agent.MRS);
                         //UnityEngine.Debug.Log("neighbour MRS =" + neighbour.MRS);
-
-                        // increment trade count variable
-                        //++agent.TotalTrades;
-                        //++neighbour.TotalTrades;
-                        //++agent.TotalTradesinUpdate;
-                        //++neighbour.TotalTradesinUpdate;
-
                     }
                     else
                         break;
@@ -165,7 +158,6 @@ public static class Trade
 
                     if (agent.TimeUntilSugarDeath - sugarUnits > 0)
                     {
-                        //potentialMRSA = (agent.TimeUntilSpiceDeath + spiceUnits) / (agent.TimeUntilSugarDeath - sugarUnits);
                         potentialMRSA = CalcMRS(agent, -sugarUnits, spiceUnits);
                         potentialMRSB = CalcMRS(neighbour, sugarUnits, -spiceUnits);
                     }
@@ -202,12 +194,6 @@ public static class Trade
                         neighbour.MRS = CalcMRS(neighbour);
                         //UnityEngine.Debug.Log("agent MRS =" + agent.MRS);
                         //UnityEngine.Debug.Log("neighbour MRS =" + neighbour.MRS);
-
-                        // increment trade count variable
-                        //++agent.TotalTrades;
-                        //++neighbour.TotalTrades;
-                        //++agent.TotalTradesinUpdate;
-                        //++neighbour.TotalTradesinUpdate;
                     }
                     else
                         break;
@@ -215,7 +201,6 @@ public static class Trade
             }
             if (tradesInOne == 1)
             {
-                //UnityEngine.Debug.Log("Increment");
                 tradeAnalysis.IncrementQty();
             }
         }
@@ -226,8 +211,6 @@ public static class Trade
         //time until death for each commodity - used for trading
         agent.TimeUntilSugarDeath = (double)agent.Sugar / agent.SugarMetabolism;
         agent.TimeUntilSpiceDeath = (double)agent.Spice / agent.SpiceMetabolism;
-        //UnityEngine.Debug.Log("Time until sugar death" + agent.TimeUntilSugarDeath);
-        //UnityEngine.Debug.Log("Time until spice death" + agent.TimeUntilSpiceDeath);
         double MRS;
 
         if (agent.TimeUntilSugarDeath != 0) //avoids divide by zero error. Maybe could put this inside isalive if statement and then wouldn't need this
@@ -314,9 +297,3 @@ public static class Trade
         }    
     }
 }
-//The ratio of the spice to sugar quantities exchanged is simply the price. This price must, of necessity , fall in the range [MRSA , MRSB]. 
-//( change if rules were unfair?).
-//While all prices within the feasible range are " agreeable " to the agents, not all prices appear to be equally "fair." 
-//Prices near either end of the range would seem to be a better deal for one of the agents, particularly when the price range is very large. 
-
-

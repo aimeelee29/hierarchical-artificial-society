@@ -79,7 +79,7 @@ public static class Reproduction
                     }
                     // adds partner to list of agents mated with
                     agentComponent.AgentReproductionList.Add(partner);
-                    // adds child to agent's list of children - dont think i need this now
+                    // adds child to agent's list of children
                     agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
                     // adds child to list of child agents
                     Agent.ChildAgents.Add(agentComponent);

@@ -56,6 +56,11 @@ public class Agent : MonoBehaviour
     private int age;
     private bool isAlive;
 
+    // Boundary variables for harvest
+    private int northBoundary;
+    private int southBoundary;
+    private int eastBoundary;
+    private int westBoundary;
     // Variables to store info on best location - initially set to current cell position values
     // used in Harvest
     private Vector2Int pos;
@@ -83,15 +88,12 @@ public class Agent : MonoBehaviour
     // social hierarchy attributes
     private int dominance;
     private int influence;
+    private int wealthScore;
     private int begSocialRank; // social rank at birth (or initial spawn).
     private int socialRank; // current social rank
     private int trackSocialRank; // helper variable used for keeping tracking of how many times agent has changed social rank.
     private int numberRankChanges = 0; // keeps track of how many times an Agent has changed social rank.
 
-    // Number of trades affect influence - TBC total number of trades or does it go by timestep
-    //private int totalTrades = 0;
-    //private int totalTradesinUpdate = 0;
-    //private int influenceCounter = 0;
 
     /*
      * LISTS
@@ -117,25 +119,12 @@ public class Agent : MonoBehaviour
     // Maintain static list of 'live' agents so the Agent Manager can run through them and call appropriate methods. Also used for agent count analysis.
     private static List<Agent> liveAgents = new List<Agent>();
 
+    // Static list of live agents to be ordered for assigning wealth bands
+    private static List<Agent> liveAgentsOrdered  = new List<Agent>();
+
     // Maintain static list of child agents (refreshed each time step)
     // Needed for manager, since can't alter live agent list while you are iterating through it.
     private static List<Agent> childAgents = new List<Agent>();
-
-    //Static list of all agents (alive or dead)
-    //private static List<Agent> allAgents = new List<Agent>();
-
-    /*
-     * STATIC VARIABLES
-     */
-
-    // Static variable showing maximum wealth level amount agents for that time step - used to put agents into wealth bands
-    private static double minWealth;
-    private static double maxWealth;
-    private static double lowWealth;
-    private static double midWealth;
-    private static double highWealth;
-    private int wealthScore;
-
 
     /*
      * GETTERS AND SETTERS
@@ -176,12 +165,8 @@ public class Agent : MonoBehaviour
     public Toggle Toggle { get => toggle; set => toggle = value; }
     public GameObject NeighbourUpdater { get => neighbourUpdater; set => neighbourUpdater = value; }
     public int TrackSocialRank { get => trackSocialRank; set => trackSocialRank = value; }
-    public static double MinWealth { get => minWealth; set => minWealth = value; }
-    public static double MaxWealth { get => maxWealth; set => maxWealth = value; }
-    public static double LowWealth { get => lowWealth; set => lowWealth = value; }
-    public static double MidWealth { get => midWealth; set => midWealth = value; }
-    public static double HighWealth { get => highWealth; set => highWealth = value; }
     public int WealthScore { get => wealthScore; set => wealthScore = value; }
+    public static List<Agent> LiveAgentsOrdered { get => liveAgentsOrdered; set => liveAgentsOrdered = value; }
 
 
     /*
@@ -193,7 +178,6 @@ public class Agent : MonoBehaviour
     {
         KnowWorld();
         neighbourUpdater = this.transform.GetChild(0).gameObject;
-        minWealth = Double.PositiveInfinity;
     }
 
     void Start()
@@ -230,11 +214,6 @@ public class Agent : MonoBehaviour
     {
         sugar = UnityEngine.Random.Range(25, 51); // max exclusive
         spice = UnityEngine.Random.Range(25, 51);
-        //trying to lessen growth through setting parameters differently
-        //sugar = UnityEngine.Random.Range(20, 31); // max exclusive
-        //spice = UnityEngine.Random.Range(20, 31);
-        //sugar = 20; //TESTING
-        //spice = 10; //TESTING
         sugarInit = sugar;
         spiceInit = spice;
 
@@ -271,7 +250,6 @@ public class Agent : MonoBehaviour
             visionNeighbour = UnityEngine.Random.Range(1, 6);
         }
 
-
         int sexRand = UnityEngine.Random.Range(1, 3);
         if (sexRand == 1)
             sex = SexEnum.Female;
@@ -281,17 +259,16 @@ public class Agent : MonoBehaviour
         isAlive = true;
         childBearingBegins = UnityEngine.Random.Range(12, 16);
         childBearingEnds = UnityEngine.Random.Range(35, 46);
-        //childBearingBegins = 12; //TESTING
         lifespan = UnityEngine.Random.Range(60, 101);
         age = UnityEngine.Random.Range(1, lifespan + 1);
-        //age = 12;
         dominance = UnityEngine.Random.Range(1, 4);
         influence = UnityEngine.Random.Range(1, 4);
+
+        Boundaries();
 
         // Set radius of child circle collider - this will be used to add new children to other agents' list of neighbours
         neighbourUpdater.GetComponent<CircleCollider2D>().radius = visionNeighbour;
 
-        //print("vision = " + visionNeighbour);
         return;
     }
 
@@ -362,23 +339,11 @@ public class Agent : MonoBehaviour
         isAlive = true;
         age = 0;
 
+        Boundaries();
         CreateWealthScore();
         Rank();
         begSocialRank = socialRank;
         trackSocialRank = socialRank;
-
-        /*
-        print("sug met = " + SugarMetabolism);
-        print("spi met = " + SpiceMetabolism);
-        print("vis harvest = " + VisionHarvest);
-        print("vis neighbour = " + VisionNeighbour);
-        print("child bearing beg =" + ChildBearingBegins);
-        print("child bearing end =" + ChildBearingEnds);
-        print("lifespan = " + lifespan);
-        print("age = " + age);
-        print("isalive = " + isAlive);
-        print("sex = " + sex);
-        */
 
         // Set radius of child circle collider - this will be used to add new children to other agents' list of neighbours
         neighbourUpdater.GetComponent<CircleCollider2D>().radius = visionNeighbour;
@@ -514,307 +479,22 @@ public class Agent : MonoBehaviour
     {
         return Math.Pow(x + sugar, (double)sugarMetabolism / (sugarMetabolism + spiceMetabolism)) * Math.Pow(y + spice, (double)spiceMetabolism / (sugarMetabolism + spiceMetabolism));
     }
-
-    // Agent will need to find sugar/spice to harvest from surroundings.
-    public void Harvest()
-    {
-        // Resets pos and maxWelfare to be that of current cell
-        // Set intial pos and maxwelfare used for harvest method. Used to be in awake of agent but needed variables not yet assigned.
-        pos = cellPosition;
-        maxWelfare = Welfare(world.WorldArray[cellPosition.x, cellPosition.y].CurSugar, world.WorldArray[cellPosition.x, cellPosition.y].CurSpice);
-        // Reset sugar harvested
-        sugarHarvested = 0;
-        spiceHarvested = 0;
-
-        //variables to keep track of how to iterate loop (to cope with agents situated at edges)
-        int temp;
-        //int leftover;
-        //print("initial max welfare = " + maxWelfare);
-        //print("initial pos = " + pos);
-        //print("initial sug and spice = " + world.WorldArray[cellPosition.x, cellPosition.y].CurSugar + " " + world.WorldArray[cellPosition.x, cellPosition.y].CurSpice);
-
-        // LOOK NORTH
-        // i.e. must increment y value of array (up)
-        //print("north"); ;
-        //if vision pushes you over the grid boundary to the north
-        if (cellPosition.y + visionHarvest > World.Rows - 1)
-        {
-            temp = World.Rows - 1;
-            //leftover = cellPosition.y + visionHarvest - World.Rows;
-        }
-        else
-        {
-            temp = cellPosition.y + visionHarvest;
-            //leftover = 0;
-        }
-        //print("starting cell position = " + cellPosition);
-        //print("temp = " + temp);
-
-        for (int i = cellPosition.y + 1; i <= temp; ++i)
-        {
-            //if location isn't already ane at location for another agent
-            if (world.WorldArray[cellPosition.x, i].OccupiedHarvest == false)
-            {
-                //print("sugar in cell = " + world.WorldArray[cellPosition.x, i].CurSugar + " spice in cell = " + world.WorldArray[cellPosition.x, i].CurSpice);
-                //if current cell will produce highest welfare so far
-                curWelfare = Welfare(world.WorldArray[cellPosition.x, i].CurSugar, world.WorldArray[cellPosition.x, i].CurSpice);
-                //print("cur welfare = " + curWelfare);
-                //print("curWelfare = " + curWelfare);
-                if (curWelfare > maxWelfare)
-                {
-                    
-                    pos.Set(cellPosition.x, i);
-                    maxWelfare = curWelfare;
-                    /*
-                    print("set new");
-                    print("new pos = " + pos);
-                    print("new welfare " + maxWelfare);
-                    */
-                }
-            }
-        }
-        /*
-        if (leftover >0)
-        {
-            //iterate over
-            for (int i = 0; i <= leftover; ++i)
-            {
-                //if location isn't already ane at location for another agent
-                if (world.WorldArray[cellPosition.x, i].OccupiedHarvest == false)
-                {
-                    //if current cell will produce highest welfare so far
-                    curWelfare = Welfare(world.WorldArray[cellPosition.x, i].CurSugar, world.WorldArray[cellPosition.x, i].CurSpice);
-                    //print("curWelfare = " + curWelfare);
-                    if (curWelfare > maxWelfare)
-                    {
-                        pos.Set(cellPosition.x, i);
-                        maxWelfare = curWelfare;
-                    }
-                }
-            }
-        }
-        */
-
-        // LOOK SOUTH
-        // i.e. must increment y value of array (down)
-        //print("south"); ;
-        // if vision pushes you over the grid boundary to the south
-        if (cellPosition.y - visionHarvest < 0)
-        {
-            temp = 0;
-            //leftover = visionHarvest - cellPosition.y;
-        }
-        else
-        {
-            temp = cellPosition.y - visionHarvest;
-            //leftover = 0;
-        }
-        //print("temp = " + temp);
-        for (int i = cellPosition.y - 1; i >= temp; --i)
-        {
-            //if location isn't already ane at location for another agent
-            if (world.WorldArray[cellPosition.x, i].OccupiedHarvest == false)
-            {
-                //print("sugar in cell = " + world.WorldArray[cellPosition.x, i].CurSugar + " spice in cell = " + world.WorldArray[cellPosition.x, i].CurSpice);
-                // if current cell will produce highest welfare so far
-                curWelfare = Welfare(world.WorldArray[cellPosition.x, i].CurSugar, world.WorldArray[cellPosition.x, i].CurSpice);
-                //print("curWelfare = " + curWelfare);
-                if (curWelfare > maxWelfare)
-                {
-                    pos.Set(cellPosition.x, i);
-                    maxWelfare = curWelfare;
-                    /*
-                    print("set new");
-                    print("new pos = " + pos);
-                    print("new welfare " + maxWelfare);
-                    */
-                }
-            }
-        }
-        /*
-        if (leftover > 0)
-        {
-            // iterate over
-            for (int i = World.Rows - 1; i >= leftover; --i)
-            {
-                //if location isn't already ane at location for another agent
-                if (world.WorldArray[cellPosition.x, i].OccupiedHarvest == false)
-                {
-                    // if current cell will produce highest welfare so far
-                    curWelfare = Welfare(world.WorldArray[cellPosition.x, i].CurSugar, world.WorldArray[cellPosition.x, i].CurSpice);
-                    //print("curWelfare = " + curWelfare);
-                    if (curWelfare > maxWelfare)
-                    {
-                        pos.Set(cellPosition.x, i);
-                        maxWelfare = curWelfare;
-                        //print(maxWelfare);
-                    }
-                }
-            }
-        }
-        */
-
-        // LOOK EAST
-        // i.e. must increment x value of array (up)
-        //print("east");
-        //if vision pushes you over the grid boundary to the east
-        if (cellPosition.x + visionHarvest > World.Cols - 1)
-        {
-            temp = World.Cols - 1;
-            //leftover = cellPosition.x + visionHarvest - World.Cols;
-        }
-        else
-        {
-            temp = cellPosition.x + visionHarvest;
-            //leftover = 0;
-        }
-        //print("temp = " + temp);
-
-        for (int i = cellPosition.x + 1; i <= temp; ++i)
-        {
-            //if location isn't already a harvest location for another agent
-            if (world.WorldArray[i, cellPosition.y].OccupiedHarvest == false)
-            {
-                //print("sugar in cell = " + world.WorldArray[i, cellPosition.y].CurSugar + " spice in cell = " + world.WorldArray[i, cellPosition.y].CurSpice);
-                //if current cell will produce highest welfare so far
-                curWelfare = Welfare(world.WorldArray[i, cellPosition.y].CurSugar, world.WorldArray[i, cellPosition.y].CurSpice);
-                //print("curWelfare = " + curWelfare);
-                if (curWelfare > maxWelfare)
-                {
-                    pos.Set(i, cellPosition.y);
-                    maxWelfare = curWelfare;
-                    /*
-                    print("set new");
-                    print("new pos = " + pos);
-                    print("new welfare " + maxWelfare);
-                    */
-                }
-            }
-        }
-        /*
-        if (leftover > 0)
-        {
-            //iterate over
-            for (int i = 0; i <= leftover; ++i)
-            {
-                //if location isn't already ane at location for another agent
-                if (world.WorldArray[i, cellPosition.y].OccupiedHarvest == false)
-                {
-                    //if current cell will produce highest welfare so far
-                    curWelfare = Welfare(world.WorldArray[i, cellPosition.y].CurSugar, world.WorldArray[i, cellPosition.y].CurSpice);
-                    //print("curWelfare = " + curWelfare);
-                    if (curWelfare > maxWelfare)
-                    {
-                        pos.Set(i, cellPosition.y);
-                        maxWelfare = curWelfare;
-                    }
-                }
-            }
-        }
-        */
-
-        // LOOK WEST i.e. must increment x value of array (down)
-        //print("west");
-        // if vision pushes you over the grid boundary to the west
-        if (cellPosition.x - visionHarvest < 0)
-        {
-            temp = 0;
-            //leftover = visionHarvest - cellPosition.x;
-        }
-        else
-        {
-            temp = cellPosition.x - visionHarvest;
-            //leftover = 0;
-        }
-        //print("temp = " + temp);
-        for (int i = cellPosition.x - 1; i >= temp; --i)
-        {
-            //if location isn't already ane at location for another agent
-            if (world.WorldArray[i, cellPosition.y].OccupiedHarvest == false)
-            {
-                //print("sugar in cell = " + world.WorldArray[i, cellPosition.y].CurSugar + " spice in cell = " + world.WorldArray[i, cellPosition.y].CurSpice);
-                // if current cell will produce highest welfare so far
-                curWelfare = Welfare(world.WorldArray[i, cellPosition.y].CurSugar, world.WorldArray[i, cellPosition.y].CurSpice);
-                //print("curWelfare = " + curWelfare);
-                if (curWelfare > maxWelfare)
-                {
-                    pos.Set(i, cellPosition.y);
-                    maxWelfare = curWelfare;
-                    /*
-                    print("set new");
-                    print("new pos = " + pos);
-                    print("new welfare " + maxWelfare);
-                    */
-                }
-            }
-        }
-        /*
-        if (leftover > 0)
-        {
-            // iterate over
-            for (int i = World.Cols - 1; i >= leftover; --i)
-            {
-                //if location isn't already ane at location for another agent
-                if (world.WorldArray[i, cellPosition.y].OccupiedHarvest == false)
-                {
-                    // if current cell will produce highest welfare so far
-                    curWelfare = Welfare(world.WorldArray[i, cellPosition.y].CurSugar, world.WorldArray[i, cellPosition.y].CurSpice);
-                    //print("curWelfare = " + curWelfare);
-                    if (curWelfare > maxWelfare)
-                    {
-                        pos.Set(i, cellPosition.y);
-                        maxWelfare = curWelfare;
-                    }
-                }
-            }
-        }
-        */
-        //print("final pos = " + pos);
-        //print("final welf = " + maxWelfare);
-        //print("spi bef = " + spice);
-        // Set agent as harvesting that cell
-        world.WorldArray[pos.x, pos.y].OccupiedHarvest = true;
-        // Agent harvests as much as possible from cell
-        sugarHarvested = world.WorldArray[pos.x, pos.y].DepleteSugar();
-        spiceHarvested = world.WorldArray[pos.x, pos.y].DepleteSpice();
-        //print("sugar harvested" + sugarHarvested);
-        //print("spice harvested" + spiceHarvested);
-        sugar += sugarHarvested;
-        spice += spiceHarvested;
-        //print("new sugar = " + sugar);
-        //print("new spice = " + spice);
-        harvestAnalysis.AddSugar(sugarHarvested);
-        harvestAnalysis.AddSpice(spiceHarvested);
-        //print("spi aft = " + spice);
-    }
-
-    public void UpdateMaxandMinWealth()
-    {
-        if (sugar + spice > maxWealth)
-        {
-            maxWealth = sugar + spice;
-        }
-        if (sugar + spice < minWealth)
-        {
-            minWealth = sugar + spice;
-        }
-        double interval = (maxWealth - minWealth) / 4;
-        lowWealth = minWealth + interval;      
-        midWealth = lowWealth + interval;
-        highWealth = midWealth + interval;
-    }
+   
     // Creates wealth score
     public void CreateWealthScore()
     {
-        if (sugar + spice <= lowWealth)
+        // If in bottom 40% of wealth
+        if (sugar + spice < LiveAgentsOrdered[(int)(LiveAgentsOrdered.Count/2.5)].Sugar + LiveAgentsOrdered[(int)(LiveAgentsOrdered.Count/2.5)].Spice)
         {
             wealthScore = 1;
         }
-        else if (sugar + spice <= midWealth)
+        // If 41% to 80%
+        else if (sugar + spice < LiveAgentsOrdered[(int)(LiveAgentsOrdered.Count/1.25)].Sugar + LiveAgentsOrdered[(int)(LiveAgentsOrdered.Count/1.25)].Spice)
         {
             wealthScore = 2;
         }
-        else if (sugar + spice <= highWealth)
+        // If 80% to 95%
+        else if (sugar + spice < LiveAgentsOrdered[(int)(LiveAgentsOrdered.Count/1.05)].Sugar + LiveAgentsOrdered[(int)(LiveAgentsOrdered.Count/1.05)].Spice)
         {
             wealthScore = 3;
         }
@@ -823,7 +503,8 @@ public class Agent : MonoBehaviour
             wealthScore = 4;
         }
     }
-    // Adds up vars to create a social ranking (from 1-5)
+    
+    // Adds up vars to create a social ranking
     public void Rank()
     {
            
@@ -861,6 +542,244 @@ public class Agent : MonoBehaviour
         SocialMobility socMob = new SocialMobility(this.BegSocialRank, this.SocialRank, this.NumberRankChanges, this.Age);
         socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socMob);
         //socialMobilityAnalysis.CreateMobilityFile();
+    }
+
+    public void Boundaries()
+    {
+        // NORTH
+        // If vision pushes you over the grid boundary to the north
+        if (cellPosition.y + visionHarvest > World.Rows - 1)
+        {
+            northBoundary = World.Rows - 1;
+            //leftover = cellPosition.y + visionHarvest - World.Rows; // Was used when boundaries were periodic
+        }
+        else
+        {
+            northBoundary = cellPosition.y + visionHarvest;
+            //leftover = 0;
+        }
+
+        // SOUTH
+        // if vision pushes you over the grid boundary to the south
+        if (cellPosition.y - visionHarvest < 0)
+        {
+            southBoundary = 0;
+            //leftover = visionHarvest - cellPosition.y;
+        }
+        else
+        {
+            southBoundary = cellPosition.y - visionHarvest;
+            //leftover = 0;
+        }
+
+        // EAST
+        //if vision pushes you over the grid boundary to the east
+        if (cellPosition.x + visionHarvest > World.Cols - 1)
+        {
+            eastBoundary = World.Cols - 1;
+            //leftover = cellPosition.x + visionHarvest - World.Cols;
+        }
+        else
+        {
+            eastBoundary = cellPosition.x + visionHarvest;
+            //leftover = 0;
+        }
+
+        // WEST
+        // if vision pushes you over the grid boundary to the west
+        if (cellPosition.x - visionHarvest < 0)
+        {
+            westBoundary = 0;
+            //leftover = visionHarvest - cellPosition.x;
+        }
+        else
+        {
+            westBoundary = cellPosition.x - visionHarvest;
+            //leftover = 0;
+        }
+    }
+
+    public void HarvestResource()
+    {
+        // Resets pos and maxWelfare to be that of current cell
+        // Set intial pos and maxwelfare used for harvest method. Used to be in awake of agent but needed variables not yet assigned.
+        pos = cellPosition;
+        maxWelfare = Welfare(world.WorldArray[cellPosition.x, cellPosition.y].CurSugar, world.WorldArray[cellPosition.x, cellPosition.y].CurSpice);
+        // Reset sugar harvested
+        sugarHarvested = 0;
+        spiceHarvested = 0;
+
+        // LOOK NORTH
+        // i.e. must increment y value of array (up)
+        for (int i = cellPosition.y + 1; i <= northBoundary; ++i)
+        {
+            //if location isn't already ane at location for another agent
+            if (world.WorldArray[cellPosition.x, i].OccupiedHarvest == false)
+            {
+                // Calculate potential welfare at cell
+                curWelfare = Welfare(world.WorldArray[cellPosition.x, i].CurSugar, world.WorldArray[cellPosition.x, i].CurSpice);
+
+                //if current cell will produce highest welfare so far
+                if (curWelfare > maxWelfare)
+                {
+                    pos.Set(cellPosition.x, i);
+                    maxWelfare = curWelfare;
+                }
+            }
+        }
+        /*
+        if (leftover >0)
+        {
+            //iterate over
+            for (int i = 0; i <= leftover; ++i)
+            {
+                //if location isn't already ane at location for another agent
+                if (world.WorldArray[cellPosition.x, i].OccupiedHarvest == false)
+                {
+                    //if current cell will produce highest welfare so far
+                    curWelfare = Welfare(world.WorldArray[cellPosition.x, i].CurSugar, world.WorldArray[cellPosition.x, i].CurSpice);
+                    //print("curWelfare = " + curWelfare);
+                    if (curWelfare > maxWelfare)
+                    {
+                        pos.Set(cellPosition.x, i);
+                        maxWelfare = curWelfare;
+                    }
+                }
+            }
+        }
+        */
+
+        // LOOK SOUTH
+        // i.e. must increment y value of array (down)
+        for (int i = cellPosition.y - 1; i >= southBoundary; --i)
+        {
+            // If location isn't already ane at location for another agent
+            if (world.WorldArray[cellPosition.x, i].OccupiedHarvest == false)
+            {
+                // Calculate potential welfare at cell
+                curWelfare = Welfare(world.WorldArray[cellPosition.x, i].CurSugar, world.WorldArray[cellPosition.x, i].CurSpice);
+
+                // If current cell will produce highest welfare so far
+                if (curWelfare > maxWelfare)
+                {
+                    pos.Set(cellPosition.x, i);
+                    maxWelfare = curWelfare;
+                }
+            }
+        }
+        /*
+        if (leftover > 0)
+        {
+            // iterate over
+            for (int i = World.Rows - 1; i >= leftover; --i)
+            {
+                //if location isn't already ane at location for another agent
+                if (world.WorldArray[cellPosition.x, i].OccupiedHarvest == false)
+                {
+                    // if current cell will produce highest welfare so far
+                    curWelfare = Welfare(world.WorldArray[cellPosition.x, i].CurSugar, world.WorldArray[cellPosition.x, i].CurSpice);
+                    //print("curWelfare = " + curWelfare);
+                    if (curWelfare > maxWelfare)
+                    {
+                        pos.Set(cellPosition.x, i);
+                        maxWelfare = curWelfare;
+                        //print(maxWelfare);
+                    }
+                }
+            }
+        }
+        */
+
+        // LOOK EAST
+        // i.e. must increment x value of array (up)
+        for (int i = cellPosition.x + 1; i <= eastBoundary; ++i)
+        {
+            //if location isn't already a harvest location for another agent
+            if (world.WorldArray[i, cellPosition.y].OccupiedHarvest == false)
+            {
+                // Calculate potential welfare at cell
+                curWelfare = Welfare(world.WorldArray[i, cellPosition.y].CurSugar, world.WorldArray[i, cellPosition.y].CurSpice);
+
+                //if current cell will produce highest welfare so far
+                if (curWelfare > maxWelfare)
+                {
+                    pos.Set(i, cellPosition.y);
+                    maxWelfare = curWelfare;
+                }
+            }
+        }
+        /*
+        if (leftover > 0)
+        {
+            //iterate over
+            for (int i = 0; i <= leftover; ++i)
+            {
+                //if location isn't already ane at location for another agent
+                if (world.WorldArray[i, cellPosition.y].OccupiedHarvest == false)
+                {
+                    //if current cell will produce highest welfare so far
+                    curWelfare = Welfare(world.WorldArray[i, cellPosition.y].CurSugar, world.WorldArray[i, cellPosition.y].CurSpice);
+                    //print("curWelfare = " + curWelfare);
+                    if (curWelfare > maxWelfare)
+                    {
+                        pos.Set(i, cellPosition.y);
+                        maxWelfare = curWelfare;
+                    }
+                }
+            }
+        }
+        */
+
+        // LOOK WEST 
+        // i.e. must increment x value of array (down)
+        for (int i = cellPosition.x - 1; i >= westBoundary; --i)
+        {
+            //if location isn't already ane at location for another agent
+            if (world.WorldArray[i, cellPosition.y].OccupiedHarvest == false)
+            {
+                // Calculate potential welfare at cell
+                curWelfare = Welfare(world.WorldArray[i, cellPosition.y].CurSugar, world.WorldArray[i, cellPosition.y].CurSpice);
+
+                // If current cell will produce highest welfare so far
+                if (curWelfare > maxWelfare)
+                {
+                    pos.Set(i, cellPosition.y);
+                    maxWelfare = curWelfare;
+                }
+            }
+        }
+        /*
+        if (leftover > 0)
+        {
+            // iterate over
+            for (int i = World.Cols - 1; i >= leftover; --i)
+            {
+                //if location isn't already ane at location for another agent
+                if (world.WorldArray[i, cellPosition.y].OccupiedHarvest == false)
+                {
+                    // if current cell will produce highest welfare so far
+                    curWelfare = Welfare(world.WorldArray[i, cellPosition.y].CurSugar, world.WorldArray[i, cellPosition.y].CurSpice);
+                    //print("curWelfare = " + curWelfare);
+                    if (curWelfare > maxWelfare)
+                    {
+                        pos.Set(i, cellPosition.y);
+                        maxWelfare = curWelfare;
+                    }
+                }
+            }
+        }
+        */
+
+        // Set agent as harvesting that cell
+        world.WorldArray[pos.x, pos.y].OccupiedHarvest = true;
+        // Agent harvests as much as possible from cell
+        sugarHarvested = world.WorldArray[pos.x, pos.y].DepleteSugar();
+        spiceHarvested = world.WorldArray[pos.x, pos.y].DepleteSpice();
+        sugar += sugarHarvested;
+        spice += spiceHarvested;
+        // Add to analysis files
+        harvestAnalysis.AddSugar(sugarHarvested);
+        harvestAnalysis.AddSpice(spiceHarvested);
     }
 }
 
