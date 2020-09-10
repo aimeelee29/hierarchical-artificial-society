@@ -17,4 +17,4 @@ MonoBehaviour:
   hierarchyRestrictNeighbour: 0
   hierarchyRestrictNeighbourLowerRank: 0
   hierarchyBiasTrade: 0
-  hierarchyGreaterVisionHigherRank: 0
+  hierarchyGreaterVisionHigherRank: 1

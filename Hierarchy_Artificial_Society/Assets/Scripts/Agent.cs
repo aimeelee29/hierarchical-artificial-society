@@ -224,13 +224,13 @@ public class Agent : MonoBehaviour
             // Set vision for finding neighbours - sets upper ranks higher vision if that particular setting is on.
             if (toggle.GetGreaterVisionHigherRank())
             {
-                if (socialRank >= 8)
+                if (socialRank >= 7)
                 {
-                    visionHarvest = 10;
+                    visionHarvest = 11;
                 }
                 else
                 {
-                    visionHarvest = 7;
+                    visionHarvest = 9;
                 }
 
             }
@@ -456,6 +456,32 @@ public class Agent : MonoBehaviour
             world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent = null;
             // Deactivate agent
             this.gameObject.SetActive(false);
+
+            int childCounter;
+            
+            /*
+            // If inheritance is turned on
+            if (toggle.)
+            {
+                // First count how many children are still alive
+                for (int i = 0; i < agentChildList.Count; ++i)
+                {
+                    if (agentChildList[i].IsAlive == true)
+                    {
+                        childCounter++;
+                    }
+                }
+
+                // Then divide wealth
+                for (int i = 0; i < agentChildList.Count; ++i)
+                {
+                    if (agentChildList[i].IsAlive == true)
+                    {
+                        agentChildList[i].Sugar += 
+                    }
+                }
+            }
+            */
         }
     }
 
@@ -507,25 +533,6 @@ public class Agent : MonoBehaviour
     // Adds up vars to create a social ranking
     public void Rank()
     {
-           
-        /* this is what it was originally when social rank was banded. However, changing to continuous.
-        int combinedScore = dominance + influence + visionHarvest + wealthScore;
-
-        if (combinedScore >= 12)
-            socialRank = 1;
-        else if (combinedScore == 11)
-            socialRank = 2;
-        else if (combinedScore == 10)
-            socialRank = 3;
-        else if (combinedScore == 9)
-            socialRank = 4;
-        else if (combinedScore == 8)
-            socialRank = 5;
-        else if (combinedScore == 7)
-            socialRank = 6;
-        else
-            socialRank = 7;
-        */
         if (toggle.GetReproduction())
         {
             socialRank = dominance + influence + wealthScore;
@@ -533,6 +540,19 @@ public class Agent : MonoBehaviour
         else
         {
             socialRank = dominance + influence + visionHarvest + wealthScore;
+        }
+
+        // Reapply vision harvest if its the greater vision scenario
+        if (toggle.GetGreaterVisionHigherRank())
+        {
+            if (socialRank >= 7)
+            {
+                visionHarvest = 11;
+            }
+            else
+            {
+                visionHarvest = 9;
+            }
         }
     }
 

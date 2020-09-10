@@ -21,11 +21,7 @@ public static class Reproduction
         }
         // checks if there is an empty cell adjacent to current agent's cell
         Vector2Int currentEmpty = world.CheckEmptyCell(agent.CellPosition.x, agent.CellPosition.y);
-        //UnityEngine.Debug.Log("is child =" + agent.isChild);
-        //UnityEngine.Debug.Log("neighbour count = " + agent.NeighbourAgentList.Count);
 
-        // To keep track of how many times the agent has reproduced
-        //int counter = 0;
         Agent partner;
 
         //foreach (Agent partner in agent.NeighbourAgentList)
@@ -72,11 +68,14 @@ public static class Reproduction
                     agentComponent.InitPosition(currentEmpty, partnerEmpty);
                     // sets Agent component values
                     agentComponent.InitVars(agent, partner);
+                    /*
                     // if child is a new object then needs to populate neighbour vision list
                     if (agentComponent.MemoryReuse == false)
                     {
-                        NeighbourVision.FindNeighboursManager(agentComponent, Resources.Load<Toggle>("ScriptableObjects/Toggle"));
+                        
                     }
+                    */
+                    NeighbourVision.FindNeighboursManager(agentComponent, Resources.Load<Toggle>("ScriptableObjects/Toggle"));
                     // adds partner to list of agents mated with
                     agentComponent.AgentReproductionList.Add(partner);
                     // adds child to agent's list of children
