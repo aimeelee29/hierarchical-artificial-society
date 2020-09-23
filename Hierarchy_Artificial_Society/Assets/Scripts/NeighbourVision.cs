@@ -47,7 +47,6 @@ public static class NeighbourVision
         //Generate array of colliders within radius (set to vision)
         //does transform need to come from agent??
         Collider2D[] colliderList = Physics2D.OverlapCircleAll(agent.TransformPosition, agent.VisionNeighbour);
-        //print("collider list length = " + colliderList.Length);
 
         Collider2D neighbour;
         Agent neighbourAgent;
@@ -71,11 +70,9 @@ public static class NeighbourVision
             }
             int rankDiff = neighbourAgent.SocialRank - agent.SocialRank;
             rankDiff = (rankDiff < 0) ? -rankDiff : rankDiff;
-            //UnityEngine.Debug.Log(neighbourAgent.SocialRank);
-            //UnityEngine.Debug.Log(agent.SocialRank);
+
             if (rankDiff > 0)
             {
-                //UnityEngine.Debug.Log("skipped");
                 continue;
             }
             else
