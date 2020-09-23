@@ -12,10 +12,10 @@ using UnityEngine;
 
 public static class Reproduction
 {
-    public static void ReproductionProcess(Agent agent, World world)
+    public static void ReproductionProcess(Agent agent, World world, Toggle toggle)
     {
         // If agent isn't fertile, return
-        if (!IsFertile(agent))
+        if (!IsFertile(agent, toggle))
         {
             return;
         }
@@ -24,24 +24,19 @@ public static class Reproduction
 
         Agent partner;
 
-        //foreach (Agent partner in agent.NeighbourAgentList)
         for (int i = 0; i < agent.NeighbourAgentList.Count; ++i)
         {
             partner = agent.NeighbourAgentList[i];
             
             // if the neighbour isn't a potential partner then skip
-            //UnityEngine.Debug.Log("partner is child = " + partner.isChild);
-            //UnityEngine.Debug.Log("potential partner = " + IsNeighbourPotentialPartner(agent, partner));
-            if (IsNeighbourPotentialPartner(agent, partner) == false)
+
+            if (IsNeighbourPotentialPartner(agent, partner, toggle) == false)
             {
                 continue;
             }
             // if it is a potential partner
             else
             {
-                //print("agent repro list" + agent.AgentReproductionList.Count);
-                //print("partner repro list" + partner.AgentReproductionList.Count);
-
                 // go through list of agents that partner has mated with and ensure that they haven't mated before and also ensure they don't mate with offspring
                 if (partner.AgentReproductionList.Contains(agent) || agent.AgentChildList.Contains(partner))
                 {
@@ -51,15 +46,11 @@ public static class Reproduction
                 // checks if there is an empty cell adjacent to the potential partner agent's cell
                 Vector2Int partnerEmpty = world.CheckEmptyCell(partner.CellPosition.x, partner.CellPosition.y);
 
-               // print("partner empty = " + partnerEmpty);
-               // print("agent empty = " + currentEmpty);
-
                 //if either current agent or neighbour has an empty neighbouring cell
                 if ((currentEmpty.x != -1 || partnerEmpty.x != -1) 
                     //&& counter <= 4
                     )
                 {
-                    //UnityEngine.Debug.Log("reproduce");
                     // then reproduce
                     // creates gameobject for child agent
                     GameObject agentObj = GameObject.Find("Agent Factory").GetComponent<AgentFactory>().CreateChild();
@@ -68,13 +59,6 @@ public static class Reproduction
                     agentComponent.InitPosition(currentEmpty, partnerEmpty);
                     // sets Agent component values
                     agentComponent.InitVars(agent, partner);
-                    /*
-                    // if child is a new object then needs to populate neighbour vision list
-                    if (agentComponent.MemoryReuse == false)
-                    {
-                        
-                    }
-                    */
                     NeighbourVision.FindNeighboursManager(agentComponent, Resources.Load<Toggle>("ScriptableObjects/Toggle"));
                     // adds partner to list of agents mated with
                     agentComponent.AgentReproductionList.Add(partner);
@@ -90,14 +74,21 @@ public static class Reproduction
     }
 
     // Returns true if agent is currently fertile
-    private static bool IsFertile(Agent agent)
+    private static bool IsFertile(Agent agent, Toggle toggle)
     {
-        return (agent.ChildBearingBegins <= agent.Age && agent.ChildBearingEnds > agent.Age && agent.Sugar >= agent.SugarInit && agent.Spice >= agent.SpiceInit);
+        if (toggle.GetReproductionWealthReduction())
+        {
+            return (agent.ChildBearingBegins <= agent.Age && agent.ChildBearingEnds > agent.Age && agent.Sugar >= 25 && agent.Spice >= 25);
+        }
+        else
+        {
+            return (agent.ChildBearingBegins <= agent.Age && agent.ChildBearingEnds > agent.Age && agent.Sugar >= agent.SugarInit && agent.Spice >= agent.SpiceInit);
+        }
     }
 
-    private static bool IsNeighbourPotentialPartner(Agent agent, Agent neighbour)
+    private static bool IsNeighbourPotentialPartner(Agent agent, Agent neighbour, Toggle toggle)
     {
         // makes sure agent is fertile and of different sex (and alive)
-        return (IsFertile(neighbour) && neighbour.Sex != agent.Sex && neighbour.IsAlive);
+        return (IsFertile(neighbour, toggle) && neighbour.Sex != agent.Sex && neighbour.IsAlive);
     }
 }

@@ -47,14 +47,8 @@ public class AgentManager : MonoBehaviour
         wealthInequalityAnalysis = GameObject.Find("Analysis: Wealth Inequality").GetComponent<WealthInequalityAnalysis>();
         socialMobilityAnalysis = GameObject.Find("Analysis: Social Mobility").GetComponent<SocialMobilityAnalysis>();
 
-        // When agents are spawned, find neighbours method is called so agent 'knows' who is within its vision
-        // Also need to apply social rank
-        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
-        {
-            NeighbourVision.FindNeighboursManager(Agent.LiveAgents[i], toggle);
-        }
         // Order list (used for assigning wealth bands)
-        Agent.LiveAgentsOrdered = OrderListWealth(Agent.LiveAgents);   
+        Agent.LiveAgentsOrdered = OrderListWealth(Agent.LiveAgents);
 
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
@@ -62,6 +56,13 @@ public class AgentManager : MonoBehaviour
             Agent.LiveAgents[i].Rank();
             Agent.LiveAgents[i].BegSocialRank = Agent.LiveAgents[i].SocialRank;
             Agent.LiveAgents[i].TrackSocialRank = Agent.LiveAgents[i].SocialRank;
+        }
+
+        // When agents are spawned, find neighbours method is called so agent 'knows' who is within its vision
+
+        for (int i = 0; i < Agent.LiveAgents.Count; ++i)
+        {
+            NeighbourVision.FindNeighboursManager(Agent.LiveAgents[i], toggle);
         }
     }
 
@@ -149,7 +150,7 @@ public class AgentManager : MonoBehaviour
         {
             for (int i = 0; i < Agent.LiveAgents.Count; ++i)
             {
-                Reproduction.ReproductionProcess(Agent.LiveAgents[i], world);
+                Reproduction.ReproductionProcess(Agent.LiveAgents[i], world, toggle);
             }
         }
 
@@ -261,9 +262,8 @@ public class AgentManager : MonoBehaviour
                 world.WorldArray[i, j].Growback();
                 world.WorldArray[i, j].OccupiedHarvest = false;
                 
-                
                 // Update Colour
-                // if both sugar and spice is low, then don't do anything since already white
+                // if both sugar and spice is low, then don't do anything
                 // if more sugar then colour shades of yellow
                 if (world.WorldArray[i, j].CurSugar > world.WorldArray[i, j].CurSpice)
                 {

@@ -15,6 +15,9 @@ public class Toggle : ScriptableObject
     [SerializeField] private bool hierarchyRestrictNeighbourLowerRank = false;
     [SerializeField] private bool hierarchyBiasTrade = false;
     [SerializeField] private bool hierarchyGreaterVisionHigherRank = false;
+    [SerializeField] private bool reproductionWealthReduction = false;
+    [SerializeField] private bool inheritance = false;
+    [SerializeField] private bool randomPlacement = false;
 
     /*
      * 
@@ -50,5 +53,20 @@ public class Toggle : ScriptableObject
     public bool GetGreaterVisionHigherRank()
     {
         return hierarchyGreaterVisionHigherRank;
+    }
+
+    public bool GetReproductionWealthReduction()
+    {
+        return reproductionWealthReduction;
+    }
+
+    public bool GetInheritance()
+    {
+        return inheritance;
+    }
+
+    public bool GetRandomPlacement()
+    {
+        return randomPlacement;
     }
 }

@@ -12,8 +12,6 @@ public class WealthDistributionList
 
     public void AddtoWealth(int w)
     {
-        //print(w);
-        //print(wealthDist[w]);
         if (w < 0)
         {
             wealthDist.Add(0);

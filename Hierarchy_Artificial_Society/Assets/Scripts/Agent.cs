@@ -75,8 +75,6 @@ public class Agent : MonoBehaviour
     private int childBearingEnds;
     private SexEnum sex;
     // Set to true if agent resued memory in object pooling
-    // Used to determine if neighbour vision needs to be run for child agents
-    private bool memoryReuse = false;
 
     // Time until death by sugar and spice. Needed for trading.
     private double timeUntilSugarDeath;
@@ -92,7 +90,7 @@ public class Agent : MonoBehaviour
     private int begSocialRank; // social rank at birth (or initial spawn).
     private int socialRank; // current social rank
     private int trackSocialRank; // helper variable used for keeping tracking of how many times agent has changed social rank.
-    private int numberRankChanges = 0; // keeps track of how many times an Agent has changed social rank.
+    private int numberRankChanges = 0; // keeps track of how many times an agent has changed social rank.
 
 
     /*
@@ -161,13 +159,11 @@ public class Agent : MonoBehaviour
     public int BegSocialRank { get => begSocialRank; set => begSocialRank = value; }
     public int NumberRankChanges { get => numberRankChanges; set => numberRankChanges = value; }
     public Vector2 TransformPosition { get => transformPosition; set => transformPosition = value; }
-    public bool MemoryReuse { get => memoryReuse; set => memoryReuse = value; }
     public Toggle Toggle { get => toggle; set => toggle = value; }
     public GameObject NeighbourUpdater { get => neighbourUpdater; set => neighbourUpdater = value; }
     public int TrackSocialRank { get => trackSocialRank; set => trackSocialRank = value; }
     public int WealthScore { get => wealthScore; set => wealthScore = value; }
     public static List<Agent> LiveAgentsOrdered { get => liveAgentsOrdered; set => liveAgentsOrdered = value; }
-
 
     /*
      * AWAKE, START & UPDATE
@@ -216,38 +212,24 @@ public class Agent : MonoBehaviour
         spice = UnityEngine.Random.Range(25, 51);
         sugarInit = sugar;
         spiceInit = spice;
-
-        if (toggle.GetReproduction())
+        sugarMetabolism = 3;
+        spiceMetabolism = 3;
+        visionNeighbour = 6;
+        // Set vision for harvest - sets upper ranks higher vision if that particular setting is on.
+        if (toggle.GetGreaterVisionHigherRank())
         {
-            sugarMetabolism = 3;
-            spiceMetabolism = 3;
-            // Set vision for finding neighbours - sets upper ranks higher vision if that particular setting is on.
-            if (toggle.GetGreaterVisionHigherRank())
+            if (socialRank >= 7)
             {
-                if (socialRank >= 7)
-                {
-                    visionHarvest = 11;
-                }
-                else
-                {
-                    visionHarvest = 9;
-                }
-
+                visionHarvest = 11;
             }
             else
             {
                 visionHarvest = 9;
-                
             }
-            visionNeighbour = 6;
-            
         }
         else
         {
-            sugarMetabolism = UnityEngine.Random.Range(2, 7);
-            spiceMetabolism = UnityEngine.Random.Range(2, 7);
-            visionHarvest = UnityEngine.Random.Range(1, 6);
-            visionNeighbour = UnityEngine.Random.Range(1, 6);
+            visionHarvest = 9;
         }
 
         int sexRand = UnityEngine.Random.Range(1, 3);
@@ -285,36 +267,33 @@ public class Agent : MonoBehaviour
         sugarInit = sugar;
         spiceInit = spice;
 
-        /*
+  
         if (UnityEngine.Random.Range(1, 3) == 1)
             sugarMetabolism = parentOne.SugarMetabolism;
         else
             sugarMetabolism = parentTwo.SugarMetabolism;
-        //print(sugarMetabolism);
+
         if (UnityEngine.Random.Range(1, 3) == 1)
             spiceMetabolism = parentOne.SpiceMetabolism;
         else
             spiceMetabolism = parentTwo.SpiceMetabolism;
+
         if (UnityEngine.Random.Range(1, 3) == 1)
             visionHarvest = parentOne.VisionHarvest;
         else
             visionHarvest = parentTwo.VisionHarvest;
+
         if (UnityEngine.Random.Range(1, 3) == 1)
             visionNeighbour = parentOne.VisionNeighbour;
         else
             visionNeighbour = parentTwo.VisionNeighbour;
-        */
-
-        sugarMetabolism = parentOne.SugarMetabolism;
-        spiceMetabolism = parentOne.SpiceMetabolism;
-        visionHarvest = parentOne.VisionHarvest;
-        visionNeighbour = parentOne.VisionNeighbour;
 
 
         if (UnityEngine.Random.Range(1, 3) == 1)
             childBearingBegins = parentOne.ChildBearingBegins;
         else
             childBearingBegins = parentTwo.ChildBearingBegins;
+
         if (UnityEngine.Random.Range(1, 3) == 1)
             childBearingEnds = parentOne.ChildBearingEnds;
         else
@@ -324,6 +303,7 @@ public class Agent : MonoBehaviour
             dominance = parentOne.Dominance;
         else
             dominance = parentTwo.Dominance;
+
         if (UnityEngine.Random.Range(1, 3) == 1)
             influence = parentOne.Influence;
         else
@@ -352,7 +332,6 @@ public class Agent : MonoBehaviour
     }
 
     // Sets position (Initial - Random). First checks if there is already an agent there. Works recursively.
-    // Note this isn't used anymore but have kept in here in case we want to return to this method of spawning.
     public void InitPosition()
     {
         // generate random grid position
@@ -389,7 +368,6 @@ public class Agent : MonoBehaviour
         world.WorldArray[x, y].OccupyingAgent = this;
         // Set the cell position for agent
         cellPosition.Set(x, y);
-        //print("Agent no = " + agentNo + "x=" + x + " y=" + y);
         return;
     }
    
@@ -533,14 +511,7 @@ public class Agent : MonoBehaviour
     // Adds up vars to create a social ranking
     public void Rank()
     {
-        if (toggle.GetReproduction())
-        {
-            socialRank = dominance + influence + wealthScore;
-        }
-        else
-        {
-            socialRank = dominance + influence + visionHarvest + wealthScore;
-        }
+        socialRank = dominance + influence + wealthScore;
 
         // Reapply vision harvest if its the greater vision scenario
         if (toggle.GetGreaterVisionHigherRank())
@@ -806,6 +777,3 @@ public class Agent : MonoBehaviour
 // Enum used for sex variable
 // More efficient than using strings
 public enum SexEnum { Male, Female };
-
-
-
