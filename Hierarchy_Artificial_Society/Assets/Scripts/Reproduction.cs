@@ -47,9 +47,7 @@ public static class Reproduction
                 Vector2Int partnerEmpty = world.CheckEmptyCell(partner.CellPosition.x, partner.CellPosition.y);
 
                 //if either current agent or neighbour has an empty neighbouring cell
-                if ((currentEmpty.x != -1 || partnerEmpty.x != -1) 
-                    //&& counter <= 4
-                    )
+                if ((currentEmpty.x != -1 || partnerEmpty.x != -1))
                 {
                     // then reproduce
                     // creates gameobject for child agent
@@ -66,8 +64,6 @@ public static class Reproduction
                     agent.AgentChildList.Add(agentObj.GetComponent<Agent>());
                     // adds child to list of child agents
                     Agent.ChildAgents.Add(agentComponent);
-                    // increment counter
-                    //++counter;
                 }
             }
         }

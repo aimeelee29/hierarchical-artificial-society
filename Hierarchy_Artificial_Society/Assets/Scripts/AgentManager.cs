@@ -174,8 +174,6 @@ public class AgentManager : MonoBehaviour
         // Analysis files created every 50 updates
         if (updateCounter % 50 == 1)
         {
-            //wealthDistAnalysis.CreateWealthFile(updateCounter);
-            //socialRankAnalysis.CreateRankFile(updateCounter);
 
             // Create classes for wealth info to go into
             WealthInequality wealthOne = new WealthInequality(1);
@@ -220,7 +218,6 @@ public class AgentManager : MonoBehaviour
                 {
                     wealthFour.AddToWealth(wealth);
                 }
-                //wealthInequalityIndListClass.wealthInequalityIndList.Add(wealth);
             }
 
             // Add wealth classes to list
@@ -235,16 +232,7 @@ public class AgentManager : MonoBehaviour
             wealthInequalityAnalysis.SaveXML(updateCounter, wealthInequalityListClass);
             agentCount.SaveXML();
             socialMobilityAnalysis.SaveXML();
-
-            //Wipe all agents list so you don't keep adding the same agents to the dataset
-            //Agent.AllAgents.Clear();
-
-            //print("agent tag = " + GameObject.FindGameObjectsWithTag("Agent").Length + " " + updateCounter);
-            //print("social mobility analysis list = " + socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Count + " " + updateCounter); 
         }
-        
-
-        //print(Agent.AllAgents.Count);
 
         /* 
          * WORLD MANAGEMENT
