@@ -246,6 +246,7 @@ public class Agent : MonoBehaviour
         dominance = UnityEngine.Random.Range(1, 4);
         influence = UnityEngine.Random.Range(1, 4);
 
+        //Sets boundaries used in harvest
         Boundaries();
 
         // Set radius of child circle collider - this will be used to add new children to other agents' list of neighbours
@@ -266,7 +267,6 @@ public class Agent : MonoBehaviour
         parentTwo.Spice -= (parentTwo.SpiceInit / 2);
         sugarInit = sugar;
         spiceInit = spice;
-
   
         if (UnityEngine.Random.Range(1, 3) == 1)
             sugarMetabolism = parentOne.SugarMetabolism;
@@ -287,7 +287,6 @@ public class Agent : MonoBehaviour
             visionNeighbour = parentOne.VisionNeighbour;
         else
             visionNeighbour = parentTwo.VisionNeighbour;
-
 
         if (UnityEngine.Random.Range(1, 3) == 1)
             childBearingBegins = parentOne.ChildBearingBegins;
@@ -432,34 +431,13 @@ public class Agent : MonoBehaviour
             availableAgents.Add(this.gameObject);
             // Remove agent from its location on the grid
             world.WorldArray[cellPosition.x, cellPosition.y].OccupyingAgent = null;
+            // If inheritance is turned on divide wealth among children
+            if (toggle.GetInheritance())
+            {
+                Inheritance();
+            }
             // Deactivate agent
             this.gameObject.SetActive(false);
-
-            int childCounter;
-            
-            /*
-            // If inheritance is turned on
-            if (toggle.)
-            {
-                // First count how many children are still alive
-                for (int i = 0; i < agentChildList.Count; ++i)
-                {
-                    if (agentChildList[i].IsAlive == true)
-                    {
-                        childCounter++;
-                    }
-                }
-
-                // Then divide wealth
-                for (int i = 0; i < agentChildList.Count; ++i)
-                {
-                    if (agentChildList[i].IsAlive == true)
-                    {
-                        agentChildList[i].Sugar += 
-                    }
-                }
-            }
-            */
         }
     }
 
@@ -476,6 +454,35 @@ public class Agent : MonoBehaviour
             Rank();
             begSocialRank = socialRank;
             trackSocialRank = socialRank;
+        }
+    }
+
+    //inheritance
+    public void Inheritance()
+    {
+
+        int childCounter =0;
+
+        // First count how many children are still alive
+        for (int i = 0; i < agentChildList.Count; ++i)
+        {
+            if (agentChildList[i].IsAlive == true)
+            {
+                childCounter++;
+            }
+        }
+
+        int sugarDivided = sugar / childCounter;
+        int spiceDivided = spice / childCounter;
+
+        // Then divide wealth
+        for (int i = 0; i < agentChildList.Count; ++i)
+        {
+            if (agentChildList[i].IsAlive == true)
+            {
+                agentChildList[i].Sugar += sugarDivided;
+                agentChildList[i].Spice += spiceDivided;
+            }
         }
     }
 
@@ -532,7 +539,6 @@ public class Agent : MonoBehaviour
     {
         SocialMobility socMob = new SocialMobility(this.BegSocialRank, this.SocialRank, this.NumberRankChanges, this.Age);
         socialMobilityAnalysis.socialMobiltyListClass.socialMobilityList.Add(socMob);
-        //socialMobilityAnalysis.CreateMobilityFile();
     }
 
     public void Boundaries()
