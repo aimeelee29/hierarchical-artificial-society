@@ -186,9 +186,6 @@ public static class Trade
                         tradeAnalysis.AddToSpiceUnits(spiceUnits);
                         agent.AgentTradeList.Add(neighbour);
 
-                        //UnityEngine.Debug.Log("agent new sugar = " + agent.Sugar + " agent spice = " + agent.Spice);
-                        //UnityEngine.Debug.Log("neighbour new sugar = " + neighbour.Sugar + " neighbour spice = " + neighbour.Spice);
-
                         // Update MRS
                         agent.MRS = CalcMRS(agent);
                         neighbour.MRS = CalcMRS(neighbour);
@@ -269,31 +266,5 @@ public static class Trade
         }
         else
             return 1;
-    }
-
-    private static double SugarUnitsAnalysis(double p)
-    {
-        // If price(p) > 1, p units of spice are exchanged for 1 unit of sugar.
-        if (p > 1)
-            return 1;
-        // If p < 1, then 1 unit of spice is exchanged for 1/p units of sugar
-        else
-        {
-            //return (int)(1 / p);
-            return 1 / p;
-        }
-    }
-
-    private static double SpiceUnitsAnalysis(double p)
-    {
-        if (p > 1)
-        {
-            //return (int)p;
-            return p;
-        }
-        else
-        {
-            return 1;
-        }    
     }
 }

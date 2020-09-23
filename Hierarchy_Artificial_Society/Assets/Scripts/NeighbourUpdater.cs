@@ -10,17 +10,14 @@ public class NeighbourUpdater : MonoBehaviour
     // If child agent spawns within the agent's collider (set to agent's neighbour vision)
     void OnTriggerEnter2D(Collider2D collider)
     {
-        
         if (collider.tag == "NeighbourUpdater")
         {
-            //print("neih");
             return;
         }
 
-        //print("trigger");
-
         Agent agentCur = this.GetComponentInParent<Agent>();
         Agent agentNew = collider.GetComponentInParent<Agent>();
+
         // Check if the agent causing trigger isn't already in the neighbour list
         if (agentCur.NeighbourAgentList.Contains(agentNew))
         {
