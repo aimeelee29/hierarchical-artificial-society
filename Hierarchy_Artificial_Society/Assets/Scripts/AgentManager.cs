@@ -59,7 +59,6 @@ public class AgentManager : MonoBehaviour
         }
 
         // When agents are spawned, find neighbours method is called so agent 'knows' who is within its vision
-
         for (int i = 0; i < Agent.LiveAgents.Count; ++i)
         {
             NeighbourVision.FindNeighboursManager(Agent.LiveAgents[i], toggle);
@@ -73,7 +72,7 @@ public class AgentManager : MonoBehaviour
         ++updateCounter;
         if(updateCounter >5000)
         {
-            Application.Quit();
+            Application.Quit(); //only works in standalone
             //UnityEditor.EditorApplication.isPlaying = false;
         }
 
@@ -144,7 +143,7 @@ public class AgentManager : MonoBehaviour
                 Trade.MakeTrade(Agent.LiveAgents[i], tradeAnalysis, toggle.GetBiasTrade());
             }
         }
-        //print(Agent.AvailableAgents.Count);
+
         // Reproduce - only if selected in toggle (in inspector)
         if (toggle.GetReproduction())
         {
@@ -163,9 +162,6 @@ public class AgentManager : MonoBehaviour
 
         // Reset child list
         Agent.ChildAgents.Clear();
-
-        //print(Agent.ChildAgents.Count);
-        //print(Agent.LiveAgents.Count);
 
         
         /*

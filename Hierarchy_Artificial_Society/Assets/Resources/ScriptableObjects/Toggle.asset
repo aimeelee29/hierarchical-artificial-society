@@ -19,3 +19,5 @@ MonoBehaviour:
   hierarchyBiasTrade: 1
   hierarchyGreaterVisionHigherRank: 0
   reproductionWealthReduction: 0
+  inheritance: 1
+  randomPlacement: 0

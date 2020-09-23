@@ -78,15 +78,14 @@ public class Cell
     {
         //if there is no growback then do nothing
         if (growbackFactor == 0)
+        {
             return;
-
+        }
         //if both are at max level then do nothing
         else if (curSugar == maxSugar && curSpice == maxSpice)
+        {
             return;
-
-        //do i need to factor in less than 1 growback?? It would mean changing the variables to float though and altering things
-        //Could be that it grows 1 every 4 time steps, in which case growback would be 0.25 and you would
-        //increment a counter. when reaches four (1/growback), you add sugar/spice.
+        }
         else
         {
             //sugar growback

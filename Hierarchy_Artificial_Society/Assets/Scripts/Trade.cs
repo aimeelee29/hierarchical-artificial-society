@@ -33,12 +33,6 @@ public static class Trade
             if (agent.MRS == neighbour.MRS)
                 continue;
 
-            //UnityEngine.Debug.Log("about to do new trade");
-            //UnityEngine.Debug.Log("agent sugar = " + agent.Sugar + "(" + agent.SugarMetabolism + ")" + " agent spice = " + agent.Spice + "(" + agent.SpiceMetabolism + ")");
-            //UnityEngine.Debug.Log("neighbour sugar = " + neighbour.Sugar + "(" + neighbour.SugarMetabolism + ")" + " neighbour spice = " + neighbour.Spice + "(" + neighbour.SpiceMetabolism + ")");
-            //UnityEngine.Debug.Log("agent MRS =" + agent.MRS);
-            //UnityEngine.Debug.Log("neighbour MRS =" + neighbour.MRS);
-
             // otherwise 
             // Set up variables needed
             double price; 
@@ -53,38 +47,23 @@ public static class Trade
 
             bool goodTrade;
 
-
             // If MRSA > MRSB then agent A buys sugar, sells spice (A considers sugar to be relatively more valuable than agent B)
             if (agent.MRS > neighbour.MRS)
             {
-                // If this trade will:
-                // (a) make both agents better off(increases the welfare of both agents), and
-                // (b) not cause the agents' MRSs to cross over one another, then the trade is made and return to start, else end.
-
                 // while mrss don't cross over each other, trade with agent
                 while (agent.MRS > neighbour.MRS)
                 {
-                    //UnityEngine.Debug.Log("still in loop");
                     // Calculate price (geometric mean of the two MRSs)
                     price = Price(agent.MRS, neighbour.MRS);
                     // Calculate quantities to be traded
                     sugarUnits = SugarUnits(price);
                     spiceUnits = SpiceUnits(price);
-                    //UnityEngine.Debug.Log("price = " + price);
-                    //UnityEngine.Debug.Log("sug units = " + sugarUnits);
-                    //UnityEngine.Debug.Log("spi units = " + spiceUnits);
-
                     // Calculate current welfare to be able to compare with potential welfare
                     currentWelfareA = agent.Welfare(0, 0);
                     currentWelfareB = neighbour.Welfare(0, 0);
-                    //print("agent cur welf = " + currentWelfareA);
-                    //print("neighbour cur welf = " + currentWelfareB);
-
                     //Calculate potential welfare after trade
                     potentialWelfareA = agent.Welfare(sugarUnits, -spiceUnits);
                     potentialWelfareB = neighbour.Welfare(-sugarUnits, spiceUnits);
-                    //print("agent pot welf = " + potentialWelfareA);
-                    //print("neighbour pot welf = " + potentialWelfareB);
 
                     if (neighbour.TimeUntilSugarDeath - sugarUnits > 0)
                     {
@@ -106,7 +85,6 @@ public static class Trade
                     if (goodTrade)
                     {
                         tradesInOne = 1;
-                        //UnityEngine.Debug.Log("trade");
                         agent.Sugar += sugarUnits;
                         neighbour.Sugar -= sugarUnits;
                         agent.Spice -= spiceUnits;
@@ -116,14 +94,9 @@ public static class Trade
                         tradeAnalysis.AddToSpiceUnits(spiceUnits);
                         agent.AgentTradeList.Add(neighbour);
 
-                        //UnityEngine.Debug.Log("agent new sugar = " + agent.Sugar + " agent spice = " + agent.Spice);
-                        //UnityEngine.Debug.Log("neighbour new sugar = " + neighbour.Sugar + " neighbour spice = " + neighbour.Spice);
-
                         // Update MRS
                         agent.MRS = CalcMRS(agent);
                         neighbour.MRS = CalcMRS(neighbour);
-                        //UnityEngine.Debug.Log("agent MRS =" + agent.MRS);
-                        //UnityEngine.Debug.Log("neighbour MRS =" + neighbour.MRS);
                     }
                     else
                         break;
@@ -134,27 +107,17 @@ public static class Trade
             {
                 while (agent.MRS < neighbour.MRS)
                 {
-                    //UnityEngine.Debug.Log("still in loop");
                     // Calculate price (geometric mean of the two MRSs)
                     price = Price(agent.MRS, neighbour.MRS);
                     // Calculate quantities to be traded
                     sugarUnits = SugarUnits(price);
                     spiceUnits = SpiceUnits(price);
-                    //UnityEngine.Debug.Log("price = " + price);
-                    //UnityEngine.Debug.Log("sug units = " + sugarUnits);
-                    //UnityEngine.Debug.Log("spi units = " + spiceUnits);
-
                     // Calculate current welfare to be able to compare with potential welfare
                     currentWelfareA = agent.Welfare(0, 0);
                     currentWelfareB = neighbour.Welfare(0, 0);
-                    //print("agent cur welf = " + currentWelfareA);
-                    //print("neighbour cur welf = " + currentWelfareB);
-
                     // Calculate potential welfare after trade
                     potentialWelfareA = agent.Welfare(-sugarUnits, spiceUnits);
                     potentialWelfareB = neighbour.Welfare(sugarUnits, -spiceUnits);
-                    //print("agent pot welf = " + potentialWelfareA);
-                    //print("neighbour pot welf = " + potentialWelfareB);
 
                     if (agent.TimeUntilSugarDeath - sugarUnits > 0)
                     {
@@ -176,7 +139,6 @@ public static class Trade
                     if (goodTrade)
                     {
                         tradesInOne = 1;
-                        //UnityEngine.Debug.Log("trade");
                         agent.Sugar -= sugarUnits;
                         neighbour.Sugar += sugarUnits;
                         agent.Spice += spiceUnits;
@@ -189,8 +151,6 @@ public static class Trade
                         // Update MRS
                         agent.MRS = CalcMRS(agent);
                         neighbour.MRS = CalcMRS(neighbour);
-                        //UnityEngine.Debug.Log("agent MRS =" + agent.MRS);
-                        //UnityEngine.Debug.Log("neighbour MRS =" + neighbour.MRS);
                     }
                     else
                         break;
@@ -252,7 +212,6 @@ public static class Trade
         // If p < 1, then 1 unit of spice is exchanged for 1/p units of sugar
         else
         {
-            //return (int)(1 / p);
             return (int)Math.Round(1 / p);
         }
     }
@@ -261,7 +220,6 @@ public static class Trade
     {
         if (p > 1)
         {
-            //return (int)p;
             return (int)Math.Round(p);
         }
         else

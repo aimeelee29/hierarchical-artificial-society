@@ -460,7 +460,11 @@ public class Agent : MonoBehaviour
     //inheritance
     public void Inheritance()
     {
-
+        // If no wealth then return
+        if (sugar + spice ==0)
+        {
+            return;
+        }
         int childCounter =0;
 
         // First count how many children are still alive
@@ -470,6 +474,12 @@ public class Agent : MonoBehaviour
             {
                 childCounter++;
             }
+        }
+
+        // If no children then return
+        if (childCounter == 0)
+        {
+            return;
         }
 
         int sugarDivided = sugar / childCounter;
