@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<WealthInequalityList xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <wealthInequalityList>
+    <WealthInequality>
+      <wealthBand>1</wealthBand>
+      <wealth>3230</wealth>
+      <numberAgents>65</numberAgents>
+    </WealthInequality>
+    <WealthInequality>
+      <wealthBand>2</wealthBand>
+      <wealth>8046</wealth>
+      <numberAgents>124</numberAgents>
+    </WealthInequality>
+    <WealthInequality>
+      <wealthBand>3</wealthBand>
+      <wealth>2991</wealth>
+      <numberAgents>36</numberAgents>
+    </WealthInequality>
+    <WealthInequality>
+      <wealthBand>4</wealthBand>
+      <wealth>2573</wealth>
+      <numberAgents>11</numberAgents>
+    </WealthInequality>
+  </wealthInequalityList>
+</WealthInequalityList>

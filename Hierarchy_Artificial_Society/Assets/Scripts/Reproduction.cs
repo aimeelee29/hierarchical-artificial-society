@@ -74,11 +74,11 @@ public static class Reproduction
     {
         if (toggle.GetReproductionWealthReduction())
         {
-            return (agent.ChildBearingBegins <= agent.Age && agent.ChildBearingEnds > agent.Age && agent.Sugar >= 25 && agent.Spice >= 25);
+            return (agent.ChildBearingBegins <= agent.Age && agent.ChildBearingEnds > agent.Age && agent.Sugar > 20 && agent.Spice > 20);
         }
         else
         {
-            return (agent.ChildBearingBegins <= agent.Age && agent.ChildBearingEnds > agent.Age && agent.Sugar >= agent.SugarInit && agent.Spice >= agent.SpiceInit);
+            return (agent.ChildBearingBegins <= agent.Age && agent.ChildBearingEnds > agent.Age && agent.Sugar > agent.SugarInit && agent.Spice > agent.SpiceInit);
         }
     }
 

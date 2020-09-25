@@ -258,13 +258,26 @@ public class Agent : MonoBehaviour
     // Sets values (from inheritance given two parents).
     public void InitVars(Agent parentOne, Agent parentTwo)
     {
-        // initial endowment is half of mother's + half of father's initial endowment
-        sugar = (parentOne.SugarInit / 2) + (parentTwo.SugarInit / 2);
-        spice = (parentOne.SpiceInit / 2) + (parentTwo.SpiceInit / 2);
-        parentOne.Sugar -= (parentOne.SugarInit / 2);
-        parentOne.Spice -= (parentOne.SpiceInit / 2);
-        parentTwo.Sugar -= (parentTwo.SugarInit / 2);
-        parentTwo.Spice -= (parentTwo.SpiceInit / 2);
+        if (toggle.GetReproductionWealthReduction())
+        {
+            sugar = 20 + 20;
+            spice = 20 + 20;
+            parentOne.Sugar -= 20;
+            parentOne.Spice -= 20;
+            parentTwo.Sugar -= 20;
+            parentTwo.Spice -= 20;
+        }
+        else
+        {
+            // initial endowment is half of mother's + half of father's initial endowment
+            sugar = (parentOne.SugarInit / 2) + (parentTwo.SugarInit / 2);
+            spice = (parentOne.SpiceInit / 2) + (parentTwo.SpiceInit / 2);
+            parentOne.Sugar -= (parentOne.SugarInit / 2);
+            parentOne.Spice -= (parentOne.SpiceInit / 2);
+            parentTwo.Sugar -= (parentTwo.SugarInit / 2);
+            parentTwo.Spice -= (parentTwo.SpiceInit / 2);
+        }
+        
         sugarInit = sugar;
         spiceInit = spice;
   
