@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reproduction: 1
   trade: 1
-  hierarchyRestrictNeighbour: 1
+  hierarchyRestrictNeighbour: 0
   hierarchyRestrictNeighbourLowerRank: 0
   hierarchyBiasTrade: 0
   hierarchyGreaterVisionHigherRank: 0

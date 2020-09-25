@@ -13,7 +13,7 @@ using System.Linq; // for ordering lists on a variable
  * 
  */
 
-public class AgentManager : MonoBehaviour
+public class Manager : MonoBehaviour
 {
     // Need access to scriptable object Toggle to enable/disable certain behaviours
     private static Toggle toggle;
