@@ -33,7 +33,7 @@ public class TradePriceGraph : MonoBehaviour
     public void CreateGraph(List<double> graphPoints, int i)
     {
         float graphHeight = plotArea.sizeDelta.y;
-        float yMax = 2f;
+        float yMax = 3f;
         float xSize = 10f;
 
         Vector2 circLocation = new Vector2();
